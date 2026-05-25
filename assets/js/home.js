@@ -55,7 +55,7 @@
     { key: 'top10', title: 'Top 10 Today', fetchFn: () => TMDB.getTrending('all', 'day'), fallbackType: '', limit: 10, allowMixed: true, tileStyle: 'poster' },
     { key: 'trending_today', title: 'Trending Today', fetchFn: () => TMDB.getTrending('all', 'week'), fallbackType: '', limit: 14, allowMixed: true, tileStyle: 'landscape' },
     { key: 'top_rated', title: 'Top rated', fetchFn: () => TMDB.getTopRatedMovies(), fallbackType: 'movie', limit: 14, allowMixed: false, tileStyle: 'landscape' },
-    { key: 'anime', title: 'Anime', fetchFn: () => TMDB.discoverAnime(), fallbackType: 'tv', limit: 14, allowMixed: false, tileStyle: 'poster', isAnime: true },
+    { key: 'anime', title: 'Anime', fetchFn: () => TMDB.discoverAnime(), fallbackType: '', limit: 14, allowMixed: true, tileStyle: 'poster', isAnime: true },
     { key: 'genre_dropdown', title: GENRE_CONFIG.defaultGenreTitle, fetchFn: () => TMDB.discoverMovies(GENRE_CONFIG.defaultGenreId), fallbackType: 'movie', limit: 14, allowMixed: false, tileStyle: 'landscape' }
   ];
 
@@ -319,6 +319,7 @@
 
   async function handleAnimeClick(card) {
     const id = Number(card.dataset.id);
+    const type = card.dataset.type || "tv";
     const title = card.title || "";
     if (!id) return;
 
@@ -327,17 +328,27 @@
     try {
       const malId = await TMDB.lookupMalId(title);
 
+      const base = window.APP_CONFIG?.APP_BASE || "";
+      const target = new URL(`${base}/media.html`, window.location.origin);
+      target.searchParams.set("type", type);
+      target.searchParams.set("id", String(id));
+      target.searchParams.set("anime", "1");
       if (malId > 0) {
-        openPlayer("anime", malId);
+        target.searchParams.set("malId", String(malId));
       } else {
-        // Fallback to TMDB ID if MAL lookup fails
-        showToast("MAL ID not found, using fallback...");
-        openPlayer("tv", id);
+        showToast("MAL ID not found, using TMDB fallback.");
       }
+
+      window.location.href = target.toString();
     } catch (err) {
       console.error(err);
-      showToast("Failed to lookup anime, using fallback...");
-      openPlayer("tv", id);
+      const base = window.APP_CONFIG?.APP_BASE || "";
+      const target = new URL(`${base}/media.html`, window.location.origin);
+      target.searchParams.set("type", type);
+      target.searchParams.set("id", String(id));
+      target.searchParams.set("anime", "1");
+      showToast("Failed to lookup anime, using TMDB fallback.");
+      window.location.href = target.toString();
     }
   }
 

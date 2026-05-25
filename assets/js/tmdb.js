@@ -102,13 +102,29 @@ const TMDB = (() => {
    * Discover anime (Japanese animation)
    */
   async function discoverAnime(page = 1) {
-    return get('/discover/tv', {
-      with_genres: 16,
-      with_original_language: 'ja',
-      sort_by: 'popularity.desc',
-      include_adult: false,
-      page
-    });
+    const [tvData, movieData] = await Promise.all([
+      get('/discover/tv', {
+        with_genres: 16,
+        with_original_language: 'ja',
+        sort_by: 'popularity.desc',
+        include_adult: false,
+        page
+      }),
+      get('/discover/movie', {
+        with_genres: 16,
+        with_original_language: 'ja',
+        sort_by: 'popularity.desc',
+        include_adult: false,
+        page
+      })
+    ]);
+
+    const tvResults = (tvData.results || []).map(item => ({ ...item, media_type: 'tv' }));
+    const movieResults = (movieData.results || []).map(item => ({ ...item, media_type: 'movie' }));
+
+    return {
+      results: [...tvResults, ...movieResults]
+    };
   }
 
   /**

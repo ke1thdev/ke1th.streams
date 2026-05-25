@@ -11,6 +11,8 @@
   // Get type and ID from injected context, query string, or URL path
   let type = 'movie';
   let id = 0;
+  let animeMalId = 0;
+  let isAnimeMode = false;
 
   if (window.MEDIA_CONTEXT) {
     type = window.MEDIA_CONTEXT.type;
@@ -19,6 +21,8 @@
     const url = new URL(window.location.href);
     const queryType = (url.searchParams.get('type') || '').toLowerCase();
     const queryId = parseInt(url.searchParams.get('id') || '0', 10);
+    isAnimeMode = url.searchParams.get('anime') === '1';
+    animeMalId = parseInt(url.searchParams.get('malId') || '0', 10);
 
     if ((queryType === 'movie' || queryType === 'tv' || queryType === 'anime') && queryId > 0) {
       type = queryType;
@@ -72,7 +76,9 @@
     heroMuted: true,
     heroLoadedKey: null,
     currentSeason: 1,
-    descTimer: null
+    descTimer: null,
+    isAnimeMode,
+    animeMalId
   };
 
   init();
@@ -485,8 +491,12 @@
   }
 
   // ─── Player ───
-  function openPlayer() {
-    const src = buildVidlinkUrl({ type, id, season: state.currentSeason, episode: 1 });
+  function openPlayer(options = {}) {
+    const episode = Number(options.episode || 1);
+    const season = Number(options.season || state.currentSeason || 1);
+    const playbackType = state.isAnimeMode ? "anime" : type;
+    const playbackId = state.isAnimeMode ? (state.animeMalId || id) : id;
+    const src = buildVidlinkUrl({ type: playbackType, id: playbackId, season, episode });
     showPlayer(src);
   }
 
@@ -514,7 +524,7 @@
     const params = "primaryColor=B20710&secondaryColor=170000&iconColor=eefdec&icons=default&player=default&title=false&poster=true&autoplay=true";
 
     if (type === "anime") {
-      return `https://vidlink.pro/anime/${id}/1/sub?${params}&nextbutton=true`;
+      return `https://vidlink.pro/anime/${id}/${episode}/sub?${params}&nextbutton=true`;
     }
 
     if (type === "tv") {
