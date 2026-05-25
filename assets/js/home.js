@@ -847,7 +847,8 @@
     if (!id) return;
     if (type !== "movie" && type !== "tv") return;
     const base = window.APP_CONFIG?.APP_BASE || "";
-    window.location.href = `${base}/${type}/${id}`;
+    const target = `${base}/media.html?type=${encodeURIComponent(type)}&id=${encodeURIComponent(id)}`;
+    window.location.href = target;
   }
 
   function inferType(item) {

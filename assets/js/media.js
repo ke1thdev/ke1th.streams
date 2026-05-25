@@ -8,7 +8,7 @@
     `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 450"><rect width="300" height="450" fill="#1a1a1a"/><text x="50%" y="50%" fill="#555" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="14">No Image</text></svg>`
   )}`;
 
-  // Get type and ID from injected context or URL path
+  // Get type and ID from injected context, query string, or URL path
   let type = 'movie';
   let id = 0;
 
@@ -16,14 +16,23 @@
     type = window.MEDIA_CONTEXT.type;
     id = window.MEDIA_CONTEXT.id;
   } else {
-    const pathParts = window.location.pathname.split('/').filter(Boolean);
-    // Grab the last two parts to handle sub-directories (e.g. /STREAMMOVIES/tv/123)
-    if (pathParts.length >= 2) {
-      const urlType = pathParts[pathParts.length - 2].toLowerCase();
-      const urlId = parseInt(pathParts[pathParts.length - 1], 10);
-      if ((urlType === 'movie' || urlType === 'tv' || urlType === 'anime') && urlId > 0) {
-        type = urlType;
-        id = urlId;
+    const url = new URL(window.location.href);
+    const queryType = (url.searchParams.get('type') || '').toLowerCase();
+    const queryId = parseInt(url.searchParams.get('id') || '0', 10);
+
+    if ((queryType === 'movie' || queryType === 'tv' || queryType === 'anime') && queryId > 0) {
+      type = queryType;
+      id = queryId;
+    } else {
+      const pathParts = window.location.pathname.split('/').filter(Boolean);
+      // Grab the last two parts to handle sub-directories (e.g. /STREAMMOVIES/tv/123)
+      if (pathParts.length >= 2) {
+        const urlType = pathParts[pathParts.length - 2].toLowerCase();
+        const urlId = parseInt(pathParts[pathParts.length - 1], 10);
+        if ((urlType === 'movie' || urlType === 'tv' || urlType === 'anime') && urlId > 0) {
+          type = urlType;
+          id = urlId;
+        }
       }
     }
   }
@@ -153,7 +162,7 @@
       const nextType = card.dataset.type;
       if (nextId && (nextType === "movie" || nextType === "tv")) {
         const base = window.APP_CONFIG?.APP_BASE || "";
-        window.location.href = `${base}/${nextType}/${nextId}`;
+        window.location.href = `${base}/media.html?type=${encodeURIComponent(nextType)}&id=${encodeURIComponent(nextId)}`;
       }
     });
   }
