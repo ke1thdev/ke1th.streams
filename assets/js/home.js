@@ -332,11 +332,11 @@
       const target = new URL(`${base}/media.html`, window.location.origin);
       target.searchParams.set("type", type);
       target.searchParams.set("id", String(id));
-      target.searchParams.set("anime", "1");
       if (malId > 0) {
+        target.searchParams.set("anime", "1");
         target.searchParams.set("malId", String(malId));
       } else {
-        showToast("MAL ID not found, using TMDB fallback.");
+        showToast("MAL ID not found, using regular source fallback.");
       }
 
       window.location.href = target.toString();
@@ -346,8 +346,7 @@
       const target = new URL(`${base}/media.html`, window.location.origin);
       target.searchParams.set("type", type);
       target.searchParams.set("id", String(id));
-      target.searchParams.set("anime", "1");
-      showToast("Failed to lookup anime, using TMDB fallback.");
+      showToast("Failed to lookup anime, using regular source fallback.");
       window.location.href = target.toString();
     }
   }

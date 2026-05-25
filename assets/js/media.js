@@ -494,8 +494,9 @@
   function openPlayer(options = {}) {
     const episode = Number(options.episode || 1);
     const season = Number(options.season || state.currentSeason || 1);
-    const playbackType = state.isAnimeMode ? "anime" : type;
-    const playbackId = state.isAnimeMode ? (state.animeMalId || id) : id;
+    const useAnimeEndpoint = state.isAnimeMode && state.animeMalId > 0;
+    const playbackType = useAnimeEndpoint ? "anime" : type;
+    const playbackId = useAnimeEndpoint ? state.animeMalId : id;
     const src = buildVidlinkUrl({ type: playbackType, id: playbackId, season, episode });
     showPlayer(src);
   }
@@ -524,7 +525,7 @@
     const params = "primaryColor=B20710&secondaryColor=170000&iconColor=eefdec&icons=default&player=default&title=false&poster=true&autoplay=true";
 
     if (type === "anime") {
-      return `https://vidlink.pro/anime/${id}/${episode}/sub?${params}&nextbutton=true`;
+      return `https://vidlink.pro/anime/${id}/${episode}/sub?${params}&nextbutton=true&fallback=true`;
     }
 
     if (type === "tv") {

@@ -236,10 +236,51 @@ const TMDB = (() => {
     if (!title) return 0;
 
     try {
+      const normalize = (value) => String(value || "")
+        .toLowerCase()
+        .replace(/[^a-z0-9\s]/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+
+      const sourceTitle = normalize(title);
       const searchTitle = encodeURIComponent(title);
       const response = await fetch(`https://api.jikan.moe/v4/anime?q=${searchTitle}&limit=5&sfw=true`);
       const data = await response.json();
       const results = data.data || [];
+
+      let bestId = 0;
+      let bestScore = -1;
+
+      for (const anime of results) {
+        if (!anime.mal_id) continue;
+
+        const candidates = [
+          anime.title,
+          anime.title_english,
+          anime.title_japanese,
+          ...(Array.isArray(anime.title_synonyms) ? anime.title_synonyms : [])
+        ].map(normalize).filter(Boolean);
+
+        let score = 0;
+        for (const candidate of candidates) {
+          if (candidate === sourceTitle) {
+            score = Math.max(score, 100);
+          } else if (candidate.startsWith(sourceTitle) || sourceTitle.startsWith(candidate)) {
+            score = Math.max(score, 80);
+          } else if (candidate.includes(sourceTitle) || sourceTitle.includes(candidate)) {
+            score = Math.max(score, 60);
+          }
+        }
+
+        if (score > bestScore) {
+          bestScore = score;
+          bestId = anime.mal_id;
+        }
+      }
+
+      if (bestId > 0) {
+        return bestId;
+      }
 
       for (const anime of results) {
         if (anime.mal_id) {
