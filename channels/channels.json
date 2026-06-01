@@ -667,7 +667,7 @@
   {
     "name": "National Geographic Wild",
     "type": "TV",
-    "logo": "",
+    "logo": "https://en.wikipedia.org/wiki/Special:FilePath/National_Geographic_Wild_logo.svg",
     "category": "Lifestyle & Docs",
     "streamUrl": "https://amg00426-littledotstudio-realwildnz-samsungnz-wz0bm.amagi.tv/playlist/amg00426-littledotstudio-realwildnz-samsungnz/playlist.m3u8"
   },
