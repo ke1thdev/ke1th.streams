@@ -52,13 +52,32 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!response.ok) throw new Error('Network response was not ok');
       const data = await response.json();
       
-      allChannels = data.map(ch => ({
-        name: ch.name,
-        group: ch.category || 'General',
-        logo: ch.logo,
-        url: ch.streamUrl,
-        drm: ch.drm
-      }));
+      allChannels = data.map(ch => {
+        let name = ch.name;
+        let logo = ch.logo;
+
+        // Dynamic Cartoon Network / Adult Swim check (US servers vs PHT)
+        if (name === "Cartoon Network / Adult Swim (US)") {
+          const phtHour = (new Date().getUTCHours() + 8) % 24;
+          // Adult Swim is 6:00 AM to 7:00 PM PHT
+          if (phtHour >= 6 && phtHour < 19) {
+            name = "Adult Swim";
+            logo = "https://hipfonts.com/wp-content/uploads/2022/02/adult-swim-logo.jpg";
+          } else {
+            // Cartoon Network is 7:00 PM to 6:00 AM PHT
+            name = "Cartoon Network";
+            logo = "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Cartoon_Network_2010_logo.svg/1200px-Cartoon_Network_2010_logo.svg.png";
+          }
+        }
+
+        return {
+          name: name,
+          group: ch.category || 'General',
+          logo: logo,
+          url: ch.streamUrl,
+          drm: ch.drm
+        };
+      });
       
       populateCategories(allChannels);
       renderChannels(allChannels);
