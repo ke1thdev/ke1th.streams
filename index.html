@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>ke1th.streams v2.2.9</title>
+
+  <!-- PWA & Favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/imgs/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/imgs/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/imgs/favicon-16x16.png">
+  <link rel="manifest" href="/assets/imgs/site.webmanifest">
+  <meta name="theme-color" content="#e50914">
+
+  <!-- Social Preview -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ke1th.streams">
+  <meta name="twitter:description" content="Thesis ay isantabi, mag-stream na lang gabi-gabi.">
+  <meta name="twitter:image" content="/assets/imgs/preview.png">
+  <meta property="og:title" content="ke1th.streams">
+  <meta property="og:description" content="Thesis ay isantabi, mag-stream na lang gabi-gabi.">
+  <meta property="og:image" content="/assets/imgs/preview.png">
+  <meta property="og:type" content="website">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/home.css?v=2.2.9" />
+</head>
+
+<body>
+  <header class="topbar" id="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="/" aria-label="ke1th.streams home">
+        <img src="/assets/imgs/android-chrome-192x192.png" alt="logo"
+          style="width: 28px; height: 28px; margin-right: 6px; border-radius: 4px;" />
+        <span class="brand-name">ke1th.<span style="color: #e50914;">streams</span></span>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="/" class="nav-link nav-active">Home</a>
+        <a href="/browse.html" class="nav-link">Browse</a>
+        <a href="/livetv.html" class="nav-link">Live TV</a>
+        <button id="desktopCategoryBtn" class="nav-link" type="button" aria-label="Category">Category</button>
+      </nav>
+
+      <div class="topbar-actions" style="display: flex; align-items: center; gap: 16px;">
+        <button id="openSearchBtn" class="action-btn" type="button" aria-label="Search">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="hero" class="hero" aria-live="polite">
+      <div class="hero-overlay"></div>
+      <div class="hero-vignette"></div>
+      <div class="hero-content">
+        <p class="hero-tag" id="heroTag"></p>
+        <h1 id="heroTitle">Loading...</h1>
+        <div class="hero-meta" id="heroMeta"></div>
+        <p id="heroOverview" class="hero-overview"></p>
+        <div class="hero-actions">
+          <button id="heroPlayBtn" class="btn btn-play" type="button">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+              <path d="M8 5v14l11-7z"></path>
+            </svg>
+            Play
+          </button>
+          <button id="heroDetailsBtn" class="btn btn-info" type="button">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="16" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+            More Info
+          </button>
+        </div>
+      </div>
+      <div class="hero-fade-bottom"></div>
+    </section>
+
+    <section id="searchOverlay" class="search-overlay hidden">
+      <div class="search-container">
+        <div class="search-header">
+          <h2 class="search-title">Search</h2>
+          <div class="search-header-right">
+            <div class="search-filter-dropdown" style="position: relative;">
+              <button class="search-filter-btn" id="searchFilterToggle"><span id="searchFilterLabel">All Results</span>
+                <svg class="filter-chevron" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                  stroke-width="2" style="transition: transform 0.2s;">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg></button>
+              <div id="searchFilterMenu" class="search-filter-menu"
+                style="display: none; position: absolute; top: calc(100% + 8px); right: 0; background: rgba(18, 18, 18, 0.9); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 6px; min-width: 160px; flex-direction: column; gap: 4px; z-index: 250;">
+                <button class="search-filter-option active" data-filter="all"
+                  style="background: none; border: none; color: #fff; padding: 8px 12px; text-align: left; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-weight: 500;">All
+                  Results</button>
+                <button class="search-filter-option" data-filter="movie"
+                  style="background: none; border: none; color: #888; padding: 8px 12px; text-align: left; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-weight: 500;">Movies
+                  Only</button>
+                <button class="search-filter-option" data-filter="tv"
+                  style="background: none; border: none; color: #888; padding: 8px 12px; text-align: left; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-weight: 500;">TV
+                  Shows Only</button>
+                <button class="search-filter-option" data-filter="person"
+                  style="background: none; border: none; color: #888; padding: 8px 12px; text-align: left; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-weight: 500;">Cast
+                  & Crew</button>
+              </div>
+            </div>
+            <button id="searchCloseBtn" class="search-close-modal" aria-label="Close search">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="search-bar">
+          <svg class="search-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input id="searchInput" type="search" placeholder="Type here to search..." autocomplete="off" />
+          <button id="searchClearBtn" class="search-clear hidden" aria-label="Clear input">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+        <div id="searchResults" class="search-results">
+          <!-- Recent Searches / Results go here -->
+        </div>
+      </div>
+    </section>
+
+    <section class="rows-section" id="rowsWrap">
+      <div id="rows" class="rows"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p><strong>ke1th.streams</strong> - I do not store any files on my server. I only link to media hosted on
+      third-party services.</p>
+    <p style="margin-top: 12px; font-size: 0.85rem; color: var(--text-muted);">
+      <a href="https://github.com/ke1thdev/ke1th.streams" target="_blank" rel="noopener noreferrer" style="color: var(--brand); text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.418 22 12c0-5.523-4.477-10-10-10z"></path></svg>
+        View Source Code
+      </a>
+      <br>
+      <span style="display: inline-block; margin-top: 4px; opacity: 0.8;">This project is completely open-source! Anyone is free to view the code, learn from it, or use it for their own projects.</span>
+    </p>
+  </footer>
+
+
+
+  <div id="toast" class="toast hidden" aria-live="assertive"></div>
+
+  <nav class="mobile-dock" aria-label="Mobile navigation">
+    <button class="dock-btn dock-active" type="button" data-nav="home" aria-label="Home">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+      </svg>
+      <span>Home</span>
+    </button>
+    <a href="/browse.html" class="dock-btn" aria-label="Browse" style="text-decoration: none; color: inherit;">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+        <polyline points="2 17 12 22 22 17"></polyline>
+        <polyline points="2 12 12 17 22 12"></polyline>
+      </svg>
+      <span>Browse</span>
+    </a>
+    <a href="/livetv.html" class="dock-btn" aria-label="Live TV" style="text-decoration: none; color: inherit;">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect>
+        <polyline points="17 2 12 7 7 2"></polyline>
+      </svg>
+      <span>TV</span>
+    </a>
+    <button class="dock-btn" type="button" data-nav="search" aria-label="Search">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+      <span>Search</span>
+    </button>
+    <button class="dock-btn" type="button" data-nav="category" aria-label="Category">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+        <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+        <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+        <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+      </svg>
+      <span>Category</span>
+    </button>
+  </nav>
+
+  <!-- Category Modal -->
+  <div id="categoryModal" class="disclaimer-modal hidden">
+    <div class="disclaimer-backdrop" data-close="categoryModal"></div>
+    <div class="disclaimer-content" style="max-width: 320px;">
+      <div class="disclaimer-header">
+        <h2 class="disclaimer-title">Select Category</h2>
+        <button class="modal-close" data-close="categoryModal" type="button" aria-label="Close"
+          style="position: static; padding: 6px; margin-left: auto; display: grid;">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="disclaimer-body" style="padding: 16px;">
+        <div class="category-options" style="display: flex; flex-direction: column; gap: 8px;">
+          <button class="cat-opt-btn active" data-cat="all">All</button>
+          <button class="cat-opt-btn" data-cat="movie">Movies</button>
+          <button class="cat-opt-btn" data-cat="tv">TV Shows</button>
+          <button class="cat-opt-btn" data-cat="anime">Anime</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Disclaimer Modal -->
+  <div id="disclaimerModal" class="disclaimer-modal hidden">
+    <div class="disclaimer-backdrop"></div>
+    <div class="disclaimer-content">
+      <div class="disclaimer-header">
+        <img src="/assets/imgs/android-chrome-192x192.png" alt="logo"
+          style="width: 28px; height: 28px; margin-right: 6px; border-radius: 4px;" />
+        <h2 class="disclaimer-title">Before you start watching</h2>
+      </div>
+      <div class="disclaimer-body">
+        <p class="disclaimer-notice" style="margin-bottom: 8px;"><strong>ke1th.<span
+              style="color: #e50914;">streams</span></strong> itself is completely ad-free! However, the video player
+          might redirect you to an ad page or open a pop-up when you click the Play button.<br><br>The good news is the
+          <strong>Default Server</strong> works perfectly with ad blockers for a clean experience.</p>
+        <ul style="font-size: 0.85rem; color: #ddd; padding-left: 18px; line-height: 1.4; margin-bottom: 8px;">
+          <li style="margin-bottom: 6px;"><strong>iOS:</strong> I prefer using a Safari extension like <a
+              href="https://apps.apple.com/us/app/adguard-ad-blocker-for-safari/id1047223162" target="_blank"
+              style="color: #e50914; text-decoration: none; font-weight: 500;">AdGuard</a> (enable in Settings), but you
+            can also use the Brave browser.</li>
+          <li style="margin-bottom: 6px;"><strong>Android:</strong> I recommend using the <strong>Brave browser</strong>
+            to easily bypass ads.</li>
+          <li><strong>Desktop/Laptop:</strong> You can install an adblocker extension (like uBlock Origin) on your
+            browser.</li>
+        </ul>
+        <p style="font-size: 0.78rem; color: #777; line-height: 1.5;">Quick tip: Without an ad blocker, just close any
+          ad tab that opens when you press Play, and click Play again. (Note: Server 2 may still show ads).</p>
+      </div>
+      <div class="disclaimer-footer">
+        <label class="disclaimer-checkbox">
+          <input type="checkbox" id="disclaimerDontShow" />
+          <span>Don't show this again</span>
+        </label>
+        <button id="disclaimerOk" class="disclaimer-btn" type="button">Got it, let's watch</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/assets/js/config.js?v=2.2.9"></script>
+  <script src="/assets/js/tmdb.js?v=2.2.9"></script>
+  <script src="/assets/js/home.js?v=2.2.9"></script>
+
+  <!-- Disclaimer modal logic -->
+  <script>
+    (function () {
+      const modal = document.getElementById('disclaimerModal');
+      const dontShow = document.getElementById('disclaimerDontShow');
+      const okBtn = document.getElementById('disclaimerOk');
+
+      if (localStorage.getItem('hideDisclaimer') === '1') {
+        modal.classList.add('hidden');
+        return;
+      }
+
+      modal.classList.remove('hidden');
+
+      okBtn.addEventListener('click', function () {
+        if (dontShow.checked) {
+          localStorage.setItem('hideDisclaimer', '1');
+        }
+        modal.classList.add('hidden');
+      });
+    })();
+  </script>
+</body>
+
+</html>

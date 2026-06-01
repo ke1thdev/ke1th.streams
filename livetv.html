@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>Live TV - ke1th.streams v2.2.9</title>
+
+  <!-- PWA & Favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/imgs/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/imgs/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/imgs/favicon-16x16.png">
+  <link rel="manifest" href="/assets/imgs/site.webmanifest">
+  <meta name="theme-color" content="#e50914">
+  <meta name="referrer" content="no-referrer">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
+
+  <link rel="stylesheet" href="/assets/css/home.css?v=2.2.9" />
+  <link rel="stylesheet" href="/assets/css/livetv.css?v=2.2.9" />
+  <!-- Plyr Custom Video Player CSS -->
+  <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+</head>
+
+<body>
+  <header class="topbar" id="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="/" aria-label="ke1th.streams home">
+        <img src="/assets/imgs/android-chrome-192x192.png" alt="logo"
+          style="width: 28px; height: 28px; margin-right: 6px; border-radius: 4px;" />
+        <span class="brand-name">ke1th.<span style="color: #e50914;">streams</span></span>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/browse.html" class="nav-link">Browse</a>
+        <a href="/livetv.html" class="nav-link nav-active">Live TV</a>
+      </nav>
+
+      <div class="topbar-actions" style="display: flex; align-items: center; gap: 16px;">
+        <button id="openSearchBtn" class="action-btn" type="button" aria-label="Search" style="visibility: hidden;">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="livetv-header">
+      <h1 class="livetv-title">Live TV</h1>
+      <p class="livetv-subtitle">Watch your favorite live channels. Streams are powered by the community.</p>
+    </section>
+
+    <section class="livetv-section">
+      <div class="livetv-controls"
+        style="display: flex; gap: 10px; margin-bottom: 20px; max-width: 1200px; margin-left: auto; margin-right: auto;">
+        <input type="text" id="channelSearch" placeholder="Search channels..."
+          style="flex: 1; padding: 12px; border-radius: 8px; border: 1px solid #333; background: #1a1a1a; color: #fff; font-size: 16px; outline: none;">
+        <select id="categoryFilter"
+          style="padding: 12px; border-radius: 8px; border: 1px solid #333; background: #1a1a1a; color: #fff; font-size: 16px; min-width: 150px; outline: none; cursor: pointer;">
+          <option value="All">All Categories</option>
+        </select>
+      </div>
+      <div id="livetvGrid">
+        <!-- Channels load here -->
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" style="margin-top: auto;">
+    <p><strong>ke1th.streams</strong> - I do not store any files on my server. I only link to media hosted on
+      third-party services.</p>
+    <p style="margin-top: 12px; font-size: 0.85rem; color: var(--text-muted);">
+      <a href="https://github.com/ke1thdev/ke1th.streams" target="_blank" rel="noopener noreferrer" style="color: var(--brand); text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.418 22 12c0-5.523-4.477-10-10-10z"></path></svg>
+        View Source Code
+      </a>
+      <br>
+      <span style="display: inline-block; margin-top: 4px; opacity: 0.8;">This project is completely open-source! Anyone is free to view the code, learn from it, or use it for their own projects.</span>
+    </p>
+  </footer>
+
+  <nav class="mobile-dock" aria-label="Mobile navigation">
+    <a href="/" class="dock-btn" type="button" aria-label="Home" style="text-decoration: none; color: inherit;">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+      </svg>
+      <span>Home</span>
+    </a>
+    <a href="/browse.html" class="dock-btn" aria-label="Browse" style="text-decoration: none; color: inherit;">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="7" height="7"></rect>
+        <rect x="14" y="3" width="7" height="7"></rect>
+        <rect x="14" y="14" width="7" height="7"></rect>
+        <rect x="3" y="14" width="7" height="7"></rect>
+      </svg>
+      <span>Browse</span>
+    </a>
+    <a href="/livetv.html" class="dock-btn dock-active" aria-label="Live TV"
+      style="text-decoration: none; color: inherit;">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect>
+        <polyline points="17 2 12 7 7 2"></polyline>
+      </svg>
+      <span>TV</span>
+    </a>
+  </nav>
+
+  <!-- Player Modal for Live TV -->
+  <section id="playerModal" class="modal hidden" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal-backdrop" id="closePlayerModalBg"></div>
+    <div class="modal-content">
+      <div class="player-toolbar">
+        <div class="player-title" id="playerTitle">Live Stream</div>
+        <button class="modal-close-btn" id="closePlayerModal" type="button" aria-label="Close">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="video-container"
+        style="display: flex; align-items: center; justify-content: center; background: #000; position: relative;">
+        <video id="liveVideoPlayer" controls autoplay
+          style="width: 100%; height: 100%; max-height: 100%; outline: none; background: #000; object-fit: contain;"></video>
+        <iframe id="liveIframePlayer" class="hidden"
+          style="width: 100%; height: 100%; border: none; position: absolute; top: 0; left: 0;"
+          allow="autoplay; fullscreen"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- HLS.js and DASH.js for stream playback -->
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
+  <script src="https://cdn.dashjs.org/latest/dash.all.min.js"></script>
+  <!-- Plyr Custom Video Player JS -->
+  <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
+
+  <script src="/assets/js/livetv.js?v=2.2.9"></script>
+</body>
+
+</html>

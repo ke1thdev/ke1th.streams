@@ -1,0 +1,21 @@
+{
+  "name": "ke1th.streams",
+  "short_name": "ke1th",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#141414",
+  "theme_color": "#e50914",
+  "description": "Thesis ay isantabi, mag-stream na lang gabi-gabi.",
+  "icons": [
+    {
+      "src": "/assets/imgs/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/imgs/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+# Cloudflare Pages routing
+# Route movie and TV show URLs to the media page
+/movie/*  /media.html  200
+/tv/*     /media.html  200

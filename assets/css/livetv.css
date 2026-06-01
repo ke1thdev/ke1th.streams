@@ -1,0 +1,100 @@
+:root {
+  --plyr-color-main: #e50914;
+}
+
+.livetv-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
+  padding: 16px 48px;
+  max-width: 1920px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .livetv-grid {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    padding: 16px;
+    gap: 12px;
+  }
+}
+
+.channel-card {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+}
+
+.channel-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+  border-color: rgba(255,255,255,0.2);
+}
+
+.channel-logo-wrap {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.channel-logo {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.channel-info {
+  padding: 12px;
+  text-align: center;
+}
+
+.channel-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-bright);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.channel-group {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.livetv-header {
+  padding: 80px 48px 20px;
+  max-width: 1920px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .livetv-header {
+    padding: 80px 16px 16px;
+  }
+}
+
+.livetv-title {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--text-bright);
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+
+.livetv-subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  max-width: 600px;
+  line-height: 1.5;
+}
