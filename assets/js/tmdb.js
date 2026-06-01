@@ -6,8 +6,7 @@ const TMDB = (() => {
   "use strict";
 
   const config = window.TMDB_CONFIG || {};
-  const API_KEY = config.API_KEY;
-  const BASE_URL = config.BASE_URL || 'https://api.themoviedb.org/3';
+  const BASE_URL = config.BASE_URL || 'https://tmdb-proxy.rnzrmbln21.workers.dev';
   const LANGUAGE = config.LANGUAGE || 'en-US';
   const WATCH_REGION = config.WATCH_REGION || 'US';
 
@@ -16,7 +15,6 @@ const TMDB = (() => {
    */
   async function get(path, params = {}) {
     const url = new URL(`${BASE_URL}${path}`);
-    url.searchParams.set('api_key', API_KEY);
     url.searchParams.set('language', LANGUAGE);
 
     Object.entries(params).forEach(([key, value]) => {
@@ -89,7 +87,6 @@ const TMDB = (() => {
    */
   async function post(path, body = {}, params = {}) {
     const url = new URL(`${BASE_URL}${path}`);
-    url.searchParams.set('api_key', API_KEY);
     
     Object.entries(params).forEach(([key, value]) => {
       if (value != null && value !== '') {
@@ -119,7 +116,6 @@ const TMDB = (() => {
    */
   async function deleteReq(path, params = {}) {
     const url = new URL(`${BASE_URL}${path}`);
-    url.searchParams.set('api_key', API_KEY);
     
     Object.entries(params).forEach(([key, value]) => {
       if (value != null && value !== '') {
