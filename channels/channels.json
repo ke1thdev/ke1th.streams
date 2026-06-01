@@ -63,13 +63,6 @@
     "streamUrl": "https://amc-allweddings-1-us.xumo.wurl.tv/playlist.m3u8"
   },
   {
-    "name": "ALLTV",
-    "type": "TV",
-    "logo": "",
-    "category": "General",
-    "streamUrl": "http://136.239.158.10:6610/001/2/ch00000090990000001179/manifest.mpd?AuthInfo=v87HD9rEhwHiAdYyrP20Tg5pgSMSITY%2FHYvvCWJRp%2Bow35sHUcBhGBpxqddBGYEnytokK1MIobcue1ImXa0ZEA%3D%3D&version=v1.0&BreakPoint=0&virtualDomain=001.live_hls.zte.com&programid=ch00000000000000001415&contentid=ch00000000000000001415&videoid=ch00000090990000001179&recommendtype=0&userid=1205050496206&boid=001&stbid=02%3A00%3A00%3A00%3A00%3A00&terminalflag=1&profilecode=&usersessionid=02WMA0HI2O3AXX&NeedJITP=1&JITPMediaType=DASH&JITPDRMType=NO"
-  },
-  {
     "name": "AMC Thrillers",
     "type": "TV",
     "logo": "https://static-us-east-2-fastly-a.www.philo.com/images/channel_logos/AMCRSH/large_dark.png?auto=webp&ver=1",
@@ -89,13 +82,6 @@
     "logo": "https://vectorified.com/image/american-ninja-warrior-logo-vector-14.png",
     "category": "Entertainment & Drama",
     "streamUrl": "https://xumo-drct-ch812-n4996.fast.nbcuni.com/live/master.m3u8"
-  },
-  {
-    "name": "A2Z",
-    "type": "TV",
-    "logo": "",
-    "category": "General",
-    "streamUrl": "http://136.239.173.2:6610/001/2/ch00000090990000001087/manifest.mpd?AuthInfo=v87HD9rEhwHiAdYyrP20Tg5pgSMSITY%2FHYvvCWJRp%2BqHRrK8UUahwItHhKpXgPXKytokK1MIobcue1ImXa0ZEA%3D%3D&version=v1.0&BreakPoint=0&virtualDomain=001.live_hls.zte.com&programid=ch00000000000000001176&contentid=ch00000000000000001176&videoid=ch00000090990000001087&recommendtype=0&userid=1287297673984&boid=001&stbid=02%3A00%3A00%3A00%3A00%3A00&terminalflag=1&profilecode=&usersessionid=U4DB4Z0H2EXXXX&NeedJITP=1&JITPMediaType=DASH&JITPDRMType=NO"
   },
   {
     "name": "Bein Sports Xtra",
@@ -207,15 +193,6 @@
     "streamUrl": "https://streams2.sofast.tv/ptnr-yupptv/title-CHRONO-TV-ENG_yupptv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/d375ebca-9cd0-475e-ad4d-0cde6634de9c/manifest.m3u8"
   },
   {
-    "name": "Cinemo Global",
-    "type": "TV",
-    "category": "Movies & Cinema",
-    "streamUrl": "https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01006-abs-cbn-cinemo-dash-abscbnono/index.mpd",
-    "drm": {
-      "aa8aebe35ccc4541b7ce6292efcb1bfb": "f06b6031a3604cc6708c14d83f1a1b27"
-    }
-  },
-  {
     "name": "CNA",
     "type": "TV",
     "logo": "https://www.marketbeat.com/logos/cna-financial-co-logo.png?v=20240215143558",
@@ -228,16 +205,6 @@
     "logo": "https://pluspng.com/img-png/cnn-logo-png-cnn-logos-brands-and-logotypes-4390x4390.png",
     "category": "News & Information",
     "streamUrl": "https://turnerlive.warnermediacdn.com/hls/live/586495/cnngo/cnn_slate/VIDEO_0_3564000.m3u8"
-  },
-  {
-    "name": "CNN HD",
-    "type": "TV",
-    "logo": "https://pluspng.com/img-png/cnn-logo-png-cnn-logos-brands-and-logotypes-4390x4390.png",
-    "category": "News & Information",
-    "streamUrl": "https://qp-pldt-live-grp-12-prod.akamaized.net/out/u/dr_cnnhd.mpd",
-    "drm": {
-      "900c43f0e02742dd854148b7a75abbec": "da315cca7f2902b4de23199718ed7e90"
-    }
   },
   {
     "name": "Colour Blind",
@@ -296,23 +263,6 @@
     "streamUrl": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00090-blueantllc-historytime-lgca/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.coppa=0&ads.targetad=[TARGETAD_ALLOWED]"
   },
   {
-    "name": "DepEd TV",
-    "type": "TV",
-    "logo": "",
-    "category": "General",
-    "streamUrl": "http://136.239.158.10:6610/001/2/ch00000090990000001340/manifest.mpd?AuthInfo=v87HD9rEhwHiAdYyrP20Tg5pgSMSITY%2FHYvvCWJRp%2BpqUIe1xo9fgdQj%2FdedKSTyytokK1MIobcue1ImXa0ZEA%3D%3D&version=v1.0&BreakPoint=0&virtualDomain=001.live_hls.zte.com&programid=ch00000000000000001832&contentid=ch00000000000000001832&videoid=ch00000090990000001340&recommendtype=0&userid=1586131651828&boid=001&stbid=02%3A00%3A00%3A00%3A00%3A00&terminalflag=1&profilecode=&usersessionid=1RR87QJ6AY2XXX&NeedJITP=1&JITPMediaType=DASH&JITPDRMType=NO"
-  },
-  {
-    "name": "Discovery Channel SD",
-    "type": "TV",
-    "logo": "https://cdn.shopify.com/s/files/1/0558/6413/1764/files/Discovery_Channel_Logo_Design_History_Evolution_2.jpg?v=1694070082",
-    "category": "Lifestyle & Docs",
-    "streamUrl": "https://qp-pldt-live-grp-13-prod.akamaized.net/out/u/dr_discovery.mpd",
-    "drm": {
-      "d9ac48f5131641a789328257e778ad3a": "b6e67c37239901980c6e37e0607ceee6"
-    }
-  },
-  {
     "name": "Dont Tell The Bride",
     "type": "TV",
     "logo": "https://www.rawechoes.com/wp-content/uploads/2023/01/BBC-DONT-TELL-THE-BRIDE-LOGO.png",
@@ -332,16 +282,6 @@
     "logo": "https://tse4.mm.bing.net/th/id/OIP.rvbciyNPlvI3gE7JgpJ-dAHaHa?pid=Api&h=220&P=0",
     "category": "News & Information",
     "streamUrl": "https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/stream05/streamPlaylist.m3u8"
-  },
-  {
-    "name": "DZMM Teleradyo",
-    "type": "TV",
-    "logo": "https://static.wikia.nocookie.net/russel/images/0/0d/DZMM_TeleRadyo_Logo_2025.png/revision/latest/scale-to-width-down/1200?cb=20250619152431",
-    "category": "News & Information",
-    "streamUrl": "https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01006-abs-cbn-teleradyo-dash-abscbnono/index.mpd",
-    "drm": {
-      "47c093e0c9fd4f80839a0337da3dd876": "603248b858276f533a13e17f2f48c711"
-    }
   },
   {
     "name": "Edgy TV",
@@ -376,28 +316,6 @@
     "type": "TV",
     "category": "Lifestyle & Docs",
     "streamUrl": "https://fl1004.bozztv.com/ushba-monj/tracks-v1a1/mono.m3u8"
-  },
-  {
-    "name": "F1 TV (1)",
-    "type": "TV",
-    "logo": "https://tse1.mm.bing.net/th/id/OIP.QYxBTBNwg0kMz7wStbO0fQHaEK?pid=Api&h=220&P=0",
-    "category": "Sports",
-    "dateAdded": "2026-03-21",
-    "streamUrl": "https://a184aivottlinear-a.akamaihd.net/OTTB/iad-nitro/live/clients/dash/enc/5fjow0mrvw/out/v1/f870533ee24b4f3bb98d2afe4b1e1bac/cenc.mpd",
-    "drm": {
-      "505616380de706936e493fdd1c25d0b6": "5b313f49c63c682236eab3357400e216"
-    }
-  },
-  {
-    "name": "F1 TV (2)",
-    "type": "TV",
-    "logo": "https://tse1.mm.bing.net/th/id/OIP.QYxBTBNwg0kMz7wStbO0fQHaEK?pid=Api&h=220&P=0",
-    "category": "Sports",
-    "dateAdded": "2026-03-21",
-    "streamUrl": "https://otte.cache.aiv-cdn.net/bom-nitro/live/clients/dash/enc/duqbirmk0d/out/v1/40f53c7cbc95498db3afd081c377d776/cenc.mpd",
-    "drm": {
-      "609d795905904705028ef54653019af7": "2c791eb611e57a7d7f203022bc1b9ba3"
-    }
   },
   {
     "name": "Fail Army",
@@ -473,55 +391,6 @@
     "streamUrl": "https://a-cdn.klowdtv.com/live2/gsn_720p/chunks.m3u8"
   },
   {
-    "name": "GMA",
-    "type": "TV",
-    "logo": "https://i.pinimg.com/originals/1f/20/8f/1f208fbd6356f6f025fede90ef417f42.png",
-    "category": "General",
-    "streamUrl": "http://136.158.97.2:6610/001/2/ch00000090990000001093/manifest.mpd?AuthInfo=v87HD9rEhwHiAdYyrP20Tg5pgSMSITY%2FHYvvCWJRp%2BoLvT86fM74ocVChyFS93HUytokK1MIobcue1ImXa0ZEA%3D%3D&version=v1.0&BreakPoint=0&virtualDomain=001.live_hls.zte.com&programid=ch00000000000000001214&contentid=ch00000000000000001214&videoid=ch00000090990000001093&recommendtype=0&userid=1084724632836&boid=001&stbid=02%3A00%3A00%3A00%3A00%3A00&terminalflag=1&profilecode=&usersessionid=FGE3OISG4KGXXX&NeedJITP=1&JITPMediaType=DASH&JITPDRMType=NO"
-  },
-  {
-    "name": "GMA Life TV",
-    "type": "TV",
-    "logo": "https://static.wikia.nocookie.net/russel/images/6/61/GMA_Life_TV_Logo_2024.png/revision/latest/scale-to-width-down/1200?cb=20240805140454",
-    "category": "Entertainment & Drama",
-    "dateAdded": "2026-03-19",
-    "streamUrl": "https://abslive.akamaized.net/dash/live/2099522/glife3/manifest.mpd",
-    "drm": {
-      "5d308ef487f54107b7da758e195ecbd3": "9d4004d4c065dd4b85ad5bd12c35386f"
-    },
-    "headers": {
-      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36&Referer=https://www.iwanttfc.com/&Origin=https://www.iwanttfc.com"
-    }
-  },
-  {
-    "name": "GMA News TV",
-    "type": "TV",
-    "logo": "https://tse3.mm.bing.net/th/id/OIP.djGARVbI9CwVvw9VyRiKDAHaHa?pid=Api&h=220&P=0",
-    "category": "Entertainment & Drama",
-    "dateAdded": "2026-03-19",
-    "streamUrl": "https://abslive.akamaized.net/dash/live/2099522/gnews3/manifest.mpd",
-    "drm": {
-      "d5d848730e4a4f9b962290039dd2b96b": "c959dc12f1bff5a66d030117fb7e9855"
-    },
-    "headers": {
-      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36&Referer=https://www.iwanttfc.com/&Origin=https://www.iwanttfc.com"
-    }
-  },
-  {
-    "name": "GMA Pinoy TV",
-    "type": "TV",
-    "logo": "https://tse1.mm.bing.net/th/id/OIP.PzOcIsMnVF-X-fNbnBv7ogHaEj?pid=Api&h=220&P=0",
-    "category": "Entertainment & Drama",
-    "dateAdded": "2026-03-19",
-    "streamUrl": "https://abslive.akamaized.net/dash/live/2099522/gmapt3/manifest.mpd",
-    "drm": {
-      "7b5d15a7385546768aca9fd505ad5e16": "f534393c84c1a9c17fa36bc3a4380981"
-    },
-    "headers": {
-      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36&Referer=https://www.iwanttfc.com/&Origin=https://www.iwanttfc.com"
-    }
-  },
-  {
     "name": "Go USA TV",
     "type": "TV",
     "logo": "",
@@ -543,36 +412,6 @@
     "streamUrl": "https://gcinemahls.wns.live/hls/stream.m3u8"
   },
   {
-    "name": "HBO Family",
-    "type": "TV",
-    "logo": "https://logospng.org/download/hbo-family/logo-hbo-family-512.png",
-    "category": "Movies & Cinema",
-    "streamUrl": "https://ucdn.mediaquest.com.ph/bpk-tv/cg_hbofam/default/index.mpd",
-    "drm": {
-      "872910c843294319800d85f9a0940607": "f79fd895b79c590708cf5e8b5c6263be"
-    }
-  },
-  {
-    "name": "HBO Hits",
-    "type": "TV",
-    "logo": "https://static.wikia.nocookie.net/logopedia/images/0/04/HBO_HiTS.svg/revision/latest/scale-to-width-down/250?cb=20100511073403",
-    "category": "Movies & Cinema",
-    "streamUrl": "https://ucdn.mediaquest.com.ph/bpk-tv/cg_hbohits/default/index.mpd",
-    "drm": {
-      "b04ae8017b5b4601a5a0c9060f6d5b7d": "a8795f3bdb8a4778b7e888ee484cc7a1"
-    }
-  },
-  {
-    "name": "HBO Signature",
-    "type": "TV",
-    "logo": "https://tse3.mm.bing.net/th/id/OIP.PNcaEsDsK8CX97tCTst7_gHaDw?pid=Api&h=220&P=0",
-    "category": "Movies & Cinema",
-    "streamUrl": "https://ucdn.mediaquest.com.ph/bpk-tv/cg_hbosign/default/index.mpd",
-    "drm": {
-      "a06ca6c275744151895762e0346380f5": "559da1b63eec77b5a942018f14d3f56f"
-    }
-  },
-  {
     "name": "Hells Kitchen",
     "type": "TV",
     "logo": "https://i.imgur.com/TRmiNiL.jpeg",
@@ -592,16 +431,6 @@
     "logo": "",
     "category": "Lifestyle & Docs",
     "streamUrl": "https://fast-channels-prod.akamaized.net/out/v1/6fbb677b6ffc4a4fac47a8fd85c8b333/live_1.m3u8"
-  },
-  {
-    "name": "Hits Movies",
-    "type": "TV",
-    "logo": "https://i.imgur.com/FEHwzDt.jpeg",
-    "category": "Movies & Cinema",
-    "streamUrl": "https://qp-pldt-live-grp-12-prod.akamaized.net/out/u/dr_hitsmovies.mpd",
-    "drm": {
-      "f56b57b32d7e4b2cb21748c0b56761a7": "3df06a89aa01b32655a77d93e09e266f"
-    }
   },
   {
     "name": "Home Plus",
@@ -632,41 +461,11 @@
     "streamUrl": "https://live20.bozztv.com/giatvplayout7/giatv-211468/tracks-v1a1/mono.ts.m3u8"
   },
   {
-    "name": "INCTV",
-    "type": "TV",
-    "logo": "",
-    "category": "General",
-    "streamUrl": "http://136.239.159.18:6610/001/2/ch00000090990000001092/manifest.mpd?AuthInfo=v87HD9rEhwHiAdYyrP20Tg5pgSMSITY%2FHYvvCWJRp%2BrC5ZD%2FYbS0KSGrFVJUNIMkytokK1MIobcue1ImXa0ZEA%3D%3D&version=v1.0&BreakPoint=0&virtualDomain=001.live_hls.zte.com&programid=ch00000000000000001178&contentid=ch00000000000000001178&videoid=ch00000090990000001092&recommendtype=0&userid=1760058453659&boid=001&stbid=02%3A00%3A00%3A00%3A00%3A00&terminalflag=1&profilecode=&usersessionid=HILNO5G9U9IXXX&NeedJITP=1&JITPMediaType=DASH&JITPDRMType=NO"
-  },
-  {
-    "name": "Jeepney TV",
-    "type": "TV",
-    "logo": "https://4.bp.blogspot.com/-URloFZ0yglM/UIFMSDxlcrI/AAAAAAAASMg/sRS0K4aJmC8/s1600/Jeepney-TV-Logo.jpg",
-    "category": "Entertainment & Drama",
-    "streamUrl": "https://abslive.akamaized.net/dash/live/2027618/jeepneytv/manifest.mpd",
-    "drm": {
-      "dc9fec234a5841bb8d06e92042c741ec": "225676f32612dc803cb4d0f950d063d0"
-    },
-    "headers": {
-      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36&Referer=https://www.iwanttfc.com/&Origin=https://www.iwanttfc.com"
-    }
-  },
-  {
     "name": "Jupiter TV",
     "type": "TV",
     "logo": "",
     "category": "Movies & Cinema",
     "streamUrl": "https://streams2.sofast.tv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/c7e85b21-ea01-42b4-85db-15dcfec98942/manifest.m3u8"
-  },
-  {
-    "name": "Kapamilya Channel",
-    "type": "TV",
-    "logo": "https://i.imgur.com/WcYS3S3.png",
-    "category": "Entertainment & Drama",
-    "streamUrl": "https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01006-abs-cbn-kapcha-dash-abscbnono/2e0ea750-65ce-44b5-bf75-d71d839512c5/index.mpd",
-    "drm": {
-      "bd17afb5dc9648a39be79ee3634dd4b8": "b475084a1a58857e18480e30fbb0e544"
-    }
   },
   {
     "name": "Kartoon Channel!",
@@ -837,16 +636,6 @@
     "streamUrl": "https://amg00353-lionsgatestudio-moviesphere-xumo-zh5u0.amagi.tv/playlist.m3u8"
   },
   {
-    "name": "Movies Now",
-    "type": "TV",
-    "logo": "https://tse1.mm.bing.net/th/id/OIP.lveOGtLiClQDqabVAjM3LwHaHa?pid=Api&h=220&P=0",
-    "category": "Movies & Cinema",
-    "streamUrl": "https://times-ott-live.akamaized.net/moviesnow_wv_drm/index.mpd",
-    "drm": {
-      "40f019b86241d23ef075633fd7f1e927": "058dec845bd340178a388edd104a015e"
-    }
-  },
-  {
     "name": "Movies Sphere",
     "type": "TV",
     "logo": "https://i.imgur.com/PfhtYtr.jpeg",
@@ -873,19 +662,6 @@
     "logo": "",
     "category": "Sports",
     "streamUrl": "https://amg02873-kravemedia-mtrspt1-distrotv-mnsrl.amagi.tv/playlist/amg02873-kravemedia-mtrspt1-distrotv/playlist.m3u8"
-  },
-  {
-    "name": "MYX Global",
-    "type": "TV",
-    "logo": "https://images.seeklogo.com/logo-png/48/1/myx-logo-png_seeklogo-482518.png",
-    "category": "Music",
-    "streamUrl": "https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01006-abs-cbn-myxnola-dash-abscbnono/28b644c3-4a05-4733-a518-50ae75ff8193/index.mpd",
-    "drm": {
-      "f40a52a3ac9b4702bdd5b735d910fd2f": "35e4893c6e76546085941be3010932d4"
-    },
-    "headers": {
-      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36&Referer=https://www.iwanttfc.com/&Origin=https://www.iwanttfc.com"
-    }
   },
   {
     "name": "National Geographic Wild",
@@ -944,16 +720,6 @@
     "streamUrl": "https://streams2.sofast.tv/ptnr-yupptv/title-NITRO-TV-ENG_yupptv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/3265a84f-1238-4439-bb40-cc0b716719f7/manifest.m3u8"
   },
   {
-    "name": "ONE Championship",
-    "type": "TV",
-    "logo": "https://logowik.com/content/uploads/images/one-championship2775.jpg",
-    "category": "Sports",
-    "streamUrl": "https://live-pv-ta.amazon.fastly-edge.com/syd-nitro/live/clients/dash/enc/kkfdbi2d1c/out/v1/a5b9b32dafd5499688240287ef8c9b90/cenc.mpd",
-    "drm": {
-      "308006101c8fd0262c0f529319b9c127": "37683aadc75b1450efa82d62c647984d"
-    }
-  },
-  {
     "name": "Outdoor Channel HD",
     "type": "TV",
     "logo": "",
@@ -966,16 +732,6 @@
     "logo": "https://i.imgur.com/8sKjU0A.png",
     "category": "Kids & Cartoons",
     "streamUrl": "https://dce3793146fef017.mediapackage.us-west-2.amazonaws.com/out/v1/55cdf73af7894775ba6de8f57482b66a/CMAF_HLS/index.m3u8"
-  },
-  {
-    "name": "Pbo",
-    "type": "TV",
-    "logo": "https://i.imgur.com/hh2EP86.png",
-    "category": "Entertainment & Drama",
-    "streamUrl": "https://qp-pldt-live-bpk-01-prod.akamaized.net/bpk-tv/pbo_sd/default/index.mpd",
-    "drm": {
-      "dcbdaaa6662d4188bdf97f9f0ca5e830": "31e752b441bd2972f2b98a4b1bc1c7a1"
-    }
   },
   {
     "name": "Persiana Junior",
@@ -1168,16 +924,6 @@
     "streamUrl": "https://stream.ads.ottera.tv/playlist.m3u8?network_id=2648"
   },
   {
-    "name": "Sari Sari",
-    "type": "TV",
-    "logo": "https://i.imgur.com/upWnLA0.png",
-    "category": "Entertainment & Drama",
-    "streamUrl": "https://qp-pldt-live-bpk-02-prod.akamaized.net/bpk-tv/cg_sarisari/default/index.mpd",
-    "drm": {
-      "0a7ab3612f434335aa6e895016d8cd2d": "b21654621230ae21714a5cab52daeb9d"
-    }
-  },
-  {
     "name": "Sci-Fi World",
     "type": "TV",
     "logo": "",
@@ -1262,13 +1008,6 @@
     "streamUrl": "https://amg00627-amg00627c16-samsung-ph-5303.playouts.now.amagi.tv/playlist/amg00627-banijayfast-survivor-samsungph/playlist.m3u8"
   },
   {
-    "name": "Tagalized Movie Channel TMC",
-    "type": "TV",
-    "logo": "",
-    "category": "Movies & Cinema",
-    "streamUrl": "http://136.239.159.20:6610/001/2/ch00000090990000001080/manifest.mpd?AuthInfo=v87HD9rEhwHiAdYyrP20Tg5pgSMSITY%2FHYvvCWJRp%2BrHx%2Fyl86rMkFVqtHp1NtQIytokK1MIobcue1ImXa0ZEA%3D%3D&version=v1.0&BreakPoint=0&virtualDomain=001.live_hls.zte.com&programid=ch00000000000000001153&contentid=ch00000000000000001153&videoid=ch00000090990000001080&recommendtype=0&userid=1123674387331&boid=001&stbid=02%3A00%3A00%3A00%3A00%3A00&terminalflag=1&profilecode=&usersessionid=OWFM2G9EILPXXX&NeedJITP=1&JITPMediaType=DASH&JITPDRMType=NO"
-  },
-  {
     "name": "Telemundo",
     "type": "TV",
     "logo": "",
@@ -1288,17 +1027,6 @@
     "logo": "",
     "category": "Entertainment & Drama",
     "streamUrl": "https://televisa-televisa-1-it.samsung.wurl.tv/1200.m3u8"
-  },
-  {
-    "name": "Tennis Channel 2",
-    "type": "TV",
-    "logo": "https://static.wikia.nocookie.net/logopedia/images/8/8a/Tennis_Channel_2003_stacked.svg/revision/latest?cb=20240116025610",
-    "category": "Sports",
-    "dateAdded": "2026-03-20",
-    "streamUrl": "https://otte.live.fly.ww.aiv-cdn.net/pdx-nitro/live/clients/dash/enc/bfigtl960n/out/v1/5ba5484550e84681bff2e8ca994266c1/cenc.mpd",
-    "drm": {
-      "59F50679C9E60963BD0CB6640992AAAA": "8685817c4d31f322e08940feeae2855a"
-    }
   },
   {
     "name": "Tennis+",
