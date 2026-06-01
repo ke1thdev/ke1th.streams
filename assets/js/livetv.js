@@ -122,8 +122,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const categoryOrder = [
     'Kids & Cartoons',
-    'Cinema & Film',
-    'News & Info'
+    'Movies & Cinema',
+    'Entertainment & Drama',
+    'News & Information',
+    'Sports',
+    'Music',
+    'Lifestyle & Docs',
+    'General'
   ];
 
   function renderChannels(channels) {
@@ -186,11 +191,13 @@ document.addEventListener('DOMContentLoaded', () => {
         card.style.width = '240px';
         card.style.scrollSnapAlign = 'start';
         
-        const logoUrl = ch.logo || '/assets/imgs/android-chrome-192x192.png';
+        const encodedName = encodeURIComponent(ch.name);
+        const fallbackLogo = `https://ui-avatars.com/api/?name=${encodedName}&background=random&color=fff&size=256&font-size=0.33&bold=true`;
+        const logoUrl = ch.logo || fallbackLogo;
         
         card.innerHTML = `
           <div class="card-img-wrap" style="aspect-ratio: 16/9; background: #111;">
-            <img class="card-image" src="${logoUrl}" alt="${ch.name}" loading="lazy" style="object-fit: contain; padding: 16px;" onerror="this.src='/assets/imgs/android-chrome-192x192.png'">
+            <img class="card-image" src="${logoUrl}" alt="${ch.name}" loading="lazy" style="object-fit: contain; padding: 16px;" onerror="if(this.src!=='${fallbackLogo}')this.src='${fallbackLogo}';">
             <div class="card-overlay" style="justify-content: center; align-items: center;">
               <svg viewBox="0 0 24 24" width="48" height="48" fill="white"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
             </div>
