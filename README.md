@@ -74,9 +74,10 @@ Experience the platform live at: **[stream.ke1th.dev](https://stream.ke1th.dev/)
 To run this project locally:
 
 1. Clone the repository to your machine.
-2. Open `assets/js/config.js` and configure your `BASE_URL`. 
-3. **(Optional)** For enhanced security, deploy a Cloudflare Worker to act as an API proxy. Inject your TMDB API key as a secret environment variable inside the Worker, and set your `BASE_URL` to point to the proxy.
-4. Open `index.html` in your browser or run a local development server.
+2. Open `assets/js/config.js`. You have two options for configuring the TMDB API:
+   - **Option A (Quick Start):** Set `BASE_URL` to `https://api.themoviedb.org/3` and paste your TMDB API key into the `API_KEY` variable. *(Note: This exposes your key in the browser)*.
+   - **Option B (Secure/Production):** Deploy a Cloudflare Worker as an API proxy. Set your `BASE_URL` to your proxy's URL and leave `API_KEY` empty. Inject the TMDB key securely as an environment variable in your Worker.
+3. Open `index.html` in your browser or run a local development server.
 
 ```text
 STREAMMOVIES/
