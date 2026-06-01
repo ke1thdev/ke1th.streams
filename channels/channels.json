@@ -30,7 +30,7 @@
   {
     "name": "Pokémon",
     "type": "TV",
-    "logo": "",
+    "logo": "https://en.wikipedia.org/wiki/Special:FilePath/International_Pok%C3%A9mon_logo.svg",
     "category": "Kids & Cartoons",
     "streamUrl": "https://docpe51mdltl5.cloudfront.net/Pokemon_GB.m3u8"
   },
