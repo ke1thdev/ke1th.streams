@@ -3,7 +3,7 @@
 const TMDB_CONFIG = {
   // If using direct TMDB API, enter your key here. If using a proxy, leave it blank.
   API_KEY: '',
-  BASE_URL: 'https://tmdb-proxy.rnzrmbln21.workers.dev',
+  BASE_URL: 'https://tmdb-proxy.ke1th.dev',
   IMAGE_BASE: 'https://image.tmdb.org/t/p/w500',
   BACKDROP_BASE: 'https://image.tmdb.org/t/p/original',
   LANGUAGE: 'en-US',
@@ -49,9 +49,9 @@ document.addEventListener('contextmenu', event => {
 });
 
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'F12' || 
-      (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) ||
-      (e.ctrlKey && (e.key === 'U' || e.key === 'u'))) {
+  if (e.key === 'F12' ||
+    (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) ||
+    (e.ctrlKey && (e.key === 'U' || e.key === 'u'))) {
     e.preventDefault();
   }
   if (e.ctrlKey && (e.key === 'A' || e.key === 'a')) {
