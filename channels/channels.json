@@ -182,6 +182,7 @@
   {
     "name": "Charge",
     "type": "TV",
+    "logo": "https://en.wikipedia.org/wiki/Special:FilePath/Charge!_Logo_2020.svg",
     "category": "News & Information",
     "streamUrl": "https://fast-channels.sinclairstoryline.com/CHARGE/index_4.m3u8"
   },
