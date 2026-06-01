@@ -1345,7 +1345,7 @@
   {
     "name": "Nickelodeon",
     "type": "TV",
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Nickelodeon_logo_%282023%29.svg/1200px-Nickelodeon_logo_%282023%29.svg.png",
+    "logo": "https://en.wikipedia.org/wiki/Special:FilePath/Nickelodeon_2023_logo_(outline).svg",
     "category": "Kids & Cartoons",
     "streamUrl": "https://nick-proxy.ke1th.dev/USA_NICKELODEON/index.m3u8"
   }
