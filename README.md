@@ -76,7 +76,7 @@ To run this project locally:
 1. Clone the repository to your machine.
 2. Open `assets/js/config.js`. You have two options for configuring the TMDB API:
    - **Option A (Quick Start):** Set `BASE_URL` to `https://api.themoviedb.org/3` and paste your TMDB API key into the `API_KEY` variable. *(Note: This exposes your key in the browser)*.
-   - **Option B (Secure/Production):** Deploy a Cloudflare Worker as an API proxy. Set your `BASE_URL` to your proxy's URL and leave `API_KEY` empty. Inject the TMDB key securely as an environment variable in your Worker.
+   - **Option B (Secure/Production):** Deploy a Cloudflare Worker as an API proxy. Set your `BASE_URL` to your proxy's URL and leave `API_KEY` empty. See the **Cloudflare Worker Setup** section below for the code and instructions.
 3. Open `index.html` in your browser or run a local development server.
 
 ```text
@@ -87,6 +87,41 @@ STREAMMOVIES/
     imgs/       -- Favicons and PWA assets
   index.html    -- Home page
   media.html    -- Media detail page
+```
+
+### Cloudflare Worker Setup (Optional)
+
+If you want to completely hide your TMDB API key from the browser, you can deploy a Cloudflare Worker proxy in under 2 minutes.
+
+1. Go to your Cloudflare Dashboard -> **Workers & Pages** -> **Create Worker**.
+2. Name it (e.g. `tmdb-proxy`) and click **Deploy**.
+3. Go to the worker's **Settings** -> **Variables** -> **Environment Variables**.
+4. Add a new variable named `TMDB_API_KEY`, paste your TMDB API key as the value, and click **Encrypt** to hide it.
+5. Click **Quick Edit** on your worker, paste the following script, and click **Save and Deploy**.
+
+```javascript
+export default {
+  async fetch(request, env) {
+    const url = new URL(request.url);
+    
+    // Build the TMDB URL (automatically prepending /3/ if missing)
+    let path = url.pathname;
+    if (!path.startsWith('/3/')) path = '/3' + path;
+    const tmdbUrl = new URL(`https://api.themoviedb.org${path}${url.search}`);
+    
+    // Securely inject the API key
+    if (env.TMDB_API_KEY) tmdbUrl.searchParams.set('api_key', env.TMDB_API_KEY);
+
+    let response = await fetch(tmdbUrl);
+    
+    // Enable CORS and add Cache-Control for speed
+    let newResponse = new Response(response.body, response);
+    newResponse.headers.set('Access-Control-Allow-Origin', '*');
+    newResponse.headers.set('Cache-Control', 'public, max-age=3600');
+
+    return newResponse;
+  }
+}
 ```
 
 ---
