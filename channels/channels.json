@@ -107,7 +107,7 @@
   {
     "name": "Blast Movie",
     "type": "TV",
-    "logo": "https://i.imgur.com/3KXnFQK.png",
+    "logo": "https://static.wikia.nocookie.net/tv-philippines/images/0/0e/Blast_TV_logo.png/revision/latest?cb=20240924121921",
     "category": "Movies & Cinema",
     "streamUrl": "https://amg19223-amg19223c7-amgplt0351.playout.now3.amagi.tv/playlist/amg19223-amg19223c7-amgplt0351/playlist.m3u8"
   },
@@ -146,16 +146,9 @@
     "streamUrl": "https://amg00437-amg00437c3-firetv-us-5409.playouts.now.amagi.tv/playlist720p.m3u8"
   },
   {
-    "name": "Cartoonito",
-    "type": "TV",
-    "logo": "",
-    "category": "Kids & Cartoons",
-    "streamUrl": "http://161.49.17.2:6610/001/2/ch00000090990000001125/manifest.mpd?AuthInfo=v87HD9rEhwHiAdYyrP20Tg5pgSMSITY%2FHYvvCWJRp%2BoZQDeIq8A03ROpfeWN75MYytokK1MIobcue1ImXa0ZEA%3D%3D&version=v1.0&BreakPoint=0&virtualDomain=001.live_hls.zte.com&programid=ch00000000000000001238&contentid=ch00000000000000001238&videoid=ch00000090990000001125&recommendtype=0&userid=1642489849443&boid=001&stbid=02%3A00%3A00%3A00%3A00%3A00&terminalflag=1&profilecode=&usersessionid=9X3U5ZPDLQVXXX&NeedJITP=1&JITPMediaType=DASH&JITPDRMType=NO"
-  },
-  {
     "name": "Cartoon Classics",
     "category": "Kids & Cartoons",
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Cartoon_Classics_1984.svg/1200px-Cartoon_Classics_1984.svg.png",
+    "logo": "https://static.wikia.nocookie.net/logopedia/images/2/2c/Cartoon_Classics.svg/revision/latest?cb=20230929014751",
     "streamUrl": "https://daiconnect.com/live/hls/tvup/rk-cartoonclassics/578f4b7eb725168349ec0af81b21d388/index.m3u8"
   },
   {
@@ -685,7 +678,7 @@
   {
     "name": "Kartoon Channel HD",
     "type": "TV",
-    "logo": "",
+    "logo": "https://www.kartoonchannel.com/themes/custom/gnb/kartoon_channel/logo.png",
     "category": "Kids & Cartoons",
     "streamUrl": "https://cdn-apse1-prod.tsv2.amagi.tv/linear/amg01076-lightningintern-kartoonchannel-samsungnz/playlist.m3u8"
   },
@@ -706,7 +699,7 @@
   {
     "name": "Kidoodle Tv",
     "type": "TV",
-    "logo": "",
+    "logo": "https://en.wikipedia.org/wiki/Special:FilePath/Kidoodle_TV_Logo.svg",
     "category": "Kids & Cartoons",
     "streamUrl": "https://amg07653-apmc-amg07653c5-samsung-ph-8539.playouts.now.amagi.tv/720p/index.m3u8"
   },
