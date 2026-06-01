@@ -49,8 +49,9 @@ Experience the platform live at: **[stream.ke1th.dev](https://stream.ke1th.dev/)
 - **Auto-Fallback** – Automatically switches to a backup source if a server fails.
 - **Ad-Blocker Friendly** – All server ads are blockable with extensions like uBlock Origin or Brave browser. A built-in disclaimer guides users on secure setup.
 
-### User Experience & Privacy
+### User Experience & Security
 - **100% Local Storage** – Watch Progress, Search History, and Watch Later lists are tracked securely via `localStorage` on your own device. Your data never touches my servers.
+- **Edge Proxy API Security** – All API requests to TMDB are routed securely through a custom Cloudflare Worker proxy, completely hiding the API key from the browser and protecting against scraping.
 - **Anonymous Ratings** – The thumbs up/down system uses temporary TMDB guest sessions to protect your privacy.
 - **Dark Mode Native** – Deep dark theme optimized for OLED displays with premium glassmorphism effects.
 
@@ -73,8 +74,8 @@ Experience the platform live at: **[stream.ke1th.dev](https://stream.ke1th.dev/)
 To run this project locally:
 
 1. Clone the repository to your machine.
-2. Open `assets/js/config.js` and input your TMDB API key.
-3. Keep your API key secure by restricting its usage to your domain in the TMDB Developer Portal.
+2. Open `assets/js/config.js` and configure your `BASE_URL`. 
+3. **(Optional)** For enhanced security, deploy a Cloudflare Worker to act as an API proxy. Inject your TMDB API key as a secret environment variable inside the Worker, and set your `BASE_URL` to point to the proxy.
 4. Open `index.html` in your browser or run a local development server.
 
 ```text
