@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport"
     content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <title>Browse - ke1th.streams v2.3.1</title>
+  <title>Browse - ke1th.streams v2.3.2</title>
 
   <!-- PWA & Favicon -->
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/imgs/apple-touch-icon.png">
@@ -19,8 +19,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
     rel="stylesheet" />
 
-  <link rel="stylesheet" href="/assets/css/home.css?v=2.3.1" />
-  <link rel="stylesheet" href="/assets/css/browse.css?v=2.3.1" />
+  <link rel="stylesheet" href="/assets/css/home.css?v=2.3.2" />
+  <link rel="stylesheet" href="/assets/css/browse.css?v=2.3.2" />
 </head>
 
 <body>
@@ -35,7 +35,8 @@
       <nav class="nav-links" aria-label="Primary navigation">
         <a href="/" class="nav-link">Home</a>
         <a href="/browse.html" class="nav-link nav-active">Browse</a>
-        <a href="/livetv.html" class="nav-link">Live TV</a>
+        <a href="/browse.html?type=anime" class="nav-link">Anime</a>
+        <a href="/livetv.html" class="nav-link">TV</a>
       </nav>
 
       <div class="topbar-actions" style="display: flex; align-items: center; gap: 16px;">
@@ -167,6 +168,21 @@
       </svg>
       <span>Browse</span>
     </button>
+    <a href="/browse.html?type=anime" class="dock-btn" aria-label="Anime" style="text-decoration: none; color: inherit;">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+      </svg>
+      <span>Anime</span>
+    </a>
+    <button class="dock-btn" type="button" id="openSearchBtnMobile" aria-label="Search">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+      <span>Search</span>
+    </button>
     <a href="/livetv.html" class="dock-btn" aria-label="Live TV" style="text-decoration: none; color: inherit;">
       <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"
         stroke-linecap="round" stroke-linejoin="round">
@@ -177,9 +193,9 @@
     </a>
   </nav>
 
-  <script src="/assets/js/config.js?v=2.3.1"></script>
-  <script src="/assets/js/tmdb.js?v=2.3.1"></script>
-  <script src="/assets/js/browse.js?v=2.3.1"></script>
+  <script src="/assets/js/config.js?v=2.3.2"></script>
+  <script src="/assets/js/tmdb.js?v=2.3.2"></script>
+  <script src="/assets/js/browse.js?v=2.3.2"></script>
 </body>
 
 </html>

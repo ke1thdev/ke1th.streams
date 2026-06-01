@@ -80,6 +80,18 @@
 
     updateHeader();
     await loadInitialData();
+
+    // Fix active nav states for anime
+    if (state.type === 'anime') {
+      const activeNavs = document.querySelectorAll(".nav-active, .dock-active");
+      activeNavs.forEach(el => el.classList.remove("nav-active", "dock-active"));
+      
+      const animeNavs = document.querySelectorAll('a[href="/browse.html?type=anime"]');
+      animeNavs.forEach(el => {
+        if (el.classList.contains("nav-link")) el.classList.add("nav-active");
+        if (el.classList.contains("dock-btn")) el.classList.add("dock-active");
+      });
+    }
   }
 
   function bindEvents() {
@@ -141,6 +153,8 @@
     }
     
     if (els.openSearchBtn) els.openSearchBtn.addEventListener("click", () => els.searchOverlay.classList.remove("hidden"));
+    const mobileSearchBtn = document.getElementById("openSearchBtnMobile");
+    if (mobileSearchBtn) mobileSearchBtn.addEventListener("click", () => els.searchOverlay.classList.remove("hidden"));
     if (els.searchCloseBtn) els.searchCloseBtn.addEventListener("click", () => els.searchOverlay.classList.add("hidden"));
   }
 

@@ -32,8 +32,7 @@
     openSearchBtn: $("#openSearchBtn"),
     playerModal: $("#playerModal"),
     trailerFrame: $("#trailerFrame"),
-    toast: $("#toast"),
-    categoryModal: $("#categoryModal")
+    toast: $("#toast")
   };
 
   const state = {
@@ -49,8 +48,7 @@
     activeServer: "videasy",
     playerIdleTimer: null,
     currentPlayback: null,
-    currentCategory: 'all',
-    categoryModalOpen: false
+    currentCategory: 'all'
   };
 
   // Genre configuration
@@ -95,8 +93,8 @@
     const genreFallbackType = category === 'tv' ? 'tv' : 'movie';
 
     return [
+      { key: 'trending_today', title: 'Trending Now', fetchFn: () => TMDB.getTrending(isAll ? 'all' : category, 'week'), fallbackType: catFallback, limit: 14, allowMixed: isAll, tileStyle: 'landscape' },
       { key: 'top10', title: 'Top 10 Today', fetchFn: () => TMDB.getTrending(isAll ? 'all' : category, 'day'), fallbackType: catFallback, limit: 10, allowMixed: isAll, tileStyle: 'poster' },
-      { key: 'trending_today', title: 'Trending Today', fetchFn: () => TMDB.getTrending(isAll ? 'all' : category, 'week'), fallbackType: catFallback, limit: 14, allowMixed: isAll, tileStyle: 'landscape' },
       { key: 'provider_dropdown', title: PROVIDER_CONFIG.defaultTitle, dropdownType: 'provider', fetchFn: () => TMDB.discoverByProvider(providerFallbackType, PROVIDER_CONFIG.defaultId), fallbackType: providerFallbackType, limit: 14, allowMixed: false, tileStyle: 'poster' },
       { key: 'top_rated', title: 'Top Rated', fetchFn: () => category === 'tv' ? TMDB.getTopRatedTV() : TMDB.getTopRatedMovies(), fallbackType: catFallback, limit: 14, allowMixed: false, tileStyle: 'landscape' },
       { key: 'genre_dropdown', title: GENRE_CONFIG.defaultGenreTitle, dropdownType: 'genre', fetchFn: () => category === 'tv' ? TMDB.discoverTV(GENRE_CONFIG.defaultGenreId) : TMDB.discoverMovies(GENRE_CONFIG.defaultGenreId), fallbackType: genreFallbackType, limit: 14, allowMixed: false, tileStyle: 'landscape' }
@@ -147,22 +145,8 @@
     // Fetch rows sequentially to avoid overwhelming the API
     const results = [];
     
-    // Inject Watch Later row if present
+    // Inject Continue Watching row if present
     if (state.currentCategory === 'all') {
-      try {
-        const watchLaterItems = JSON.parse(localStorage.getItem('watchLater')) || [];
-        if (watchLaterItems.length > 0) {
-          results.push({
-            key: 'watch_later',
-            title: 'Watch Later',
-            tileStyle: 'landscape',
-            items: watchLaterItems.slice(0, 14),
-            dropdownType: null
-          });
-        }
-      } catch(e) {}
-
-      // Inject Continue Watching row if present
       try {
         const progressData = JSON.parse(localStorage.getItem('watchProgress') || '{}');
         const sortedProgress = Object.entries(progressData)
@@ -206,6 +190,20 @@
                dropdownType: null
              });
           }
+        }
+      } catch(e) {}
+
+      // Inject Watch Later row if present
+      try {
+        const watchLaterItems = JSON.parse(localStorage.getItem('watchLater')) || [];
+        if (watchLaterItems.length > 0) {
+          results.push({
+            key: 'watch_later',
+            title: 'Watch Later',
+            tileStyle: 'landscape',
+            items: watchLaterItems.slice(0, 14),
+            dropdownType: null
+          });
         }
       } catch(e) {}
     }
@@ -342,12 +340,6 @@
       navigateTo(state.featuredType, state.featured.id);
     });
 
-    // Desktop Nav
-    const desktopCatBtn = document.getElementById("desktopCategoryBtn");
-    if (desktopCatBtn) {
-      desktopCatBtn.addEventListener("click", () => openCategoryModal());
-    }
-
     // Search
     els.openSearchBtn.addEventListener("click", () => openSearch());
     els.searchCloseBtn.addEventListener("click", () => closeSearch());
@@ -455,58 +447,12 @@
         const action = btn.dataset.nav;
         if (action === "home") window.scrollTo({ top: 0, behavior: "smooth" });
         if (action === "search") openSearch();
-        if (action === "category") openCategoryModal();
-      });
-    });
-
-    // Category Modal
-    $$(`[data-close="categoryModal"]`, els.categoryModal).forEach(el => {
-      el.addEventListener("click", () => closeCategoryModal());
-    });
-
-    $$(".cat-opt-btn", els.categoryModal).forEach(btn => {
-      btn.addEventListener("click", async (e) => {
-        const cat = e.target.dataset.cat;
-        if (cat === state.currentCategory) {
-          closeCategoryModal();
-          return;
-        }
-
-        $$(".cat-opt-btn", els.categoryModal).forEach(b => b.classList.remove("active"));
-        e.target.classList.add("active");
-        state.currentCategory = cat;
-        closeCategoryModal();
-        
-        // Show loading state and scroll up
-        window.scrollTo({ top: 0, behavior: "smooth" });
-        els.rows.innerHTML = '<p class="search-empty">Loading...</p>';
-        
-        try {
-          const rows = await fetchAllRows();
-          state.rowsData = rows;
-          renderRows(rows);
-          const heroRow = rows.find(r => 
-            r.items?.length > 0 && 
-            r.key !== 'watch_later' && 
-            r.key !== 'continue_watching'
-          ) || rows.find(r => r.items?.length > 0);
-
-          if (heroRow) {
-            state.heroItems = heroRow.items.slice(0, 10);
-            state.heroIdx = 0;
-            setFeatured(state.heroItems[0]);
-          }
-        } catch (err) {
-          console.error(err);
-          showToast("Failed to load category.");
-        }
       });
     });
 
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") {
         if (state.searchOpen) closeSearch();
-        else if (state.categoryModalOpen) closeCategoryModal();
       }
     });
 
@@ -1175,15 +1121,6 @@
     els.searchResults.innerHTML = "";
   }
 
-  function openCategoryModal() {
-    state.categoryModalOpen = true;
-    els.categoryModal?.classList.remove("hidden");
-  }
-
-  function closeCategoryModal() {
-    state.categoryModalOpen = false;
-    els.categoryModal?.classList.add("hidden");
-  }
 
   async function doSearch(query) {
     try {

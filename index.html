@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport"
     content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <title>ke1th.streams v2.3.1</title>
+  <title>ke1th.streams v2.3.2</title>
 
   <!-- PWA & Favicon -->
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/imgs/apple-touch-icon.png">
@@ -28,7 +28,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="/assets/css/home.css?v=2.3.1" />
+  <link rel="stylesheet" href="/assets/css/home.css?v=2.3.2" />
 </head>
 
 <body>
@@ -43,8 +43,8 @@
       <nav class="nav-links" aria-label="Primary navigation">
         <a href="/" class="nav-link nav-active">Home</a>
         <a href="/browse.html" class="nav-link">Browse</a>
-        <a href="/livetv.html" class="nav-link">Live TV</a>
-        <button id="desktopCategoryBtn" class="nav-link" type="button" aria-label="Category">Category</button>
+        <a href="/browse.html?type=anime" class="nav-link">Anime</a>
+        <a href="/livetv.html" class="nav-link">TV</a>
       </nav>
 
       <div class="topbar-actions" style="display: flex; align-items: center; gap: 16px;">
@@ -190,13 +190,12 @@
       </svg>
       <span>Browse</span>
     </a>
-    <a href="/livetv.html" class="dock-btn" aria-label="Live TV" style="text-decoration: none; color: inherit;">
+    <a href="/browse.html?type=anime" class="dock-btn" aria-label="Anime" style="text-decoration: none; color: inherit;">
       <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"
         stroke-linecap="round" stroke-linejoin="round">
-        <rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect>
-        <polyline points="17 2 12 7 7 2"></polyline>
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
       </svg>
-      <span>TV</span>
+      <span>Anime</span>
     </a>
     <button class="dock-btn" type="button" data-nav="search" aria-label="Search">
       <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"
@@ -206,43 +205,16 @@
       </svg>
       <span>Search</span>
     </button>
-    <button class="dock-btn" type="button" data-nav="category" aria-label="Category">
+    <a href="/livetv.html" class="dock-btn" aria-label="Live TV" style="text-decoration: none; color: inherit;">
       <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"
         stroke-linecap="round" stroke-linejoin="round">
-        <rect x="3" y="3" width="7" height="7" rx="1"></rect>
-        <rect x="14" y="3" width="7" height="7" rx="1"></rect>
-        <rect x="3" y="14" width="7" height="7" rx="1"></rect>
-        <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+        <rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect>
+        <polyline points="17 2 12 7 7 2"></polyline>
       </svg>
-      <span>Category</span>
-    </button>
+      <span>TV</span>
+    </a>
   </nav>
 
-  <!-- Category Modal -->
-  <div id="categoryModal" class="disclaimer-modal hidden">
-    <div class="disclaimer-backdrop" data-close="categoryModal"></div>
-    <div class="disclaimer-content" style="max-width: 320px;">
-      <div class="disclaimer-header">
-        <h2 class="disclaimer-title">Select Category</h2>
-        <button class="modal-close" data-close="categoryModal" type="button" aria-label="Close"
-          style="position: static; padding: 6px; margin-left: auto; display: grid;">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-          </svg>
-        </button>
-      </div>
-      <div class="disclaimer-body" style="padding: 16px;">
-        <div class="category-options" style="display: flex; flex-direction: column; gap: 8px;">
-          <button class="cat-opt-btn active" data-cat="all">All</button>
-          <button class="cat-opt-btn" data-cat="movie">Movies</button>
-          <button class="cat-opt-btn" data-cat="tv">TV Shows</button>
-          <button class="cat-opt-btn" data-cat="anime">Anime</button>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!-- Disclaimer Modal -->
   <div id="disclaimerModal" class="disclaimer-modal hidden">
@@ -282,9 +254,9 @@
     </div>
   </div>
 
-  <script src="/assets/js/config.js?v=2.3.1"></script>
-  <script src="/assets/js/tmdb.js?v=2.3.1"></script>
-  <script src="/assets/js/home.js?v=2.3.1"></script>
+  <script src="/assets/js/config.js?v=2.3.2"></script>
+  <script src="/assets/js/tmdb.js?v=2.3.2"></script>
+  <script src="/assets/js/home.js?v=2.3.2"></script>
 
   <!-- Disclaimer modal logic -->
   <script>
