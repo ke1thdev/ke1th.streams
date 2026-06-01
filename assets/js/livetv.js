@@ -196,8 +196,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const logoUrl = ch.logo || fallbackLogo;
         
         card.innerHTML = `
-          <div class="card-img-wrap" style="aspect-ratio: 16/9; background: #ffffff;">
-            <img class="card-image" src="${logoUrl}" alt="${ch.name}" loading="lazy" style="object-fit: contain; padding: 16px; background: #ffffff;" onerror="if(this.src!=='${fallbackLogo}')this.src='${fallbackLogo}';">
+          <div class="card-img-wrap" style="aspect-ratio: 16/9; background: #F5F5F5;">
+            <img class="card-image" src="${logoUrl}" alt="${ch.name}" loading="lazy" style="object-fit: contain; padding: 16px; background: #F5F5F5;" onerror="if(this.src!=='${fallbackLogo}')this.src='${fallbackLogo}';">
             <div class="card-overlay" style="justify-content: center; align-items: center; background: rgba(0,0,0,0.3);">
               <svg viewBox="0 0 24 24" width="48" height="48" fill="white"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
             </div>
