@@ -62,11 +62,11 @@ document.addEventListener('DOMContentLoaded', () => {
           // Adult Swim is 6:00 AM to 7:00 PM PHT
           if (phtHour >= 6 && phtHour < 19) {
             name = "Adult Swim";
-            logo = "https://hipfonts.com/wp-content/uploads/2022/02/adult-swim-logo.jpg";
+            logo = "https://en.wikipedia.org/wiki/Special:FilePath/Adult_Swim_2003_logo.svg";
           } else {
             // Cartoon Network is 7:00 PM to 6:00 AM PHT
             name = "Cartoon Network";
-            logo = "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Cartoon_Network_2010_logo.svg/1200px-Cartoon_Network_2010_logo.svg.png";
+            logo = "https://en.wikipedia.org/wiki/Special:FilePath/Cartoon_Network_2010_logo.svg";
           }
         }
 
