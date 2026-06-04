@@ -193,16 +193,33 @@
 
     // Share button
     if (els.shareBtn) {
-      els.shareBtn.addEventListener("click", () => {
+      els.shareBtn.addEventListener("click", async () => {
         let url = `https://stream.ke1th.dev/media.html?type=${type}&id=${id}`;
         if (isAnimeMode && animeMalId > 0) {
           url += `&anime=1&malId=${animeMalId}`;
         }
-        navigator.clipboard.writeText(url).then(() => {
-          showToast("Link copied to clipboard!");
-        }).catch(() => {
-          showToast("Failed to copy link.");
-        });
+        
+        const shareTitle = state.details ? (state.details.title || state.details.name) : "ke1th.streams";
+        const shareData = {
+          title: shareTitle,
+          text: `Watch ${shareTitle} on ke1th.streams!`,
+          url: url
+        };
+
+        if (navigator.share) {
+          try {
+            await navigator.share(shareData);
+          } catch (err) {
+            // User likely cancelled the share; do nothing
+          }
+        } else {
+          // Fallback for browsers that do not support Web Share API
+          navigator.clipboard.writeText(url).then(() => {
+            showToast("Link copied to clipboard!");
+          }).catch(() => {
+            showToast("Failed to copy link.");
+          });
+        }
       });
     }
 
