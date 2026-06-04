@@ -304,6 +304,27 @@
       els.episodesBtn.classList.remove("hidden");
       setupEpisodes(details);
     }
+    
+    // Update Page Title and Meta Tags for browsers
+    document.title = `${title} (${year}) - ke1th.streams`;
+    
+    const metaTitle = document.querySelector('meta[property="og:title"]');
+    if (metaTitle) metaTitle.content = `${title} - ke1th.streams`;
+    
+    const metaDesc = document.querySelector('meta[property="og:description"]');
+    if (metaDesc && details.overview) metaDesc.content = details.overview;
+    
+    const metaImg = document.querySelector('meta[property="og:image"]');
+    if (metaImg && backdrop) metaImg.content = `${TMDB_BACKDROP}${backdrop}`;
+    
+    const twitterTitle = document.querySelector('meta[name="twitter:title"]');
+    if (twitterTitle) twitterTitle.content = `${title} - ke1th.streams`;
+    
+    const twitterDesc = document.querySelector('meta[name="twitter:description"]');
+    if (twitterDesc && details.overview) twitterDesc.content = details.overview;
+    
+    const twitterImg = document.querySelector('meta[name="twitter:image"]');
+    if (twitterImg && backdrop) twitterImg.content = `${TMDB_BACKDROP}${backdrop}`;
   }
 
   function renderHeroTrailer() {
