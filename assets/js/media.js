@@ -194,7 +194,7 @@
     // Share button
     if (els.shareBtn) {
       els.shareBtn.addEventListener("click", async () => {
-        let url = `https://stream.ke1th.dev/media.html?type=${type}&id=${id}`;
+        let url = `https://stream.ke1th.dev/media?type=${type}&id=${id}`;
         if (isAnimeMode && animeMalId > 0) {
           url += `&anime=1&malId=${animeMalId}`;
         }
