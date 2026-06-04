@@ -9,7 +9,7 @@ const TMDB = (() => {
   const API_KEY = config.API_KEY || '';
   const BASE_URL = config.BASE_URL || 'https://api.themoviedb.org/3';
   const LANGUAGE = config.LANGUAGE || 'en-US';
-  const WATCH_REGION = config.WATCH_REGION || 'US';
+  const WATCH_REGION = config.WATCH_REGION || 'PH';
 
   /**
    * Make a GET request to TMDB API

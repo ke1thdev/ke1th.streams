@@ -290,7 +290,7 @@
       
       if (state.provider && state.provider !== "all") {
           params.with_watch_providers = state.provider;
-          params.watch_region = "US";
+          params.watch_region = "PH";
       }
 
       if (state.type === "anime") {
