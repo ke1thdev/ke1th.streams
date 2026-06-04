@@ -58,6 +58,7 @@
     episodesBtn: $("#episodesBtn"),
     similarBtn: $("#similarBtn"),
     watchLaterBtn: $("#watchLaterBtn"),
+    shareBtn: $("#shareBtn"),
     thumbsUpBtn: $("#thumbsUpBtn"),
     thumbsDownBtn: $("#thumbsDownBtn"),
     backBtn: $("#backBtn"),
@@ -187,6 +188,21 @@
         }
         localStorage.setItem('watchLater', JSON.stringify(list));
         updateWatchLaterBtn();
+      });
+    }
+
+    // Share button
+    if (els.shareBtn) {
+      els.shareBtn.addEventListener("click", () => {
+        let url = `https://stream.ke1th.dev/media.html?type=${type}&id=${id}`;
+        if (isAnimeMode && animeMalId > 0) {
+          url += `&anime=1&malId=${animeMalId}`;
+        }
+        navigator.clipboard.writeText(url).then(() => {
+          showToast("Link copied to clipboard!");
+        }).catch(() => {
+          showToast("Failed to copy link.");
+        });
       });
     }
 
