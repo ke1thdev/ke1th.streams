@@ -200,8 +200,10 @@
         }
         
         const shareTitle = state.details ? (state.details.title || state.details.name) : "ke1th.streams";
+        const shareDesc = state.details ? state.details.overview : "";
         const shareData = {
           title: shareTitle,
+          text: shareDesc,
           url: url
         };
 
