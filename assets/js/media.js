@@ -202,7 +202,7 @@
         const shareTitle = state.details ? (state.details.title || state.details.name) : "ke1th.streams";
         const shareData = {
           title: shareTitle,
-          text: `Watch ${shareTitle} on ke1th.streams!\n\n${url}`
+          url: url
         };
 
         if (navigator.share) {
