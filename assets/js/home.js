@@ -1168,7 +1168,7 @@
         const overview = item.overview || "No description available.";
 
         return `
-          <div class="search-item" data-id="${item.id}" data-type="${item.media_type}">
+          <div class="search-item" data-id="${item.id}" data-type="${item.media_type}" data-title="${esc(title)}">
             <div class="search-item-header">
               <img class="search-item-poster" src="${poster}" alt="${esc(title)}" loading="lazy" />
               <div class="search-item-info">
@@ -1207,15 +1207,18 @@
 
         const id = Number(item.dataset.id);
         const type = item.dataset.type;
+        const title = item.dataset.title;
 
         item.querySelector('.search-play-btn')?.addEventListener("click", (e) => {
           e.stopPropagation();
+          if (title) saveRecentSearch(title);
           closeSearch();
           openPlayer(type, id);
         });
 
         item.querySelector('.search-more-btn')?.addEventListener("click", (e) => {
           e.stopPropagation();
+          if (title) saveRecentSearch(title);
           closeSearch();
           navigateTo(type, id);
         });
