@@ -257,6 +257,7 @@ const TMDB = (() => {
         without_companies,
         without_keywords,
         'first_air_date.lte': today,
+        'vote_count.gte': sortBy.includes('date') ? 1 : 0,
         page
       });
     }
@@ -270,6 +271,7 @@ const TMDB = (() => {
         without_companies,
         without_keywords,
         'primary_release_date.lte': today,
+        'vote_count.gte': sortBy.includes('date') ? 1 : 0,
         page
       });
     }
@@ -282,7 +284,10 @@ const TMDB = (() => {
     if (sortBy === 'popularity.desc') {
       combined.sort((a, b) => (b.popularity || 0) - (a.popularity || 0));
     } else if (sortBy === 'primary_release_date.desc') {
-      const getDate = (item) => new Date(item.release_date || item.first_air_date || 0).getTime();
+      const getDate = (item) => {
+        const d = item.release_date || item.first_air_date;
+        return d ? new Date(d).getTime() : 0;
+      };
       combined.sort((a, b) => getDate(b) - getDate(a));
     }
 
