@@ -93,14 +93,17 @@
     const genreFallbackType = category === 'tv' ? 'tv' : 'movie';
 
     return [
-      { key: 'trending_today', title: 'Trending Now', fetchFn: () => TMDB.getTrending(isAll ? 'all' : category, 'week'), fallbackType: catFallback, limit: 14, allowMixed: isAll, tileStyle: 'landscape' },
+      { key: 'trending_today', title: 'Trending Now', fetchFn: () => TMDB.getTrending(isAll ? 'all' : category, 'week'), fallbackType: catFallback, limit: 14, allowMixed: isAll, tileStyle: 'poster' },
       { key: 'top10', title: 'Top 10 Today', fetchFn: () => TMDB.getTrending(isAll ? 'all' : category, 'day'), fallbackType: catFallback, limit: 10, allowMixed: isAll, tileStyle: 'poster' },
-      { key: 'new_ph', title: 'New Filipino Releases', fetchFn: () => TMDB.discoverFilipino('primary_release_date.desc', 1, isAll ? 'all' : category), fallbackType: catFallback, limit: 14, allowMixed: true, tileStyle: 'landscape' },
-      { key: 'made_in_ph', title: 'Popular in the Philippines', fetchFn: () => TMDB.discoverFilipino('popularity.desc', 1, isAll ? 'all' : category), fallbackType: catFallback, limit: 14, allowMixed: true, tileStyle: 'landscape' },
-      { key: 'top_ph', title: 'Top Rated Filipino', fetchFn: () => TMDB.discoverFilipino('vote_average.desc', 1, isAll ? 'all' : category), fallbackType: catFallback, limit: 14, allowMixed: true, tileStyle: 'landscape' },
-      { key: 'provider_dropdown', title: PROVIDER_CONFIG.defaultTitle, dropdownType: 'provider', fetchFn: () => TMDB.discoverByProvider(providerFallbackType, PROVIDER_CONFIG.defaultId), fallbackType: providerFallbackType, limit: 14, allowMixed: false, tileStyle: 'poster' },
-      { key: 'top_rated', title: 'Top Rated', fetchFn: () => category === 'tv' ? TMDB.getTopRatedTV() : TMDB.getTopRatedMovies(), fallbackType: catFallback, limit: 14, allowMixed: false, tileStyle: 'landscape' },
-      { key: 'genre_dropdown', title: GENRE_CONFIG.defaultGenreTitle, dropdownType: 'genre', fetchFn: () => category === 'tv' ? TMDB.discoverTV(GENRE_CONFIG.defaultGenreId) : TMDB.discoverMovies(GENRE_CONFIG.defaultGenreId), fallbackType: genreFallbackType, limit: 14, allowMixed: false, tileStyle: 'landscape' }
+      { key: 'new_global', title: 'New Releases', fetchFn: () => category === 'tv' ? TMDB.discoverTV('', 1, 'first_air_date.desc') : TMDB.discoverMovies('', 1, 'primary_release_date.desc'), fallbackType: catFallback, limit: 14, allowMixed: false, tileStyle: 'poster' },
+      { key: 'made_in_ph', title: 'Popular in the Philippines', fetchFn: () => TMDB.discoverFilipino('popularity.desc', 1, isAll ? 'all' : category), fallbackType: catFallback, limit: 14, allowMixed: true, tileStyle: 'poster' },
+      { key: 'new_ph', title: 'New Filipino Releases', fetchFn: () => TMDB.discoverFilipino('primary_release_date.desc', 1, isAll ? 'all' : category), fallbackType: catFallback, limit: 14, allowMixed: true, tileStyle: 'poster' },
+      { key: 'top_ph', title: 'Top Rated Filipino', fetchFn: () => TMDB.discoverFilipino('vote_average.desc', 1, isAll ? 'all' : category), fallbackType: catFallback, limit: 14, allowMixed: true, tileStyle: 'poster' },
+      { key: 'action', title: 'Action & Adventure', fetchFn: () => category === 'tv' ? TMDB.discoverTV(10759) : TMDB.discoverMovies(28), fallbackType: catFallback, limit: 14, allowMixed: false, tileStyle: 'poster' },
+      { key: 'comedy', title: 'Comedies', fetchFn: () => category === 'tv' ? TMDB.discoverTV(35) : TMDB.discoverMovies(35), fallbackType: catFallback, limit: 14, allowMixed: false, tileStyle: 'poster' },
+      { key: 'scifi', title: 'Sci-Fi & Fantasy', fetchFn: () => category === 'tv' ? TMDB.discoverTV(10765) : TMDB.discoverMovies(878), fallbackType: catFallback, limit: 14, allowMixed: false, tileStyle: 'poster' },
+      { key: 'top_rated', title: 'Critically Acclaimed', fetchFn: () => category === 'tv' ? TMDB.getTopRatedTV() : TMDB.getTopRatedMovies(), fallbackType: catFallback, limit: 14, allowMixed: false, tileStyle: 'poster' },
+      { key: 'provider_dropdown', title: PROVIDER_CONFIG.defaultTitle, dropdownType: 'provider', fetchFn: () => TMDB.discoverByProvider(providerFallbackType, PROVIDER_CONFIG.defaultId), fallbackType: providerFallbackType, limit: 14, allowMixed: false, tileStyle: 'poster' }
     ];
   }
 
@@ -788,7 +791,7 @@
   }
 
   function shouldShowTabs(key) {
-    return key.includes("trending") || key.includes("ph") || key === "top_rated" || key === "genre_dropdown" || key === "provider_dropdown";
+    return key.includes("trending") || key.includes("ph") || key === "new_global" || key === "top_rated" || key === "action" || key === "comedy" || key === "scifi" || key === "provider_dropdown";
   }
 
   function buildTabs(rowKey) {
@@ -860,6 +863,14 @@
           data = await TMDB.discoverFilipino('primary_release_date.desc', 1, targetTab);
         } else if (rowKey === "top_ph") {
           data = await TMDB.discoverFilipino('vote_average.desc', 1, targetTab);
+        } else if (rowKey === "new_global") {
+          data = targetTab === "tv" ? await TMDB.discoverTV('', 1, 'first_air_date.desc') : await TMDB.discoverMovies('', 1, 'primary_release_date.desc');
+        } else if (rowKey === "action") {
+          data = targetTab === "tv" ? await TMDB.discoverTV(10759) : await TMDB.discoverMovies(28);
+        } else if (rowKey === "comedy") {
+          data = targetTab === "tv" ? await TMDB.discoverTV(35) : await TMDB.discoverMovies(35);
+        } else if (rowKey === "scifi") {
+          data = targetTab === "tv" ? await TMDB.discoverTV(10765) : await TMDB.discoverMovies(878);
         } else {
           data = targetTab === "tv"
             ? await TMDB.getTrending('tv', 'week')
