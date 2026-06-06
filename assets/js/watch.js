@@ -239,7 +239,7 @@
       const messageTimeoutId = setTimeout(() => {
         window.removeEventListener('message', messageListener);
         triggerFallback('timeout_no_message');
-      }, 6000); // 6 seconds wait for player to initialize
+      }, 3500); // 3.5 seconds wait for player to initialize
 
       messageListener = (event) => {
         if (event.origin === serverOrigin) {
@@ -270,10 +270,6 @@
     } catch (err) {}
 
     const searchParams = new URLSearchParams();
-    
-    // Aesthetic UI tweaks based on Vidnest Docs
-    searchParams.set('servericon', 'hide');
-    searchParams.set('topcaption', 'false');
 
     if (type === "tv" || type === "anime") {
       if (progressParam) searchParams.set('progress', progressParam);
