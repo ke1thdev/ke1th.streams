@@ -252,7 +252,7 @@
         window.removeEventListener('message', messageListener);
         if (pingInterval) clearInterval(pingInterval);
         triggerFallback('timeout_no_message');
-      }, 6000); // 6 seconds wait for player to initialize
+      }, 8000); // 8 seconds wait for player to initialize to be ultra-safe for all devices
 
       // Actively ask Vidfast for its status since it might not send events if autoplay is blocked
       if (state.activeServer === 'vidfast') {
