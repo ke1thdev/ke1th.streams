@@ -174,6 +174,8 @@ const TMDB = (() => {
       sort_by: sortBy,
       include_adult: false,
       'primary_release_date.lte': today,
+      'vote_count.gte': 1,
+      'vote_average.gte': 0.1,
       page
     });
   }
@@ -188,6 +190,8 @@ const TMDB = (() => {
       sort_by: sortBy,
       include_adult: false,
       'first_air_date.lte': today,
+      'vote_count.gte': 1,
+      'vote_average.gte': 0.1,
       page
     });
   }
@@ -204,6 +208,8 @@ const TMDB = (() => {
       sort_by: 'popularity.desc',
       include_adult: false,
       [dateParam]: today,
+      'vote_count.gte': 1,
+      'vote_average.gte': 0.1,
       page
     });
   }
@@ -218,6 +224,8 @@ const TMDB = (() => {
         with_original_language: 'ja',
         sort_by: 'popularity.desc',
         include_adult: false,
+        'vote_count.gte': 1,
+        'vote_average.gte': 0.1,
         page
       }),
       get('/discover/movie', {
@@ -225,6 +233,8 @@ const TMDB = (() => {
         with_original_language: 'ja',
         sort_by: 'popularity.desc',
         include_adult: false,
+        'vote_count.gte': 1,
+        'vote_average.gte': 0.1,
         page
       })
     ]);
@@ -257,7 +267,8 @@ const TMDB = (() => {
         without_companies,
         without_keywords,
         'first_air_date.lte': today,
-        'vote_count.gte': sortBy.includes('date') ? 1 : 0,
+        'vote_count.gte': 1,
+        'vote_average.gte': 0.1,
         page
       });
     }
@@ -271,7 +282,8 @@ const TMDB = (() => {
         without_companies,
         without_keywords,
         'primary_release_date.lte': today,
-        'vote_count.gte': sortBy.includes('date') ? 1 : 0,
+        'vote_count.gte': 1,
+        'vote_average.gte': 0.1,
         page
       });
     }
