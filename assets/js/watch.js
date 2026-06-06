@@ -22,7 +22,7 @@
     episode,
     malId,
     isAnime,
-    activeServer: localStorage.getItem('preferredServer') || 'peachify'
+    activeServer: localStorage.getItem('preferredServer') || 'vixsrc'
   };
 
   function init() {
@@ -213,21 +213,21 @@
     const src = buildServerUrl(state.activeServer, playbackType, playbackId, state.season, state.episode);
     els.videoFrame.src = src;
 
-    // Cascade Fallback logic (Server 1 -> Server 2 -> Server 3 -> Server 4)
+    // Cascade Fallback logic
     let fallbackTarget = null;
     let fallbackName = "";
 
-    if (state.activeServer === "peachify") {
-      fallbackTarget = "vixsrc";
-      fallbackName = "Server 2";
-    } else if (state.activeServer === "vixsrc") {
+    if (state.activeServer === "vixsrc") {
       fallbackTarget = "vidnest";
-      fallbackName = "Server 3";
+      fallbackName = "Server 2";
     } else if (state.activeServer === "vidnest") {
-      fallbackTarget = "videasy";
-      fallbackName = "Server 4";
-    } else if (state.activeServer === "videasy") {
       fallbackTarget = "vidfast";
+      fallbackName = "Server 3";
+    } else if (state.activeServer === "vidfast") {
+      fallbackTarget = "peachify";
+      fallbackName = "Server 4";
+    } else if (state.activeServer === "peachify") {
+      fallbackTarget = "videasy";
       fallbackName = "Server 5";
     }
 
