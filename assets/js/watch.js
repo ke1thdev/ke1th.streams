@@ -208,7 +208,6 @@
         console.warn(`Server 1 fallback triggered: ${reason}`);
         state.activeServer = "vidnest";
         els.serverSelect.value = "vidnest";
-        localStorage.setItem('preferredServer', state.activeServer); // Remember fallback choice
         showToast("Server 1 unavailable. Automatically switched to Server 2.");
         loadPlayer();
       };
