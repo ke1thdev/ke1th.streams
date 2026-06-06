@@ -228,7 +228,7 @@
       // 1. Network check (detects DNS errors, complete blockages)
       const serverOrigin = new URL(src).origin;
       const controller = new AbortController();
-      const networkTimeoutId = setTimeout(() => controller.abort(), 6000);
+      const networkTimeoutId = setTimeout(() => controller.abort(), 3000);
       
       fetch(serverOrigin, { mode: 'no-cors', signal: controller.signal })
         .then(() => clearTimeout(networkTimeoutId))
@@ -239,7 +239,7 @@
       const messageTimeoutId = setTimeout(() => {
         window.removeEventListener('message', messageListener);
         triggerFallback('timeout_no_message');
-      }, 12000); // 12 seconds wait for player to initialize
+      }, 6000); // 6 seconds wait for player to initialize
 
       messageListener = (event) => {
         if (event.origin === serverOrigin) {
