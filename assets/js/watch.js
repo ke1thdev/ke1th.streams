@@ -22,7 +22,7 @@
     episode,
     malId,
     isAnime,
-    activeServer: localStorage.getItem('preferredServer') || 'vidfast'
+    activeServer: localStorage.getItem('preferredServer') || 'vidnest'
   };
 
   function init() {
@@ -216,11 +216,11 @@
     let fallbackTarget = null;
     let fallbackName = "";
 
-    if (state.activeServer === "vidfast") {
+    if (state.activeServer === "vidnest") {
       fallbackTarget = "videasy";
       fallbackName = "Server 2";
     } else if (state.activeServer === "videasy") {
-      fallbackTarget = "vidnest";
+      fallbackTarget = "vidfast";
       fallbackName = "Server 3";
     }
 
