@@ -102,16 +102,16 @@ function showInstallPromotion() {
   if (!document.getElementById('pwa-anim')) {
       const anim = document.createElement('style');
       anim.id = 'pwa-anim';
-      anim.textContent = \`
+      anim.textContent = `
         @keyframes slideUpPwa {
             from { bottom: -100px; opacity: 0; }
             to { bottom: 20px; opacity: 1; }
         }
-      \`;
+      `;
       document.head.appendChild(anim);
   }
 
-  banner.innerHTML = \`
+  banner.innerHTML = `
     <div style="display:flex; align-items:center; gap:10px;">
         <img src="/assets/imgs/android-chrome-192x192.png" style="width:32px; height:32px; border-radius:6px;" />
         <div style="display:flex; flex-direction:column;">
@@ -121,7 +121,7 @@ function showInstallPromotion() {
     </div>
     <button id="pwa-install-btn" style="background:#e50914; color:white; border:none; padding:8px 16px; border-radius:20px; cursor:pointer; font-weight:600; font-size:0.85rem; margin-left: 5px;">Install</button>
     <button id="pwa-close-btn" style="background:transparent; border:none; color:#888; font-size:1.4rem; cursor:pointer; padding:0 5px;">&times;</button>
-  \`;
+  `;
 
   document.body.appendChild(banner);
 
