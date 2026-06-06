@@ -60,3 +60,82 @@ document.addEventListener('keydown', (e) => {
     }
   }
 });
+
+// PWA Install Prompt Logic
+let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  // Prevent the mini-infobar from appearing on mobile
+  e.preventDefault();
+  // Stash the event so it can be triggered later.
+  deferredPrompt = e;
+  // Update UI notify the user they can install the PWA
+  showInstallPromotion();
+});
+
+function showInstallPromotion() {
+  if (document.getElementById('pwa-install-banner')) return;
+
+  const banner = document.createElement('div');
+  banner.id = 'pwa-install-banner';
+  banner.style.cssText = `
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(20, 20, 20, 0.95);
+    border: 1px solid #333;
+    padding: 12px 20px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    z-index: 999999;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    color: white;
+    font-size: 0.9rem;
+    font-family: inherit;
+    animation: slideUpPwa 0.5s ease-out forwards;
+    white-space: nowrap;
+  `;
+  
+  if (!document.getElementById('pwa-anim')) {
+      const anim = document.createElement('style');
+      anim.id = 'pwa-anim';
+      anim.textContent = \`
+        @keyframes slideUpPwa {
+            from { bottom: -100px; opacity: 0; }
+            to { bottom: 20px; opacity: 1; }
+        }
+      \`;
+      document.head.appendChild(anim);
+  }
+
+  banner.innerHTML = \`
+    <div style="display:flex; align-items:center; gap:10px;">
+        <img src="/assets/imgs/android-chrome-192x192.png" style="width:32px; height:32px; border-radius:6px;" />
+        <div style="display:flex; flex-direction:column;">
+            <span style="font-weight:600; color:#fff;">Install App</span>
+            <span style="font-size:0.75rem; color:#aaa;">Add to Home Screen</span>
+        </div>
+    </div>
+    <button id="pwa-install-btn" style="background:#e50914; color:white; border:none; padding:8px 16px; border-radius:20px; cursor:pointer; font-weight:600; font-size:0.85rem; margin-left: 5px;">Install</button>
+    <button id="pwa-close-btn" style="background:transparent; border:none; color:#888; font-size:1.4rem; cursor:pointer; padding:0 5px;">&times;</button>
+  \`;
+
+  document.body.appendChild(banner);
+
+  document.getElementById('pwa-install-btn').addEventListener('click', async () => {
+    banner.style.display = 'none';
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      deferredPrompt = null;
+    }
+  });
+
+  document.getElementById('pwa-close-btn').addEventListener('click', () => {
+    banner.style.display = 'none';
+  });
+}
+
