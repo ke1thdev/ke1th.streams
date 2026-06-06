@@ -168,10 +168,12 @@ const TMDB = (() => {
    * Discover movies by genre
    */
   async function discoverMovies(genreId, page = 1, sortBy = 'popularity.desc') {
+    const today = new Date().toISOString().split('T')[0];
     return get('/discover/movie', {
       with_genres: genreId,
       sort_by: sortBy,
       include_adult: false,
+      'primary_release_date.lte': today,
       page
     });
   }
@@ -180,10 +182,12 @@ const TMDB = (() => {
    * Discover TV shows by genre
    */
   async function discoverTV(genreId, page = 1, sortBy = 'popularity.desc') {
+    const today = new Date().toISOString().split('T')[0];
     return get('/discover/tv', {
       with_genres: genreId,
       sort_by: sortBy,
       include_adult: false,
+      'first_air_date.lte': today,
       page
     });
   }
@@ -192,11 +196,14 @@ const TMDB = (() => {
    * Discover media by watch provider
    */
   async function discoverByProvider(mediaType, providerId, page = 1) {
+    const today = new Date().toISOString().split('T')[0];
+    const dateParam = mediaType === 'tv' ? 'first_air_date.lte' : 'primary_release_date.lte';
     return get(`/discover/${mediaType}`, {
       with_watch_providers: providerId,
       watch_region: WATCH_REGION,
       sort_by: 'popularity.desc',
       include_adult: false,
+      [dateParam]: today,
       page
     });
   }
@@ -236,6 +243,7 @@ const TMDB = (() => {
   async function discoverFilipino(sortBy = 'popularity.desc', page = 1) {
     const without_companies = '149142|173083'; // Vivamax & Vivamax Original Series
     const without_keywords = '325693|155477'; // erotica & softcore
+    const today = new Date().toISOString().split('T')[0];
 
     const [tvData, movieData] = await Promise.all([
       get('/discover/tv', {
@@ -245,6 +253,7 @@ const TMDB = (() => {
         include_adult: false,
         without_companies,
         without_keywords,
+        'first_air_date.lte': today,
         page
       }),
       get('/discover/movie', {
@@ -254,6 +263,7 @@ const TMDB = (() => {
         include_adult: false,
         without_companies,
         without_keywords,
+        'primary_release_date.lte': today,
         page
       })
     ]);

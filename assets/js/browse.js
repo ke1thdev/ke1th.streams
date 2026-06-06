@@ -277,6 +277,7 @@
     if (els.loader) els.loader.classList.remove("hidden");
     
     try {
+      const today = new Date().toISOString().split('T')[0];
       const params = {
           page: state.page,
           sort_by: "popularity.desc",
@@ -302,6 +303,12 @@
           endpointType = "tv";
           params.with_genres = params.with_genres ? params.with_genres + ",16" : 16;
           params.with_original_language = "ja";
+      }
+
+      if (endpointType === "tv") {
+          params['first_air_date.lte'] = today;
+      } else {
+          params['primary_release_date.lte'] = today;
       }
 
       const data = await TMDB.discoverAdvanced(endpointType, params);
