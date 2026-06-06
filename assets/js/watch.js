@@ -334,7 +334,7 @@
     searchParams.set('sub', 'en');
     searchParams.set('poster', 'true');
     searchParams.set('title', 'true');
-    searchParams.set('autoPlay', 'true');
+    searchParams.set('autoPlay', 'false');
 
     if (progressParam) searchParams.set('startAt', progressParam);
     
@@ -477,7 +477,7 @@
       }
     } catch (err) {}
 
-    const params = `?color=e50914&nextEpisode=true&autoplayNextEpisode=true&episodeSelector=true&overlay=true&autoplay=1&autoPlay=true&playsinline=1&playsInline=true${progressParam}`;
+    const params = `?color=e50914&nextEpisode=true&autoplayNextEpisode=true&episodeSelector=true&overlay=true&autoplay=0&autoPlay=false&playsinline=1&playsInline=true${progressParam}`;
 
     if (type === "tv") {
       return `https://player.videasy.net/tv/${id}/${season}/${episode}${params}`;
