@@ -22,7 +22,7 @@
     episode,
     malId,
     isAnime,
-    activeServer: localStorage.getItem('preferredServer') || 'videasy'
+    activeServer: localStorage.getItem('preferredServer') || 'vidfast'
   };
 
   function init() {
@@ -212,20 +212,31 @@
     const src = buildServerUrl(state.activeServer, playbackType, playbackId, state.season, state.episode);
     els.videoFrame.src = src;
 
-    // Fallback logic for Default Server (videasy)
-    if (state.activeServer === "videasy") {
+    // Cascade Fallback logic (Server 1 -> Server 2 -> Server 3)
+    let fallbackTarget = null;
+    let fallbackName = "";
+
+    if (state.activeServer === "vidfast") {
+      fallbackTarget = "videasy";
+      fallbackName = "Server 2";
+    } else if (state.activeServer === "videasy") {
+      fallbackTarget = "vidnest";
+      fallbackName = "Server 3";
+    }
+
+    if (fallbackTarget) {
       let fallbackTriggered = false;
       const triggerFallback = (reason) => {
-        if (fallbackTriggered || state.activeServer !== "videasy") return;
+        // Prevent double trigger or triggering if user manually switched already
+        if (fallbackTriggered || state.activeServer === fallbackTarget || els.serverSelect.value !== state.activeServer) return;
         fallbackTriggered = true;
-        console.warn(`Server 1 fallback triggered: ${reason}`);
-        state.activeServer = "vidnest";
-        els.serverSelect.value = "vidnest";
-        showToast("Server 1 unavailable. Automatically switched to Server 2.");
+        console.warn(`${state.activeServer} fallback triggered: ${reason}`);
+        state.activeServer = fallbackTarget;
+        els.serverSelect.value = fallbackTarget;
+        showToast(`Server unavailable. Switched to ${fallbackName}.`);
         loadPlayer();
       };
 
-      // 1. Network check (detects DNS errors, complete blockages)
       const serverOrigin = new URL(src).origin;
       const controller = new AbortController();
       const networkTimeoutId = setTimeout(() => controller.abort(), 3000);
@@ -234,7 +245,6 @@
         .then(() => clearTimeout(networkTimeoutId))
         .catch(() => triggerFallback('network_error'));
 
-      // 2. Message timeout (detects HTTP 500/404, or broken player)
       let messageListener;
       const messageTimeoutId = setTimeout(() => {
         window.removeEventListener('message', messageListener);
@@ -252,10 +262,42 @@
   }
 
   function buildServerUrl(server, type, id, season, episode) {
-    if (server === 'vidnest') {
-      return buildVidnestUrl(type, id, season, episode);
-    }
+    if (server === 'vidfast') return buildVidfastUrl(type, id, season, episode);
+    if (server === 'vidnest') return buildVidnestUrl(type, id, season, episode);
     return buildVideasyUrl(type, id, season, episode);
+  }
+
+  function buildVidfastUrl(type, id, season, episode) {
+    let progressParam = null;
+    try {
+      const progressData = JSON.parse(localStorage.getItem('watchProgress') || '{}');
+      const isAnimeKey = type === 'anime';
+      const key = `${type}_${id}${type === 'tv' || isAnimeKey ? `_${season}_${episode}` : ''}`;
+      if (progressData[key] && progressData[key].currentTime) {
+        progressParam = Math.floor(progressData[key].currentTime);
+      }
+    } catch (err) {}
+
+    const searchParams = new URLSearchParams();
+    searchParams.set('theme', 'e50914');
+    searchParams.set('sub', 'en');
+    searchParams.set('autoPlay', 'true');
+    searchParams.set('fullscreenButton', 'true');
+    searchParams.set('poster', 'true');
+    searchParams.set('title', 'true');
+    searchParams.set('chromecast', 'true');
+
+    if (type === "tv" || type === "anime") {
+      if (progressParam) searchParams.set('startAt', progressParam);
+      searchParams.set('nextButton', 'true');
+      searchParams.set('autoNext', 'true');
+      return `https://vidfast.pro/tv/${id}/${season}/${episode}?${searchParams.toString()}`;
+    }
+    if (type === "movie") {
+      if (progressParam) searchParams.set('startAt', progressParam);
+      return `https://vidfast.pro/movie/${id}?${searchParams.toString()}`;
+    }
+    return "";
   }
 
   function buildVidnestUrl(type, id, season, episode) {
