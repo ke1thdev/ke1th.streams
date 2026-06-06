@@ -308,10 +308,8 @@
 
     const searchParams = new URLSearchParams();
     searchParams.set('primaryColor', 'e50914');
-    searchParams.set('lang', 'en');
-    searchParams.set('sub', 'en');
-    searchParams.set('title', 'true');
-    searchParams.set('poster', 'true');
+    searchParams.set('lang', 'eng');
+    searchParams.set('sub', 'eng');
     searchParams.set('autoplay', 'false');
 
     if (type === "tv" || type === "anime") {
