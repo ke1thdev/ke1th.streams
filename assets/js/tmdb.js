@@ -234,12 +234,17 @@ const TMDB = (() => {
    * Discover Filipino content (Tagalog original language)
    */
   async function discoverFilipino(sortBy = 'popularity.desc', page = 1) {
+    const without_companies = '149142|173083'; // Vivamax & Vivamax Original Series
+    const without_keywords = '325693|155477'; // erotica & softcore
+
     const [tvData, movieData] = await Promise.all([
       get('/discover/tv', {
         with_original_language: 'tl',
         watch_region: WATCH_REGION,
         sort_by: sortBy,
         include_adult: false,
+        without_companies,
+        without_keywords,
         page
       }),
       get('/discover/movie', {
@@ -247,6 +252,8 @@ const TMDB = (() => {
         watch_region: WATCH_REGION,
         sort_by: sortBy,
         include_adult: false,
+        without_companies,
+        without_keywords,
         page
       })
     ]);
