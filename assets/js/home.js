@@ -95,7 +95,9 @@
     return [
       { key: 'trending_today', title: 'Trending Now', fetchFn: () => TMDB.getTrending(isAll ? 'all' : category, 'week'), fallbackType: catFallback, limit: 14, allowMixed: isAll, tileStyle: 'landscape' },
       { key: 'top10', title: 'Top 10 Today', fetchFn: () => TMDB.getTrending(isAll ? 'all' : category, 'day'), fallbackType: catFallback, limit: 10, allowMixed: isAll, tileStyle: 'poster' },
-      { key: 'made_in_ph', title: 'Popular Filipino Movies', fetchFn: () => TMDB.discoverFilipino('popularity.desc', 1, 'movie'), fallbackType: 'movie', limit: 14, allowMixed: false, tileStyle: 'landscape' },
+      { key: 'new_ph', title: 'New Filipino Releases', fetchFn: () => TMDB.discoverFilipino('primary_release_date.desc', 1, isAll ? 'all' : category), fallbackType: catFallback, limit: 14, allowMixed: true, tileStyle: 'landscape' },
+      { key: 'made_in_ph', title: 'Popular in the Philippines', fetchFn: () => TMDB.discoverFilipino('popularity.desc', 1, isAll ? 'all' : category), fallbackType: catFallback, limit: 14, allowMixed: true, tileStyle: 'landscape' },
+      { key: 'top_ph', title: 'Top Rated Filipino', fetchFn: () => TMDB.discoverFilipino('vote_average.desc', 1, isAll ? 'all' : category), fallbackType: catFallback, limit: 14, allowMixed: true, tileStyle: 'landscape' },
       { key: 'provider_dropdown', title: PROVIDER_CONFIG.defaultTitle, dropdownType: 'provider', fetchFn: () => TMDB.discoverByProvider(providerFallbackType, PROVIDER_CONFIG.defaultId), fallbackType: providerFallbackType, limit: 14, allowMixed: false, tileStyle: 'poster' },
       { key: 'top_rated', title: 'Top Rated', fetchFn: () => category === 'tv' ? TMDB.getTopRatedTV() : TMDB.getTopRatedMovies(), fallbackType: catFallback, limit: 14, allowMixed: false, tileStyle: 'landscape' },
       { key: 'genre_dropdown', title: GENRE_CONFIG.defaultGenreTitle, dropdownType: 'genre', fetchFn: () => category === 'tv' ? TMDB.discoverTV(GENRE_CONFIG.defaultGenreId) : TMDB.discoverMovies(GENRE_CONFIG.defaultGenreId), fallbackType: genreFallbackType, limit: 14, allowMixed: false, tileStyle: 'landscape' }
@@ -786,7 +788,7 @@
   }
 
   function shouldShowTabs(key) {
-    return key.includes("trending") || key === "top_rated" || key === "genre_dropdown" || key === "provider_dropdown";
+    return key.includes("trending") || key.includes("ph") || key === "top_rated" || key === "genre_dropdown" || key === "provider_dropdown";
   }
 
   function buildTabs(rowKey) {
@@ -853,7 +855,11 @@
             ? await TMDB.getTopRatedTV()
             : await TMDB.getTopRatedMovies();
         } else if (rowKey === "made_in_ph") {
-          data = await TMDB.discoverFilipino('popularity.desc', 1, 'movie');
+          data = await TMDB.discoverFilipino('popularity.desc', 1, targetTab);
+        } else if (rowKey === "new_ph") {
+          data = await TMDB.discoverFilipino('primary_release_date.desc', 1, targetTab);
+        } else if (rowKey === "top_ph") {
+          data = await TMDB.discoverFilipino('vote_average.desc', 1, targetTab);
         } else {
           data = targetTab === "tv"
             ? await TMDB.getTrending('tv', 'week')
