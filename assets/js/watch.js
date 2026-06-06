@@ -22,7 +22,7 @@
     episode,
     malId,
     isAnime,
-    activeServer: localStorage.getItem('preferredServer') || 'vixsrc'
+    activeServer: localStorage.getItem('preferredServer') || 'peachify'
   };
 
   function init() {
@@ -90,8 +90,9 @@
       
       if (!data || typeof data !== 'object') return;
 
-      // Handle Vidnest MEDIA_DATA event for persistent progress tracking
+      // Handle MEDIA_DATA event for persistent progress tracking
       if (data.type === 'MEDIA_DATA' && data.data) {
+        localStorage.setItem('peachifyProgress', JSON.stringify(data.data));
         localStorage.setItem('vidNestProgress', JSON.stringify(data.data));
       }
 
@@ -216,15 +217,18 @@
     let fallbackTarget = null;
     let fallbackName = "";
 
-    if (state.activeServer === "vixsrc") {
-      fallbackTarget = "vidnest";
+    if (state.activeServer === "peachify") {
+      fallbackTarget = "vixsrc";
       fallbackName = "Server 2";
+    } else if (state.activeServer === "vixsrc") {
+      fallbackTarget = "vidnest";
+      fallbackName = "Server 3";
     } else if (state.activeServer === "vidnest") {
       fallbackTarget = "videasy";
-      fallbackName = "Server 3";
+      fallbackName = "Server 4";
     } else if (state.activeServer === "videasy") {
       fallbackTarget = "vidfast";
-      fallbackName = "Server 4";
+      fallbackName = "Server 5";
     }
 
     if (fallbackTarget) {
@@ -302,10 +306,42 @@
   }
 
   function buildServerUrl(server, type, id, season, episode) {
+    if (server === 'peachify') return buildPeachifyUrl(type, id, season, episode);
     if (server === 'vixsrc') return buildVixsrcUrl(type, id, season, episode);
     if (server === 'vidfast') return buildVidfastUrl(type, id, season, episode);
     if (server === 'vidnest') return buildVidnestUrl(type, id, season, episode);
     return buildVideasyUrl(type, id, season, episode);
+  }
+
+  function buildPeachifyUrl(type, id, season, episode) {
+    let progressParam = null;
+    try {
+      const progressData = JSON.parse(localStorage.getItem('watchProgress') || '{}');
+      const isAnimeKey = type === 'anime';
+      const key = `${type}_${id}${type === 'tv' || isAnimeKey ? `_${season}_${episode}` : ''}`;
+      if (progressData[key] && progressData[key].currentTime) {
+        progressParam = Math.floor(progressData[key].currentTime);
+      }
+    } catch (err) {}
+
+    const searchParams = new URLSearchParams();
+    searchParams.set('accent', 'E50914');
+    searchParams.set('autoPlay', 'false');
+    searchParams.set('dub', 'English');
+    searchParams.set('sub', 'English');
+
+    if (progressParam) searchParams.set('startAt', progressParam);
+    if (type === 'tv' || type === 'anime') {
+        searchParams.set('autoNext', '30');
+    }
+
+    if (type === "tv" || type === "anime") {
+      return `https://peachify.top/embed/tv/${id}/${season}/${episode}?${searchParams.toString()}`;
+    }
+    if (type === "movie") {
+      return `https://peachify.top/embed/movie/${id}?${searchParams.toString()}`;
+    }
+    return "";
   }
 
   function buildVixsrcUrl(type, id, season, episode) {
