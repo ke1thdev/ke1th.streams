@@ -22,7 +22,7 @@
     episode,
     malId,
     isAnime,
-    activeServer: localStorage.getItem('preferredServer') || 'vidnest'
+    activeServer: localStorage.getItem('preferredServer') || 'vixsrc'
   };
 
   function init() {
@@ -212,16 +212,19 @@
     const src = buildServerUrl(state.activeServer, playbackType, playbackId, state.season, state.episode);
     els.videoFrame.src = src;
 
-    // Cascade Fallback logic (Server 1 -> Server 2 -> Server 3)
+    // Cascade Fallback logic (Server 1 -> Server 2 -> Server 3 -> Server 4)
     let fallbackTarget = null;
     let fallbackName = "";
 
-    if (state.activeServer === "vidnest") {
-      fallbackTarget = "videasy";
+    if (state.activeServer === "vixsrc") {
+      fallbackTarget = "vidnest";
       fallbackName = "Server 2";
+    } else if (state.activeServer === "vidnest") {
+      fallbackTarget = "videasy";
+      fallbackName = "Server 3";
     } else if (state.activeServer === "videasy") {
       fallbackTarget = "vidfast";
-      fallbackName = "Server 3";
+      fallbackName = "Server 4";
     }
 
     if (fallbackTarget) {
@@ -251,7 +254,9 @@
       const messageTimeoutId = setTimeout(() => {
         window.removeEventListener('message', messageListener);
         if (pingInterval) clearInterval(pingInterval);
-        triggerFallback('timeout_no_message');
+        if (state.activeServer !== 'vixsrc') {
+          triggerFallback('timeout_no_message');
+        }
       }, 8000); // 8 seconds wait for player to initialize to be ultra-safe for all devices
 
       // Actively ask Vidfast for its status since it might not send events if autoplay is blocked
@@ -284,9 +289,38 @@
   }
 
   function buildServerUrl(server, type, id, season, episode) {
+    if (server === 'vixsrc') return buildVixsrcUrl(type, id, season, episode);
     if (server === 'vidfast') return buildVidfastUrl(type, id, season, episode);
     if (server === 'vidnest') return buildVidnestUrl(type, id, season, episode);
     return buildVideasyUrl(type, id, season, episode);
+  }
+
+  function buildVixsrcUrl(type, id, season, episode) {
+    let progressParam = null;
+    try {
+      const progressData = JSON.parse(localStorage.getItem('watchProgress') || '{}');
+      const isAnimeKey = type === 'anime';
+      const key = `${type}_${id}${type === 'tv' || isAnimeKey ? `_${season}_${episode}` : ''}`;
+      if (progressData[key] && progressData[key].currentTime) {
+        progressParam = Math.floor(progressData[key].currentTime);
+      }
+    } catch (err) {}
+
+    const searchParams = new URLSearchParams();
+    searchParams.set('primaryColor', 'e50914');
+    searchParams.set('lang', 'en');
+    searchParams.set('sub', 'en');
+    searchParams.set('autoplay', 'false');
+
+    if (type === "tv" || type === "anime") {
+      if (progressParam) searchParams.set('startAt', progressParam);
+      return `https://vixsrc.to/tv/${id}/${season}/${episode}?${searchParams.toString()}`;
+    }
+    if (type === "movie") {
+      if (progressParam) searchParams.set('startAt', progressParam);
+      return `https://vixsrc.to/movie/${id}?${searchParams.toString()}`;
+    }
+    return "";
   }
 
   function buildVidfastUrl(type, id, season, episode) {
