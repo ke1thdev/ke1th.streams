@@ -22,7 +22,7 @@
     episode,
     malId,
     isAnime,
-    activeServer: localStorage.getItem('preferredServer') || 'vixsrc'
+    activeServer: localStorage.getItem('preferredServer') || 'vidup'
   };
 
   function init() {
@@ -94,6 +94,7 @@
       if (data.type === 'MEDIA_DATA' && data.data) {
         localStorage.setItem('peachifyProgress', JSON.stringify(data.data));
         localStorage.setItem('vidNestProgress', JSON.stringify(data.data));
+        localStorage.setItem('vidUpProgress', JSON.stringify(data.data));
       }
 
       // Unwrap payload if nested
@@ -217,18 +218,21 @@
     let fallbackTarget = null;
     let fallbackName = "";
 
-    if (state.activeServer === "vixsrc") {
-      fallbackTarget = "vidnest";
+    if (state.activeServer === "vidup") {
+      fallbackTarget = "vixsrc";
       fallbackName = "Server 2";
+    } else if (state.activeServer === "vixsrc") {
+      fallbackTarget = "vidnest";
+      fallbackName = "Server 3";
     } else if (state.activeServer === "vidnest") {
       fallbackTarget = "vidfast";
-      fallbackName = "Server 3";
+      fallbackName = "Server 4";
     } else if (state.activeServer === "vidfast") {
       fallbackTarget = "peachify";
-      fallbackName = "Server 4";
+      fallbackName = "Server 5";
     } else if (state.activeServer === "peachify") {
       fallbackTarget = "videasy";
-      fallbackName = "Server 5";
+      fallbackName = "Server 6";
     }
 
     if (fallbackTarget) {
@@ -306,11 +310,45 @@
   }
 
   function buildServerUrl(server, type, id, season, episode) {
+    if (server === 'vidup') return buildVidUpUrl(type, id, season, episode);
     if (server === 'peachify') return buildPeachifyUrl(type, id, season, episode);
     if (server === 'vixsrc') return buildVixsrcUrl(type, id, season, episode);
     if (server === 'vidfast') return buildVidfastUrl(type, id, season, episode);
     if (server === 'vidnest') return buildVidnestUrl(type, id, season, episode);
     return buildVideasyUrl(type, id, season, episode);
+  }
+
+  function buildVidUpUrl(type, id, season, episode) {
+    let progressParam = null;
+    try {
+      const progressData = JSON.parse(localStorage.getItem('watchProgress') || '{}');
+      const isAnimeKey = type === 'anime';
+      const key = `${type}_${id}${type === 'tv' || isAnimeKey ? `_${season}_${episode}` : ''}`;
+      if (progressData[key] && progressData[key].currentTime) {
+        progressParam = Math.floor(progressData[key].currentTime);
+      }
+    } catch (err) {}
+
+    const searchParams = new URLSearchParams();
+    searchParams.set('theme', 'E50914');
+    searchParams.set('sub', 'en');
+    searchParams.set('poster', 'true');
+    searchParams.set('title', 'true');
+    searchParams.set('autoPlay', 'true');
+
+    if (progressParam) searchParams.set('startAt', progressParam);
+    
+    if (type === "tv" || type === "anime") {
+        searchParams.set('autoNext', 'true');
+        searchParams.set('nextButton', 'true');
+    }
+
+    const mediaType = (type === "tv" || type === "anime") ? "tv" : "movie";
+    
+    if (mediaType === "tv") {
+      return `https://vidup.to/tv/${id}/${season}/${episode}?${searchParams.toString()}`;
+    }
+    return `https://vidup.to/movie/${id}?${searchParams.toString()}`;
   }
 
   function buildPeachifyUrl(type, id, season, episode) {
