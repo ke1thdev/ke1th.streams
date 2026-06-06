@@ -240,13 +240,16 @@ const TMDB = (() => {
   /**
    * Discover Filipino content (Tagalog original language)
    */
-  async function discoverFilipino(sortBy = 'popularity.desc', page = 1) {
+  async function discoverFilipino(sortBy = 'popularity.desc', page = 1, type = 'all') {
     const without_companies = '149142|173083'; // Vivamax & Vivamax Original Series
     const without_keywords = '325693|155477'; // erotica & softcore
     const today = new Date().toISOString().split('T')[0];
 
-    const [tvData, movieData] = await Promise.all([
-      get('/discover/tv', {
+    let tvData = { results: [] };
+    let movieData = { results: [] };
+
+    if (type === 'all' || type === 'tv') {
+      tvData = await get('/discover/tv', {
         with_original_language: 'tl',
         watch_region: WATCH_REGION,
         sort_by: sortBy,
@@ -255,8 +258,11 @@ const TMDB = (() => {
         without_keywords,
         'first_air_date.lte': today,
         page
-      }),
-      get('/discover/movie', {
+      });
+    }
+
+    if (type === 'all' || type === 'movie') {
+      movieData = await get('/discover/movie', {
         with_original_language: 'tl',
         watch_region: WATCH_REGION,
         sort_by: sortBy,
@@ -265,8 +271,8 @@ const TMDB = (() => {
         without_keywords,
         'primary_release_date.lte': today,
         page
-      })
-    ]);
+      });
+    }
 
     const tvResults = (tvData.results || []).map(item => ({ ...item, media_type: 'tv' }));
     const movieResults = (movieData.results || []).map(item => ({ ...item, media_type: 'movie' }));
