@@ -182,9 +182,9 @@
     let playbackType = state.type;
     let playbackId = state.id;
 
-    // Bad mappings override for specific shows on vidsrcru
+    // Bad mappings override for specific shows on vidnest
     const overrideIds = [76479];
-    if (playbackType === "tv" && overrideIds.includes(Number(playbackId)) && state.activeServer === "vidsrcru") {
+    if (playbackType === "tv" && overrideIds.includes(Number(playbackId)) && state.activeServer === "vidnest") {
       state.activeServer = "videasy";
       els.serverSelect.value = "videasy";
       showToast("Switched to fallback source due to known mapping issues.");
@@ -198,21 +198,54 @@
 
     const src = buildServerUrl(state.activeServer, playbackType, playbackId, state.season, state.episode);
     els.videoFrame.src = src;
+
+    // Fallback logic for Default Server (videasy)
+    if (state.activeServer === "videasy") {
+      const serverOrigin = new URL(src).origin;
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 5000);
+      
+      fetch(serverOrigin, { mode: 'no-cors', signal: controller.signal })
+        .then(() => clearTimeout(timeoutId))
+        .catch(() => {
+          clearTimeout(timeoutId);
+          console.warn("Server 1 inaccessible. Falling back to Server 2.");
+          state.activeServer = "vidnest";
+          els.serverSelect.value = "vidnest";
+          showToast("Server 1 unavailable. Automatically switched to Server 2.");
+          loadPlayer();
+        });
+    }
   }
 
   function buildServerUrl(server, type, id, season, episode) {
-    if (server === 'vidsrcru') {
-      return buildVidsrcruUrl(type, id, season, episode);
+    if (server === 'vidnest') {
+      return buildVidnestUrl(type, id, season, episode);
     }
     return buildVideasyUrl(type, id, season, episode);
   }
 
-  function buildVidsrcruUrl(type, id, season, episode) {
+  function buildVidnestUrl(type, id, season, episode) {
+    let progressParam = "";
+    try {
+      const progressData = JSON.parse(localStorage.getItem('watchProgress') || '{}');
+      const isAnimeKey = type === 'anime';
+      const key = `${type}_${id}${type === 'tv' || isAnimeKey ? `_${season}_${episode}` : ''}`;
+      if (progressData[key] && progressData[key].currentTime) {
+        progressParam = `?startAt=${Math.floor(progressData[key].currentTime)}`;
+      }
+    } catch (err) {}
+
+    let q = progressParam;
+
     if (type === "tv" || type === "anime") {
-      return `https://vsembed.su/embed/tv?tmdb=${id}&season=${season}&episode=${episode}&ds_lang=en&autoplay=1&autonext=1&playsinline=1&playsInline=true`;
+      if (q) {
+        q = q.replace('startAt=', 'progress=');
+      }
+      return `https://vidnest.fun/tv/${id}/${season}/${episode}${q}`;
     }
     if (type === "movie") {
-      return `https://vsembed.su/embed/movie?tmdb=${id}&ds_lang=en&autoplay=1&playsinline=1&playsInline=true`;
+      return `https://vidnest.fun/movie/${id}${q}`;
     }
     return "";
   }
