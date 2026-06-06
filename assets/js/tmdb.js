@@ -231,6 +231,44 @@ const TMDB = (() => {
   }
 
   /**
+   * Discover Filipino content (Tagalog original language)
+   */
+  async function discoverFilipino(sortBy = 'popularity.desc', page = 1) {
+    const [tvData, movieData] = await Promise.all([
+      get('/discover/tv', {
+        with_original_language: 'tl',
+        watch_region: WATCH_REGION,
+        sort_by: sortBy,
+        include_adult: false,
+        page
+      }),
+      get('/discover/movie', {
+        with_original_language: 'tl',
+        watch_region: WATCH_REGION,
+        sort_by: sortBy,
+        include_adult: false,
+        page
+      })
+    ]);
+
+    const tvResults = (tvData.results || []).map(item => ({ ...item, media_type: 'tv' }));
+    const movieResults = (movieData.results || []).map(item => ({ ...item, media_type: 'movie' }));
+
+    // Interleave or sort them by popularity/date depending on sortBy
+    let combined = [...tvResults, ...movieResults];
+    if (sortBy === 'popularity.desc') {
+      combined.sort((a, b) => (b.popularity || 0) - (a.popularity || 0));
+    } else if (sortBy === 'primary_release_date.desc') {
+      const getDate = (item) => new Date(item.release_date || item.first_air_date || 0).getTime();
+      combined.sort((a, b) => getDate(b) - getDate(a));
+    }
+
+    return {
+      results: combined
+    };
+  }
+
+  /**
    * Get movie genres
    */
   async function getMovieGenres() {
@@ -461,6 +499,7 @@ const TMDB = (() => {
     discoverAnime,
     discoverByProvider,
     discoverAdvanced,
+    discoverFilipino,
     getMovieGenres,
     getTVGenres,
     searchMulti,

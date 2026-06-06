@@ -95,7 +95,9 @@
     return [
       { key: 'trending_today', title: 'Trending Now', fetchFn: () => TMDB.getTrending(isAll ? 'all' : category, 'week'), fallbackType: catFallback, limit: 14, allowMixed: isAll, tileStyle: 'landscape' },
       { key: 'top10', title: 'Top 10 Today', fetchFn: () => TMDB.getTrending(isAll ? 'all' : category, 'day'), fallbackType: catFallback, limit: 10, allowMixed: isAll, tileStyle: 'poster' },
+      { key: 'trending_ph', title: 'Made in the Philippines', fetchFn: () => TMDB.discoverFilipino('popularity.desc'), fallbackType: catFallback, limit: 14, allowMixed: true, tileStyle: 'landscape' },
       { key: 'provider_dropdown', title: PROVIDER_CONFIG.defaultTitle, dropdownType: 'provider', fetchFn: () => TMDB.discoverByProvider(providerFallbackType, PROVIDER_CONFIG.defaultId), fallbackType: providerFallbackType, limit: 14, allowMixed: false, tileStyle: 'poster' },
+      { key: 'new_ph', title: 'New Filipino Releases', fetchFn: () => TMDB.discoverFilipino('primary_release_date.desc'), fallbackType: catFallback, limit: 14, allowMixed: true, tileStyle: 'poster' },
       { key: 'top_rated', title: 'Top Rated', fetchFn: () => category === 'tv' ? TMDB.getTopRatedTV() : TMDB.getTopRatedMovies(), fallbackType: catFallback, limit: 14, allowMixed: false, tileStyle: 'landscape' },
       { key: 'genre_dropdown', title: GENRE_CONFIG.defaultGenreTitle, dropdownType: 'genre', fetchFn: () => category === 'tv' ? TMDB.discoverTV(GENRE_CONFIG.defaultGenreId) : TMDB.discoverMovies(GENRE_CONFIG.defaultGenreId), fallbackType: genreFallbackType, limit: 14, allowMixed: false, tileStyle: 'landscape' }
     ];
