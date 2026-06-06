@@ -246,18 +246,30 @@
         .catch(() => triggerFallback('network_error'));
 
       let messageListener;
+      let pingInterval;
+      
       const messageTimeoutId = setTimeout(() => {
         window.removeEventListener('message', messageListener);
+        if (pingInterval) clearInterval(pingInterval);
         triggerFallback('timeout_no_message');
-      }, 4500); // Increased slightly to 4.5s to handle initial redirects
+      }, 6000); // 6 seconds wait for player to initialize
+
+      // Actively ask Vidfast for its status since it might not send events if autoplay is blocked
+      if (state.activeServer === 'vidfast') {
+        pingInterval = setInterval(() => {
+          if (els.videoFrame && els.videoFrame.contentWindow) {
+            els.videoFrame.contentWindow.postMessage({ command: 'getStatus' }, '*');
+          }
+        }, 1000);
+      }
 
       messageListener = (event) => {
         const isTargetOrigin = event.origin === serverOrigin;
         const isValidEvent = event.data && (event.data.type === 'PLAYER_EVENT' || event.data.type === 'MEDIA_DATA');
         
-        // If it matches the origin OR it sends a valid recognizable event (in case the iframe redirected internally)
         if (isTargetOrigin || isValidEvent) {
           clearTimeout(messageTimeoutId);
+          if (pingInterval) clearInterval(pingInterval);
           window.removeEventListener('message', messageListener);
         }
       };
