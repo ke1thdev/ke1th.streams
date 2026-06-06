@@ -22,7 +22,7 @@
     episode,
     malId,
     isAnime,
-    activeServer: localStorage.getItem('preferredServer') || 'vidup'
+    activeServer: localStorage.getItem('preferredServer') || 'videasy'
   };
 
   function init() {
@@ -218,20 +218,20 @@
     let fallbackTarget = null;
     let fallbackName = "";
 
-    if (state.activeServer === "vidup") {
-      fallbackTarget = "vixsrc";
+    if (state.activeServer === "videasy") {
+      fallbackTarget = "vidup";
       fallbackName = "Server 2";
+    } else if (state.activeServer === "vidup") {
+      fallbackTarget = "vixsrc";
+      fallbackName = "Server 3";
     } else if (state.activeServer === "vixsrc") {
       fallbackTarget = "vidnest";
-      fallbackName = "Server 3";
+      fallbackName = "Server 4";
     } else if (state.activeServer === "vidnest") {
       fallbackTarget = "vidfast";
-      fallbackName = "Server 4";
+      fallbackName = "Server 5";
     } else if (state.activeServer === "vidfast") {
       fallbackTarget = "peachify";
-      fallbackName = "Server 5";
-    } else if (state.activeServer === "peachify") {
-      fallbackTarget = "videasy";
       fallbackName = "Server 6";
     }
 
