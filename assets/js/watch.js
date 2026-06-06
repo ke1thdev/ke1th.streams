@@ -249,10 +249,14 @@
       const messageTimeoutId = setTimeout(() => {
         window.removeEventListener('message', messageListener);
         triggerFallback('timeout_no_message');
-      }, 3500); // 3.5 seconds wait for player to initialize
+      }, 4500); // Increased slightly to 4.5s to handle initial redirects
 
       messageListener = (event) => {
-        if (event.origin === serverOrigin) {
+        const isTargetOrigin = event.origin === serverOrigin;
+        const isValidEvent = event.data && (event.data.type === 'PLAYER_EVENT' || event.data.type === 'MEDIA_DATA');
+        
+        // If it matches the origin OR it sends a valid recognizable event (in case the iframe redirected internally)
+        if (isTargetOrigin || isValidEvent) {
           clearTimeout(messageTimeoutId);
           window.removeEventListener('message', messageListener);
         }
