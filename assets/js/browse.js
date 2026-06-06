@@ -45,6 +45,7 @@
 
   const PROVIDER_NAMES = {
     "all": "All Sources",
+    "vivamax": "Vivamax",
     "8": "Netflix",
     "9": "Prime Video",
     "1899": "Max",
@@ -289,8 +290,12 @@
       }
       
       if (state.provider && state.provider !== "all") {
-          params.with_watch_providers = state.provider;
-          params.watch_region = "PH";
+          if (state.provider === "vivamax") {
+              params.with_companies = "149142|173083";
+          } else {
+              params.with_watch_providers = state.provider;
+              params.watch_region = "PH";
+          }
       }
 
       if (state.type === "anime") {
