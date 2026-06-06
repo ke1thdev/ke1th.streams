@@ -303,7 +303,6 @@
     const searchParams = new URLSearchParams();
     searchParams.set('theme', 'e50914');
     searchParams.set('sub', 'en');
-    searchParams.set('autoPlay', 'true');
     searchParams.set('fullscreenButton', 'true');
     searchParams.set('poster', 'true');
     searchParams.set('title', 'true');
