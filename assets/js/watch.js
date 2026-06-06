@@ -90,19 +90,32 @@
       
       if (!data || typeof data !== 'object') return;
 
-      // Unwrap Videasy payload if nested
-      const evData = (data && data.type === "PLAYER_EVENT" && data.data) ? data.data : data;
+      // Handle Vidnest MEDIA_DATA event for persistent progress tracking
+      if (data.type === 'MEDIA_DATA' && data.data) {
+        localStorage.setItem('vidNestProgress', JSON.stringify(data.data));
+      }
 
-      if (typeof evData.progress === 'number' && typeof evData.timestamp === 'number') {
+      // Unwrap payload if nested
+      let evData = data;
+      if (data.type === "PLAYER_EVENT" && data.data) {
+        evData = data.data;
+      }
+
+      // Parse current time and duration from either Videasy or Vidnest format
+      const cTime = typeof evData.timestamp === 'number' ? evData.timestamp : evData.currentTime;
+      const dur = evData.duration;
+
+      if (typeof cTime === 'number' && typeof dur === 'number' && dur > 0) {
          const progressData = JSON.parse(localStorage.getItem('watchProgress') || '{}');
          const isAnimeKey = state.isAnime || state.type === 'anime';
          const key = `${state.type}_${state.id}${state.type === 'tv' || isAnimeKey ? `_${state.season}_${state.episode}` : ''}`;
          
-         if (evData.timestamp > 0) {
+         if (cTime > 0) {
+           const progRatio = typeof evData.progress === 'number' ? evData.progress : Math.round((cTime / dur) * 100);
            progressData[key] = {
-             currentTime: evData.timestamp,
-             duration: evData.duration || 0,
-             progress: evData.progress,
+             currentTime: cTime,
+             duration: dur,
+             progress: progRatio,
              lastUpdated: Date.now()
            };
            localStorage.setItem('watchProgress', JSON.stringify(progressData));
@@ -246,26 +259,29 @@
   }
 
   function buildVidnestUrl(type, id, season, episode) {
-    let progressParam = "";
+    let progressParam = null;
     try {
       const progressData = JSON.parse(localStorage.getItem('watchProgress') || '{}');
       const isAnimeKey = type === 'anime';
       const key = `${type}_${id}${type === 'tv' || isAnimeKey ? `_${season}_${episode}` : ''}`;
       if (progressData[key] && progressData[key].currentTime) {
-        progressParam = `?startAt=${Math.floor(progressData[key].currentTime)}`;
+        progressParam = Math.floor(progressData[key].currentTime);
       }
     } catch (err) {}
 
-    let q = progressParam;
+    const searchParams = new URLSearchParams();
+    
+    // Aesthetic UI tweaks based on Vidnest Docs
+    searchParams.set('servericon', 'hide');
+    searchParams.set('topcaption', 'false');
 
     if (type === "tv" || type === "anime") {
-      if (q) {
-        q = q.replace('startAt=', 'progress=');
-      }
-      return `https://vidnest.fun/tv/${id}/${season}/${episode}${q}`;
+      if (progressParam) searchParams.set('progress', progressParam);
+      return `https://vidnest.fun/tv/${id}/${season}/${episode}?${searchParams.toString()}`;
     }
     if (type === "movie") {
-      return `https://vidnest.fun/movie/${id}${q}`;
+      if (progressParam) searchParams.set('startAt', progressParam);
+      return `https://vidnest.fun/movie/${id}?${searchParams.toString()}`;
     }
     return "";
   }
