@@ -201,20 +201,40 @@
 
     // Fallback logic for Default Server (videasy)
     if (state.activeServer === "videasy") {
+      let fallbackTriggered = false;
+      const triggerFallback = (reason) => {
+        if (fallbackTriggered || state.activeServer !== "videasy") return;
+        fallbackTriggered = true;
+        console.warn(`Server 1 fallback triggered: ${reason}`);
+        state.activeServer = "vidnest";
+        els.serverSelect.value = "vidnest";
+        showToast("Server 1 unavailable. Automatically switched to Server 2.");
+        loadPlayer();
+      };
+
+      // 1. Network check (detects DNS errors, complete blockages)
       const serverOrigin = new URL(src).origin;
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 5000);
+      const networkTimeoutId = setTimeout(() => controller.abort(), 6000);
       
       fetch(serverOrigin, { mode: 'no-cors', signal: controller.signal })
-        .then(() => clearTimeout(timeoutId))
-        .catch(() => {
-          clearTimeout(timeoutId);
-          console.warn("Server 1 inaccessible. Falling back to Server 2.");
-          state.activeServer = "vidnest";
-          els.serverSelect.value = "vidnest";
-          showToast("Server 1 unavailable. Automatically switched to Server 2.");
-          loadPlayer();
-        });
+        .then(() => clearTimeout(networkTimeoutId))
+        .catch(() => triggerFallback('network_error'));
+
+      // 2. Message timeout (detects HTTP 500/404, or broken player)
+      let messageListener;
+      const messageTimeoutId = setTimeout(() => {
+        window.removeEventListener('message', messageListener);
+        triggerFallback('timeout_no_message');
+      }, 12000); // 12 seconds wait for player to initialize
+
+      messageListener = (event) => {
+        if (event.origin === serverOrigin) {
+          clearTimeout(messageTimeoutId);
+          window.removeEventListener('message', messageListener);
+        }
+      };
+      window.addEventListener('message', messageListener);
     }
   }
 
