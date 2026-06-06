@@ -254,10 +254,23 @@
       const messageTimeoutId = setTimeout(() => {
         window.removeEventListener('message', messageListener);
         if (pingInterval) clearInterval(pingInterval);
-        if (state.activeServer !== 'vixsrc') {
+        
+        if (state.activeServer === 'vixsrc') {
+          // Intelligent 404 detection for Vixsrc: Vixsrc injects a sub-iframe if a movie is found.
+          // If after 8 seconds there are 0 sub-frames, it means no source was found.
+          try {
+            if (els.videoFrame && els.videoFrame.contentWindow) {
+              if (els.videoFrame.contentWindow.length === 0) {
+                triggerFallback('vixsrc_no_sources_found');
+              }
+            }
+          } catch (e) {
+            // Fallback if cross-origin policy behaves unexpectedly
+          }
+        } else {
           triggerFallback('timeout_no_message');
         }
-      }, 8000); // 8 seconds wait for player to initialize to be ultra-safe for all devices
+      }, 8500); // 8.5 seconds wait for internal scraping
 
       // Actively ask Vidfast for its status since it might not send events if autoplay is blocked
       if (state.activeServer === 'vidfast') {
