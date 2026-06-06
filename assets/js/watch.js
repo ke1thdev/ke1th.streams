@@ -265,7 +265,13 @@
 
       messageListener = (event) => {
         const isTargetOrigin = event.origin === serverOrigin;
-        const isValidEvent = event.data && (event.data.type === 'PLAYER_EVENT' || event.data.type === 'MEDIA_DATA');
+        
+        let evtData = event.data;
+        if (typeof evtData === 'string') {
+          try { evtData = JSON.parse(evtData); } catch(e) {}
+        }
+        
+        const isValidEvent = evtData && (evtData.type === 'PLAYER_EVENT' || evtData.type === 'MEDIA_DATA');
         
         if (isTargetOrigin || isValidEvent) {
           clearTimeout(messageTimeoutId);
