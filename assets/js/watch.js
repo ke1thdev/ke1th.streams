@@ -290,16 +290,22 @@
       }
 
       messageListener = (event) => {
-        const isTargetOrigin = event.origin === serverOrigin;
-        
         let evtData = event.data;
         if (typeof evtData === 'string') {
           try { evtData = JSON.parse(evtData); } catch(e) {}
         }
         
-        const isValidEvent = evtData && (evtData.type === 'PLAYER_EVENT' || evtData.type === 'MEDIA_DATA');
+        let isValidEvent = false;
+        if (evtData && typeof evtData === 'object') {
+          if (evtData.type === 'PLAYER_EVENT' || evtData.type === 'MEDIA_DATA') isValidEvent = true;
+          if (evtData.event === 'ready' || evtData.event === 'info' || evtData.event === 'video_loaded') isValidEvent = true;
+          if (typeof evtData.duration !== 'undefined' || typeof evtData.currentTime !== 'undefined') isValidEvent = true;
+          if (evtData.status) isValidEvent = true;
+        } else if (typeof evtData === 'string' && (evtData.toLowerCase() === 'ready' || evtData.includes('player'))) {
+          isValidEvent = true;
+        }
         
-        if (isTargetOrigin || isValidEvent) {
+        if (isValidEvent) {
           clearTimeout(messageTimeoutId);
           if (pingInterval) clearInterval(pingInterval);
           window.removeEventListener('message', messageListener);
