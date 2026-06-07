@@ -147,7 +147,35 @@ const TMDB = (() => {
    * Get trending items
    */
   async function getTrending(mediaType = 'all', timeWindow = 'week') {
-    return get(`/trending/${mediaType}/${timeWindow}`);
+    // Replaced /trending with /discover to support with_runtime filtering
+    let tvData = { results: [] };
+    let movieData = { results: [] };
+
+    if (mediaType === 'all' || mediaType === 'tv') {
+      tvData = await get('/discover/tv', {
+        sort_by: 'popularity.desc',
+        include_adult: false,
+        'with_runtime.gte': 30,
+        'vote_count.gte': 5
+      });
+    }
+
+    if (mediaType === 'all' || mediaType === 'movie') {
+      movieData = await get('/discover/movie', {
+        sort_by: 'popularity.desc',
+        include_adult: false,
+        'with_runtime.gte': 30,
+        'vote_count.gte': 5
+      });
+    }
+
+    const tvResults = (tvData.results || []).map(item => ({ ...item, media_type: 'tv' }));
+    const movieResults = (movieData.results || []).map(item => ({ ...item, media_type: 'movie' }));
+
+    const combined = [...tvResults, ...movieResults].sort((a, b) => (b.popularity || 0) - (a.popularity || 0));
+
+    // To simulate top 10 for 'day', we can just slice or return as is
+    return { results: combined };
   }
 
   /**
@@ -176,6 +204,7 @@ const TMDB = (() => {
       'primary_release_date.lte': today,
       'vote_count.gte': 1,
       'vote_average.gte': 0.1,
+      'with_runtime.gte': 30,
       page
     });
   }
@@ -192,6 +221,7 @@ const TMDB = (() => {
       'first_air_date.lte': today,
       'vote_count.gte': 1,
       'vote_average.gte': 0.1,
+      'with_runtime.gte': 30,
       page
     });
   }
@@ -210,6 +240,7 @@ const TMDB = (() => {
       [dateParam]: today,
       'vote_count.gte': 1,
       'vote_average.gte': 0.1,
+      'with_runtime.gte': 30,
       page
     });
   }
@@ -226,6 +257,7 @@ const TMDB = (() => {
         include_adult: false,
         'vote_count.gte': 1,
         'vote_average.gte': 0.1,
+        'with_runtime.gte': 30,
         page
       }),
       get('/discover/movie', {
@@ -235,6 +267,7 @@ const TMDB = (() => {
         include_adult: false,
         'vote_count.gte': 1,
         'vote_average.gte': 0.1,
+        'with_runtime.gte': 30,
         page
       })
     ]);
@@ -269,6 +302,7 @@ const TMDB = (() => {
         'first_air_date.lte': today,
         'vote_count.gte': 1,
         'vote_average.gte': 0.1,
+        'with_runtime.gte': 30,
         page
       });
     }
@@ -284,6 +318,7 @@ const TMDB = (() => {
         'primary_release_date.lte': today,
         'vote_count.gte': 1,
         'vote_average.gte': 0.1,
+        'with_runtime.gte': 30,
         page
       });
     }
