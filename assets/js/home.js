@@ -712,6 +712,48 @@
       rail.appendChild(buildCard(item, tileStyle, rowKey, i));
     });
 
+    // Add View More Card
+    const viewMoreCard = document.createElement("button");
+    viewMoreCard.className = `card ${tileStyle === "landscape" ? "card-landscape" : "card-poster"} view-more-card`;
+    viewMoreCard.type = "button";
+    
+    // Add hover effect style inline
+    viewMoreCard.onmouseenter = () => viewMoreCard.querySelector('.card-img-wrap').style.background = '#2a2a2a';
+    viewMoreCard.onmouseleave = () => viewMoreCard.querySelector('.card-img-wrap').style.background = '#141414';
+
+    viewMoreCard.innerHTML = `
+      <div class="card-img-wrap" style="display:flex; flex-direction:column; align-items:center; justify-content:center; background: #141414; border: 2px dashed #333; transition: background 0.2s;">
+        <svg viewBox="0 0 24 24" width="42" height="42" fill="none" stroke="#e50914" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 12px;">
+           <circle cx="12" cy="12" r="10"></circle>
+           <polyline points="12 16 16 12 12 8"></polyline>
+           <line x1="8" y1="12" x2="16" y2="12"></line>
+        </svg>
+        <span style="font-weight: 600; font-size: 0.95rem; color: #fff;">View All</span>
+      </div>
+    `;
+
+    viewMoreCard.addEventListener("click", () => {
+        let activeTab = section.querySelector(".row-tab.active")?.dataset.tab || "movie";
+        if (rowKey === "trending_anime" || rowKey === "top_anime_tv" || rowKey === "top_anime_movies") {
+            activeTab = "anime";
+        }
+        
+        let url = \`/browse.html?type=\${activeTab}\`;
+        
+        if (rowKey === "action") url += "&genre=28";
+        if (rowKey === "comedy") url += "&genre=35";
+        if (rowKey === "scifi") url += "&genre=878";
+        
+        if (row.dropdownType === 'provider') {
+             const activeId = window.TMDB_STATE?.activeGenres?.[rowKey] || row.activeDropdownId;
+             url += "&provider=" + activeId;
+        }
+
+        window.location.href = url;
+    });
+
+    rail.appendChild(viewMoreCard);
+
     railWrap.appendChild(rail);
     section.appendChild(railWrap);
 
