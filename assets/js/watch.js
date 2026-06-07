@@ -480,13 +480,13 @@
     const params = `?color=e50914&nextEpisode=true&autoplayNextEpisode=true&episodeSelector=true&overlay=true&autoplay=0&autoPlay=false&playsinline=1&playsInline=true${progressParam}`;
 
     if (type === "tv") {
-      return `https://player.videasy.net/tv/${id}/${season}/${episode}${params}`;
+      return `https://player.videasy.to/tv/${id}/${season}/${episode}${params}`;
     }
     if (type === "anime") {
-      return `https://player.videasy.net/anime/${id}/${episode}${params}`;
+      return `https://player.videasy.to/anime/${id}/${episode}${params}`;
     }
     if (type === "movie") {
-      return `https://player.videasy.net/movie/${id}${params}`;
+      return `https://player.videasy.to/movie/${id}${params}`;
     }
     return "";
   }
