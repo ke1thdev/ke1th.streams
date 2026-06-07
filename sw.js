@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ke1th-streams-v2.4.12';
+const CACHE_NAME = 'ke1th-streams-v2.4.13';
 
 self.addEventListener('install', event => {
   self.skipWaiting();

@@ -219,19 +219,19 @@
     let fallbackName = "";
 
     if (state.activeServer === "vidup") {
-      fallbackTarget = "videasy";
-      fallbackName = "Server 2";
-    } else if (state.activeServer === "videasy") {
       fallbackTarget = "vixsrc";
-      fallbackName = "Server 3";
+      fallbackName = "Server 2";
     } else if (state.activeServer === "vixsrc") {
       fallbackTarget = "vidnest";
-      fallbackName = "Server 4";
+      fallbackName = "Server 3";
     } else if (state.activeServer === "vidnest") {
       fallbackTarget = "vidfast";
-      fallbackName = "Server 5";
+      fallbackName = "Server 4";
     } else if (state.activeServer === "vidfast") {
       fallbackTarget = "peachify";
+      fallbackName = "Server 5";
+    } else if (state.activeServer === "peachify") {
+      fallbackTarget = "videasy";
       fallbackName = "Server 6";
     }
 
@@ -278,7 +278,7 @@
         } else {
           triggerFallback('timeout_no_message');
         }
-      }, 8500); // 8.5 seconds wait for internal scraping
+      }, 6500); // 6.5 seconds wait for internal scraping
 
       // Actively ask Vidfast for its status since it might not send events if autoplay is blocked
       if (state.activeServer === 'vidfast') {
@@ -289,26 +289,48 @@
         }, 1000);
       }
 
+      const currentServerForListener = state.activeServer;
+
       messageListener = (event) => {
+        if (state.activeServer !== currentServerForListener) {
+            window.removeEventListener('message', messageListener);
+            return;
+        }
+
         let evtData = event.data;
         if (typeof evtData === 'string') {
           try { evtData = JSON.parse(evtData); } catch(e) {}
         }
         
         let isValidEvent = false;
+        let isErrorEvent = false;
+
         if (evtData && typeof evtData === 'object') {
           if (evtData.type === 'PLAYER_EVENT' || evtData.type === 'MEDIA_DATA') isValidEvent = true;
-          if (evtData.event === 'ready' || evtData.event === 'info' || evtData.event === 'video_loaded') isValidEvent = true;
-          if (typeof evtData.duration !== 'undefined' || typeof evtData.currentTime !== 'undefined') isValidEvent = true;
-          if (evtData.status) isValidEvent = true;
-        } else if (typeof evtData === 'string' && (evtData.toLowerCase() === 'ready' || evtData.includes('player'))) {
+          if (evtData.event === 'ready' || evtData.event === 'video_loaded') isValidEvent = true;
+          if (typeof evtData.duration !== 'undefined' && typeof evtData.currentTime !== 'undefined') isValidEvent = true;
+          
+          if (state.activeServer === 'vidfast' && evtData.status !== undefined) isValidEvent = true;
+
+          // Catch delayed player errors (e.g. video segments 404ing after player loads)
+          if (evtData.event === 'error' || (evtData.data && evtData.data.event === 'error') || evtData.name === 'error' || evtData.status === 'error') {
+            isErrorEvent = true;
+          }
+        } else if (typeof evtData === 'string' && evtData.toLowerCase() === 'ready') {
           isValidEvent = true;
         }
         
+        if (isErrorEvent) {
+          triggerFallback('player_error');
+          window.removeEventListener('message', messageListener);
+          return;
+        }
+
         if (isValidEvent) {
           clearTimeout(messageTimeoutId);
           if (pingInterval) clearInterval(pingInterval);
-          window.removeEventListener('message', messageListener);
+          // We intentionally do NOT remove the message listener here.
+          // We keep it alive to catch delayed player errors that occur after initialization.
         }
       };
       window.addEventListener('message', messageListener);
