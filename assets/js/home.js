@@ -738,7 +738,7 @@
             activeTab = "anime";
         }
         
-        let url = \`/browse.html?type=\${activeTab}\`;
+        let url = `/browse.html?type=${activeTab}`;
         
         if (rowKey === "action") url += "&genre=28";
         if (rowKey === "comedy") url += "&genre=35";
