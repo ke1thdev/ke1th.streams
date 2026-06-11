@@ -3,12 +3,18 @@
   --text-color: #ffffff;
   --accent-color: #e50914;
   --header-height: 60px;
+  color-scheme: dark;
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+html {
+  background-color: #000;
+  color-scheme: dark;
 }
 
 body {
@@ -155,6 +161,7 @@ body {
   height: 100%;
   border: none;
   background: #000;
+  color-scheme: dark;
 }
 
 
