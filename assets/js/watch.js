@@ -31,8 +31,15 @@
       return;
     }
 
-    // Try to lock orientation to landscape
-    lockLandscape();
+    // Setup landscape orientation forcing for the iframe player wrapper
+    const playerWrapper = document.querySelector('.player-wrapper');
+    if (playerWrapper) {
+      playerWrapper.classList.add('video-wrapper');
+    }
+    // Force landscape on page load (user navigated here via a play gesture)
+    if (playerWrapper && LandscapeForcer.isPortrait()) {
+      LandscapeForcer.forceLandscape(playerWrapper);
+    }
 
     els.serverSelect.value = state.activeServer;
     els.serverSelect.addEventListener('change', handleServerChange);
@@ -45,37 +52,7 @@
     initDisclaimer();
   }
 
-  async function lockLandscape() {
-    try {
-      if (screen.orientation && screen.orientation.lock) {
-        await screen.orientation.lock('landscape');
-      } else if (screen.lockOrientation) {
-        screen.lockOrientation('landscape');
-      } else if (screen.mozLockOrientation) {
-        screen.mozLockOrientation('landscape');
-      } else if (screen.msLockOrientation) {
-        screen.msLockOrientation('landscape');
-      }
-    } catch (err) {
-      console.warn("Screen orientation lock failed: ", err);
-    }
-  }
-
-  function unlockOrientation() {
-    try {
-      if (screen.orientation && screen.orientation.unlock) {
-        screen.orientation.unlock();
-      } else if (screen.unlockOrientation) {
-        screen.unlockOrientation();
-      } else if (screen.mozUnlockOrientation) {
-        screen.mozUnlockOrientation();
-      } else if (screen.msUnlockOrientation) {
-        screen.msUnlockOrientation();
-      }
-    } catch (err) {
-      console.warn("Screen orientation unlock failed: ", err);
-    }
-  }
+  // Orientation is now managed by LandscapeForcer module (landscape.js)
 
   function handlePlayerMessage(event) {
     try {
@@ -170,7 +147,11 @@
   }
 
   function handleBack() {
-    unlockOrientation();
+    // Release landscape lock before navigating away
+    const playerWrapper = document.querySelector('.player-wrapper.video-wrapper');
+    if (playerWrapper) {
+      LandscapeForcer.releaseLandscape(playerWrapper);
+    }
     let url = `/media.html?type=${state.type}&id=${state.id}`;
     if (state.isAnime && state.malId) {
       url += `&anime=1&malId=${state.malId}`;

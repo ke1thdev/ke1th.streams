@@ -13,6 +13,11 @@ document.addEventListener('DOMContentLoaded', () => {
   let allChannels = [];
   let plyrInstance = null;
 
+  // Initialize landscape orientation module for native <video> elements
+  if (window.LandscapeForcer) {
+    LandscapeForcer.init();
+  }
+
   // Initialize Plyr Custom Video Player
   if (typeof Plyr !== 'undefined') {
     plyrInstance = new Plyr('#liveVideoPlayer', {
@@ -241,6 +246,13 @@ document.addEventListener('DOMContentLoaded', () => {
     playerTitle.textContent = channel.name;
     modal.classList.remove('hidden');
     modal.setAttribute('aria-hidden', 'false');
+
+    // Force landscape orientation when opening the player
+    const videoContainer = document.querySelector('.video-container');
+    if (videoContainer && window.LandscapeForcer) {
+      videoContainer.classList.add('video-wrapper');
+      LandscapeForcer.forceLandscape(videoContainer);
+    }
     
     // cleanup previous instances
     if (hlsInstance) {
@@ -341,6 +353,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.activeElement) {
       document.activeElement.blur(); // Fix aria-hidden console warning
     }
+
+    // Release landscape orientation before closing
+    const videoContainer = document.querySelector('.video-container.video-wrapper');
+    if (videoContainer && window.LandscapeForcer) {
+      LandscapeForcer.releaseLandscape(videoContainer);
+    }
+
     modal.classList.add('hidden');
     modal.setAttribute('aria-hidden', 'true');
     if (hlsInstance) hlsInstance.destroy();

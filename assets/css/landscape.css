@@ -1,0 +1,37 @@
+/* ═══════════════════════════════════════════════
+   Landscape Orientation Force — Shared Styles
+   ═══════════════════════════════════════════════ */
+
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.video-wrapper video,
+.video-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.video-wrapper.force-landscape {
+  transform: rotate(90deg);
+  transform-origin: center center;
+  width: 100vh;
+  height: 100vw;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  z-index: 9999;
+  background: #000;
+}
+
+/* Ensure video/iframe fills the rotated wrapper */
+.video-wrapper.force-landscape video,
+.video-wrapper.force-landscape iframe {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
