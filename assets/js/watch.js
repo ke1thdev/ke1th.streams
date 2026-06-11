@@ -522,7 +522,7 @@
       }
     } catch (err) {}
 
-    const params = `?color=e50914&nextEpisode=true&autoplayNextEpisode=true&episodeSelector=true&overlay=true&autoplay=0&autoPlay=false&playsinline=1&playsInline=true${progressParam}`;
+    const params = `?color=e50914&nextEpisode=true&autoplayNextEpisode=true&episodeSelector=true&overlay=true&autoplay=0&autoPlay=false&playsinline=1&playsInline=true&server=yoru${progressParam}`;
 
     if (type === "tv") {
       return `https://player.videasy.to/tv/${id}/${season}/${episode}${params}`;
