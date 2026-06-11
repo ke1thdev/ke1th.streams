@@ -1989,8 +1989,10 @@ body::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
     border-radius: 36px;
     display: flex;
     align-items: center;
-    gap: 6px;
-    padding: 8px 10px;
+    gap: 4px;
+    padding: 0 8px;
+    height: 58px;
+    box-sizing: border-box;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
     transition: all 0.3s ease;
   }
@@ -2020,7 +2022,8 @@ body::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 3px;
+    justify-content: center;
+    gap: 2px;
     background: none;
     border: none;
     color: rgba(255, 255, 255, 0.45);
@@ -2028,9 +2031,16 @@ body::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
     font-size: 0.6rem;
     font-weight: 600;
     cursor: pointer;
-    padding: 8px 16px;
-    border-radius: 28px;
+    padding: 0 14px;
+    height: 48px;
+    border-radius: 24px;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  }
+
+  .dock-btn svg {
+    width: 24px;
+    height: 24px;
+    transition: color 0.3s ease;
   }
 
   .dock-btn:active {
@@ -2039,8 +2049,12 @@ body::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
 
   .dock-btn.dock-active {
     color: #fff;
-    background: rgba(255, 255, 255, 0.15);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .dock-btn.dock-active svg {
+    color: var(--brand);
   }
 
   .dock-btn span {
