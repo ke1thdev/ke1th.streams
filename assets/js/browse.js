@@ -19,7 +19,6 @@
     browseTitle: $("#browseTitle"),
     browseSubtitle: $("#browseSubtitle"),
     browseGrid: $("#browseGrid"),
-    loader: $("#loader"),
     endMessage: $("#endMessage"),
     toast: $("#toast"),
     searchOverlay: $("#searchOverlay"),
@@ -266,6 +265,21 @@
     }
   }
 
+  function appendSkeletonCards(count = 10) {
+    if (!els.browseGrid) return;
+    for (let i = 0; i < count; i++) {
+      const card = document.createElement("div");
+      card.className = "skeleton-card card-poster loading-more-skeleton";
+      els.browseGrid.appendChild(card);
+    }
+  }
+
+  function removeSkeletonCards() {
+    if (!els.browseGrid) return;
+    const skeletons = els.browseGrid.querySelectorAll(".loading-more-skeleton");
+    skeletons.forEach(s => s.remove());
+  }
+
   async function loadInitialData() {
     renderSkeletonGrid();
     state.page = 1;
@@ -281,7 +295,9 @@
     if (!state.hasMore) return;
     
     state.isLoading = true;
-    if (els.loader) els.loader.classList.remove("hidden");
+    if (state.page > 1) {
+      appendSkeletonCards(10);
+    }
     
     try {
       const today = new Date().toISOString().split('T')[0];
@@ -323,11 +339,13 @@
       state.totalPages = data.total_pages || 1;
       const results = data.results || [];
       
+      removeSkeletonCards();
+
       if (results.length === 0) {
         state.hasMore = false;
         if (els.endMessage) els.endMessage.classList.remove("hidden");
       } else {
-        if (state.page === 1 && els.browseGrid) els.browseGrid.innerHTML = ""; // Clear skeletons
+        if (state.page === 1 && els.browseGrid) els.browseGrid.innerHTML = ""; // Clear initial skeletons
         results.forEach(item => {
           const type = state.type === "anime" ? (item.media_type || "tv") : (item.media_type || state.type);
           item.mediaType = type;
@@ -338,9 +356,9 @@
     } catch (err) {
       console.error(err);
       showToast("Failed to load more content.");
+      removeSkeletonCards();
     } finally {
       state.isLoading = false;
-      if (els.loader) els.loader.classList.add("hidden");
     }
   }
 
