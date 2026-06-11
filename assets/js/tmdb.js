@@ -143,43 +143,20 @@ const TMDB = (() => {
     return await response.json();
   }
 
-  /**
-   * Get trending items
-   */
   async function getTrending(mediaType = 'all', timeWindow = 'week') {
-    // Replaced /trending with /discover to support with_runtime filtering
-    let tvData = { results: [] };
-    let movieData = { results: [] };
+    const endpoint = `/trending/${mediaType}/${timeWindow}`;
+    const data = await get(endpoint, {
+      language: LANGUAGE
+    });
 
-    if (mediaType === 'all' || mediaType === 'tv') {
-      tvData = await get('/discover/tv', {
-        sort_by: 'popularity.desc',
-        include_adult: false,
-        'with_runtime.gte': 30,
-        'vote_count.gte': 5,
-        region: WATCH_REGION,
-        watch_region: WATCH_REGION
-      });
-    }
+    const results = (data.results || []).map(item => {
+      if (!item.media_type) {
+        item.media_type = mediaType === 'all' ? (item.title ? 'movie' : 'tv') : mediaType;
+      }
+      return item;
+    });
 
-    if (mediaType === 'all' || mediaType === 'movie') {
-      movieData = await get('/discover/movie', {
-        sort_by: 'popularity.desc',
-        include_adult: false,
-        'with_runtime.gte': 30,
-        'vote_count.gte': 5,
-        region: WATCH_REGION,
-        watch_region: WATCH_REGION
-      });
-    }
-
-    const tvResults = (tvData.results || []).map(item => ({ ...item, media_type: 'tv' }));
-    const movieResults = (movieData.results || []).map(item => ({ ...item, media_type: 'movie' }));
-
-    const combined = [...tvResults, ...movieResults].sort((a, b) => (b.popularity || 0) - (a.popularity || 0));
-
-    // To simulate top 10 for 'day', we can just slice or return as is
-    return { results: combined };
+    return { results };
   }
 
   /**
