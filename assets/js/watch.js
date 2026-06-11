@@ -22,7 +22,7 @@
     episode,
     malId,
     isAnime,
-    activeServer: localStorage.getItem('preferredServer') || 'vidup'
+    activeServer: localStorage.getItem('preferredServer') || 'rive'
   };
 
   function init() {
@@ -218,21 +218,24 @@
     let fallbackTarget = null;
     let fallbackName = "";
 
-    if (state.activeServer === "vidup") {
-      fallbackTarget = "vixsrc";
+    if (state.activeServer === "rive") {
+      fallbackTarget = "vidup";
       fallbackName = "Server 2";
+    } else if (state.activeServer === "vidup") {
+      fallbackTarget = "vixsrc";
+      fallbackName = "Server 3";
     } else if (state.activeServer === "vixsrc") {
       fallbackTarget = "vidnest";
-      fallbackName = "Server 3";
+      fallbackName = "Server 4";
     } else if (state.activeServer === "vidnest") {
       fallbackTarget = "vidfast";
-      fallbackName = "Server 4";
+      fallbackName = "Server 5";
     } else if (state.activeServer === "vidfast") {
       fallbackTarget = "peachify";
-      fallbackName = "Server 5";
+      fallbackName = "Server 6";
     } else if (state.activeServer === "peachify") {
       fallbackTarget = "videasy";
-      fallbackName = "Server 6";
+      fallbackName = "Server 7";
     }
 
     if (fallbackTarget) {
@@ -263,7 +266,9 @@
         window.removeEventListener('message', messageListener);
         if (pingInterval) clearInterval(pingInterval);
         
-        if (state.activeServer === 'vixsrc') {
+        if (state.activeServer === 'rive') {
+          // Bypass timeout fallback for Rive as postMessage support is unverified
+        } else if (state.activeServer === 'vixsrc') {
           // Intelligent 404 detection for Vixsrc: Vixsrc injects a sub-iframe if a movie is found.
           // If after 8 seconds there are 0 sub-frames, it means no source was found.
           try {
@@ -338,12 +343,23 @@
   }
 
   function buildServerUrl(server, type, id, season, episode) {
+    if (server === 'rive') return buildRiveUrl(type, id, season, episode);
     if (server === 'vidup') return buildVidUpUrl(type, id, season, episode);
     if (server === 'peachify') return buildPeachifyUrl(type, id, season, episode);
     if (server === 'vixsrc') return buildVixsrcUrl(type, id, season, episode);
     if (server === 'vidfast') return buildVidfastUrl(type, id, season, episode);
     if (server === 'vidnest') return buildVidnestUrl(type, id, season, episode);
     return buildVideasyUrl(type, id, season, episode);
+  }
+
+  function buildRiveUrl(type, id, season, episode) {
+    if (type === "tv" || type === "anime") {
+      return `https://rivestream.vip/embed?type=tv&id=${id}&season=${season}&episode=${episode}`;
+    }
+    if (type === "movie") {
+      return `https://rivestream.vip/embed?type=movie&id=${id}`;
+    }
+    return "";
   }
 
   function buildVidUpUrl(type, id, season, episode) {
