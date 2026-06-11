@@ -93,6 +93,8 @@
       return;
     }
 
+    renderHeroSkeleton();
+
     try {
       let details;
       if (type === "tv") {
@@ -245,6 +247,16 @@
         window.location.href = `${base}/media.html?type=${encodeURIComponent(nextType)}&id=${encodeURIComponent(nextId)}`;
       }
     });
+  }
+
+  function renderHeroSkeleton() {
+    if (els.heroTitle) {
+      els.heroTitle.innerHTML = `<div class="skeleton skeleton-text" style="height: 1.2em; width: 60%; margin-bottom: 0;"></div>`;
+      els.heroTitle.classList.remove("hidden");
+    }
+    if (els.heroTitleLogo) els.heroTitleLogo.classList.add("hidden");
+    if (els.heroOverview) els.heroOverview.innerHTML = `<div class="skeleton skeleton-text"></div><div class="skeleton skeleton-text"></div><div class="skeleton skeleton-text short"></div>`;
+    if (els.heroMeta) els.heroMeta.innerHTML = `<div class="skeleton skeleton-text" style="height: 1em; width: 200px;"></div>`;
   }
 
   // ─── Hero ───
