@@ -164,7 +164,43 @@ body {
   color-scheme: dark;
 }
 
+/* Floating Back Button — always accessible over the player */
+.floating-back-btn {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 100;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 50%;
+  color: #fff;
+  cursor: pointer;
+  padding: 0;
+  opacity: 0.4;
+  transition: opacity 0.2s ease, background 0.2s ease, transform 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
 
+.floating-back-btn:hover,
+.floating-back-btn:active {
+  opacity: 1;
+}
+
+.floating-back-btn:active {
+  transform: scale(0.9);
+  background: rgba(229, 9, 20, 0.7);
+}
+
+.floating-back-btn svg {
+  pointer-events: none;
+}
 
 /* Toast */
 .toast {

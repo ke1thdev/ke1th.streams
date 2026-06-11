@@ -10,6 +10,7 @@
   const els = {
     title: document.getElementById('watchTitle'),
     backBtn: document.getElementById('backBtn'),
+    floatingBackBtn: document.getElementById('floatingBackBtn'),
     serverSelect: document.getElementById('serverSelect'),
     videoFrame: document.getElementById('videoFrame'),
     toast: document.getElementById('toast')
@@ -42,6 +43,7 @@
     els.serverSelect.value = state.activeServer;
     els.serverSelect.addEventListener('change', handleServerChange);
     els.backBtn.addEventListener('click', handleBack);
+    setupFloatingBackBtn();
     
     window.addEventListener('message', handlePlayerMessage);
 
@@ -83,6 +85,15 @@
       if (document.fullscreenElement) document.exitFullscreen?.();
       else if (document.webkitFullscreenElement) document.webkitExitFullscreen?.();
     } catch (e) {}
+  }
+
+  function setupFloatingBackBtn() {
+    if (!els.floatingBackBtn) return;
+    els.floatingBackBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      handleBack();
+    });
   }
 
   function handlePlayerMessage(event) {

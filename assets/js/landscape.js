@@ -253,6 +253,23 @@
     // Listen for fullscreen changes — lock orientation when entering fullscreen
     document.addEventListener('fullscreenchange', handleFullscreenChange);
     document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+
+    // ─── Auto-remove CSS rotation when device physically rotates to landscape ───
+    // Prevents the "upside down" bug: if CSS rotate(90deg) is active and user
+    // physically rotates to landscape, the rotation stacks → upside down.
+    // We detect the natural landscape and release the CSS rotation.
+    function handleOrientationChange() {
+      if (!isPortrait()) {
+        // Device is now naturally in landscape — remove any CSS rotation
+        var rotatedWrappers = document.querySelectorAll('.video-wrapper.force-landscape');
+        rotatedWrappers.forEach(function (wrapper) {
+          releaseLandscape(wrapper);
+        });
+      }
+    }
+
+    window.addEventListener('resize', handleOrientationChange);
+    window.addEventListener('orientationchange', handleOrientationChange);
   }
 
   // ─── Expose Public API ───
