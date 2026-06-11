@@ -1969,12 +1969,19 @@ body::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
 
 
 
-  .mobile-dock {
+  .mobile-dock-wrapper {
     position: fixed;
     bottom: 24px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 90;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: auto;
+  }
+
+  .mobile-dock {
     background: rgba(30, 30, 30, 0.45);
     backdrop-filter: blur(30px) saturate(180%);
     -webkit-backdrop-filter: blur(30px) saturate(180%);
@@ -1985,8 +1992,28 @@ body::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
     gap: 6px;
     padding: 8px 10px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    width: auto;
     transition: all 0.3s ease;
+  }
+
+  .dock-search-btn {
+    background: rgba(30, 30, 30, 0.45);
+    backdrop-filter: blur(30px) saturate(180%);
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    width: 58px;
+    height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  }
+
+  .dock-search-btn:active {
+    transform: scale(0.92);
   }
 
   .dock-btn {
