@@ -110,6 +110,9 @@
   async function init() {
     bindEvents();
 
+    renderHeroSkeleton();
+    renderSkeletonRows();
+
     try {
       const rows = await fetchAllRows();
       state.rowsData = rows;
@@ -132,6 +135,45 @@
       els.heroTitle.textContent = "Error loading content";
       els.heroOverview.textContent = "Please check your connection and try again.";
     }
+  }
+
+  function renderHeroSkeleton() {
+    els.heroTitle.innerHTML = `<div class="skeleton skeleton-text" style="height: 1em; width: 60%; margin-bottom: 0;"></div>`;
+    els.heroTag.innerHTML = `<div class="skeleton skeleton-text short" style="height: 1em; width: 80px;"></div>`;
+    els.heroOverview.innerHTML = `<div class="skeleton skeleton-text"></div><div class="skeleton skeleton-text"></div><div class="skeleton skeleton-text short"></div>`;
+    els.heroMeta.innerHTML = `<div class="skeleton skeleton-text" style="height: 1em; width: 150px;"></div>`;
+  }
+
+  function renderSkeletonRows() {
+    const currentRows = getHomeRows(state.currentCategory);
+    els.rows.innerHTML = "";
+    
+    currentRows.forEach((row, idx) => {
+      const section = document.createElement("section");
+      section.className = "row";
+      
+      const header = document.createElement("div");
+      header.className = "row-header";
+      header.innerHTML = `<h2 class="row-title"><div class="skeleton skeleton-text" style="width: 200px; margin: 0;"></div></h2>`;
+      section.appendChild(header);
+
+      const railWrap = document.createElement("div");
+      railWrap.className = "rail-container";
+      
+      const rail = document.createElement("div");
+      rail.className = "card-rail";
+      
+      const numCards = 8;
+      for (let i = 0; i < numCards; i++) {
+        const card = document.createElement("div");
+        card.className = `skeleton-card ${row.tileStyle === 'landscape' ? 'card-landscape' : 'card-poster'}`;
+        rail.appendChild(card);
+      }
+      
+      railWrap.appendChild(rail);
+      section.appendChild(railWrap);
+      els.rows.appendChild(section);
+    });
   }
 
   async function fetchAllRows() {

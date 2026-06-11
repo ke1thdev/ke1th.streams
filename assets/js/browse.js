@@ -259,11 +259,21 @@
     }
   }
 
+  function renderSkeletonGrid() {
+    if (!els.browseGrid) return;
+    els.browseGrid.innerHTML = "";
+    for (let i = 0; i < 20; i++) {
+      const card = document.createElement("div");
+      card.className = "skeleton-card card-poster";
+      els.browseGrid.appendChild(card);
+    }
+  }
+
   async function loadInitialData() {
-    if (els.browseGrid) els.browseGrid.innerHTML = "";
+    renderSkeletonGrid();
     state.page = 1;
     state.isLoading = true;
-    if (els.loader) els.loader.classList.remove("hidden");
+    if (els.loader) els.loader.classList.add("hidden"); // Hide default spinner for first load
     if (els.endMessage) els.endMessage.classList.add("hidden");
     state.hasMore = true;
 
@@ -320,6 +330,7 @@
         state.hasMore = false;
         if (els.endMessage) els.endMessage.classList.remove("hidden");
       } else {
+        if (state.page === 1 && els.browseGrid) els.browseGrid.innerHTML = ""; // Clear skeletons
         results.forEach(item => {
           const type = state.type === "anime" ? (item.media_type || "tv") : (item.media_type || state.type);
           item.mediaType = type;
