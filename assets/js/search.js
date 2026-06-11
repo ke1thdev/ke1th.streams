@@ -160,12 +160,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const card = e.target.closest(".search-item");
     if (card) {
-      const id = card.dataset.id;
-      const type = card.dataset.type;
-      if (id && type) {
-        saveHistory(input.value.trim());
-        const base = window.APP_CONFIG?.APP_BASE || "";
-        window.location.href = `${base}/media.html?type=${type}&id=${id}`;
+      // If clicking a button, navigate
+      const navBtn = e.target.closest(".search-play-btn, .search-more-btn");
+      if (navBtn) {
+        const id = card.dataset.id;
+        const type = card.dataset.type;
+        if (id && type) {
+          saveHistory(input.value.trim());
+          const base = window.APP_CONFIG?.APP_BASE || "";
+          window.location.href = `${base}/media.html?type=${type}&id=${id}`;
+        }
+        return;
+      }
+      
+      // Otherwise toggle expanded state
+      const isExpanded = card.classList.contains("expanded");
+      
+      // Close all others
+      resultsEl.querySelectorAll(".search-item.expanded").forEach(el => {
+        el.classList.remove("expanded");
+      });
+      
+      // Toggle current
+      if (!isExpanded) {
+        card.classList.add("expanded");
       }
     }
   });
@@ -252,6 +270,16 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
             <div class="search-item-details">
               <div class="search-item-desc">${esc(overview)}</div>
+              <div class="search-item-actions">
+                <button type="button" class="search-play-btn">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg>
+                  Play
+                </button>
+                <button type="button" class="search-more-btn">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                  More Info
+                </button>
+              </div>
             </div>
           </div>
         `;
