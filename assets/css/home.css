@@ -1971,21 +1971,22 @@ body::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
 
   .mobile-dock {
     position: fixed;
-    bottom: 16px;
+    bottom: 24px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 90;
-    background: rgba(20, 20, 20, 0.95);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 28px;
+    background: rgba(30, 30, 30, 0.45);
+    backdrop-filter: blur(30px) saturate(180%);
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 36px;
     display: flex;
     align-items: center;
-    gap: 4px;
-    padding: 6px 8px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    gap: 6px;
+    padding: 8px 10px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
     width: auto;
+    transition: all 0.3s ease;
   }
 
   .dock-btn {
@@ -1995,19 +1996,24 @@ body::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
     gap: 3px;
     background: none;
     border: none;
-    color: var(--text-muted);
+    color: rgba(255, 255, 255, 0.45);
     font-family: var(--font);
     font-size: 0.6rem;
     font-weight: 600;
     cursor: pointer;
     padding: 8px 16px;
-    border-radius: 20px;
-    transition: all var(--transition);
+    border-radius: 28px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  }
+
+  .dock-btn:active {
+    transform: scale(0.92);
   }
 
   .dock-btn.dock-active {
-    color: var(--text-bright);
-    background: rgba(229, 9, 20, 0.2);
+    color: #fff;
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.05);
   }
 
   .dock-btn span {
