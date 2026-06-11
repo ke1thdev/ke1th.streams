@@ -1945,8 +1945,18 @@ body::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
     --landscape-w: 300px;
   }
 
+  .topbar {
+    padding: 0 16px;
+    top: 16px;
+  }
+
+  .topbar.scrolled {
+    top: 8px;
+  }
+
   .topbar-inner {
-    padding: 12px 24px;
+    width: 100%;
+    padding: 10px 16px;
   }
 
   .nav-links {
