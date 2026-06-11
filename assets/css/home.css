@@ -1982,36 +1982,42 @@ body::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
   }
 
   .mobile-dock {
-    background: rgba(30, 30, 30, 0.45);
-    backdrop-filter: blur(30px) saturate(180%) url(#liquid-glass);
-    -webkit-backdrop-filter: blur(30px) saturate(180%) url(#liquid-glass);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 36px;
+    background: rgba(30, 30, 30, 0.65);
+    backdrop-filter: blur(40px) saturate(200%) url(#liquid-glass);
+    -webkit-backdrop-filter: blur(40px) saturate(200%) url(#liquid-glass);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 40px;
     display: flex;
     align-items: center;
     gap: 4px;
-    padding: 0 8px;
-    height: 58px;
+    padding: 0 10px;
+    height: 64px;
     box-sizing: border-box;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
     transition: all 0.3s ease;
   }
 
   .dock-search-btn {
-    background: rgba(30, 30, 30, 0.45);
-    backdrop-filter: blur(30px) saturate(180%) url(#liquid-glass);
-    -webkit-backdrop-filter: blur(30px) saturate(180%) url(#liquid-glass);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(30, 30, 30, 0.65);
+    backdrop-filter: blur(40px) saturate(200%) url(#liquid-glass);
+    -webkit-backdrop-filter: blur(40px) saturate(200%) url(#liquid-glass);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 50%;
-    width: 58px;
-    height: 58px;
+    width: 64px;
+    height: 64px;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.9);
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  }
+
+  .dock-search-btn svg {
+    width: 26px;
+    height: 26px;
+    stroke-width: 2.2;
   }
 
   .dock-search-btn:active {
@@ -2023,23 +2029,24 @@ body::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 2px;
+    gap: 3px;
     background: none;
     border: none;
-    color: rgba(255, 255, 255, 0.45);
+    color: rgba(255, 255, 255, 0.7);
     font-family: var(--font);
     font-size: 0.6rem;
     font-weight: 600;
     cursor: pointer;
-    padding: 0 14px;
-    height: 48px;
-    border-radius: 24px;
+    padding: 0 16px;
+    height: 52px;
+    border-radius: 26px;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   }
 
   .dock-btn svg {
-    width: 24px;
-    height: 24px;
+    width: 26px;
+    height: 26px;
+    stroke-width: 2.2;
     transition: color 0.3s ease;
   }
 
@@ -2048,9 +2055,9 @@ body::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
   }
 
   .dock-btn.dock-active {
-    color: #fff;
-    background: transparent;
-    box-shadow: none;
+    color: var(--brand);
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.05);
   }
 
   .dock-btn.dock-active svg {
