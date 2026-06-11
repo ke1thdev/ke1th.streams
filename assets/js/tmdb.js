@@ -156,7 +156,9 @@ const TMDB = (() => {
         sort_by: 'popularity.desc',
         include_adult: false,
         'with_runtime.gte': 30,
-        'vote_count.gte': 5
+        'vote_count.gte': 5,
+        region: WATCH_REGION,
+        watch_region: WATCH_REGION
       });
     }
 
@@ -165,7 +167,9 @@ const TMDB = (() => {
         sort_by: 'popularity.desc',
         include_adult: false,
         'with_runtime.gte': 30,
-        'vote_count.gte': 5
+        'vote_count.gte': 5,
+        region: WATCH_REGION,
+        watch_region: WATCH_REGION
       });
     }
 
@@ -182,14 +186,14 @@ const TMDB = (() => {
    * Get top rated movies
    */
   async function getTopRatedMovies(page = 1) {
-    return get('/movie/top_rated', { page });
+    return get('/movie/top_rated', { page, region: WATCH_REGION });
   }
 
   /**
    * Get top rated TV shows
    */
   async function getTopRatedTV(page = 1) {
-    return get('/tv/top_rated', { page });
+    return get('/tv/top_rated', { page, region: WATCH_REGION });
   }
 
   /**
@@ -205,6 +209,8 @@ const TMDB = (() => {
       'vote_count.gte': 1,
       'vote_average.gte': 0.1,
       'with_runtime.gte': 30,
+      region: WATCH_REGION,
+      watch_region: WATCH_REGION,
       page
     });
   }
@@ -222,6 +228,8 @@ const TMDB = (() => {
       'vote_count.gte': 1,
       'vote_average.gte': 0.1,
       'with_runtime.gte': 30,
+      region: WATCH_REGION,
+      watch_region: WATCH_REGION,
       page
     });
   }
@@ -258,6 +266,8 @@ const TMDB = (() => {
         'vote_count.gte': 1,
         'vote_average.gte': 0.1,
         'with_runtime.gte': 30,
+        region: WATCH_REGION,
+        watch_region: WATCH_REGION,
         page
       }),
       get('/discover/movie', {
@@ -268,6 +278,8 @@ const TMDB = (() => {
         'vote_count.gte': 1,
         'vote_average.gte': 0.1,
         'with_runtime.gte': 30,
+        region: WATCH_REGION,
+        watch_region: WATCH_REGION,
         page
       })
     ]);
@@ -364,6 +376,7 @@ const TMDB = (() => {
     return get('/search/multi', {
       query,
       include_adult: false,
+      region: WATCH_REGION,
       page
     });
   }
@@ -375,6 +388,7 @@ const TMDB = (() => {
     return get('/search/movie', {
       query,
       include_adult: false,
+      region: WATCH_REGION,
       page
     });
   }
@@ -386,6 +400,7 @@ const TMDB = (() => {
     return get('/search/tv', {
       query,
       include_adult: false,
+      region: WATCH_REGION,
       page
     });
   }
