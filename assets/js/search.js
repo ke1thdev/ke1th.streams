@@ -182,25 +182,24 @@ document.addEventListener("DOMContentLoaded", () => {
         const data = await TMDB.get(`/find/${query}`, { external_source: 'imdb_id' });
         if (data.movie_results?.length) results.push(...data.movie_results.map(m => ({ ...m, media_type: 'movie' })));
         if (data.tv_results?.length) results.push(...data.tv_results.map(m => ({ ...m, media_type: 'tv' })));
-      } else if (/^\d{3,}$/.test(query)) {
-        try {
-          const [m, t] = await Promise.allSettled([
-            TMDB.get(`/movie/${query}`),
-            TMDB.get(`/tv/${query}`)
-          ]);
-          if (m.status === 'fulfilled' && m.value && !m.value.success) {
-            m.value.media_type = 'movie';
-            results.push(m.value);
-          }
-          if (t.status === 'fulfilled' && t.value && !t.value.success) {
-            t.value.media_type = 'tv';
-            results.push(t.value);
-          }
-        } catch (e) { }
-      }
+      } else {
+        if (/^\d{3,}$/.test(query)) {
+          try {
+            const [m, t] = await Promise.allSettled([
+              TMDB.get(`/movie/${query}`),
+              TMDB.get(`/tv/${query}`)
+            ]);
+            if (m.status === 'fulfilled' && m.value && m.value.id) {
+              m.value.media_type = 'movie';
+              results.push(m.value);
+            }
+            if (t.status === 'fulfilled' && t.value && t.value.id) {
+              t.value.media_type = 'tv';
+              results.push(t.value);
+            }
+          } catch (e) { }
+        }
 
-      // If no exact ID match or it's just a text query
-      if (results.length === 0 && !/^tt\d{7,8}$/.test(query)) {
         let endpoint = '/search/multi';
         if (searchFilter === 'movie') endpoint = '/search/movie';
         if (searchFilter === 'tv') endpoint = '/search/tv';
