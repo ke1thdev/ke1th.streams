@@ -196,14 +196,14 @@
     // Share button
     if (els.shareBtn) {
       els.shareBtn.addEventListener("click", async () => {
-        let url = `https://stream.ke1th.dev/media?type=${type}&id=${id}`;
+        const base = window.APP_CONFIG?.APP_BASE || "";
+        let url = `${window.location.origin}${base}/media.html?type=${type}&id=${id}`;
         if (isAnimeMode && animeMalId > 0) {
           url += `&anime=1&malId=${animeMalId}`;
         }
         
         const shareTitle = state.details ? (state.details.title || state.details.name) : "ke1th.streams";
         const shareDesc = state.details ? state.details.overview : "";
-        
         const combinedText = `Watch ${shareTitle} on ke1th.streams\n\n${shareDesc}\n\n${url}`;
 
         const shareData = {
@@ -214,16 +214,36 @@
         if (navigator.share) {
           try {
             await navigator.share(shareData);
+            return;
           } catch (err) {
-            // User likely cancelled the share; do nothing
+            // User likely cancelled the share; fallback to copy
           }
-        } else {
-          // Fallback for browsers that do not support Web Share API
+        }
+        
+        // Fallback for desktop browsers / non-secure contexts
+        const fallbackCopy = (text) => {
+          const textArea = document.createElement("textarea");
+          textArea.value = text;
+          textArea.style.position = "fixed";
+          textArea.style.opacity = "0";
+          document.body.appendChild(textArea);
+          textArea.focus();
+          textArea.select();
+          try {
+            if (document.execCommand('copy')) showToast("Link copied to clipboard!");
+            else showToast("Failed to copy link.");
+          } catch (err) {
+            showToast("Failed to copy link.");
+          }
+          document.body.removeChild(textArea);
+        };
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
           navigator.clipboard.writeText(url).then(() => {
             showToast("Link copied to clipboard!");
-          }).catch(() => {
-            showToast("Failed to copy link.");
-          });
+          }).catch(() => fallbackCopy(url));
+        } else {
+          fallbackCopy(url);
         }
       });
     }
