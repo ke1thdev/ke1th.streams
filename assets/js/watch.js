@@ -353,11 +353,12 @@
   }
 
   function buildRiveUrl(type, id, season, episode) {
+    const themeParams = "&theme=e50914&color=e50914&primaryColor=e50914";
     if (type === "tv" || type === "anime") {
-      return `https://rivestream.vip/embed?type=tv&id=${id}&season=${season}&episode=${episode}`;
+      return `https://rivestream.vip/embed?type=tv&id=${id}&season=${season}&episode=${episode}${themeParams}`;
     }
     if (type === "movie") {
-      return `https://rivestream.vip/embed?type=movie&id=${id}`;
+      return `https://rivestream.vip/embed?type=movie&id=${id}${themeParams}`;
     }
     return "";
   }
