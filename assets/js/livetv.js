@@ -247,13 +247,6 @@ document.addEventListener('DOMContentLoaded', () => {
     modal.classList.remove('hidden');
     modal.setAttribute('aria-hidden', 'false');
 
-    // Force landscape orientation when opening the player
-    const videoContainer = document.querySelector('.video-container');
-    if (videoContainer && window.LandscapeForcer) {
-      videoContainer.classList.add('video-wrapper');
-      LandscapeForcer.forceLandscape(videoContainer);
-    }
-    
     // cleanup previous instances
     if (hlsInstance) {
       hlsInstance.destroy();
@@ -275,6 +268,13 @@ document.addEventListener('DOMContentLoaded', () => {
       window.open(`https://www.youtube.com/channel/${channelId}/live`, '_blank');
       modal.classList.add('hidden');
       return;
+    }
+
+    // Force landscape orientation when opening the player
+    const videoContainer = document.querySelector('.video-container');
+    if (videoContainer && window.LandscapeForcer) {
+      videoContainer.classList.add('video-wrapper');
+      LandscapeForcer.forceLandscape(videoContainer);
     } else if (url.includes('.mpd')) {
       videoPlayer.classList.remove('hidden');
       // Dash

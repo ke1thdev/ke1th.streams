@@ -78,7 +78,7 @@
     if (!isIOS) {
       try {
         // Most browsers require fullscreen before orientation lock works
-        const target = wrapper.querySelector('video') || wrapper.querySelector('iframe') || wrapper;
+        const target = wrapper.querySelector('.plyr') || wrapper.querySelector('video') || wrapper.querySelector('iframe') || wrapper;
 
         const requestFS =
           target.requestFullscreen ||

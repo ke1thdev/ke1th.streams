@@ -8,7 +8,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport"
     content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <title>Live TV - ke1th.streams v3.0.4</title>
+  <title>Live TV - ke1th.streams v3.0.5</title>
 
   <!-- PWA & Favicon -->
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/imgs/apple-touch-icon.png">
@@ -23,11 +23,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
     rel="stylesheet" />
 
-  <link rel="stylesheet" href="/assets/css/home.css?v=3.0.4" />
-  <link rel="stylesheet" href="/assets/css/livetv.css?v=3.0.4" />
+  <link rel="stylesheet" href="/assets/css/home.css?v=3.0.5" />
+  <link rel="stylesheet" href="/assets/css/livetv.css?v=3.0.5" />
   <!-- Plyr Custom Video Player CSS -->
   <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
-  <link rel="stylesheet" href="/assets/css/landscape.css?v=3.0.4" />
+  <link rel="stylesheet" href="/assets/css/landscape.css?v=3.0.5" />
 </head>
 
 <body>
@@ -47,7 +47,7 @@
       </nav>
 
       <div class="topbar-actions" style="display: flex; align-items: center; gap: 16px;">
-        <button id="openSearchBtn" class="action-btn" type="button" aria-label="Search" style="visibility: hidden;">
+        <button id="openSearchBtn" class="action-btn" type="button" aria-label="Search">
           <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
             stroke-linecap="round" stroke-linejoin="round">
             <circle cx="11" cy="11" r="8"></circle>
@@ -134,7 +134,7 @@
   </main>
 
   <footer class="site-footer" style="margin-top: auto;">
-    <p><strong>ke1th.streams v3.0.4</strong> - I do not store any files on my server. I only link to media hosted on
+    <p><strong>ke1th.streams v3.0.5</strong> - I do not store any files on my server. I only link to media hosted on
       third-party services.</p>
     <p style="margin-top: 12px; font-size: 0.85rem; color: var(--text-muted);">
       <a href="https://github.com/ke1thdev/ke1th.streams" target="_blank" rel="noopener noreferrer"
@@ -207,7 +207,7 @@
       </div>
       <div class="video-container"
         style="display: flex; align-items: center; justify-content: center; background: #000; position: relative;">
-        <video id="liveVideoPlayer" controls autoplay
+        <video id="liveVideoPlayer" data-landscape-init="true" controls autoplay
           style="width: 100%; height: 100%; max-height: 100%; outline: none; background: #000; object-fit: contain;"></video>
         <iframe id="liveIframePlayer" class="hidden"
           style="width: 100%; height: 100%; border: none; position: absolute; top: 0; left: 0;"
@@ -222,11 +222,11 @@
   <!-- Plyr Custom Video Player JS -->
   <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
 
-  <script src="/assets/js/config.js?v=3.0.4"></script>
-  <script src="/assets/js/tmdb.js?v=3.0.4"></script>
-  <script src="/assets/js/search.js?v=3.0.4"></script>
-  <script src="/assets/js/landscape.js?v=3.0.4"></script>
-  <script src="/assets/js/livetv.js?v=3.0.4"></script>
+  <script src="/assets/js/config.js?v=3.0.5"></script>
+  <script src="/assets/js/tmdb.js?v=3.0.5"></script>
+  <script src="/assets/js/search.js?v=3.0.5"></script>
+  <script src="/assets/js/landscape.js?v=3.0.5"></script>
+  <script src="/assets/js/livetv.js?v=3.0.5"></script>
   
   <!-- Liquid Glass SVG Filter -->
   <svg width="0" height="0" style="position: absolute; pointer-events: none;">
