@@ -17,6 +17,10 @@
  *   // Imperative control for iframe wrappers:
  *   LandscapeForcer.forceLandscape(wrapperElement);
  *   LandscapeForcer.releaseLandscape(wrapperElement);
+ *
+ *   // Simple orientation lock (no CSS fallback, no fullscreen) for full-page players:
+ *   LandscapeForcer.lockOrientation();
+ *   LandscapeForcer.unlockOrientation();
  */
 (function () {
   'use strict';
@@ -41,6 +45,28 @@
     element.parentNode.insertBefore(wrapper, element);
     wrapper.appendChild(element);
     return wrapper;
+  }
+
+  // ─── Create a close button for the CSS rotation overlay ───
+  function createCloseButton(wrapper) {
+    // Don't duplicate
+    if (wrapper.querySelector('.force-landscape-close')) return;
+
+    const btn = document.createElement('button');
+    btn.className = 'force-landscape-close';
+    btn.setAttribute('aria-label', 'Exit landscape');
+    btn.innerHTML = '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>';
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      releaseLandscape(wrapper);
+    });
+    wrapper.appendChild(btn);
+  }
+
+  // ─── Remove the close button ───
+  function removeCloseButton(wrapper) {
+    const btn = wrapper.querySelector('.force-landscape-close');
+    if (btn) btn.remove();
   }
 
   // ─── Lock to Landscape (API attempt + CSS fallback) ───
@@ -81,6 +107,7 @@
     // CSS Transform Fallback (iOS + any failure case)
     wrapper.classList.add('force-landscape');
     wrapper.dataset.landscapeMethod = 'css';
+    createCloseButton(wrapper);
 
     // Prevent body scroll while rotated
     document.body.style.overflow = 'hidden';
@@ -104,10 +131,62 @@
 
     if (method === 'css' || wrapper.classList.contains('force-landscape')) {
       wrapper.classList.remove('force-landscape');
+      removeCloseButton(wrapper);
       document.body.style.overflow = '';
     }
 
     delete wrapper.dataset.landscapeMethod;
+  }
+
+  // ─── Simple orientation lock (no fullscreen, no CSS fallback) ───
+  // Used for full-page players like watch.html where the entire page IS the player.
+  // Does NOT request fullscreen or apply CSS rotation.
+  async function lockOrientation() {
+    if (isIOS) return; // iOS doesn't support this API at all
+    try {
+      if (screen.orientation && screen.orientation.lock) {
+        await screen.orientation.lock('landscape');
+      }
+    } catch (err) {
+      // Silently fail — this is a best-effort enhancement
+      console.warn('Orientation lock failed (expected without fullscreen):', err.message);
+    }
+  }
+
+  function unlockOrientation() {
+    try {
+      screen.orientation?.unlock();
+    } catch (e) {
+      // Silently fail
+    }
+  }
+
+  // ─── Fullscreen-aware orientation lock ───
+  // When user enters fullscreen (e.g. via iframe player controls),
+  // try to lock orientation to landscape at that point.
+  function handleFullscreenChange() {
+    const fsElement = document.fullscreenElement || document.webkitFullscreenElement;
+
+    if (fsElement) {
+      // User ENTERED fullscreen — try to lock landscape
+      if (isPortrait() && !isIOS) {
+        try {
+          if (screen.orientation && screen.orientation.lock) {
+            screen.orientation.lock('landscape').catch(function () {});
+          }
+        } catch (e) {}
+      }
+    } else {
+      // User EXITED fullscreen — unlock orientation + clean up any CSS wrappers
+      try {
+        screen.orientation?.unlock();
+      } catch (e) {}
+
+      const activeWrappers = document.querySelectorAll('.video-wrapper[data-landscape-method="api"]');
+      activeWrappers.forEach(function (wrapper) {
+        releaseLandscape(wrapper);
+      });
+    }
   }
 
   // ─── Exit Fullscreen Helper ───
@@ -148,17 +227,6 @@
     });
   }
 
-  // ─── Fullscreen change listener (user manually exits fullscreen) ───
-  function handleFullscreenChange() {
-    // If user exited fullscreen, release any active CSS rotation
-    if (!document.fullscreenElement && !document.webkitFullscreenElement) {
-      const activeWrappers = document.querySelectorAll('.video-wrapper[data-landscape-method="api"]');
-      activeWrappers.forEach(function (wrapper) {
-        releaseLandscape(wrapper);
-      });
-    }
-  }
-
   // ─── Public Init: auto-setup all native <video> elements ───
   function init() {
     // Setup existing videos
@@ -182,7 +250,7 @@
 
     observer.observe(document.body, { childList: true, subtree: true });
 
-    // Listen for fullscreen exit
+    // Listen for fullscreen changes — lock orientation when entering fullscreen
     document.addEventListener('fullscreenchange', handleFullscreenChange);
     document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
   }
@@ -192,6 +260,8 @@
     init: init,
     forceLandscape: forceLandscape,
     releaseLandscape: releaseLandscape,
+    lockOrientation: lockOrientation,
+    unlockOrientation: unlockOrientation,
     isPortrait: isPortrait,
     isIOS: isIOS
   };

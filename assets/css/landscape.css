@@ -35,3 +35,36 @@
   height: 100%;
   object-fit: contain;
 }
+
+/* Close / Exit button for CSS rotation overlay */
+.force-landscape-close {
+  position: absolute;
+  /* In the rotated context, "top-right" is visually top-right of the landscape view */
+  top: 12px;
+  right: 12px;
+  z-index: 10001;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  color: #fff;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.2s ease, transform 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.force-landscape-close:active {
+  transform: scale(0.9);
+  background: rgba(229, 9, 20, 0.8);
+}
+
+.force-landscape-close svg {
+  pointer-events: none;
+}

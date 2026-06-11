@@ -31,15 +31,13 @@
       return;
     }
 
-    // Setup landscape orientation forcing for the iframe player wrapper
-    const playerWrapper = document.querySelector('.player-wrapper');
-    if (playerWrapper) {
-      playerWrapper.classList.add('video-wrapper');
-    }
-    // Force landscape on page load (user navigated here via a play gesture)
-    if (playerWrapper && LandscapeForcer.isPortrait()) {
-      LandscapeForcer.forceLandscape(playerWrapper);
-    }
+    // Enter true fullscreen (hides browser chrome + status bar) and lock to landscape.
+    // This works on Android/Desktop. On iOS, fullscreen on non-video elements is not
+    // supported, but the page already fills the viewport by design.
+    enterImmersiveMode();
+    // Listen for fullscreen changes so orientation locks when user goes fullscreen
+    // via the iframe player's own fullscreen button
+    LandscapeForcer.init();
 
     els.serverSelect.value = state.activeServer;
     els.serverSelect.addEventListener('change', handleServerChange);
@@ -52,7 +50,40 @@
     initDisclaimer();
   }
 
-  // Orientation is now managed by LandscapeForcer module (landscape.js)
+  // ─── Immersive Mode: True fullscreen + landscape lock ───
+  // Requests fullscreen on the entire page (hides status bar, browser chrome)
+  // then locks orientation to landscape. Falls back gracefully.
+  async function enterImmersiveMode() {
+    if (LandscapeForcer.isIOS) return; // iOS can't fullscreen non-video elements
+
+    try {
+      const docEl = document.documentElement;
+      const requestFS = docEl.requestFullscreen || docEl.webkitRequestFullscreen || docEl.mozRequestFullScreen || docEl.msRequestFullscreen;
+      if (requestFS) {
+        await requestFS.call(docEl);
+      }
+      // Now that we're in fullscreen, lock to landscape
+      if (screen.orientation && screen.orientation.lock) {
+        await screen.orientation.lock('landscape');
+      }
+    } catch (err) {
+      // Best-effort: some browsers require a user gesture for fullscreen.
+      // The page init runs from DOMContentLoaded (not a gesture), so this may fail.
+      // Orientation will still lock when user taps the iframe's own fullscreen button
+      // thanks to LandscapeForcer.init() listening for fullscreenchange.
+      console.warn('Immersive mode failed (expected on page load):', err.message);
+    }
+  }
+
+  function exitImmersiveMode() {
+    try {
+      screen.orientation?.unlock();
+    } catch (e) {}
+    try {
+      if (document.fullscreenElement) document.exitFullscreen?.();
+      else if (document.webkitFullscreenElement) document.webkitExitFullscreen?.();
+    } catch (e) {}
+  }
 
   function handlePlayerMessage(event) {
     try {
@@ -147,11 +178,7 @@
   }
 
   function handleBack() {
-    // Release landscape lock before navigating away
-    const playerWrapper = document.querySelector('.player-wrapper.video-wrapper');
-    if (playerWrapper) {
-      LandscapeForcer.releaseLandscape(playerWrapper);
-    }
+    exitImmersiveMode();
     let url = `/media.html?type=${state.type}&id=${state.id}`;
     if (state.isAnime && state.malId) {
       url += `&anime=1&malId=${state.malId}`;
