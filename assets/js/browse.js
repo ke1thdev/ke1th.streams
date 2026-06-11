@@ -153,10 +153,7 @@
       });
     }
     
-    if (els.openSearchBtn) els.openSearchBtn.addEventListener("click", () => els.searchOverlay.classList.remove("hidden"));
-    const mobileSearchBtn = document.getElementById("openSearchBtnMobile");
-    if (mobileSearchBtn) mobileSearchBtn.addEventListener("click", () => els.searchOverlay.classList.remove("hidden"));
-    if (els.searchCloseBtn) els.searchCloseBtn.addEventListener("click", () => els.searchOverlay.classList.add("hidden"));
+    // Search overlay logic is now handled by search.js
   }
 
   async function handleAnimeClick(card) {

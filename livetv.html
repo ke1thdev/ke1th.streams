@@ -23,8 +23,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
     rel="stylesheet" />
 
-  <link rel="stylesheet" href="/assets/css/home.css?v=2.4.17" />
-  <link rel="stylesheet" href="/assets/css/livetv.css?v=2.4.17" />
+  <link rel="stylesheet" href="/assets/css/home.css?v=3.0.0" />
+  <link rel="stylesheet" href="/assets/css/livetv.css?v=3.0.0" />
   <!-- Plyr Custom Video Player CSS -->
   <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
 </head>
@@ -63,13 +63,66 @@
       <p class="livetv-subtitle">Watch your favorite live channels. Streams are powered by the community.</p>
     </section>
 
+    <section id="searchOverlay" class="search-overlay hidden">
+      <div class="search-container">
+        <div class="search-header">
+          <h2 class="search-title">Search</h2>
+          <div class="search-header-right">
+            <div class="search-filter-dropdown" style="position: relative;">
+              <button class="search-filter-btn" id="searchFilterToggle"><span id="searchFilterLabel">All Results</span>
+                <svg class="filter-chevron" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                  stroke-width="2" style="transition: transform 0.2s;">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg></button>
+              <div id="searchFilterMenu" class="search-filter-menu"
+                style="display: none; position: absolute; top: calc(100% + 8px); right: 0; background: rgba(18, 18, 18, 0.9); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 6px; min-width: 160px; flex-direction: column; gap: 4px; z-index: 250;">
+                <button class="search-filter-option active" data-filter="all"
+                  style="background: none; border: none; color: #fff; padding: 8px 12px; text-align: left; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-weight: 500;">All
+                  Results</button>
+                <button class="search-filter-option" data-filter="movie"
+                  style="background: none; border: none; color: #888; padding: 8px 12px; text-align: left; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-weight: 500;">Movies
+                  Only</button>
+                <button class="search-filter-option" data-filter="tv"
+                  style="background: none; border: none; color: #888; padding: 8px 12px; text-align: left; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-weight: 500;">TV
+                  Shows Only</button>
+                <button class="search-filter-option" data-filter="person"
+                  style="background: none; border: none; color: #888; padding: 8px 12px; text-align: left; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-weight: 500;">Cast
+                  & Crew</button>
+              </div>
+            </div>
+            <button id="searchCloseBtn" class="search-close-modal" aria-label="Close search">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="search-bar">
+          <svg class="search-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input id="searchInput" type="search" placeholder="Type here to search..." autocomplete="off" />
+          <button id="searchClearBtn" class="search-clear hidden" aria-label="Clear input">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+        <div id="searchResults" class="search-results">
+          <!-- Recent Searches / Results go here -->
+        </div>
+      </div>
+    </section>
+
     <section class="livetv-section">
       <div class="livetv-controls"
-        style="display: flex; gap: 10px; margin-bottom: 20px; max-width: 1200px; margin-left: auto; margin-right: auto;">
-        <input type="text" id="channelSearch" placeholder="Search channels..."
-          style="flex: 1; padding: 12px; border-radius: 8px; border: 1px solid #333; background: #1a1a1a; color: #fff; font-size: 16px; outline: none;">
+        style="display: flex; justify-content: center; margin-bottom: 20px; max-width: 1200px; margin-left: auto; margin-right: auto;">
         <select id="categoryFilter"
-          style="padding: 12px; border-radius: 8px; border: 1px solid #333; background: #1a1a1a; color: #fff; font-size: 16px; min-width: 150px; outline: none; cursor: pointer;">
+          style="padding: 12px; border-radius: 8px; border: 1px solid #333; background: #1a1a1a; color: #fff; font-size: 16px; min-width: 250px; outline: none; cursor: pointer;">
           <option value="All">All Categories</option>
         </select>
       </div>
@@ -129,12 +182,12 @@
         <span>TV</span>
       </a>
     </nav>
-    <a href="/browse.html" class="dock-search-btn" aria-label="Search" style="text-decoration: none; color: rgba(255, 255, 255, 0.9);">
+    <button class="dock-search-btn" type="button" data-nav="search" aria-label="Search" id="openSearchBtnMobile">
       <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="11" cy="11" r="8"></circle>
         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
       </svg>
-    </a>
+    </button>
   </div>
 
   <!-- Player Modal for Live TV -->
@@ -168,7 +221,10 @@
   <!-- Plyr Custom Video Player JS -->
   <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
 
-  <script src="/assets/js/livetv.js?v=2.4.17"></script>
+  <script src="/assets/js/config.js?v=3.0.0"></script>
+  <script src="/assets/js/tmdb.js?v=3.0.0"></script>
+  <script src="/assets/js/search.js?v=3.0.0"></script>
+  <script src="/assets/js/livetv.js?v=3.0.0"></script>
   
   <!-- Liquid Glass SVG Filter -->
   <svg width="0" height="0" style="position: absolute; pointer-events: none;">

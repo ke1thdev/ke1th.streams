@@ -101,23 +101,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  const searchInput = document.getElementById('channelSearch');
   const categoryFilter = document.getElementById('categoryFilter');
 
   function filterChannels() {
-    const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
     const selectedCategory = categoryFilter ? categoryFilter.value : 'All';
 
     const filtered = allChannels.filter(ch => {
-      const matchesSearch = ch.name.toLowerCase().includes(searchTerm) || ch.group.toLowerCase().includes(searchTerm);
       const matchesCategory = selectedCategory === 'All' || ch.group === selectedCategory;
-      return matchesSearch && matchesCategory;
+      return matchesCategory;
     });
 
     renderChannels(filtered);
   }
 
-  if (searchInput) searchInput.addEventListener('input', filterChannels);
   if (categoryFilter) categoryFilter.addEventListener('change', filterChannels);
 
   const categoryOrder = [
