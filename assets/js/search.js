@@ -152,6 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
   resultsEl.addEventListener("click", (e) => {
     const recent = e.target.closest(".search-recent-item");
     if (recent) {
+      e.stopPropagation();
       input.value = recent.dataset.query;
       doSearch(recent.dataset.query);
       return;

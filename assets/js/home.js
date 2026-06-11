@@ -220,6 +220,7 @@
                 if (tmdbData) {
                    tmdbData.mediaType = pType;
                    tmdbData.progressData = data;
+                   tmdbData.progressKey = key;
                    tmdbData.season = season;
                    tmdbData.episode = episode;
                    continueItems.push(tmdbData);
@@ -409,19 +410,34 @@
         btn.classList.add("dock-active");
         const action = btn.dataset.nav;
         if (action === "home") window.scrollTo({ top: 0, behavior: "smooth" });
-        if (action === "search") openSearch();
+        if (action === "search") document.getElementById("openSearchBtnMobile")?.click();
       });
-    });
-
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") {
-        if (state.searchOpen) closeSearch();
-      }
     });
 
   }
 
   function handleRowsClick(e) {
+    const removeBtn = e.target.closest(".remove-continue");
+    if (removeBtn) {
+      e.preventDefault();
+      e.stopPropagation();
+      const key = removeBtn.dataset.key;
+      if (key) {
+         let progressData = JSON.parse(localStorage.getItem('watchProgress') || '{}');
+         delete progressData[key];
+         localStorage.setItem('watchProgress', JSON.stringify(progressData));
+         const card = removeBtn.closest('.card');
+         if (card) {
+            const rail = card.closest('.card-rail');
+            card.remove();
+            if (rail && rail.children.length === 0) {
+               rail.closest('.row').remove();
+            }
+         }
+      }
+      return;
+    }
+
     // Tab click
     const tab = e.target.closest(".row-tab");
     if (tab) {
@@ -765,8 +781,12 @@
     }
 
     let progressHtml = '';
+    let removeBtnHtml = '';
     if (item.progressData && item.progressData.progress) {
        progressHtml = `<div style="width: 100%; height: 4px; background: rgba(255,255,255,0.2); position: absolute; bottom: 0; left: 0; z-index: 10;"><div style="width: ${item.progressData.progress}%; height: 100%; background: #e50914;"></div></div>`;
+       removeBtnHtml = `<div class="remove-continue" data-key="${item.progressKey}" style="position: absolute; top: 6px; right: 6px; z-index: 20; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); border-radius: 50%; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.2s;">
+         <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+       </div>`;
     }
 
     const genreText = item.genre_ids ? item.genre_ids.map(id => GENRE_MAP[id]).filter(Boolean).slice(0, 3).join(", ") : "";
@@ -774,6 +794,7 @@
 
     card.innerHTML = `
       <div class="card-img-wrap">
+        ${removeBtnHtml}
         <img class="card-image" src="${src}" alt="${esc(title)}" loading="lazy" decoding="async" />
         ${isTop10 ? `<span class="card-rank">${item.rank}</span>` : ""}
         ${progressHtml}
