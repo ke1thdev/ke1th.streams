@@ -143,10 +143,11 @@ const TMDB = (() => {
     return await response.json();
   }
 
-  async function getTrending(mediaType = 'all', timeWindow = 'week') {
+  async function getTrending(mediaType = 'all', timeWindow = 'week', page = 1) {
     const endpoint = `/trending/${mediaType}/${timeWindow}`;
     const data = await get(endpoint, {
-      language: LANGUAGE
+      language: LANGUAGE,
+      page: page
     });
 
     const results = (data.results || []).map(item => {
@@ -156,7 +157,7 @@ const TMDB = (() => {
       return item;
     });
 
-    return { results };
+    return { results, total_pages: data.total_pages };
   }
 
   /**

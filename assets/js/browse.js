@@ -39,6 +39,8 @@
     type: "movie",
     genre: "all",
     provider: "all",
+    sort: "popularity.desc",
+    time: "week",
     genresById: {}
   };
 
@@ -71,6 +73,8 @@
     if (state.params.has("type")) state.type = state.params.get("type");
     if (state.params.has("genre")) state.genre = state.params.get("genre");
     if (state.params.has("provider")) state.provider = state.params.get("provider");
+    if (state.params.has("sort")) state.sort = state.params.get("sort");
+    if (state.params.has("time")) state.time = state.params.get("time");
     
     if (els.typeFilter) els.typeFilter.value = state.type;
     if (els.providerFilter) els.providerFilter.value = state.provider;
@@ -179,6 +183,10 @@
   }
 
   function triggerFilterChange() {
+    if (state.sort === "trending" && (state.genre !== "all" || state.provider !== "all")) {
+        state.sort = "popularity.desc";
+    }
+
     const url = new URL(window.location);
     url.searchParams.set("type", state.type);
     
@@ -187,6 +195,14 @@
     
     if (state.provider !== "all") url.searchParams.set("provider", state.provider);
     else url.searchParams.delete("provider");
+    
+    if (state.sort === "trending") {
+        url.searchParams.set("sort", "trending");
+        if (state.time !== "week") url.searchParams.set("time", state.time);
+    } else {
+        url.searchParams.delete("sort");
+        url.searchParams.delete("time");
+    }
     
     window.history.pushState({ path: url.toString() }, "", url.toString());
 
@@ -226,14 +242,19 @@
     else if (state.type === "tv") titleStr = "TV Shows";
     else titleStr = "Movies";
     
-    if (state.genre !== "all" && state.genresById[state.genre]) {
-        titleStr = state.genresById[state.genre] + " " + titleStr;
-    }
-    
-    if (state.provider !== "all" && PROVIDER_NAMES[state.provider]) {
-        subStr = "Only on " + PROVIDER_NAMES[state.provider];
+    if (state.sort === "trending") {
+        titleStr = "Trending " + titleStr;
+        subStr = state.time === "day" ? "Top 10 Today" : "Most popular this week";
     } else {
-        subStr = "Discover everything";
+        if (state.genre !== "all" && state.genresById[state.genre]) {
+            titleStr = state.genresById[state.genre] + " " + titleStr;
+        }
+        
+        if (state.provider !== "all" && PROVIDER_NAMES[state.provider]) {
+            subStr = "Only on " + PROVIDER_NAMES[state.provider];
+        } else {
+            subStr = "Discover everything";
+        }
     }
     
     if (els.browseTitle) els.browseTitle.textContent = titleStr;
@@ -300,41 +321,47 @@
     }
     
     try {
-      const today = new Date().toISOString().split('T')[0];
-      const params = {
-          page: state.page,
-          sort_by: "popularity.desc",
-          include_adult: false
-      };
-      
-      let endpointType = state.type;
-      
-      if (state.genre && state.genre !== "all") {
-          params.with_genres = state.genre;
-      }
-      
-      if (state.provider && state.provider !== "all") {
-          if (state.provider === "vivamax") {
-              params.with_companies = "149142|173083";
-          } else {
-              params.with_watch_providers = state.provider;
-              params.watch_region = "PH";
-          }
-      }
-
-      if (state.type === "anime") {
-          endpointType = "tv";
-          params.with_genres = params.with_genres ? params.with_genres + ",16" : 16;
-          params.with_original_language = "ja";
-      }
-
-      if (endpointType === "tv") {
-          params['first_air_date.lte'] = today;
+      let data;
+      if (state.sort === "trending") {
+          const tType = state.type === "anime" ? "tv" : state.type;
+          data = await TMDB.getTrending(tType, state.time, state.page);
       } else {
-          params['primary_release_date.lte'] = today;
-      }
+          const today = new Date().toISOString().split('T')[0];
+          const params = {
+              page: state.page,
+              sort_by: "popularity.desc",
+              include_adult: false
+          };
+          
+          let endpointType = state.type;
+          
+          if (state.genre && state.genre !== "all") {
+              params.with_genres = state.genre;
+          }
+          
+          if (state.provider && state.provider !== "all") {
+              if (state.provider === "vivamax") {
+                  params.with_companies = "149142|173083";
+              } else {
+                  params.with_watch_providers = state.provider;
+                  params.watch_region = "PH";
+              }
+          }
 
-      const data = await TMDB.discoverAdvanced(endpointType, params);
+          if (state.type === "anime") {
+              endpointType = "tv";
+              params.with_genres = params.with_genres ? params.with_genres + ",16" : 16;
+              params.with_original_language = "ja";
+          }
+
+          if (endpointType === "tv") {
+              params['first_air_date.lte'] = today;
+          } else {
+              params['primary_release_date.lte'] = today;
+          }
+
+          data = await TMDB.discoverAdvanced(endpointType, params);
+      }
       
       state.totalPages = data.total_pages || 1;
       const results = data.results || [];

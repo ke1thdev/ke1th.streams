@@ -726,6 +726,12 @@
           if (rowKey === "comedy") url += "&genre=35";
           if (rowKey === "scifi") url += "&genre=878";
           
+          // Add trending sort parameter
+          if (rowKey === "trending_today" || rowKey === "top10") {
+              url += "&sort=trending";
+              if (rowKey === "top10") url += "&time=day";
+          }
+          
           if (row.dropdownType === 'provider') {
                const activeId = window.TMDB_STATE?.activeGenres?.[rowKey] || row.activeDropdownId;
                url += "&provider=" + activeId;
