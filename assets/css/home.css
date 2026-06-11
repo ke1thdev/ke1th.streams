@@ -1983,8 +1983,8 @@ body::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
 
   .mobile-dock {
     background: rgba(30, 30, 30, 0.45);
-    backdrop-filter: blur(30px) saturate(180%);
-    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    backdrop-filter: blur(30px) saturate(180%) url(#liquid-glass);
+    -webkit-backdrop-filter: blur(30px) saturate(180%) url(#liquid-glass);
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 36px;
     display: flex;
@@ -1999,8 +1999,8 @@ body::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
 
   .dock-search-btn {
     background: rgba(30, 30, 30, 0.45);
-    backdrop-filter: blur(30px) saturate(180%);
-    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    backdrop-filter: blur(30px) saturate(180%) url(#liquid-glass);
+    -webkit-backdrop-filter: blur(30px) saturate(180%) url(#liquid-glass);
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 50%;
     width: 58px;
