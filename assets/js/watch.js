@@ -79,19 +79,15 @@
     if (!els.header || !els.tapInterceptor) return;
 
     let hideTimer = null;
-    let isSelectOpen = false;
 
     function showOverlay() {
       els.header.classList.remove('glass-hidden');
-      // Deactivate interceptor so user can interact with iframe
       els.tapInterceptor.classList.remove('active');
       resetHideTimer();
     }
 
     function hideOverlay() {
-      if (isSelectOpen) return;
       els.header.classList.add('glass-hidden');
-      // Activate interceptor to catch the next tap
       els.tapInterceptor.classList.add('active');
     }
 
@@ -104,13 +100,16 @@
     resetHideTimer();
 
     // Interaction on the interceptor → show the overlay
-    // Mouse movement also triggers it on desktop
-    els.tapInterceptor.addEventListener('click', function (e) {
+    const handleTap = function (e) {
       e.preventDefault();
       e.stopPropagation();
       showOverlay();
-    });
+    };
+
+    els.tapInterceptor.addEventListener('click', handleTap);
+    els.tapInterceptor.addEventListener('touchstart', handleTap, { passive: false });
     
+    // Mouse movement also triggers it on desktop
     els.tapInterceptor.addEventListener('mousemove', function (e) {
       showOverlay();
     });
@@ -120,21 +119,15 @@
       resetHideTimer();
     });
     
+    els.header.addEventListener('touchstart', function (e) {
+      resetHideTimer();
+    }, { passive: true });
+    
     els.header.addEventListener('mousemove', function (e) {
       resetHideTimer();
     });
 
-    // Prevent auto-hide while interacting with the server select dropdown
-    els.serverSelect.addEventListener('focus', function () {
-      isSelectOpen = true;
-      clearTimeout(hideTimer);
-    });
-    els.serverSelect.addEventListener('blur', function () {
-      isSelectOpen = false;
-      resetHideTimer();
-    });
     els.serverSelect.addEventListener('change', function () {
-      isSelectOpen = false;
       resetHideTimer();
     });
   }
