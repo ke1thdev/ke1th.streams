@@ -13,8 +13,8 @@
   const isWebKit = /AppleWebKit/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
   const isChromium = /Chrome/.test(navigator.userAgent) && /AppleWebKit/.test(navigator.userAgent);
 
-  // Tag the document so CSS can branch - Forcing chromium engine globally for SVG displacement everywhere
-  document.documentElement.dataset.glassEngine = 'chromium';
+  // Tag the document so CSS can branch
+  document.documentElement.dataset.glassEngine = isChromium ? 'chromium' : 'webkit';
 
   // ─── Config ───
   const GLASS_CONFIG = {
@@ -275,8 +275,11 @@
   // ═══════════════════════════════════════════
 
   function initGlass() {
-    // Force SVG displacement engine for all browsers, including Safari/iOS
-    initChromiumGlass();
+    if (isChromium) {
+      initChromiumGlass();
+    } else {
+      initSafariGlass();
+    }
   }
 
   if (document.readyState === 'loading') {
@@ -291,5 +294,5 @@
     setTimeout(initGlass, 300);
   });
 
-  window.LiquidGlass = { init: initGlass, apply: applyChromiumGlass };
+  window.LiquidGlass = { init: initGlass, apply: isChromium ? applyChromiumGlass : applySafariGlass };
 })();

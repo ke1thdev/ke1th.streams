@@ -131,7 +131,8 @@ self.addEventListener('fetch', event => {
        } catch (error) {
          const cached = await caches.match(event.request);
          if (cached) return cached;
-         throw error;
+         // Return an empty 408 Request Timeout instead of throwing to prevent console spam
+         return new Response('', { status: 408, statusText: 'Request Timeout' });
        }
     })()
   );

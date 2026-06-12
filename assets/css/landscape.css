@@ -39,9 +39,9 @@
 /* Close / Exit button for CSS rotation overlay */
 .force-landscape-close {
   position: absolute;
-  /* In the rotated context, "top-right" is visually top-right of the landscape view */
+  /* In the rotated context, "top-left" is visually top-right of the landscape view */
   top: 12px;
-  right: 12px;
+  left: 12px;
   z-index: 10001;
   width: 40px;
   height: 40px;
