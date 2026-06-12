@@ -82,9 +82,7 @@
 
     function showOverlay() {
       els.header.classList.remove('glass-hidden');
-      if (!els.videoFrame.classList.contains('zoomed-fill')) {
-          els.tapInterceptor.classList.remove('active');
-      }
+      els.tapInterceptor.classList.remove('active');
       resetHideTimer();
     }
 
@@ -107,10 +105,10 @@
 
     const toggleZoom = function() {
         els.videoFrame.classList.toggle('zoomed-fill');
-        if (els.videoFrame.classList.contains('zoomed-fill')) {
-            els.tapInterceptor.classList.add('active');
-        } else if (!els.header.classList.contains('glass-hidden')) {
+        if (!els.header.classList.contains('glass-hidden')) {
             els.tapInterceptor.classList.remove('active');
+        } else {
+            els.tapInterceptor.classList.add('active');
         }
     };
 
