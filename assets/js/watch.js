@@ -23,7 +23,7 @@
     episode,
     malId,
     isAnime,
-    activeServer: localStorage.getItem('preferredServer') || 'videasy'
+    activeServer: localStorage.getItem('preferredServer') || 'vidsrc'
   };
 
   function init() {
@@ -209,24 +209,27 @@
     let fallbackTarget = null;
     let fallbackName = "";
 
-    if (state.activeServer === "videasy") {
-      fallbackTarget = "rive";
+    if (state.activeServer === "vidsrc") {
+      fallbackTarget = "videasy";
       fallbackName = "Server 2";
+    } else if (state.activeServer === "videasy") {
+      fallbackTarget = "rive";
+      fallbackName = "Server 3";
     } else if (state.activeServer === "rive") {
       fallbackTarget = "vidup";
-      fallbackName = "Server 3";
+      fallbackName = "Server 4";
     } else if (state.activeServer === "vidup") {
       fallbackTarget = "vixsrc";
-      fallbackName = "Server 4";
+      fallbackName = "Server 5";
     } else if (state.activeServer === "vixsrc") {
       fallbackTarget = "vidnest";
-      fallbackName = "Server 5";
+      fallbackName = "Server 6";
     } else if (state.activeServer === "vidnest") {
       fallbackTarget = "vidfast";
-      fallbackName = "Server 6";
+      fallbackName = "Server 7";
     } else if (state.activeServer === "vidfast") {
       fallbackTarget = "peachify";
-      fallbackName = "Server 7";
+      fallbackName = "Server 8";
     }
 
     if (fallbackTarget) {
@@ -334,6 +337,7 @@
   }
 
   function buildServerUrl(server, type, id, season, episode) {
+    if (server === 'vidsrc') return buildVidsrcWikiUrl(type, id, season, episode);
     if (server === 'rive') return buildRiveUrl(type, id, season, episode);
     if (server === 'vidup') return buildVidUpUrl(type, id, season, episode);
     if (server === 'peachify') return buildPeachifyUrl(type, id, season, episode);
@@ -498,6 +502,20 @@
     if (type === "movie") {
       if (progressParam) searchParams.set('startAt', progressParam);
       return `https://vidnest.fun/movie/${id}?${searchParams.toString()}`;
+    }
+    return "";
+  }
+
+  function buildVidsrcWikiUrl(type, id, season, episode) {
+    const searchParams = new URLSearchParams();
+    searchParams.set('sub', 'en');
+    searchParams.set('autoplay', '0');
+
+    if (type === "tv" || type === "anime") {
+      return `https://vidsrc.wiki/embed/tv/${id}/${season}/${episode}?${searchParams.toString()}`;
+    }
+    if (type === "movie") {
+      return `https://vidsrc.wiki/embed/movie/${id}?${searchParams.toString()}`;
     }
     return "";
   }
