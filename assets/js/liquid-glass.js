@@ -36,10 +36,10 @@
 
   // Apple-style glass parameters for Safari
   const SAFARI_GLASS = {
-    blur: 18,          // Lighter gaussian blur for more see-through distortion
-    saturate: 1.4,     // Balanced color saturation
-    brightness: 1.05,  // Very slight brightness lift
-    contrast: 1.05,    // Subtle contrast boost
+    blur: 8,           // Very light blur so background elements are highly visible
+    saturate: 1.2,     // Natural color saturation
+    brightness: 1.02,  // Almost no brightness lift
+    contrast: 1.02,    // Almost no contrast boost
   };
 
   let filterCounter = 0;

@@ -102,13 +102,13 @@
     inset 0 1px 1px rgba(255, 255, 255, 0.4),
     inset 0 0 20px rgba(255, 255, 255, 0.05),
     inset 0 -1px 1px rgba(0, 0, 0, 0.2);
-  /* Pure Apple TV gradient overlay — more transparent for see-through distortion */
+  /* Pure Apple TV gradient overlay — highly transparent for see-through distortion */
   background: linear-gradient(
     145deg,
-    rgba(255, 255, 255, 0.08) 0%,
-    rgba(255, 255, 255, 0.02) 40%,
+    rgba(255, 255, 255, 0.04) 0%,
+    rgba(255, 255, 255, 0.01) 40%,
     transparent 60%,
-    rgba(0, 0, 0, 0.05) 100%
+    rgba(0, 0, 0, 0.03) 100%
   );
 }
 
