@@ -2027,7 +2027,54 @@ body::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
     height: 54px;
     box-sizing: border-box;
     transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
   }
+
+  /* The sliding active background pill */
+  .mobile-dock::after {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 5px;
+    bottom: 5px;
+    width: 62px;
+    border-radius: 22px;
+    background-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    z-index: -1;
+    transition: transform 400ms cubic-bezier(1, 0, 0.4, 1), background-color 400ms cubic-bezier(1, 0, 0.4, 1);
+  }
+
+  /* Positioning and sliding animation based on active index */
+  /* Index 1 */
+  .mobile-dock:has(.dock-btn:nth-child(1).dock-active)::after {
+    transform: translateX(0);
+    transform-origin: right;
+    animation: dockScaleToggle1 440ms ease;
+  }
+  /* Index 2 (gap=4px -> 62+4=66px shift) */
+  .mobile-dock:has(.dock-btn:nth-child(2).dock-active)::after {
+    transform: translateX(66px);
+    animation: dockScaleToggle2 440ms ease;
+  }
+  /* Index 3 (66+66=132px shift) */
+  .mobile-dock:has(.dock-btn:nth-child(3).dock-active)::after {
+    transform: translateX(132px);
+    animation: dockScaleToggle3 440ms ease;
+  }
+  /* Index 4 (132+66=198px shift) */
+  .mobile-dock:has(.dock-btn:nth-child(4).dock-active)::after {
+    transform: translateX(198px);
+    transform-origin: left;
+    animation: dockScaleToggle4 440ms ease;
+  }
+
+  /* Squeeze animations */
+  @keyframes dockScaleToggle1 { 0% { transform: translateX(0) scaleX(1); } 50% { transform: translateX(0) scaleX(1.15); } 100% { transform: translateX(0) scaleX(1); } }
+  @keyframes dockScaleToggle2 { 0% { transform: translateX(66px) scaleX(1); } 50% { transform: translateX(66px) scaleX(1.15); } 100% { transform: translateX(66px) scaleX(1); } }
+  @keyframes dockScaleToggle3 { 0% { transform: translateX(132px) scaleX(1); } 50% { transform: translateX(132px) scaleX(1.15); } 100% { transform: translateX(132px) scaleX(1); } }
+  @keyframes dockScaleToggle4 { 0% { transform: translateX(198px) scaleX(1); } 50% { transform: translateX(198px) scaleX(1.15); } 100% { transform: translateX(198px) scaleX(1); } }
 
   .dock-search-btn {
     /* Liquid glass visual properties come from .liquid-glass-circle class */
@@ -2060,34 +2107,34 @@ body::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
     align-items: center;
     justify-content: center;
     gap: 3px;
-    background: none;
+    background: none !important;
     border: none;
     color: rgba(255, 255, 255, 0.7);
     font-family: var(--font);
     font-size: 0.6rem;
     font-weight: 600;
     cursor: pointer;
-    padding: 0 12px;
+    padding: 0;
+    width: 62px;
     height: 44px;
     border-radius: 22px;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: color 0.3s ease, transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: none !important;
   }
 
   .dock-btn svg {
     width: 22px;
     height: 22px;
     stroke-width: 2.2;
-    transition: color 0.3s ease;
+    transition: color 0.3s ease, transform 0.2s ease;
   }
 
-  .dock-btn:active {
-    transform: scale(0.92);
+  .dock-btn:active svg {
+    transform: scale(0.85);
   }
 
   .dock-btn.dock-active {
     color: var(--brand);
-    background: rgba(255, 255, 255, 0.12);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.05);
   }
 
   .dock-btn.dock-active svg {

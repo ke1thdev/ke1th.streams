@@ -139,3 +139,30 @@ function showInstallPromotion() {
   });
 }
 
+// Mobile Dock Animation Logic
+// Delays navigation slightly so the liquid glass pill sliding animation can play.
+document.addEventListener('DOMContentLoaded', () => {
+  const dockBtns = document.querySelectorAll('.mobile-dock .dock-btn');
+  if (!dockBtns.length) return;
+  
+  dockBtns.forEach((btn, index) => {
+    btn.addEventListener('click', (e) => {
+      // If already active or opened in new tab, do nothing special
+      if (btn.classList.contains('dock-active') || e.ctrlKey || e.metaKey || e.shiftKey || e.button !== 0) return;
+      
+      e.preventDefault();
+      
+      // Update classes to trigger CSS animation
+      document.querySelector('.mobile-dock .dock-active')?.classList.remove('dock-active');
+      btn.classList.add('dock-active');
+      
+      const targetUrl = btn.getAttribute('href') || '/';
+      
+      // Wait for animation, then navigate
+      setTimeout(() => {
+        window.location.href = targetUrl;
+      }, 350);
+    });
+  });
+});
+
