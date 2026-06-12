@@ -290,14 +290,19 @@
              lastUpdated: Date.now()
            };
            localStorage.setItem('watchProgress', JSON.stringify(progressData));
-           // Native Auto-Play Next Episode (triggers when 95% completed)
-           if (progRatio >= 95 && state.hasNextEpisode && !window.autoPlayTriggered) {
+
+           // Show Next Episode FAB when near the end (90%+)
+           if (progRatio >= 90 && state.hasNextEpisode && els.nextEpBtn) {
+               els.nextEpBtn.classList.add('visible');
+           }
+
+           // Native Auto-Play Next Episode (triggers when 98% completed)
+           if (progRatio >= 98 && state.hasNextEpisode && !window.autoPlayTriggered) {
                window.autoPlayTriggered = true;
                showToast("Playing next episode...");
                setTimeout(() => {
                    playNextEpisode();
-                   window.autoPlayTriggered = false;
-               }, 2000);
+               }, 3000);
            }
          }
       }
@@ -358,12 +363,25 @@
       }
       
       state.hasNextEpisode = hasNext;
-      if (hasNext && els.nextEpBtn) els.nextEpBtn.classList.remove('hidden');
-      else if (els.nextEpBtn) els.nextEpBtn.classList.add('hidden');
+      window.autoPlayTriggered = false;
+      if (els.nextEpBtn) {
+        // Remove hidden so it exists in DOM, but don't add 'visible' yet
+        // The FAB will animate in when progress >= 90%
+        if (hasNext) {
+          els.nextEpBtn.classList.remove('hidden');
+          els.nextEpBtn.classList.remove('visible');
+        } else {
+          els.nextEpBtn.classList.add('hidden');
+          els.nextEpBtn.classList.remove('visible');
+        }
+      }
 
     } catch (err) {
       els.title.innerHTML = `ke1th.<span style="color: #e50914;">streams</span>`;
-      if (els.nextEpBtn) els.nextEpBtn.classList.add('hidden');
+      if (els.nextEpBtn) {
+        els.nextEpBtn.classList.add('hidden');
+        els.nextEpBtn.classList.remove('visible');
+      }
     }
   }
 

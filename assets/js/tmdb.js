@@ -275,7 +275,7 @@ const TMDB = (() => {
    */
   async function discoverFilipino(sortBy = 'popularity.desc', page = 1, type = 'all') {
     const without_companies = '149142|173083'; // Vivamax & Vivamax Original Series
-    const without_keywords = '325693.2.8477'; // erotica & softcore
+    const without_keywords = '325693.2.9477'; // erotica & softcore
     const today = new Date().toISOString().split('T')[0];
 
     let tvData = { results: [] };
