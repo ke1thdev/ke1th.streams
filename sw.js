@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ke1th-streams-v3.2.7';
+const CACHE_NAME = 'ke1th-streams-v3.2.8';
 const APP_SHELL = [
   '/',
   '/index.html',
@@ -20,7 +20,8 @@ const APP_SHELL = [
   '/assets/js/livetv.js',
   '/assets/js/watch.js',
   '/assets/js/media.js',
-  '/assets/js/search.js'
+  '/assets/js/search.js',
+  '/assets/js/liquid-glass.js'
 ];
 
 self.addEventListener('install', event => {
