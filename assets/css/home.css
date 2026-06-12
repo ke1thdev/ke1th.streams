@@ -2032,7 +2032,7 @@ body::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
   }
 
   /* The sliding active background pill */
-  .mobile-dock::after {
+  .mobile-dock .glass-content::after {
     content: '';
     position: absolute;
     left: 10px;
@@ -2048,23 +2048,23 @@ body::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
 
   /* Positioning and sliding animation based on active index */
   /* Index 1 */
-  .mobile-dock:has(.dock-btn:nth-child(1).dock-active)::after {
+  .mobile-dock .glass-content:has(.dock-btn:nth-child(1).dock-active)::after {
     transform: translateX(0);
     transform-origin: right;
     animation: dockScaleToggle1 440ms ease;
   }
   /* Index 2 (gap=4px -> 62+4=66px shift) */
-  .mobile-dock:has(.dock-btn:nth-child(2).dock-active)::after {
+  .mobile-dock .glass-content:has(.dock-btn:nth-child(2).dock-active)::after {
     transform: translateX(66px);
     animation: dockScaleToggle2 440ms ease;
   }
   /* Index 3 (66+66=132px shift) */
-  .mobile-dock:has(.dock-btn:nth-child(3).dock-active)::after {
+  .mobile-dock .glass-content:has(.dock-btn:nth-child(3).dock-active)::after {
     transform: translateX(132px);
     animation: dockScaleToggle3 440ms ease;
   }
   /* Index 4 (132+66=198px shift) */
-  .mobile-dock:has(.dock-btn:nth-child(4).dock-active)::after {
+  .mobile-dock .glass-content:has(.dock-btn:nth-child(4).dock-active)::after {
     transform: translateX(198px);
     transform-origin: left;
     animation: dockScaleToggle4 440ms ease;
@@ -2084,11 +2084,16 @@ body::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
     display: flex;
     align-items: center;
     justify-content: center;
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--text);
+    border: none;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    z-index: 1;
+    padding: 0;
+    box-sizing: border-box;
+    flex-shrink: 0;
   }
-
+  
   .dock-search-btn svg {
     width: 22px;
     height: 22px;
@@ -2116,10 +2121,12 @@ body::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
     cursor: pointer;
     padding: 0;
     width: 62px;
+    min-width: 62px;
     height: 44px;
     border-radius: 22px;
     transition: color 0.3s ease, transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
     box-shadow: none !important;
+    flex-shrink: 0;
   }
 
   .dock-btn svg {

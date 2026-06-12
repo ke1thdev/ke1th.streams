@@ -8,7 +8,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport"
     content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <title>Live TV - ke1th.streams v3.1.0</title>
+  <title>Live TV - ke1th.streams v3.1.1</title>
 
   <!-- PWA & Favicon -->
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/imgs/apple-touch-icon.png">
@@ -23,11 +23,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
     rel="stylesheet" />
 
-  <link rel="stylesheet" href="/assets/css/home.css?v=3.1.0" />
-  <link rel="stylesheet" href="/assets/css/livetv.css?v=3.1.0" />
+  <link rel="stylesheet" href="/assets/css/home.css?v=3.1.1" />
+  <link rel="stylesheet" href="/assets/css/livetv.css?v=3.1.1" />
+  <link rel="stylesheet" href="/assets/css/liquid-glass.css?v=3.1.1" />
   <!-- Plyr Custom Video Player CSS -->
   <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
-  <link rel="stylesheet" href="/assets/css/landscape.css?v=3.1.0" />
+  <link rel="stylesheet" href="/assets/css/landscape.css?v=3.1.1" />
 </head>
 
 <body>
@@ -134,7 +135,7 @@
   </main>
 
   <footer class="site-footer" style="margin-top: auto;">
-    <p><strong>ke1th.streams v3.1.0</strong> - I do not store any files on my server. I only link to media hosted on
+    <p><strong>ke1th.streams v3.1.1</strong> - I do not store any files on my server. I only link to media hosted on
       third-party services.</p>
     <p style="margin-top: 12px; font-size: 0.85rem; color: var(--text-muted);">
       <a href="https://github.com/ke1thdev/ke1th.streams" target="_blank" rel="noopener noreferrer"
@@ -153,41 +154,51 @@
   </footer>
 
   <div class="mobile-dock-wrapper">
-    <nav class="mobile-dock liquid-glass-bar" aria-label="Mobile navigation">
-      <a href="/" class="dock-btn" aria-label="Home" style="text-decoration: none; color: inherit;">
-        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-          <polyline points="9 22 9 12 15 12 15 22"></polyline>
-        </svg>
-        <span>Home</span>
-      </a>
-      <a href="/browse.html" class="dock-btn" aria-label="Browse" style="text-decoration: none; color: inherit;">
-        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-          <polyline points="2 17 12 22 22 17"></polyline>
-          <polyline points="2 12 12 17 22 12"></polyline>
-        </svg>
-        <span>Browse</span>
-      </a>
-      <a href="/browse.html?type=anime" class="dock-btn" aria-label="Anime" style="text-decoration: none; color: inherit;">
-        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-        </svg>
-        <span>Anime</span>
-      </a>
-      <a href="/livetv.html" class="dock-btn dock-active" aria-label="Live TV" style="text-decoration: none; color: inherit;">
-        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect>
-          <polyline points="17 2 12 7 7 2"></polyline>
-        </svg>
-        <span>TV</span>
-      </a>
+    <nav class="mobile-dock glass-container glass-container--rounded" aria-label="Mobile navigation">
+      <div class="glass-filter"></div>
+      <div class="glass-overlay"></div>
+      <div class="glass-specular"></div>
+      <div class="glass-content" style="padding: 0 10px; height: 54px; gap: 4px;">
+        <a href="/" class="dock-btn" aria-label="Home" style="text-decoration: none; color: inherit;">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+          <span>Home</span>
+        </a>
+        <a href="/browse.html" class="dock-btn" aria-label="Browse" style="text-decoration: none; color: inherit;">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+            <polyline points="2 17 12 22 22 17"></polyline>
+            <polyline points="2 12 12 17 22 12"></polyline>
+          </svg>
+          <span>Browse</span>
+        </a>
+        <a href="/browse.html?type=anime" class="dock-btn" aria-label="Anime" style="text-decoration: none; color: inherit;">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
+          <span>Anime</span>
+        </a>
+        <a href="/livetv.html" class="dock-btn dock-active" aria-label="Live TV" style="text-decoration: none; color: inherit;">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect>
+            <polyline points="17 2 12 7 7 2"></polyline>
+          </svg>
+          <span>TV</span>
+        </a>
+      </div>
     </nav>
-    <button class="dock-search-btn liquid-glass-circle" type="button" data-nav="search" aria-label="Search" id="openSearchBtnMobile">
-      <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="11" cy="11" r="8"></circle>
-        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-      </svg>
+    <button class="dock-search-btn glass-container glass-container--circle" type="button" data-nav="search" aria-label="Search" id="openSearchBtnMobile">
+      <div class="glass-filter"></div>
+      <div class="glass-overlay"></div>
+      <div class="glass-specular"></div>
+      <div class="glass-content" style="padding: 0; width: 100%; height: 100%; justify-content: center;">
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </div>
     </button>
   </div>
 
@@ -222,22 +233,17 @@
   <!-- Plyr Custom Video Player JS -->
   <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
 
-  <script src="/assets/js/config.js?v=3.1.0"></script>
-  <script src="/assets/js/tmdb.js?v=3.1.0"></script>
-  <script src="/assets/js/search.js?v=3.1.0"></script>
-  <script src="/assets/js/landscape.js?v=3.1.0"></script>
-  <script src="/assets/js/livetv.js?v=3.1.0"></script>
+  <script src="/assets/js/config.js?v=3.1.1"></script>
+  <script src="/assets/js/tmdb.js?v=3.1.1"></script>
+  <script src="/assets/js/search.js?v=3.1.1"></script>
+  <script src="/assets/js/landscape.js?v=3.1.1"></script>
+  <script src="/assets/js/livetv.js?v=3.1.1"></script>
   
-  <!-- Liquid Glass SVG Filter -->
-  <svg width="0" height="0" style="position: absolute; pointer-events: none;">
-    <filter id="liquid-glass" color-interpolation-filters="sRGB">
-      <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="1" result="noise" />
-      <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 15 -7" in="noise" result="coloredNoise" />
-      <feDisplacementMap in="SourceGraphic" in2="coloredNoise" scale="12" xChannelSelector="R" yChannelSelector="G" result="displaced" />
-      <feGaussianBlur stdDeviation="1" in="displaced" result="blurred" />
-      <feMerge>
-        <feMergeNode in="blurred" />
-      </feMerge>
+  <!-- SVG FILTER DEFINITION -->
+  <svg style="display: none">
+    <filter id="lg-dist">
+      <feTurbulence type="turbulence" baseFrequency="0.01 0.1" numOctaves="1" result="turbulence" />
+      <feDisplacementMap in2="turbulence" in="SourceGraphic" scale="20" xChannelSelector="R" yChannelSelector="G" />
     </filter>
   </svg>
 </body>
