@@ -36,7 +36,7 @@
 
   // Apple-style glass parameters for Safari
   const SAFARI_GLASS = {
-    blur: 8,           // Very light blur so background elements are highly visible
+    blur: 16,          // Clean blur that allows true background passthrough now that opacity is removed
     saturate: 1.2,     // Natural color saturation
     brightness: 1.02,  // Almost no brightness lift
     contrast: 1.02,    // Almost no contrast boost
