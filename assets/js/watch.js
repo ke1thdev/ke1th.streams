@@ -11,7 +11,6 @@
     title: document.getElementById('watchTitle'),
     header: document.querySelector('.watch-header'),
     backBtn: document.getElementById('backBtn'),
-    floatingBackBtn: document.getElementById('floatingBackBtn'),
     serverSelect: document.getElementById('serverSelect'),
     videoFrame: document.getElementById('videoFrame'),
     toast: document.getElementById('toast'),
@@ -72,13 +71,12 @@
     });
   }
 
-  // ─── Floating Glass Overlay (Mobile) ───
-  // Auto-hides the header after 3 seconds, re-appears on any screen tap.
+  // ─── Floating Glass Overlay (Global) ───
+  // Auto-hides the header after 3 seconds, re-appears on any screen tap/move.
   // Uses a transparent tap-interceptor div that sits over the iframe
   // because clicks inside an iframe don't bubble to the parent document.
   function setupGlassOverlay() {
-    const isMobile = window.matchMedia('(max-width: 768px)').matches;
-    if (!isMobile || !els.header || !els.tapInterceptor) return;
+    if (!els.header || !els.tapInterceptor) return;
 
     let hideTimer = null;
     let isSelectOpen = false;
@@ -105,16 +103,24 @@
     // Start the initial auto-hide timer
     resetHideTimer();
 
-    // Tap on the interceptor → show the overlay
+    // Interaction on the interceptor → show the overlay
+    // Mouse movement also triggers it on desktop
     els.tapInterceptor.addEventListener('click', function (e) {
       e.preventDefault();
       e.stopPropagation();
       showOverlay();
     });
+    
+    els.tapInterceptor.addEventListener('mousemove', function (e) {
+      showOverlay();
+    });
 
-    // Tap on header controls → reset the timer
+    // Interaction on header controls → reset the timer
     els.header.addEventListener('click', function (e) {
-      // If back or select was clicked, those have their own handlers
+      resetHideTimer();
+    });
+    
+    els.header.addEventListener('mousemove', function (e) {
       resetHideTimer();
     });
 
