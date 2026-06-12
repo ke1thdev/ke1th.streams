@@ -276,7 +276,9 @@
     if (videoContainer && window.LandscapeForcer) {
       videoContainer.classList.add('video-wrapper');
       LandscapeForcer.forceLandscape(videoContainer);
-    } else if (url.includes('.mpd')) {
+    }
+    
+    if (url.includes('.mpd')) {
       videoPlayer.classList.remove('hidden');
       // Dash
       if (typeof dashjs !== 'undefined') {

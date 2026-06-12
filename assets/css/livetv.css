@@ -98,3 +98,10 @@
   max-width: 600px;
   line-height: 1.5;
 }
+
+/* Hide the old top-toolbar close button on mobile portrait because LandscapeForcer adds a floating glass one */
+@media (max-width: 768px) and (orientation: portrait) {
+  .player-toolbar {
+    display: none !important;
+  }
+}

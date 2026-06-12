@@ -36,9 +36,9 @@
 
   // Apple-style glass parameters for Safari
   const SAFARI_GLASS = {
-    blur: 30,          // Heavy gaussian blur — key to the iOS look
-    saturate: 1.8,     // Rich color saturation
-    brightness: 1.1,   // Slight brightness lift
+    blur: 40,          // Heavy gaussian blur — authentic Apple TV look
+    saturate: 2.0,     // Rich color saturation
+    brightness: 1.05,  // Very slight brightness lift
     contrast: 1.05,    // Subtle contrast boost
   };
 
