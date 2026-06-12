@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ke1th-streams-v3.1.6';
+const CACHE_NAME = 'ke1th-streams-v3.1.7';
 const APP_SHELL = [
   '/',
   '/index.html',
@@ -48,12 +48,18 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
   
-  const url = new URL(event.request.url);
+  // Bugfix for Chrome 'only-if-cached' error
+  if (event.request.cache === 'only-if-cached' && event.request.mode !== 'same-origin') {
+    return;
+  }
   
-  // Only use stale-while-revalidate for our own domain assets to ensure instant loading
+  const url = new URL(event.request.url);
+  const isNavigate = event.request.mode === 'navigate';
+  
+  // Only use stale-while-revalidate for our own domain assets
   if (url.origin === self.location.origin) {
     event.respondWith(
-      caches.match(event.request).then(cached => {
+      caches.match(event.request).then(cachedResponse => {
         const fetchPromise = fetch(event.request).then(networkResponse => {
           if (networkResponse && networkResponse.status === 200) {
             const cacheCopy = networkResponse.clone();
@@ -61,19 +67,25 @@ self.addEventListener('fetch', event => {
           }
           
           // FIX FOR SAFARI: "Response served by service worker has redirections"
-          if (networkResponse && networkResponse.redirected && event.request.mode === 'navigate') {
-              return Response.redirect(networkResponse.url, 302);
+          if (networkResponse && networkResponse.redirected && isNavigate) {
+            return new Response(networkResponse.body, {
+                status: networkResponse.status,
+                statusText: networkResponse.statusText,
+                headers: networkResponse.headers
+            });
           }
           
           return networkResponse;
-        }).catch(async () => {
-           // Network failure
-           if (!cached && event.request.mode === 'navigate') {
-              return caches.match('/offline.html');
+        }).catch(async (error) => {
+           // If network fails (offline) and we don't have it in cache, show offline page for navigation
+           if (!cachedResponse && isNavigate) {
+              const offlinePage = await caches.match('/offline.html');
+              if (offlinePage) return offlinePage;
            }
+           throw error; // Let it fail gracefully if not a navigation request
         });
         
-        return cached || fetchPromise;
+        return cachedResponse || fetchPromise;
       })
     );
     return;
@@ -81,9 +93,10 @@ self.addEventListener('fetch', event => {
 
   // Default network-first fallback for external API calls/images
   event.respondWith(
-    fetch(event.request).catch(async () => {
+    fetch(event.request).catch(async (error) => {
       const cached = await caches.match(event.request);
-      return cached || new Response('', { status: 503, statusText: 'Service Unavailable' });
+      if (cached) return cached;
+      throw error;
     })
   );
 });
