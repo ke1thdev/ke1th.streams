@@ -34,7 +34,6 @@
   z-index: 0;
   backdrop-filter: blur(4px) saturate(1.4);
   -webkit-backdrop-filter: blur(4px) saturate(1.4);
-  filter: url(#lg-dist);
   isolation: isolate;
   border-radius: inherit;
 }
@@ -44,6 +43,9 @@
   inset: 0;
   z-index: 1;
   background: var(--lg-bg-color);
+  backdrop-filter: url(#lg-dist);
+  -webkit-backdrop-filter: url(#lg-dist);
+  border-radius: inherit;
 }
 
 
@@ -71,9 +73,8 @@
 .liquid-glass-bar, .liquid-glass, .liquid-glass-circle {
   position: relative;
   background: var(--lg-bg-color);
-  backdrop-filter: blur(4px) saturate(1.4);
-  -webkit-backdrop-filter: blur(4px) saturate(1.4);
-  filter: url(#lg-dist);
+  backdrop-filter: blur(4px) saturate(1.4) url(#lg-dist);
+  -webkit-backdrop-filter: blur(4px) saturate(1.4) url(#lg-dist);
   box-shadow: inset 1px 1px 0 var(--lg-highlight), inset 0 0 5px var(--lg-highlight), 0 6px 6px rgba(0, 0, 0, 0.2);
   border: none;
 }
