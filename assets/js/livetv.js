@@ -1,4 +1,5 @@
-document.addEventListener('DOMContentLoaded', () => {
+(() => {
+  const initLiveTV = () => {
   const M3U_URL = 'https://iptv-org.github.io/iptv/countries/ph.m3u';
   const grid = document.getElementById('livetvGrid');
   const modal = document.getElementById('playerModal');
@@ -376,4 +377,11 @@ document.addEventListener('DOMContentLoaded', () => {
   closeBg.addEventListener('click', closePlayer);
 
   fetchChannels();
-});
+  };
+  
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initLiveTV);
+  } else {
+    initLiveTV();
+  }
+})();

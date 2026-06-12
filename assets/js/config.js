@@ -139,28 +139,83 @@ function showInstallPromotion() {
   });
 }
 
-// Mobile Dock Animation Logic
-// Delays navigation slightly so the liquid glass pill sliding animation can play.
-document.addEventListener('DOMContentLoaded', () => {
-  const dockBtns = document.querySelectorAll('.mobile-dock .dock-btn');
-  if (!dockBtns.length) return;
-  
-  dockBtns.forEach((btn, index) => {
-    btn.addEventListener('click', (e) => {
-      // If already active or opened in new tab, do nothing special
-      if (btn.classList.contains('dock-active') || e.ctrlKey || e.metaKey || e.shiftKey || e.button !== 0) return;
+// Mobile Dock SPA (PJAX) Router
+// Keeps the navigation bar persistent so the highlight animation transfers smoothly without disappearing.
+(function initRouter() {
+  const initDockListeners = () => {
+    const dockBtns = document.querySelectorAll('.mobile-dock .dock-btn');
+    if (!dockBtns.length) return;
+    
+    dockBtns.forEach((btn) => {
+      // Remove old listeners to prevent duplicates if initRouter is called again
+      const newBtn = btn.cloneNode(true);
+      btn.parentNode.replaceChild(newBtn, btn);
       
-      e.preventDefault();
-      
-      // Update classes to trigger CSS animation
-      document.querySelector('.mobile-dock .dock-active')?.classList.remove('dock-active');
-      btn.classList.add('dock-active');
-      
-      const targetUrl = btn.getAttribute('href') || '/';
-      
-      // Navigate instantly
-      window.location.href = targetUrl;
+      newBtn.addEventListener('click', async (e) => {
+        if (newBtn.classList.contains('dock-active') || e.ctrlKey || e.metaKey || e.shiftKey || e.button !== 0) return;
+        e.preventDefault();
+        
+        // 1. Visually update the dock highlight immediately
+        document.querySelector('.mobile-dock .dock-active')?.classList.remove('dock-active');
+        newBtn.classList.add('dock-active');
+        
+        const targetUrl = newBtn.getAttribute('href') || '/';
+        history.pushState(null, '', targetUrl);
+        await pjaxNavigate(targetUrl);
+      });
     });
-  });
-});
+  };
 
+  async function pjaxNavigate(url) {
+    try {
+      const res = await fetch(url);
+      const htmlText = await res.text();
+      const doc = new DOMParser().parseFromString(htmlText, 'text/html');
+      
+      // Swap <main>
+      const currentMain = document.querySelector('.main-content');
+      const newMain = doc.querySelector('.main-content');
+      if (currentMain && newMain) {
+        currentMain.innerHTML = newMain.innerHTML;
+        currentMain.className = newMain.className;
+      }
+      
+      document.title = doc.title;
+      window.scrollTo(0, 0);
+      
+      // Inject and execute page specific script
+      const scripts = Array.from(doc.querySelectorAll('script'));
+      const pageScript = scripts.find(s => s.src && s.src.match(/(home|browse|livetv|watch|media)\.js/));
+      
+      if (pageScript) {
+         document.querySelectorAll('script[data-pjax]').forEach(s => s.remove());
+         const newScript = document.createElement('script');
+         newScript.src = pageScript.src;
+         newScript.setAttribute('data-pjax', 'true');
+         document.body.appendChild(newScript);
+      }
+    } catch (err) {
+      // Fallback to hard navigation on error
+      window.location.href = url;
+    }
+  }
+
+  window.addEventListener('popstate', () => {
+    const path = window.location.pathname;
+    document.querySelectorAll('.mobile-dock .dock-btn').forEach(btn => {
+       const btnPath = new URL(btn.href, window.location.origin).pathname;
+       if (btnPath === path || (path === '/' && btnPath.includes('index.html'))) {
+           btn.classList.add('dock-active');
+       } else {
+           btn.classList.remove('dock-active');
+       }
+    });
+    pjaxNavigate(window.location.href);
+  });
+
+  if (document.readyState === "loading") {
+    document.addEventListener('DOMContentLoaded', initDockListeners);
+  } else {
+    initDockListeners();
+  }
+})();
