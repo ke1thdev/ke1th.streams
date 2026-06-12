@@ -59,6 +59,7 @@
     btn.addEventListener('click', function (e) {
       e.stopPropagation();
       releaseLandscape(wrapper);
+      wrapper.dispatchEvent(new CustomEvent('landscape:close'));
     });
     wrapper.appendChild(btn);
   }

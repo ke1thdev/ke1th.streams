@@ -378,6 +378,11 @@
   closeBtn.addEventListener('click', closePlayer);
   closeBg.addEventListener('click', closePlayer);
 
+  const videoContainer = document.querySelector('.video-container');
+  if (videoContainer) {
+    videoContainer.addEventListener('landscape:close', closePlayer);
+  }
+
   fetchChannels();
   };
   
