@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>No Internet Connection</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/liquid-glass.css?v=3.1.6">
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --text: #ffffff;
+      --brand: #e50914;
+      --font: 'Inter', sans-serif;
+    }
+    
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background-image: radial-gradient(circle at 50% 0%, #2a0a0f 0%, #0a0a0a 70%);
+      overflow: hidden;
+    }
+    
+    .offline-container {
+      padding: 40px 30px;
+      width: 90%;
+      max-width: 400px;
+      border-radius: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      animation: floatIn 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    }
+    
+    @keyframes floatIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .icon-wrapper {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+    
+    .icon-wrapper svg {
+      color: var(--brand);
+      width: 48px;
+      height: 48px;
+    }
+    
+    h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+    
+    p {
+      margin: 0;
+      font-size: 1rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.5;
+    }
+    
+    .retry-btn {
+      margin-top: 15px;
+      border: none;
+      background: none;
+      color: white;
+      font-family: var(--font);
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 16px 40px;
+      border-radius: 30px;
+      cursor: pointer;
+      width: 100%;
+    }
+    
+  </style>
+</head>
+<body>
+  
+  <div class="offline-container glass-container glass-container--bar">
+    <div class="glass-filter"></div>
+    <div class="glass-overlay"></div>
+    <div class="glass-specular"></div>
+    <div class="glass-content" style="flex-direction: column; padding: 40px 20px;">
+        
+        <div class="icon-wrapper glass-container glass-container--circle" style="box-shadow: inset 0 0 20px rgba(229, 9, 20, 0.2);">
+          <div class="glass-filter"></div>
+          <div class="glass-overlay"></div>
+          <div class="glass-content" style="justify-content: center;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="1" y1="1" x2="23" y2="23"></line>
+              <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"></path>
+              <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"></path>
+              <path d="M10.71 5.05A16 16 0 0 1 22.58 9"></path>
+              <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"></path>
+              <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+              <line x1="12" y1="20" x2="12.01" y2="20"></line>
+            </svg>
+          </div>
+        </div>
+        
+        <h1>You're Offline</h1>
+        <p>Please check your internet connection and try again.</p>
+        
+        <button class="retry-btn glass-container glass-container--bar" onclick="window.location.reload()" style="background: rgba(255,255,255,0.1) !important;">
+            <div class="glass-overlay"></div>
+            <div class="glass-content" style="justify-content: center;">
+                Try Again
+            </div>
+        </button>
+        
+    </div>
+  </div>
+
+  <svg style="display: none">
+    <filter id="lg-dist">
+      <feTurbulence type="turbulence" baseFrequency="0.01 0.1" numOctaves="1" result="turbulence" />
+      <feDisplacementMap in2="turbulence" in="SourceGraphic" scale="20" xChannelSelector="R" yChannelSelector="G" />
+    </filter>
+  </svg>
+</body>
+</html>

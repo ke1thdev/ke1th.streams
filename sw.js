@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ke1th-streams-v3.1.4';
+const CACHE_NAME = 'ke1th-streams-v3.1.6';
 const APP_SHELL = [
   '/',
   '/index.html',
@@ -6,6 +6,7 @@ const APP_SHELL = [
   '/livetv.html',
   '/watch.html',
   '/media.html',
+  '/offline.html',
   '/assets/css/home.css',
   '/assets/css/browse.css',
   '/assets/css/livetv.css',
@@ -58,10 +59,20 @@ self.addEventListener('fetch', event => {
             const cacheCopy = networkResponse.clone();
             caches.open(CACHE_NAME).then(cache => cache.put(event.request, cacheCopy));
           }
+          
+          // FIX FOR SAFARI: "Response served by service worker has redirections"
+          if (networkResponse && networkResponse.redirected && event.request.mode === 'navigate') {
+              return Response.redirect(networkResponse.url, 302);
+          }
+          
           return networkResponse;
-        }).catch(() => { /* ignore offline errors for background fetch */ });
+        }).catch(async () => {
+           // Network failure
+           if (!cached && event.request.mode === 'navigate') {
+              return caches.match('/offline.html');
+           }
+        });
         
-        // Return cached instantly if available, otherwise wait for network
         return cached || fetchPromise;
       })
     );
