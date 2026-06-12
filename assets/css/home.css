@@ -2007,7 +2007,7 @@ body::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
 
   .mobile-dock-wrapper {
     position: fixed;
-    bottom: 12px;
+    bottom: max(8px, env(safe-area-inset-bottom));
     left: 50%;
     transform: translateX(-50%);
     z-index: 90;
@@ -2023,8 +2023,8 @@ body::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
     display: flex;
     align-items: center;
     gap: 4px;
-    padding: 0 10px;
-    height: 54px;
+    padding: 0 8px;
+    height: 60px;
     box-sizing: border-box;
     transition: all 0.3s ease;
     position: relative;
@@ -2035,11 +2035,11 @@ body::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
   .mobile-dock .glass-content::after {
     content: '';
     position: absolute;
-    left: 10px;
-    top: 5px;
-    bottom: 5px;
-    width: 62px;
-    border-radius: 22px;
+    left: 8px;
+    top: 6px;
+    bottom: 6px;
+    width: 56px;
+    border-radius: 20px;
     background-color: rgba(255, 255, 255, 0.15);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.05);
     z-index: -1;
@@ -2053,34 +2053,34 @@ body::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
     transform-origin: right;
     animation: dockScaleToggle1 440ms ease;
   }
-  /* Index 2 (gap=4px -> 62+4=66px shift) */
+  /* Index 2 (gap=4px -> 56+4=60px shift) */
   .mobile-dock .glass-content:has(.dock-btn:nth-child(2).dock-active)::after {
-    transform: translateX(66px);
+    transform: translateX(60px);
     animation: dockScaleToggle2 440ms ease;
   }
-  /* Index 3 (66+66=132px shift) */
+  /* Index 3 (60+60=120px shift) */
   .mobile-dock .glass-content:has(.dock-btn:nth-child(3).dock-active)::after {
-    transform: translateX(132px);
+    transform: translateX(120px);
     animation: dockScaleToggle3 440ms ease;
   }
-  /* Index 4 (132+66=198px shift) */
+  /* Index 4 (120+60=180px shift) */
   .mobile-dock .glass-content:has(.dock-btn:nth-child(4).dock-active)::after {
-    transform: translateX(198px);
+    transform: translateX(180px);
     transform-origin: left;
     animation: dockScaleToggle4 440ms ease;
   }
 
   /* Squeeze animations */
   @keyframes dockScaleToggle1 { 0% { transform: translateX(0) scaleX(1); } 50% { transform: translateX(0) scaleX(1.15); } 100% { transform: translateX(0) scaleX(1); } }
-  @keyframes dockScaleToggle2 { 0% { transform: translateX(66px) scaleX(1); } 50% { transform: translateX(66px) scaleX(1.15); } 100% { transform: translateX(66px) scaleX(1); } }
-  @keyframes dockScaleToggle3 { 0% { transform: translateX(132px) scaleX(1); } 50% { transform: translateX(132px) scaleX(1.15); } 100% { transform: translateX(132px) scaleX(1); } }
-  @keyframes dockScaleToggle4 { 0% { transform: translateX(198px) scaleX(1); } 50% { transform: translateX(198px) scaleX(1.15); } 100% { transform: translateX(198px) scaleX(1); } }
+  @keyframes dockScaleToggle2 { 0% { transform: translateX(60px) scaleX(1); } 50% { transform: translateX(60px) scaleX(1.15); } 100% { transform: translateX(60px) scaleX(1); } }
+  @keyframes dockScaleToggle3 { 0% { transform: translateX(120px) scaleX(1); } 50% { transform: translateX(120px) scaleX(1.15); } 100% { transform: translateX(120px) scaleX(1); } }
+  @keyframes dockScaleToggle4 { 0% { transform: translateX(180px) scaleX(1); } 50% { transform: translateX(180px) scaleX(1.15); } 100% { transform: translateX(180px) scaleX(1); } }
 
   .dock-search-btn {
     /* Liquid glass visual properties come from .liquid-glass-circle class */
     border-radius: 50%;
-    width: 54px;
-    height: 54px;
+    width: 60px;
+    height: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2120,10 +2120,10 @@ body::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
     font-weight: 600;
     cursor: pointer;
     padding: 0;
-    width: 62px;
-    min-width: 62px;
-    height: 44px;
-    border-radius: 22px;
+    width: 56px;
+    min-width: 56px;
+    height: 48px;
+    border-radius: 20px;
     transition: color 0.3s ease, transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
     box-shadow: none !important;
     flex-shrink: 0;
