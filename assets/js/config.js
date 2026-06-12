@@ -158,10 +158,8 @@ document.addEventListener('DOMContentLoaded', () => {
       
       const targetUrl = btn.getAttribute('href') || '/';
       
-      // Wait for animation, then navigate
-      setTimeout(() => {
-        window.location.href = targetUrl;
-      }, 350);
+      // Navigate instantly
+      window.location.href = targetUrl;
     });
   });
 });
