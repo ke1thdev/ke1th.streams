@@ -173,8 +173,8 @@ function showInstallPromotion() {
       const doc = new DOMParser().parseFromString(htmlText, 'text/html');
       
       // Swap <main>
-      const currentMain = document.querySelector('.main-content');
-      const newMain = doc.querySelector('.main-content');
+      const currentMain = document.querySelector('main');
+      const newMain = doc.querySelector('main');
       if (currentMain && newMain) {
         currentMain.innerHTML = newMain.innerHTML;
         currentMain.className = newMain.className;
