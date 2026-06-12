@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ke1th-streams-v3.1.7';
+const CACHE_NAME = 'ke1th-streams-v3.1.8';
 const APP_SHELL = [
   '/',
   '/index.html',
@@ -45,6 +45,25 @@ self.addEventListener('activate', event => {
   );
 });
 
+// Deep-clean the response to completely strip the 'redirected' flag in Safari
+async function cleanResponse(response) {
+  const clonedResponse = response.clone();
+  // Reading to a blob is required to sever ties to the redirected stream in WebKit
+  const bodyBlob = await clonedResponse.blob();
+  
+  // Construct headers manually
+  const headers = new Headers();
+  for (const [key, value] of clonedResponse.headers.entries()) {
+    headers.append(key, value);
+  }
+  
+  return new Response(bodyBlob, {
+    status: clonedResponse.status,
+    statusText: clonedResponse.statusText,
+    headers: headers
+  });
+}
+
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
   
@@ -59,44 +78,60 @@ self.addEventListener('fetch', event => {
   // Only use stale-while-revalidate for our own domain assets
   if (url.origin === self.location.origin) {
     event.respondWith(
-      caches.match(event.request).then(cachedResponse => {
-        const fetchPromise = fetch(event.request).then(networkResponse => {
-          if (networkResponse && networkResponse.status === 200) {
-            const cacheCopy = networkResponse.clone();
-            caches.open(CACHE_NAME).then(cache => cache.put(event.request, cacheCopy));
-          }
+      (async function() {
+        let cachedResponse = await caches.match(event.request);
+        
+        // If the cached response is tainted with redirections, Safari will crash. Clean it!
+        if (cachedResponse && cachedResponse.redirected && isNavigate) {
+           cachedResponse = await cleanResponse(cachedResponse);
+        }
+        
+        // Fetch fresh version in the background
+        const networkPromise = fetch(event.request).then(async networkResponse => {
+          let responseToCache = networkResponse;
+          let responseToReturn = networkResponse;
           
-          // FIX FOR SAFARI: "Response served by service worker has redirections"
+          // Clean the network response before caching and returning if it's redirected
           if (networkResponse && networkResponse.redirected && isNavigate) {
-            return new Response(networkResponse.body, {
-                status: networkResponse.status,
-                statusText: networkResponse.statusText,
-                headers: networkResponse.headers
-            });
+             responseToCache = await cleanResponse(networkResponse);
+             responseToReturn = responseToCache.clone();
           }
           
-          return networkResponse;
+          if (responseToCache && responseToCache.status === 200) {
+            const cache = await caches.open(CACHE_NAME);
+            cache.put(event.request, responseToCache.clone());
+          }
+          
+          return responseToReturn;
         }).catch(async (error) => {
-           // If network fails (offline) and we don't have it in cache, show offline page for navigation
+           // Fallback to offline page if network fails and no cache exists
            if (!cachedResponse && isNavigate) {
               const offlinePage = await caches.match('/offline.html');
               if (offlinePage) return offlinePage;
            }
-           throw error; // Let it fail gracefully if not a navigation request
+           throw error;
         });
         
-        return cachedResponse || fetchPromise;
-      })
+        // Keep the SW alive until the background fetch finishes
+        event.waitUntil(networkPromise.catch(() => {}));
+        
+        return cachedResponse || networkPromise;
+      })()
     );
     return;
   }
 
   // Default network-first fallback for external API calls/images
   event.respondWith(
-    fetch(event.request).catch(async (error) => {
-      const cached = await caches.match(event.request);
-      if (cached) return cached;
-      throw error;
-    })
+    (async function() {
+       try {
+         const networkResponse = await fetch(event.request);
+         return networkResponse;
+       } catch (error) {
+         const cached = await caches.match(event.request);
+         if (cached) return cached;
+         throw error;
+       }
+    })()
   );
 });
