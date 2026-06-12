@@ -99,15 +99,65 @@
     // Start the initial auto-hide timer
     resetHideTimer();
 
-    // Interaction on the interceptor → show the overlay
-    const handleTap = function (e) {
-      e.preventDefault();
+    // Interaction on the interceptor → show overlay, double-tap zoom, pinch-zoom
+    let lastTap = 0;
+    let initialPinchDist = 0;
+
+    const handleTouchStart = function (e) {
+      if (e.cancelable) e.preventDefault();
       e.stopPropagation();
-      showOverlay();
+      
+      if (e.touches.length === 2) {
+          initialPinchDist = Math.hypot(
+              e.touches[0].pageX - e.touches[1].pageX,
+              e.touches[0].pageY - e.touches[1].pageY
+          );
+          return;
+      }
+
+      if (e.touches.length === 1) {
+          const currentTime = new Date().getTime();
+          const tapLength = currentTime - lastTap;
+          if (tapLength < 300 && tapLength > 0) {
+              // Double tap to toggle zoom
+              els.videoFrame.classList.toggle('zoomed-fill');
+              lastTap = 0;
+              return;
+          }
+          lastTap = currentTime;
+          showOverlay();
+      }
     };
 
-    els.tapInterceptor.addEventListener('click', handleTap);
-    els.tapInterceptor.addEventListener('touchstart', handleTap, { passive: false });
+    const handleTouchMove = function(e) {
+      if (e.touches.length === 2 && initialPinchDist > 0) {
+          if (e.cancelable) e.preventDefault();
+          const currentDist = Math.hypot(
+              e.touches[0].pageX - e.touches[1].pageX,
+              e.touches[0].pageY - e.touches[1].pageY
+          );
+          if (currentDist > initialPinchDist + 35) {
+              els.videoFrame.classList.add('zoomed-fill'); // Pinch out = zoom in
+          } else if (currentDist < initialPinchDist - 35) {
+              els.videoFrame.classList.remove('zoomed-fill'); // Pinch in = zoom out
+          }
+      }
+    };
+
+    const handleTouchEnd = function(e) {
+       if (e.touches.length < 2) {
+           initialPinchDist = 0;
+       }
+    };
+
+    els.tapInterceptor.addEventListener('click', function(e) {
+      e.preventDefault();
+      showOverlay();
+    });
+    
+    els.tapInterceptor.addEventListener('touchstart', handleTouchStart, { passive: false });
+    els.tapInterceptor.addEventListener('touchmove', handleTouchMove, { passive: false });
+    els.tapInterceptor.addEventListener('touchend', handleTouchEnd);
     
     // Mouse movement also triggers it on desktop
     els.tapInterceptor.addEventListener('mousemove', function (e) {

@@ -198,6 +198,12 @@ body {
   border: none;
   background: #000;
   color-scheme: dark;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center center;
+}
+
+#videoFrame.zoomed-fill {
+  transform: scale(1.28);
 }
 
 /* The floating back button is removed since we use the header back-btn now */
