@@ -333,3 +333,101 @@ body {
     display: none;
   }
 }
+
+/* ═══════════════════════════════════════════════
+   Mobile Floating Glass Overlay
+   ═══════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  body {
+    display: block;
+  }
+
+  .watch-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: auto;
+    padding: 10px 14px;
+    background: rgba(10, 10, 10, 0.55);
+    backdrop-filter: blur(20px) saturate(1.4);
+    -webkit-backdrop-filter: blur(20px) saturate(1.4);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 0 0 16px 16px;
+    z-index: 500;
+    transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: opacity, transform;
+  }
+
+  /* Auto-hide state */
+  .watch-header.glass-hidden {
+    opacity: 0;
+    transform: translateY(-100%);
+    pointer-events: none;
+  }
+
+  /* Full viewport player on mobile */
+  .watch-main {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+  }
+
+  .player-wrapper {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Hide the old floating back button on mobile — it's now in the overlay */
+  .floating-back-btn {
+    display: none;
+  }
+
+  .back-btn {
+    padding: 6px 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    min-width: 38px;
+    min-height: 38px;
+    justify-content: center;
+  }
+
+  .back-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .watch-title-wrap {
+    padding: 0 10px;
+  }
+
+  #watchTitle {
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+  }
+
+  .server-select-wrap {
+    position: relative;
+  }
+
+  .server-select {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    padding: 5px 28px 5px 10px;
+    font-size: 0.8rem;
+  }
+
+  .back-text {
+    display: none;
+  }
+
+  .server-label {
+    display: none;
+  }
+}

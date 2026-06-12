@@ -9,6 +9,7 @@
 
   const els = {
     title: document.getElementById('watchTitle'),
+    header: document.querySelector('.watch-header'),
     backBtn: document.getElementById('backBtn'),
     floatingBackBtn: document.getElementById('floatingBackBtn'),
     serverSelect: document.getElementById('serverSelect'),
@@ -40,6 +41,8 @@
     els.serverSelect.addEventListener('change', handleServerChange);
     els.backBtn.addEventListener('click', handleBack);
     setupFloatingBackBtn();
+    setupGlassOverlay();
+    setupFullscreenSync();
     
     window.addEventListener('message', handlePlayerMessage);
 
@@ -66,6 +69,113 @@
       e.stopPropagation();
       handleBack();
     });
+  }
+
+  // ─── Floating Glass Overlay (Mobile) ───
+  // Auto-hides the header after 3 seconds, re-appears on any screen tap.
+  function setupGlassOverlay() {
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    if (!isMobile || !els.header) return;
+
+    let hideTimer = null;
+    let isSelectOpen = false;
+
+    function showOverlay() {
+      els.header.classList.remove('glass-hidden');
+      resetHideTimer();
+    }
+
+    function hideOverlay() {
+      if (isSelectOpen) return; // Don't hide while user is picking a server
+      els.header.classList.add('glass-hidden');
+    }
+
+    function resetHideTimer() {
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(hideOverlay, 3000);
+    }
+
+    // Start the initial auto-hide timer
+    resetHideTimer();
+
+    // Tap anywhere on the screen to toggle the overlay
+    document.addEventListener('click', function (e) {
+      // Ignore clicks on header controls (back, select, etc.)
+      if (els.header.contains(e.target)) {
+        resetHideTimer();
+        return;
+      }
+
+      if (els.header.classList.contains('glass-hidden')) {
+        showOverlay();
+      } else {
+        hideOverlay();
+      }
+    });
+
+    // Prevent auto-hide while interacting with the server select dropdown
+    els.serverSelect.addEventListener('focus', function () {
+      isSelectOpen = true;
+      clearTimeout(hideTimer);
+    });
+    els.serverSelect.addEventListener('blur', function () {
+      isSelectOpen = false;
+      resetHideTimer();
+    });
+    els.serverSelect.addEventListener('change', function () {
+      isSelectOpen = false;
+      resetHideTimer();
+    });
+  }
+
+  // ─── Videasy Fullscreen Sync Fix ───
+  // Detects when browser exits fullscreen (e.g. pressing ESC or swipe-down)
+  // and notifies the Videasy iframe so its internal fullscreen icon resets.
+  // Without this, the Videasy player thinks it's still in fullscreen and
+  // any click re-opens the native fullscreen.
+  function setupFullscreenSync() {
+    function onFullscreenExit() {
+      const fsElement = document.fullscreenElement || document.webkitFullscreenElement;
+      
+      if (!fsElement && els.videoFrame && els.videoFrame.contentWindow) {
+        // Browser has EXITED fullscreen — tell the iframe player
+        try {
+          // Videasy uses postMessage to communicate — send exit fullscreen command
+          els.videoFrame.contentWindow.postMessage(
+            { type: 'FULLSCREEN_EXIT', event: 'exitFullscreen', fullscreen: false },
+            '*'
+          );
+          els.videoFrame.contentWindow.postMessage(
+            JSON.stringify({ type: 'FULLSCREEN_EXIT', event: 'exitFullscreen', fullscreen: false }),
+            '*'
+          );
+        } catch (e) {
+          // Cross-origin — expected to fail silently
+        }
+
+        // Forcefully remove the iframe from fullscreen state by briefly
+        // removing and re-adding the allowfullscreen attribute
+        // This resets the browser's internal fullscreen permission for the iframe
+        if (state.activeServer === 'videasy') {
+          try {
+            const currentSrc = els.videoFrame.src;
+            // Only reload if the iframe is still pointing to videasy
+            if (currentSrc.includes('videasy')) {
+              els.videoFrame.removeAttribute('allowfullscreen');
+              // Re-add after a tick so any stale fullscreen state is cleared
+              requestAnimationFrame(function () {
+                els.videoFrame.setAttribute('allowfullscreen', 'true');
+                els.videoFrame.setAttribute('webkitallowfullscreen', 'true');
+                els.videoFrame.setAttribute('mozallowfullscreen', 'true');
+              });
+            }
+          } catch (e) {}
+        }
+      }
+    }
+
+    document.addEventListener('fullscreenchange', onFullscreenExit);
+    document.addEventListener('webkitfullscreenchange', onFullscreenExit);
   }
 
   function handlePlayerMessage(event) {
