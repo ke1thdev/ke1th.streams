@@ -82,7 +82,9 @@
 
     function showOverlay() {
       els.header.classList.remove('glass-hidden');
-      els.tapInterceptor.classList.remove('active');
+      if (!els.videoFrame.classList.contains('zoomed-fill')) {
+          els.tapInterceptor.classList.remove('active');
+      }
       resetHideTimer();
     }
 
@@ -103,29 +105,23 @@
     let lastTap = 0;
     let initialPinchDist = 0;
 
+    const toggleZoom = function() {
+        els.videoFrame.classList.toggle('zoomed-fill');
+        if (els.videoFrame.classList.contains('zoomed-fill')) {
+            els.tapInterceptor.classList.add('active');
+        } else if (!els.header.classList.contains('glass-hidden')) {
+            els.tapInterceptor.classList.remove('active');
+        }
+    };
+
     const handleTouchStart = function (e) {
-      if (e.cancelable) e.preventDefault();
-      e.stopPropagation();
-      
       if (e.touches.length === 2) {
+          if (e.cancelable) e.preventDefault();
           initialPinchDist = Math.hypot(
               e.touches[0].pageX - e.touches[1].pageX,
               e.touches[0].pageY - e.touches[1].pageY
           );
           return;
-      }
-
-      if (e.touches.length === 1) {
-          const currentTime = new Date().getTime();
-          const tapLength = currentTime - lastTap;
-          if (tapLength < 300 && tapLength > 0) {
-              // Double tap to toggle zoom
-              els.videoFrame.classList.toggle('zoomed-fill');
-              lastTap = 0;
-              return;
-          }
-          lastTap = currentTime;
-          showOverlay();
       }
     };
 
@@ -136,23 +132,37 @@
               e.touches[0].pageX - e.touches[1].pageX,
               e.touches[0].pageY - e.touches[1].pageY
           );
-          if (currentDist > initialPinchDist + 35) {
-              els.videoFrame.classList.add('zoomed-fill'); // Pinch out = zoom in
-          } else if (currentDist < initialPinchDist - 35) {
-              els.videoFrame.classList.remove('zoomed-fill'); // Pinch in = zoom out
+          if (currentDist > initialPinchDist + 40) {
+              if (!els.videoFrame.classList.contains('zoomed-fill')) toggleZoom();
+          } else if (currentDist < initialPinchDist - 40) {
+              if (els.videoFrame.classList.contains('zoomed-fill')) toggleZoom();
           }
       }
     };
 
     const handleTouchEnd = function(e) {
-       if (e.touches.length < 2) {
+       if (!e.touches || e.touches.length < 2) {
            initialPinchDist = 0;
        }
     };
 
+    els.tapInterceptor.addEventListener('dblclick', function(e) {
+       e.preventDefault();
+       toggleZoom();
+    });
+
     els.tapInterceptor.addEventListener('click', function(e) {
       e.preventDefault();
-      showOverlay();
+      const currentTime = new Date().getTime();
+      const tapLength = currentTime - lastTap;
+      
+      if (tapLength < 350 && tapLength > 0) {
+          toggleZoom();
+          lastTap = 0;
+      } else {
+          showOverlay();
+          lastTap = currentTime;
+      }
     });
     
     els.tapInterceptor.addEventListener('touchstart', handleTouchStart, { passive: false });
