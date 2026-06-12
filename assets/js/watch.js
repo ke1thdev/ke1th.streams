@@ -14,7 +14,8 @@
     serverSelect: document.getElementById('serverSelect'),
     videoFrame: document.getElementById('videoFrame'),
     toast: document.getElementById('toast'),
-    tapInterceptor: document.getElementById('tapInterceptor')
+    tapInterceptor: document.getElementById('tapInterceptor'),
+    nextEpBtn: document.getElementById('nextEpBtn')
   };
 
   let state = {
@@ -40,6 +41,7 @@
     els.serverSelect.value = state.activeServer;
     els.serverSelect.addEventListener('change', handleServerChange);
     els.backBtn.addEventListener('click', handleBack);
+    if (els.nextEpBtn) els.nextEpBtn.addEventListener('click', playNextEpisode);
     setupFloatingBackBtn();
     setupGlassOverlay();
     setupFullscreenSync();
@@ -288,40 +290,15 @@
              lastUpdated: Date.now()
            };
            localStorage.setItem('watchProgress', JSON.stringify(progressData));
-         }
-      }
-
-      if (state.activeServer === 'videasy') {
-         let episodeChanged = false;
-         let currentType = state.type;
-         
-         if (state.isAnime && state.malId) {
-             currentType = "anime";
-         }
-
-         if (currentType === 'tv' && typeof evData.season !== 'undefined' && typeof evData.episode !== 'undefined') {
-             if (Number(evData.season) !== Number(state.season) || Number(evData.episode) !== Number(state.episode)) {
-                 state.season = evData.season;
-                 state.episode = evData.episode;
-                 episodeChanged = true;
-             }
-         } else if (currentType === 'anime' && typeof evData.episode !== 'undefined') {
-             if (Number(evData.episode) !== Number(state.episode)) {
-                 state.episode = evData.episode;
-                 episodeChanged = true;
-             }
-         }
-
-         if (episodeChanged) {
-             const url = new URL(window.location);
-             if (state.type === 'tv') {
-                 url.searchParams.set('season', state.season);
-             }
-             url.searchParams.set('episode', state.episode);
-             window.history.replaceState({}, '', url);
-             
-             fetchDetails();
-             loadPlayer(); 
+           // Native Auto-Play Next Episode (triggers when 95% completed)
+           if (progRatio >= 95 && state.hasNextEpisode && !window.autoPlayTriggered) {
+               window.autoPlayTriggered = true;
+               showToast("Playing next episode...");
+               setTimeout(() => {
+                   playNextEpisode();
+                   window.autoPlayTriggered = false;
+               }, 2000);
+           }
          }
       }
     } catch (e) {
@@ -348,16 +325,61 @@
   async function fetchDetails() {
     try {
       let data;
+      let hasNext = false;
+      state.nextEpisodeInfo = null;
+
       if (state.type === 'tv') {
         data = await TMDB.getTVDetails(state.id);
         els.title.textContent = `${data.name} - S${state.season} E${state.episode}`;
+
+        if (state.isAnime) {
+           if (Number(state.episode) < data.number_of_episodes) {
+               hasNext = true;
+               state.nextEpisodeInfo = { season: 1, episode: Number(state.episode) + 1 };
+           }
+        } else {
+           const seasonData = data.seasons?.find(s => s.season_number === Number(state.season));
+           if (seasonData) {
+               if (Number(state.episode) < seasonData.episode_count) {
+                   hasNext = true;
+                   state.nextEpisodeInfo = { season: state.season, episode: Number(state.episode) + 1 };
+               } else {
+                   const nextSeason = data.seasons.find(s => s.season_number === Number(state.season) + 1);
+                   if (nextSeason && nextSeason.episode_count > 0) {
+                       hasNext = true;
+                       state.nextEpisodeInfo = { season: Number(state.season) + 1, episode: 1 };
+                   }
+               }
+           }
+        }
       } else {
         data = await TMDB.getMovieDetails(state.id);
         els.title.textContent = data.title || data.name;
       }
+      
+      state.hasNextEpisode = hasNext;
+      if (hasNext && els.nextEpBtn) els.nextEpBtn.classList.remove('hidden');
+      else if (els.nextEpBtn) els.nextEpBtn.classList.add('hidden');
+
     } catch (err) {
       els.title.innerHTML = `ke1th.<span style="color: #e50914;">streams</span>`;
+      if (els.nextEpBtn) els.nextEpBtn.classList.add('hidden');
     }
+  }
+
+  function playNextEpisode() {
+      if (!state.hasNextEpisode || !state.nextEpisodeInfo) return;
+      state.season = state.nextEpisodeInfo.season;
+      state.episode = state.nextEpisodeInfo.episode;
+      const url = new URL(window.location);
+      if (!state.isAnime) {
+          url.searchParams.set('season', state.season);
+      }
+      url.searchParams.set('episode', state.episode);
+      window.history.replaceState({}, '', url);
+      fetchDetails();
+      loadPlayer();
+      showToast("Playing next episode...");
   }
 
   function loadPlayer() {
@@ -707,7 +729,7 @@
       }
     } catch (err) {}
 
-    const params = `?color=e50914&nextEpisode=true&autoplayNextEpisode=true&episodeSelector=true&overlay=true&autoplay=0&autoPlay=false&playsinline=1&playsInline=true&provider=yoru&server=yoru&sv=yoru&source=yoru${progressParam}`;
+    const params = `?color=e50914&nextEpisode=false&autoplayNextEpisode=false&episodeSelector=false&overlay=true&autoplay=0&autoPlay=false&playsinline=1&playsInline=true&provider=yoru&server=yoru&sv=yoru&source=yoru${progressParam}`;
 
     if (type === "tv") {
       return `https://player.videasy.to/tv/${id}/${season}/${episode}${params}`;

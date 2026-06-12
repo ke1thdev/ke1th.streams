@@ -1495,4 +1495,4 @@ body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radiu
   }
 }
 
-@media (max-width: 768px) { .topbar-actions > #openSearchBtn { display: none !important; } }
+@media (max-width: 980px) { .topbar-actions > #openSearchBtn { display: none !important; } }

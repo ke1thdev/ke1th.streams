@@ -2231,6 +2231,4 @@ body::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
     --landscape-w: 220px;
   }
 }
-@media (max-width: 768px) { .topbar-actions > #openSearchBtn { display: none !important; } }
-
-@media (max-width: 768px) { .topbar-actions > #openSearchBtn { display: none !important; } }
+@media (max-width: 980px) { .topbar-actions > #openSearchBtn { display: none !important; } }
