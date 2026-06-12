@@ -12,21 +12,7 @@
   let hlsInstance = null;
   let dashInstance = null;
   let allChannels = [];
-  let plyrInstance = null;
 
-  // Initialize landscape orientation module for native <video> elements
-  if (window.LandscapeForcer) {
-    LandscapeForcer.init();
-  }
-
-  // Initialize Plyr Custom Video Player
-  if (typeof Plyr !== 'undefined') {
-    plyrInstance = new Plyr('#liveVideoPlayer', {
-      controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen'],
-      autoplay: true,
-      settings: ['quality']
-    });
-  }
 
   // Toast Notification System
   function showToast(message) {
@@ -270,13 +256,6 @@
       modal.classList.add('hidden');
       return;
     }
-
-    // Force landscape orientation when opening the player
-    const videoContainer = document.querySelector('.video-container');
-    if (videoContainer && window.LandscapeForcer) {
-      videoContainer.classList.add('video-wrapper');
-      LandscapeForcer.forceLandscape(videoContainer);
-    }
     
     if (url.includes('.mpd')) {
       videoPlayer.classList.remove('hidden');
@@ -357,12 +336,6 @@
       document.activeElement.blur(); // Fix aria-hidden console warning
     }
 
-    // Release landscape orientation before closing
-    const videoContainer = document.querySelector('.video-container.video-wrapper');
-    if (videoContainer && window.LandscapeForcer) {
-      LandscapeForcer.releaseLandscape(videoContainer);
-    }
-
     modal.classList.add('hidden');
     modal.setAttribute('aria-hidden', 'true');
     if (hlsInstance) hlsInstance.destroy();
@@ -377,11 +350,6 @@
 
   closeBtn.addEventListener('click', closePlayer);
   closeBg.addEventListener('click', closePlayer);
-
-  const videoContainer = document.querySelector('.video-container');
-  if (videoContainer) {
-    videoContainer.addEventListener('landscape:close', closePlayer);
-  }
 
   fetchChannels();
   };
