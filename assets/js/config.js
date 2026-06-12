@@ -172,6 +172,18 @@ function showInstallPromotion() {
       const htmlText = await res.text();
       const doc = new DOMParser().parseFromString(htmlText, 'text/html');
       
+      // Load missing stylesheets
+      const newLinks = Array.from(doc.querySelectorAll('link[rel="stylesheet"]'));
+      newLinks.forEach(newLink => {
+        const cleanHref = newLink.getAttribute('href').split('?')[0];
+        if (!document.querySelector(`link[href^="${cleanHref}"]`)) {
+          const addedLink = document.createElement('link');
+          addedLink.rel = 'stylesheet';
+          addedLink.href = newLink.href;
+          document.head.appendChild(addedLink);
+        }
+      });
+      
       // Swap <main>
       const currentMain = document.querySelector('main');
       const newMain = doc.querySelector('main');
