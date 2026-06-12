@@ -14,7 +14,8 @@
     floatingBackBtn: document.getElementById('floatingBackBtn'),
     serverSelect: document.getElementById('serverSelect'),
     videoFrame: document.getElementById('videoFrame'),
-    toast: document.getElementById('toast')
+    toast: document.getElementById('toast'),
+    tapInterceptor: document.getElementById('tapInterceptor')
   };
 
   let state = {
@@ -73,21 +74,27 @@
 
   // ─── Floating Glass Overlay (Mobile) ───
   // Auto-hides the header after 3 seconds, re-appears on any screen tap.
+  // Uses a transparent tap-interceptor div that sits over the iframe
+  // because clicks inside an iframe don't bubble to the parent document.
   function setupGlassOverlay() {
     const isMobile = window.matchMedia('(max-width: 768px)').matches;
-    if (!isMobile || !els.header) return;
+    if (!isMobile || !els.header || !els.tapInterceptor) return;
 
     let hideTimer = null;
     let isSelectOpen = false;
 
     function showOverlay() {
       els.header.classList.remove('glass-hidden');
+      // Deactivate interceptor so user can interact with iframe
+      els.tapInterceptor.classList.remove('active');
       resetHideTimer();
     }
 
     function hideOverlay() {
-      if (isSelectOpen) return; // Don't hide while user is picking a server
+      if (isSelectOpen) return;
       els.header.classList.add('glass-hidden');
+      // Activate interceptor to catch the next tap
+      els.tapInterceptor.classList.add('active');
     }
 
     function resetHideTimer() {
@@ -98,19 +105,17 @@
     // Start the initial auto-hide timer
     resetHideTimer();
 
-    // Tap anywhere on the screen to toggle the overlay
-    document.addEventListener('click', function (e) {
-      // Ignore clicks on header controls (back, select, etc.)
-      if (els.header.contains(e.target)) {
-        resetHideTimer();
-        return;
-      }
+    // Tap on the interceptor → show the overlay
+    els.tapInterceptor.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      showOverlay();
+    });
 
-      if (els.header.classList.contains('glass-hidden')) {
-        showOverlay();
-      } else {
-        hideOverlay();
-      }
+    // Tap on header controls → reset the timer
+    els.header.addEventListener('click', function (e) {
+      // If back or select was clicked, those have their own handlers
+      resetHideTimer();
     });
 
     // Prevent auto-hide while interacting with the server select dropdown

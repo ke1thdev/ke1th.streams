@@ -335,25 +335,30 @@ body {
 }
 
 /* ═══════════════════════════════════════════════
-   Mobile Floating Glass Overlay
+   Mobile Floating Glass Overlay — Liquid Glass
    ═══════════════════════════════════════════════ */
+
+/* Tap interceptor — catches taps on top of the iframe to re-show the overlay */
+.tap-interceptor {
+  display: none;
+}
+
 @media (max-width: 768px) {
   body {
     display: block;
   }
 
+  /* Remove the solid header — make it transparent with no background */
   .watch-header {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     height: auto;
-    padding: 10px 14px;
-    background: rgba(10, 10, 10, 0.55);
-    backdrop-filter: blur(20px) saturate(1.4);
-    -webkit-backdrop-filter: blur(20px) saturate(1.4);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 0 0 16px 16px;
+    padding: 12px 14px;
+    padding-top: max(12px, env(safe-area-inset-top));
+    background: none;
+    border-bottom: none;
     z-index: 500;
     transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1),
                 transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
@@ -363,7 +368,7 @@ body {
   /* Auto-hide state */
   .watch-header.glass-hidden {
     opacity: 0;
-    transform: translateY(-100%);
+    transform: translateY(-20px);
     pointer-events: none;
   }
 
@@ -387,47 +392,98 @@ body {
     display: none;
   }
 
+  /* ── Liquid Glass Back Button — uses .liquid-glass-circle from liquid-glass.css ── */
   .back-btn {
-    padding: 6px 8px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.08);
-    min-width: 38px;
-    min-height: 38px;
+    padding: 0;
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    min-height: 42px;
     justify-content: center;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  }
+
+  .back-btn:active {
+    transform: scale(0.9);
+    background: rgba(229, 9, 20, 0.45);
+    box-shadow:
+      0 2px 16px rgba(229, 9, 20, 0.25),
+      inset 0 1px 1px rgba(255, 255, 255, 0.15);
   }
 
   .back-btn svg {
     width: 20px;
     height: 20px;
-  }
-
-  .watch-title-wrap {
-    padding: 0 10px;
-  }
-
-  #watchTitle {
-    font-size: 0.9rem;
-    font-weight: 600;
-    letter-spacing: 0.2px;
-  }
-
-  .server-select-wrap {
     position: relative;
-  }
-
-  .server-select {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 8px;
-    padding: 5px 28px 5px 10px;
-    font-size: 0.8rem;
+    z-index: 2;
   }
 
   .back-text {
     display: none;
   }
 
+  /* ── Floating Title — no background, just text ── */
+  .watch-title-wrap {
+    padding: 0 10px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  #watchTitle {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    color: #fff;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8),
+                 0 0 24px rgba(0, 0, 0, 0.5);
+  }
+
+  /* ── Liquid Glass Server Select — uses .liquid-glass from liquid-glass.css ── */
   .server-label {
     display: none;
+  }
+
+  .server-selector {
+    gap: 0;
+  }
+
+  .server-select-wrap {
+    position: relative;
+    border-radius: 22px;
+  }
+
+  .server-select {
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border: none;
+    border-radius: 22px;
+    padding: 8px 30px 8px 14px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    box-shadow: none;
+    position: relative;
+    z-index: 2;
+  }
+
+  .select-chevron {
+    z-index: 2;
+  }
+
+  /* ── Tap Interceptor — sits over the iframe when overlay is hidden ── */
+  .tap-interceptor {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 499;
+    background: transparent;
+    pointer-events: none;
+  }
+
+  .tap-interceptor.active {
+    pointer-events: auto;
   }
 }

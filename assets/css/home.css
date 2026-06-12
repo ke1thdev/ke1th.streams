@@ -1715,14 +1715,13 @@ body::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
 }
 
 .search-bar {
+  /* Liquid glass visual properties come from .liquid-glass-input class */
   display: flex;
   align-items: center;
   padding: 16px 20px;
-  background: rgba(18, 18, 18, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
   position: relative;
-  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
 }
 
 .search-icon {
@@ -2019,10 +2018,7 @@ body::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
   }
 
   .mobile-dock {
-    background: rgba(30, 30, 30, 0.65);
-    backdrop-filter: blur(40px) saturate(200%) url(#liquid-glass);
-    -webkit-backdrop-filter: blur(40px) saturate(200%) url(#liquid-glass);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    /* Liquid glass visual properties come from .liquid-glass-bar class */
     border-radius: 40px;
     display: flex;
     align-items: center;
@@ -2030,22 +2026,17 @@ body::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
     padding: 0 10px;
     height: 54px;
     box-sizing: border-box;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
     transition: all 0.3s ease;
   }
 
   .dock-search-btn {
-    background: rgba(30, 30, 30, 0.65);
-    backdrop-filter: blur(40px) saturate(200%) url(#liquid-glass);
-    -webkit-backdrop-filter: blur(40px) saturate(200%) url(#liquid-glass);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    /* Liquid glass visual properties come from .liquid-glass-circle class */
     border-radius: 50%;
     width: 54px;
     height: 54px;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
     color: rgba(255, 255, 255, 0.9);
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -2055,6 +2046,8 @@ body::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
     width: 22px;
     height: 22px;
     stroke-width: 2.2;
+    position: relative;
+    z-index: 2;
   }
 
   .dock-search-btn:active {

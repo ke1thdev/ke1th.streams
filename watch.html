@@ -8,7 +8,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport"
     content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <title>Watch - ke1th.streams v3.0.7</title>
+  <title>Watch - ke1th.streams v3.0.8</title>
 
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/imgs/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/imgs/favicon-32x32.png">
@@ -20,13 +20,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="/assets/css/watch.css?v=3.0.7" />
-  <link rel="stylesheet" href="/assets/css/landscape.css?v=3.0.7" />
+  <link rel="stylesheet" href="/assets/css/watch.css?v=3.0.8" />
+  <link rel="stylesheet" href="/assets/css/liquid-glass.css?v=3.0.8" />
+  <link rel="stylesheet" href="/assets/css/landscape.css?v=3.0.8" />
 </head>
 
 <body>
   <header class="watch-header">
-    <button id="backBtn" class="back-btn" aria-label="Go Back">
+    <button id="backBtn" class="back-btn liquid-glass-circle" aria-label="Go Back">
       <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
         stroke-linecap="round" stroke-linejoin="round">
         <line x1="19" y1="12" x2="5" y2="12"></line>
@@ -39,7 +40,7 @@
     </div>
     <div class="server-selector" id="serverSelector">
       <span class="server-label">Server:</span>
-      <div class="server-select-wrap">
+      <div class="server-select-wrap liquid-glass">
         <select id="serverSelect" class="server-select">
           <option value="videasy" selected>Default Server</option>
           <option value="vidsrc">Server 2</option>
@@ -72,6 +73,8 @@
         </svg>
       </button>
     </div>
+    <!-- Tap interceptor — catches taps over the iframe to re-show the glass overlay on mobile -->
+    <div id="tapInterceptor" class="tap-interceptor"></div>
   </main>
 
   <div id="toast" class="toast hidden" aria-live="assertive"></div>
@@ -114,10 +117,10 @@
     </div>
   </div>
 
-  <script src="/assets/js/config.js?v=3.0.7"></script>
-  <script src="/assets/js/tmdb.js?v=3.0.7"></script>
-  <script src="/assets/js/landscape.js?v=3.0.7"></script>
-  <script src="/assets/js/watch.js?v=3.0.7"></script>
+  <script src="/assets/js/config.js?v=3.0.8"></script>
+  <script src="/assets/js/tmdb.js?v=3.0.8"></script>
+  <script src="/assets/js/landscape.js?v=3.0.8"></script>
+  <script src="/assets/js/watch.js?v=3.0.8"></script>
 </body>
 
 </html>

@@ -1,0 +1,181 @@
+/* ═══════════════════════════════════════════════════════════════════
+   Liquid Glass Design System — Apple WWDC 2025 Inspired
+   
+   Approximates Apple's Liquid Glass effect using layered CSS:
+   - Heavy backdrop-filter blur with saturation boost
+   - Specular highlight rim via pseudo-elements
+   - Inner light refraction gradient
+   - Multi-layer box-shadow for depth and glow
+   
+   Works cross-browser (Safari, Chrome, Firefox).
+   For Chrome, an optional SVG displacement map can be layered on top.
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ─── Base Liquid Glass Variables ─── */
+:root {
+  --lg-blur: 28px;
+  --lg-saturation: 1.8;
+  --lg-brightness: 1.1;
+  --lg-bg: rgba(255, 255, 255, 0.06);
+  --lg-border: rgba(255, 255, 255, 0.2);
+  --lg-border-bottom: rgba(255, 255, 255, 0.08);
+  --lg-highlight-top: rgba(255, 255, 255, 0.25);
+  --lg-highlight-bottom: rgba(255, 255, 255, 0);
+  --lg-shadow-outer: 0 4px 24px rgba(0, 0, 0, 0.3);
+  --lg-shadow-inner: inset 0 1px 1px rgba(255, 255, 255, 0.15);
+  --lg-shadow-depth: inset 0 -1px 2px rgba(0, 0, 0, 0.15);
+}
+
+/* ─── Liquid Glass — Pill Shape ─── */
+.liquid-glass {
+  position: relative;
+  background: var(--lg-bg);
+  backdrop-filter: blur(var(--lg-blur)) saturate(var(--lg-saturation)) brightness(var(--lg-brightness));
+  -webkit-backdrop-filter: blur(var(--lg-blur)) saturate(var(--lg-saturation)) brightness(var(--lg-brightness));
+  border: 1px solid var(--lg-border);
+  border-bottom-color: var(--lg-border-bottom);
+  box-shadow:
+    var(--lg-shadow-outer),
+    var(--lg-shadow-inner),
+    var(--lg-shadow-depth);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Specular highlight — top edge light refraction */
+.liquid-glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    180deg,
+    var(--lg-highlight-top) 0%,
+    rgba(255, 255, 255, 0.08) 20%,
+    transparent 50%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Inner refraction caustic — subtle curved light band */
+.liquid-glass::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(
+      ellipse 80% 50% at 50% 0%,
+      rgba(255, 255, 255, 0.08) 0%,
+      transparent 60%
+    );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ─── Liquid Glass — Circle Variant ─── */
+.liquid-glass-circle {
+  position: relative;
+  background: var(--lg-bg);
+  backdrop-filter: blur(var(--lg-blur)) saturate(var(--lg-saturation)) brightness(var(--lg-brightness));
+  -webkit-backdrop-filter: blur(var(--lg-blur)) saturate(var(--lg-saturation)) brightness(var(--lg-brightness));
+  border: 1px solid var(--lg-border);
+  border-bottom-color: var(--lg-border-bottom);
+  border-radius: 50%;
+  box-shadow:
+    var(--lg-shadow-outer),
+    var(--lg-shadow-inner),
+    var(--lg-shadow-depth);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.liquid-glass-circle::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 15%;
+  right: 15%;
+  height: 40%;
+  border-radius: 50%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ─── Liquid Glass — Bar / Dock Variant ─── */
+.liquid-glass-bar {
+  position: relative;
+  background: rgba(20, 20, 20, 0.35);
+  backdrop-filter: blur(40px) saturate(2.0) brightness(1.05);
+  -webkit-backdrop-filter: blur(40px) saturate(2.0) brightness(1.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-bottom-color: rgba(255, 255, 255, 0.06);
+  box-shadow:
+    0 8px 40px rgba(0, 0, 0, 0.45),
+    inset 0 1px 1px rgba(255, 255, 255, 0.12),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.liquid-glass-bar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.14) 0%,
+    rgba(255, 255, 255, 0.04) 30%,
+    transparent 60%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ─── Liquid Glass — Search Input Variant ─── */
+.liquid-glass-input {
+  position: relative;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(32px) saturate(1.8) brightness(1.08);
+  -webkit-backdrop-filter: blur(32px) saturate(1.8) brightness(1.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-bottom-color: rgba(255, 255, 255, 0.06);
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.25),
+    inset 0 1px 1px rgba(255, 255, 255, 0.12),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.liquid-glass-input::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.12) 0%,
+    rgba(255, 255, 255, 0.03) 40%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Focus state enhancement */
+.liquid-glass-input:focus-within {
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    inset 0 1px 1px rgba(255, 255, 255, 0.15),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.1);
+}
