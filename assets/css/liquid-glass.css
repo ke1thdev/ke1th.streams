@@ -20,7 +20,7 @@
 }
 
 .glass-container--rounded {
-  border-radius: 40px; /* pill shape */
+  border-radius: 40px;
 }
 
 .glass-container--circle {
@@ -28,19 +28,17 @@
 }
 
 /* ========== GLASS LAYERS ========== */
-/* The .glass-filter layer handles the blur + displacement (set by JS) */
 .glass-filter {
   position: absolute;
   inset: 0;
   z-index: 0;
-  /* Fallback — the JS engine will override with the real displacement filter */
-  backdrop-filter: blur(4px) saturate(1.4);
-  -webkit-backdrop-filter: blur(4px) saturate(1.4);
+  /* Fallback — JS engine overrides per browser */
+  backdrop-filter: blur(30px) saturate(1.8) brightness(1.1);
+  -webkit-backdrop-filter: blur(30px) saturate(1.8) brightness(1.1);
   isolation: isolate;
   border-radius: inherit;
 }
 
-/* The .glass-overlay tints the surface */
 .glass-overlay {
   position: absolute;
   inset: 0;
@@ -68,14 +66,12 @@
   width: 100%;
 }
 
-/* ========== SHORTHAND CLASSES (backwards compat) ========== */
-/* The JS engine will dynamically override backdrop-filter with the real displacement filter */
+/* ========== SHORTHAND CLASSES ========== */
 .liquid-glass-bar, .liquid-glass, .liquid-glass-circle {
   position: relative;
   background: var(--lg-bg-color);
-  /* Fallback blur — JS engine overrides with displacement + blur */
-  backdrop-filter: blur(4px) saturate(1.4);
-  -webkit-backdrop-filter: blur(4px) saturate(1.4);
+  backdrop-filter: blur(30px) saturate(1.8) brightness(1.1);
+  -webkit-backdrop-filter: blur(30px) saturate(1.8) brightness(1.1);
   box-shadow: inset 1px 1px 0 var(--lg-highlight), inset 0 0 5px var(--lg-highlight), 0 6px 6px rgba(0, 0, 0, 0.2);
   border: none;
 }
@@ -83,12 +79,89 @@
 .liquid-glass-circle { border-radius: 50%; }
 .liquid-glass { border-radius: 12px; }
 
+/* ═══════════════════════════════════════════════════
+   SAFARI / WEBKIT — Apple Liquid Glass Refraction
+   Simulates real glass edge distortion with layered
+   pseudo-elements since Safari can't do SVG filters
+   in backdrop-filter.
+   ═══════════════════════════════════════════════════ */
+
+/* Edge refraction glow — simulates light bending at glass edges */
+[data-glass-engine="webkit"] .glass-container::before,
+[data-glass-engine="webkit"] .lg-safari-glass.liquid-glass-bar::before,
+[data-glass-engine="webkit"] .lg-safari-glass.liquid-glass::before,
+[data-glass-engine="webkit"] .lg-safari-glass.liquid-glass-circle::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  z-index: 4;
+  pointer-events: none;
+  /* Multi-layered edge refraction — the "glass distortion" look */
+  box-shadow:
+    /* Outer edge highlight — top-left light refraction */
+    inset 1px 1px 0 rgba(255, 255, 255, 0.35),
+    /* Inner edge shadow — depth illusion */
+    inset -1px -1px 0 rgba(255, 255, 255, 0.08),
+    /* Soft inner glow — glass thickness simulation */
+    inset 0 0 12px rgba(255, 255, 255, 0.06),
+    /* Sharp specular highlight — top edge refraction */
+    inset 0 1px 2px rgba(255, 255, 255, 0.25),
+    /* Bottom edge shadow — glass sits on surface */
+    inset 0 -1px 2px rgba(0, 0, 0, 0.15);
+  /* Subtle gradient overlay for glass curvature */
+  background: linear-gradient(
+    165deg,
+    rgba(255, 255, 255, 0.12) 0%,
+    rgba(255, 255, 255, 0.04) 20%,
+    transparent 50%,
+    rgba(0, 0, 0, 0.02) 80%,
+    rgba(0, 0, 0, 0.06) 100%
+  );
+}
+
+/* Extra specular for rounded glass surfaces */
+[data-glass-engine="webkit"] .glass-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 50%;
+  border-radius: inherit;
+  z-index: 5;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.10) 0%,
+    rgba(255, 255, 255, 0.03) 40%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(180deg, black 0%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, black 0%, transparent 100%);
+}
+
+/* Stronger border for the glass "edge" look */
+[data-glass-engine="webkit"] .glass-container {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-top-color: rgba(255, 255, 255, 0.30);
+  border-bottom-color: rgba(255, 255, 255, 0.06);
+}
+
+[data-glass-engine="webkit"] .liquid-glass-bar,
+[data-glass-engine="webkit"] .liquid-glass,
+[data-glass-engine="webkit"] .liquid-glass-circle {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-top-color: rgba(255, 255, 255, 0.30);
+  border-bottom-color: rgba(255, 255, 255, 0.06);
+}
+
 /* ─── Liquid Glass — Search Input Variant ─── */
 .liquid-glass-input {
   position: relative;
   background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(4px) saturate(1.5) brightness(1.08);
-  -webkit-backdrop-filter: blur(4px) saturate(1.5) brightness(1.08);
+  backdrop-filter: blur(30px) saturate(1.8) brightness(1.08);
+  -webkit-backdrop-filter: blur(30px) saturate(1.8) brightness(1.08);
   border: 1px solid rgba(255, 255, 255, 0.18);
   border-bottom-color: rgba(255, 255, 255, 0.06);
   box-shadow:

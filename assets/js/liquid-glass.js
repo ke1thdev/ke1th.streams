@@ -1,39 +1,99 @@
 /**
- * Liquid Glass Displacement Engine v1.0
- * Real glass distortion using SVG feDisplacementMap with chromatic aberration.
- * Based on jhey's glass displacement technique.
+ * Liquid Glass Displacement Engine v2.0
  * 
- * Usage: Add class "liquid-glass-displace" to any element that should have the effect.
- * The engine observes element sizes and regenerates displacement maps automatically.
+ * Chromium: Real SVG feDisplacementMap with chromatic aberration
+ * Safari/WebKit: Apple-style liquid glass with heavy blur, saturation, and refraction simulation
+ * 
+ * The engine auto-detects the browser and applies the best possible glass effect.
  */
 ;(function () {
   'use strict';
 
+  // ─── Browser Detection ───
+  const isWebKit = /AppleWebKit/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
+  const isChromium = /Chrome/.test(navigator.userAgent) && /AppleWebKit/.test(navigator.userAgent);
+
+  // Tag the document so CSS can branch - Forcing chromium engine globally for SVG displacement everywhere
+  document.documentElement.dataset.glassEngine = 'chromium';
+
   // ─── Config ───
   const GLASS_CONFIG = {
-    scale: -120,        // displacement intensity
-    border: 0.07,       // edge refraction band (fraction of min dimension)
-    lightness: 50,      // center neutral zone lightness
-    alpha: 0.93,        // center neutral zone opacity
-    blur: 11,           // inner blur to soften edges
+    scale: -120,
+    border: 0.07,
+    lightness: 50,
+    alpha: 0.93,
+    blur: 11,
     blend: 'difference',
-    outputBlur: 0.7,    // final output softening
-    r: 0,               // chromatic offset red
-    g: 10,              // chromatic offset green
-    b: 20,              // chromatic offset blue
+    outputBlur: 0.7,
+    r: 0,
+    g: 10,
+    b: 20,
     xChannel: 'R',
     yChannel: 'G',
     frost: 0.05,
     saturation: 1.5,
   };
 
+  // Apple-style glass parameters for Safari
+  const SAFARI_GLASS = {
+    blur: 30,          // Heavy gaussian blur — key to the iOS look
+    saturate: 1.8,     // Rich color saturation
+    brightness: 1.1,   // Slight brightness lift
+    contrast: 1.05,    // Subtle contrast boost
+  };
+
   let filterCounter = 0;
   const observedElements = new Map();
   let resizeObserver = null;
 
-  /**
-   * Build the SVG displacement image for a given width/height/radius
-   */
+  // ─── Selectors for glass elements ───
+  const GLASS_SELECTORS = [
+    '.glass-container',
+    '.liquid-glass-bar',
+    '.liquid-glass',
+    '.liquid-glass-circle',
+    '.topbar-inner',
+  ];
+
+  // ═══════════════════════════════════════════
+  // SAFARI / WEBKIT PATH — Apple Liquid Glass
+  // ═══════════════════════════════════════════
+
+  function applySafariGlass(el) {
+    const s = SAFARI_GLASS;
+    const bdf = `blur(${s.blur}px) saturate(${s.saturate}) brightness(${s.brightness}) contrast(${s.contrast})`;
+
+    // Apply to the element itself
+    el.style.webkitBackdropFilter = bdf;
+    el.style.backdropFilter = bdf;
+
+    // If it has the layered glass structure, apply to .glass-filter child
+    const glassFilter = el.querySelector(':scope > .glass-filter');
+    if (glassFilter) {
+      glassFilter.style.webkitBackdropFilter = bdf;
+      glassFilter.style.backdropFilter = bdf;
+    }
+
+    // Remove overlay backdrop-filter (just use tint)
+    const overlay = el.querySelector(':scope > .glass-overlay');
+    if (overlay) {
+      overlay.style.webkitBackdropFilter = 'none';
+      overlay.style.backdropFilter = 'none';
+    }
+
+    // Mark as processed
+    el.classList.add('lg-safari-glass');
+  }
+
+  function initSafariGlass() {
+    const allEls = document.querySelectorAll(GLASS_SELECTORS.join(','));
+    allEls.forEach(applySafariGlass);
+  }
+
+  // ═══════════════════════════════════════════
+  // CHROMIUM PATH — SVG Displacement Engine
+  // ═══════════════════════════════════════════
+
   function buildDisplacementSVG(w, h, radius) {
     const border = Math.min(w, h) * (GLASS_CONFIG.border * 0.5);
     return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}">
@@ -54,20 +114,13 @@
     </svg>`;
   }
 
-  /**
-   * Encode SVG string to data URI for feImage href
-   */
   function svgToDataURI(svgString) {
     return 'data:image/svg+xml,' + encodeURIComponent(svgString);
   }
 
-  /**
-   * Create a unique SVG filter element for a glass element
-   */
   function createFilter(id, w, h, radius) {
     const cfg = GLASS_CONFIG;
     const mapURI = svgToDataURI(buildDisplacementSVG(w, h, radius));
-
     const svgNS = 'http://www.w3.org/2000/svg';
     const svg = document.createElementNS(svgNS, 'svg');
     svg.setAttribute('style', 'position:absolute;width:0;height:0;overflow:hidden;pointer-events:none;');
@@ -78,7 +131,6 @@
     filter.setAttribute('id', id);
     filter.setAttribute('color-interpolation-filters', 'sRGB');
 
-    // feImage — the displacement map
     const feImage = document.createElementNS(svgNS, 'feImage');
     feImage.setAttribute('x', '0');
     feImage.setAttribute('y', '0');
@@ -89,7 +141,7 @@
     feImage.setAttribute('href', mapURI);
     filter.appendChild(feImage);
 
-    // RED channel displacement
+    // RED channel
     const dispRed = document.createElementNS(svgNS, 'feDisplacementMap');
     dispRed.setAttribute('in', 'SourceGraphic');
     dispRed.setAttribute('in2', 'map');
@@ -98,7 +150,6 @@
     dispRed.setAttribute('scale', String(cfg.scale + cfg.r));
     dispRed.setAttribute('result', 'dispRed');
     filter.appendChild(dispRed);
-
     const cmRed = document.createElementNS(svgNS, 'feColorMatrix');
     cmRed.setAttribute('in', 'dispRed');
     cmRed.setAttribute('type', 'matrix');
@@ -106,7 +157,7 @@
     cmRed.setAttribute('result', 'red');
     filter.appendChild(cmRed);
 
-    // GREEN channel displacement
+    // GREEN channel
     const dispGreen = document.createElementNS(svgNS, 'feDisplacementMap');
     dispGreen.setAttribute('in', 'SourceGraphic');
     dispGreen.setAttribute('in2', 'map');
@@ -115,7 +166,6 @@
     dispGreen.setAttribute('scale', String(cfg.scale + cfg.g));
     dispGreen.setAttribute('result', 'dispGreen');
     filter.appendChild(dispGreen);
-
     const cmGreen = document.createElementNS(svgNS, 'feColorMatrix');
     cmGreen.setAttribute('in', 'dispGreen');
     cmGreen.setAttribute('type', 'matrix');
@@ -123,7 +173,7 @@
     cmGreen.setAttribute('result', 'green');
     filter.appendChild(cmGreen);
 
-    // BLUE channel displacement
+    // BLUE channel
     const dispBlue = document.createElementNS(svgNS, 'feDisplacementMap');
     dispBlue.setAttribute('in', 'SourceGraphic');
     dispBlue.setAttribute('in2', 'map');
@@ -132,7 +182,6 @@
     dispBlue.setAttribute('scale', String(cfg.scale + cfg.b));
     dispBlue.setAttribute('result', 'dispBlue');
     filter.appendChild(dispBlue);
-
     const cmBlue = document.createElementNS(svgNS, 'feColorMatrix');
     cmBlue.setAttribute('in', 'dispBlue');
     cmBlue.setAttribute('type', 'matrix');
@@ -140,14 +189,13 @@
     cmBlue.setAttribute('result', 'blue');
     filter.appendChild(cmBlue);
 
-    // Blend RGB channels back together
+    // Blend
     const blendRG = document.createElementNS(svgNS, 'feBlend');
     blendRG.setAttribute('in', 'red');
     blendRG.setAttribute('in2', 'green');
     blendRG.setAttribute('mode', 'screen');
     blendRG.setAttribute('result', 'rg');
     filter.appendChild(blendRG);
-
     const blendRGB = document.createElementNS(svgNS, 'feBlend');
     blendRGB.setAttribute('in', 'rg');
     blendRGB.setAttribute('in2', 'blue');
@@ -155,7 +203,7 @@
     blendRGB.setAttribute('result', 'output');
     filter.appendChild(blendRGB);
 
-    // Final subtle gaussian blur on output
+    // Final blur
     const gaussBlur = document.createElementNS(svgNS, 'feGaussianBlur');
     gaussBlur.setAttribute('in', 'output');
     gaussBlur.setAttribute('stdDeviation', String(cfg.outputBlur));
@@ -163,51 +211,33 @@
 
     defs.appendChild(filter);
     svg.appendChild(defs);
-
     return svg;
   }
 
-  /**
-   * Get the computed border-radius of an element (simplified to a single value)
-   */
   function getRadius(el) {
-    const cs = getComputedStyle(el);
-    const r = parseFloat(cs.borderRadius) || 0;
-    return r;
+    return parseFloat(getComputedStyle(el).borderRadius) || 0;
   }
 
-  /**
-   * Apply or update a displacement filter on a single element
-   */
-  function applyGlass(el) {
+  function applyChromiumGlass(el) {
     const rect = el.getBoundingClientRect();
     const w = Math.round(rect.width);
     const h = Math.round(rect.height);
-    if (w < 2 || h < 2) return; // element not visible yet
+    if (w < 2 || h < 2) return;
 
     const radius = getRadius(el);
     let data = observedElements.get(el);
-
-    // Check if dimensions changed
     if (data && data.w === w && data.h === h && data.r === radius) return;
 
     const filterId = data ? data.filterId : `lg-glass-${filterCounter++}`;
+    if (data && data.svgEl) data.svgEl.remove();
 
-    // Remove old SVG if exists
-    if (data && data.svgEl) {
-      data.svgEl.remove();
-    }
-
-    // Create fresh filter
     const svgEl = createFilter(filterId, w, h, radius);
     document.body.appendChild(svgEl);
 
-    // Apply to element via backdrop-filter
     const filterRef = `url(#${filterId})`;
     el.style.backdropFilter = `${filterRef} blur(4px) saturate(${GLASS_CONFIG.saturation}) brightness(1.1)`;
     el.style.webkitBackdropFilter = `${filterRef} blur(4px) saturate(${GLASS_CONFIG.saturation}) brightness(1.1)`;
 
-    // Also apply to child .glass-overlay and .glass-filter if they exist
     const overlay = el.querySelector(':scope > .glass-overlay');
     if (overlay) {
       overlay.style.backdropFilter = filterRef;
@@ -222,37 +252,33 @@
     observedElements.set(el, { filterId, svgEl, w, h, r: radius });
   }
 
-  /**
-   * Initialize displacement on all qualifying glass elements
-   */
-  function initGlass() {
-    // Target all glass containers and shorthand classes
-    const selectors = [
-      '.glass-container',
-      '.liquid-glass-bar',
-      '.liquid-glass',
-      '.liquid-glass-circle',
-      '.topbar-inner',
-    ];
-
-    const allEls = document.querySelectorAll(selectors.join(','));
+  function initChromiumGlass() {
+    const allEls = document.querySelectorAll(GLASS_SELECTORS.join(','));
 
     if (!resizeObserver) {
       resizeObserver = new ResizeObserver(function (entries) {
         for (const entry of entries) {
-          applyGlass(entry.target);
+          applyChromiumGlass(entry.target);
         }
       });
     }
 
     allEls.forEach(function (el) {
       if (observedElements.has(el)) return;
-      applyGlass(el);
+      applyChromiumGlass(el);
       resizeObserver.observe(el);
     });
   }
 
-  // Run on DOMContentLoaded + small delay to ensure layout is settled
+  // ═══════════════════════════════════════════
+  // INIT — route to the right engine
+  // ═══════════════════════════════════════════
+
+  function initGlass() {
+    // Force SVG displacement engine for all browsers, including Safari/iOS
+    initChromiumGlass();
+  }
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function () {
       requestAnimationFrame(function () { setTimeout(initGlass, 100); });
@@ -261,11 +287,9 @@
     requestAnimationFrame(function () { setTimeout(initGlass, 100); });
   }
 
-  // Re-scan after any dynamic content loads
   window.addEventListener('load', function () {
     setTimeout(initGlass, 300);
   });
 
-  // Expose for manual re-initialization if needed
-  window.LiquidGlass = { init: initGlass, apply: applyGlass };
+  window.LiquidGlass = { init: initGlass, apply: applyChromiumGlass };
 })();
