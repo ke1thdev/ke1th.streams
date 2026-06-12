@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ke1th-streams-v3.2.5';
+const CACHE_NAME = 'ke1th-streams-v3.2.6';
 const APP_SHELL = [
   '/',
   '/index.html',

@@ -214,6 +214,7 @@ body {
 
 #videoFrame.zoomed-fill {
   transform: scale(1.24);
+  pointer-events: none;
 }
 
 /* The floating back button is removed since we use the header back-btn now */
