@@ -1454,10 +1454,6 @@ body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radiu
     padding: 32px 24px 24px;
   }
 
-  .actors-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
   .recommend-grid {
     grid-template-columns: repeat(2, 1fr);
   }

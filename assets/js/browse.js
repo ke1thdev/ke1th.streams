@@ -219,7 +219,7 @@
         state.genresById["16"] = "Animation";
     } else {
         try {
-            const data = state.type === "tv" ? await TMDB.getTVGenres() : await TMDB.getMovieGenres();
+            const data = (state.type === "tv" || state.type === "kdrama") ? await TMDB.getTVGenres() : await TMDB.getMovieGenres();
             if (data && data.genres) {
                 data.genres.forEach(n => {
                     state.genresById[n.id] = n.name;
@@ -239,6 +239,7 @@
     let subStr = "";
     
     if (state.type === "anime") titleStr = "Anime";
+    else if (state.type === "kdrama") titleStr = "K-Drama";
     else if (state.type === "tv") titleStr = "TV Shows";
     else titleStr = "Movies";
     
@@ -323,7 +324,7 @@
     try {
       let data;
       if (state.sort === "trending") {
-          const tType = state.type === "anime" ? "tv" : state.type;
+          const tType = (state.type === "anime" || state.type === "kdrama") ? "tv" : state.type;
           data = await TMDB.getTrending(tType, state.time, state.page);
       } else {
           const today = new Date().toISOString().split('T')[0];
@@ -352,6 +353,9 @@
               endpointType = "tv";
               params.with_genres = params.with_genres ? params.with_genres + ",16" : 16;
               params.with_original_language = "ja";
+          } else if (state.type === "kdrama") {
+              endpointType = "tv";
+              params.with_original_language = "ko";
           }
 
           if (endpointType === "tv") {
@@ -374,7 +378,7 @@
       } else {
         if (state.page === 1 && els.browseGrid) els.browseGrid.innerHTML = ""; // Clear initial skeletons
         results.forEach(item => {
-          const type = state.type === "anime" ? (item.media_type || "tv") : (item.media_type || state.type);
+          const type = (state.type === "anime" || state.type === "kdrama") ? (item.media_type || "tv") : (item.media_type || state.type);
           item.mediaType = type;
           if (state.type === "anime") item.isAnime = true;
           if (els.browseGrid) els.browseGrid.appendChild(buildCard(item));
