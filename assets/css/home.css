@@ -1935,6 +1935,11 @@ body::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
   background: #333;
 }
 
+/* ─── Mobile Dock Default (Hidden on Desktop) ─── */
+.mobile-dock-wrapper {
+  display: none;
+}
+
 /* ─── Responsive ─── */
 @media (max-width: 1200px) {
   :root {
