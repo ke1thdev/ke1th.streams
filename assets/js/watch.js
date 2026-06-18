@@ -284,10 +284,6 @@
          if (cTime > 0) {
            const progRatio = typeof evData.progress === 'number' ? evData.progress : Math.round((cTime / dur) * 100);
 
-           // Reset the auto-play trigger when a new video starts or user rewinds
-           if (progRatio < 50) {
-               window.autoPlayTriggered = false;
-           }
 
            progressData[key] = {
              currentTime: cTime,
@@ -302,14 +298,7 @@
                els.nextEpBtn.classList.add('visible');
            }
 
-           // Native Auto-Play Next Episode (triggers when 98% completed)
-           if (progRatio >= 98 && state.hasNextEpisode && !window.autoPlayTriggered) {
-               window.autoPlayTriggered = true;
-               showToast("Playing next episode...");
-               setTimeout(() => {
-                   playNextEpisode();
-               }, 3000);
-           }
+
          }
       }
     } catch (e) {
@@ -392,7 +381,6 @@
 
   function playNextEpisode() {
       if (!state.hasNextEpisode || !state.nextEpisodeInfo) return;
-      window.autoPlayTriggered = true; // Prevent multiple triggers from delayed iframe messages
       state.season = state.nextEpisodeInfo.season;
       state.episode = state.nextEpisodeInfo.episode;
       const url = new URL(window.location);
