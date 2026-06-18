@@ -283,6 +283,12 @@
          
          if (cTime > 0) {
            const progRatio = typeof evData.progress === 'number' ? evData.progress : Math.round((cTime / dur) * 100);
+
+           // Reset the auto-play trigger when a new video starts or user rewinds
+           if (progRatio < 50) {
+               window.autoPlayTriggered = false;
+           }
+
            progressData[key] = {
              currentTime: cTime,
              duration: dur,
@@ -363,7 +369,6 @@
       }
       
       state.hasNextEpisode = hasNext;
-      window.autoPlayTriggered = false;
       if (els.nextEpBtn) {
         // Remove hidden so it exists in DOM, but don't add 'visible' yet
         // The FAB will animate in when progress >= 90%
@@ -387,6 +392,7 @@
 
   function playNextEpisode() {
       if (!state.hasNextEpisode || !state.nextEpisodeInfo) return;
+      window.autoPlayTriggered = true; // Prevent multiple triggers from delayed iframe messages
       state.season = state.nextEpisodeInfo.season;
       state.episode = state.nextEpisodeInfo.episode;
       const url = new URL(window.location);
@@ -595,8 +601,8 @@
     if (progressParam) searchParams.set('startAt', progressParam);
     
     if (type === "tv" || type === "anime") {
-        searchParams.set('autoNext', 'true');
-        searchParams.set('nextButton', 'true');
+        searchParams.set('autoNext', 'false');
+        searchParams.set('nextButton', 'false');
     }
 
     const mediaType = (type === "tv" || type === "anime") ? "tv" : "movie";
@@ -626,7 +632,7 @@
 
     if (progressParam) searchParams.set('startAt', progressParam);
     if (type === 'tv' || type === 'anime') {
-        searchParams.set('autoNext', '30');
+        searchParams.set('autoNext', 'false');
     }
 
     if (type === "tv" || type === "anime") {
@@ -687,8 +693,8 @@
 
     if (type === "tv" || type === "anime") {
       if (progressParam) searchParams.set('startAt', progressParam);
-      searchParams.set('nextButton', 'true');
-      searchParams.set('autoNext', 'true');
+      searchParams.set('nextButton', 'false');
+      searchParams.set('autoNext', 'false');
       return `https://vidfast.pro/tv/${id}/${season}/${episode}?${searchParams.toString()}`;
     }
     if (type === "movie") {
