@@ -67,7 +67,11 @@
       
       const playerConfig = {
         manifest: {
-          dash: { ignoreMinBufferTime: true },
+          dash: { 
+            ignoreMinBufferTime: true,
+            ignoreSuggestedPresentationDelay: true,
+            clockSyncUri: 'https://time.akamai.com/?iso'
+          },
           hls: { 
             ignoreTextStreamFailures: true,
             ignoreManifestProgramDateTime: true
@@ -75,7 +79,7 @@
         },
         streaming: {
           lowLatencyMode: true,
-          inaccurateManifestTolerance: 0,
+          inaccurateManifestTolerance: 5,
           rebufferingGoal: 2,
           bufferingGoal: 10,
         }
