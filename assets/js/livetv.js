@@ -64,6 +64,23 @@
         addSeekBar: true,
       };
       ui.configure(config);
+      
+      const playerConfig = {
+        manifest: {
+          dash: { ignoreMinBufferTime: true },
+          hls: { 
+            ignoreTextStreamFailures: true,
+            ignoreManifestProgramDateTime: true
+          }
+        },
+        streaming: {
+          lowLatencyMode: true,
+          inaccurateManifestTolerance: 0,
+          rebufferingGoal: 2,
+          bufferingGoal: 10,
+        }
+      };
+      shakaInstance.configure(playerConfig);
 
       shakaInstance.addEventListener('error', (event) => {
         console.error('Shaka Error:', event.detail);
