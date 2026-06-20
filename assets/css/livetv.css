@@ -141,6 +141,31 @@
 
 .livetv-standalone-header .header-actions {
   width: auto;
+  display: flex;
+  align-items: center;
+}
+
+.header-brand {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.header-brand-logo {
+  width: 28px;
+  height: 28px;
+  margin-right: 6px;
+  border-radius: 4px;
+}
+
+.header-brand-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.header-brand-name span {
+  color: #e50914;
 }
 
 @media (max-width: 768px) {
@@ -163,6 +188,26 @@
 
   .livetv-standalone-header #watchTitle {
     font-size: 1rem;
+  }
+
+  .header-brand-logo {
+    width: 24px;
+    height: 24px;
+    margin-right: 4px;
+  }
+
+  .header-brand-name {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-brand-name {
+    font-size: 0.85rem;
+  }
+  .header-brand-logo {
+    width: 22px;
+    height: 22px;
   }
 }
 
