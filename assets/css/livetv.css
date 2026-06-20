@@ -256,93 +256,19 @@
   color: #fff;
 }
 
-/* Quality Selector */
-.quality-selector-wrap {
-  position: relative;
+/* Shaka Player Custom UI Overrides */
+.shaka-video-container {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  font-family: inherit;
 }
-.quality-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 14px;
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.08);
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+.shaka-controls-container * {
+  /* Ensure Shaka UI uses the theme font and colors */
+  --shaka-color-text: var(--text-bright);
+  --shaka-color-background: rgba(0, 0, 0, 0.7);
+  --shaka-color-primary: #e50914;
+}
+.shaka-volume-bar-container, .shaka-seek-bar-container {
   cursor: pointer;
-  font-size: 0.82rem;
-  font-weight: 600;
-  transition: all 0.2s;
-}
-.quality-btn:hover {
-  background: rgba(255, 255, 255, 0.15);
-}
-.quality-dropdown {
-  position: absolute;
-  bottom: calc(100% + 8px);
-  right: 0;
-  min-width: 200px;
-  background: rgba(20, 20, 25, 0.95);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  padding: 8px 0;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
-  z-index: 100;
-  animation: qualityFadeIn 0.15s ease;
-}
-.quality-dropdown.hidden {
-  display: none;
-}
-@keyframes qualityFadeIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.quality-dropdown-title {
-  padding: 8px 16px 6px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: rgba(255, 255, 255, 0.4);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-.quality-options {
-  display: flex;
-  flex-direction: column;
-}
-.quality-option {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 16px;
-  color: #fff;
-  font-size: 0.85rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background 0.15s;
-  border: none;
-  background: none;
-  width: 100%;
-  text-align: left;
-}
-.quality-option:hover {
-  background: rgba(255, 255, 255, 0.08);
-}
-.quality-option.active {
-  color: #e50914;
-}
-.quality-option.active::after {
-  content: '✓';
-  font-weight: 700;
-  color: #e50914;
-}
-.quality-option .quality-badge {
-  font-size: 0.7rem;
-  padding: 2px 6px;
-  border-radius: 4px;
-  background: rgba(229, 9, 20, 0.2);
-  color: #e50914;
-  font-weight: 700;
-  margin-left: 8px;
 }

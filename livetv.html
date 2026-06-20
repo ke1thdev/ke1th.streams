@@ -109,8 +109,8 @@
           <img id="inlinePlayerLogo" class="player-channel-logo" src="" alt="Channel Logo" style="display: none;" />
           <h2 class="player-title" id="inlinePlayerTitle">Select a channel</h2>
         </div>
-        <div class="video-container" style="display: flex; align-items: center; justify-content: center; background: #000; position: relative; aspect-ratio: 16/9; width: 100%; border-radius: 8px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-          <video id="liveVideoPlayer" data-landscape-init="true" controls playsinline
+        <div id="videoContainer" data-shaka-player-container style="max-width:100%; width:100%; height:100%;" class="video-container">
+          <video id="liveVideoPlayer" data-landscape-init="true" data-shaka-player playsinline
             style="width: 100%; height: 100%; max-height: 100%; outline: none; background: #000; object-fit: contain;"></video>
           <iframe id="liveIframePlayer" class="hidden"
             style="width: 100%; height: 100%; border: none; position: absolute; top: 0; left: 0;"
@@ -127,19 +127,6 @@
             </svg>
             Share
           </button>
-          <div class="quality-selector-wrap">
-            <button id="qualityBtn" class="action-btn quality-btn" title="Video Quality">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="3"></circle>
-                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-              </svg>
-              <span id="qualityLabel">Auto</span>
-            </button>
-            <div id="qualityDropdown" class="quality-dropdown hidden">
-              <div class="quality-dropdown-title">Resolution</div>
-              <div id="qualityOptions" class="quality-options"></div>
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -179,9 +166,9 @@
 
 
 
-  <!-- HLS.js for m3u8 and Shaka Player for DASH/DRM streams -->
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
-  <script src="https://cdn.jsdelivr.net/npm/shaka-player@4.14.7/dist/shaka-player.compiled.min.js"></script>
+  <!-- Shaka Player UI -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shaka-player@4.7.11/dist/controls.css">
+  <script src="https://cdn.jsdelivr.net/npm/shaka-player@4.7.11/dist/shaka-player.ui.js"></script>
 
   <script src="/assets/js/config.js?v=3.3.14"></script>
   <script src="/assets/js/tmdb.js?v=3.3.14"></script>

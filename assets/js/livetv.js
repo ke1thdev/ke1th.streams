@@ -37,6 +37,32 @@
     return base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
   }
 
+    // Initialize Shaka UI once
+  let ui = null;
+  function initShakaUI() {
+    if (!shakaInstance && typeof shaka !== 'undefined') {
+      shaka.polyfill.installAll();
+      if (!shaka.Player.isBrowserSupported()) {
+        showToast('Your browser does not support this stream.');
+        return;
+      }
+      shakaInstance = new shaka.Player(videoPlayer);
+      const videoContainer = document.getElementById('videoContainer');
+      ui = new shaka.ui.Overlay(shakaInstance, videoContainer, videoPlayer);
+      
+      const config = {
+        controlPanelElements: ['play_pause', 'time_and_duration', 'spacer', 'mute', 'volume', 'quality', 'fullscreen'],
+        addSeekBar: true,
+      };
+      ui.configure(config);
+
+      shakaInstance.addEventListener('error', (event) => {
+        console.error('Shaka Error:', event.detail);
+        showToast('Stream is currently offline or blocked by the provider.');
+      });
+    }
+  }
+
   async function fetchChannels() {
     try {
       const response = await fetch('/channels/channels.json');
@@ -240,73 +266,50 @@
   }
 
   async function playChannel(channel, scroll = true) {
-    const playerSection = document.querySelector('.livetv-player-section');
-    if (playerSection) playerSection.style.display = 'block';
-
-    if (playerTitle) playerTitle.textContent = channel.name;
-    if (playerLogo) {
-      playerLogo.src = channel.logo || '';
-      playerLogo.style.display = channel.logo ? 'block' : 'none';
+    if (!channel) return;
+    
+    playerTitle.textContent = channel.name;
+    if (channel.logo) {
+      playerLogo.src = channel.logo;
+      playerLogo.style.display = 'block';
+    } else {
+      playerLogo.style.display = 'none';
     }
     
     if (scroll) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Update URL to include the channel name for sharing
     const newUrl = new URL(window.location.href);
     newUrl.searchParams.set('ch', channel.name);
     window.history.replaceState({}, '', newUrl);
 
-    // cleanup previous instances
-    if (hlsInstance) {
-      hlsInstance.destroy();
-      hlsInstance = null;
-    }
-    if (dashInstance) {
-      dashInstance.destroy();
-      dashInstance = null;
-    }
-    if (shakaInstance) {
-      try {
-        await shakaInstance.destroy();
-      } catch(e) {
-        console.error('Error destroying shaka:', e);
-      }
-      shakaInstance = null;
-    }
     videoPlayer.src = '';
     iframePlayer.src = '';
     videoPlayer.classList.add('hidden');
     iframePlayer.classList.add('hidden');
-    // Reset quality selector
-    if (qualityLabel) qualityLabel.textContent = 'Auto';
-    if (qualityOptions) qualityOptions.innerHTML = '';
-    if (qualityDropdown) qualityDropdown.classList.add('hidden');
 
-    const url = channel.url;
+    const url = channel.url || channel.streamUrl;
     
     if (url.startsWith('youtube:')) {
       const channelId = url.split(':')[1];
       window.open(`https://www.youtube.com/channel/${channelId}/live`, '_blank');
       return;
     }
-    
-    if (url.includes('.mpd')) {
+
+    if (!shakaInstance) initShakaUI();
+
+    if (shakaInstance) {
+      try {
+        await shakaInstance.unload();
+      } catch(e) {}
+    }
+
+    if (url.includes('.mpd') || url.includes('.m3u8') || url.endsWith('.mp4')) {
       videoPlayer.classList.remove('hidden');
 
-      // Use Shaka Player for MPD streams (better DRM + proxy support)
-      if (typeof shaka !== 'undefined') {
-        shaka.polyfill.installAll();
-        if (!shaka.Player.isBrowserSupported()) {
-          showToast('Your browser does not support this stream.');
-          return;
-        }
-
-        shakaInstance = new shaka.Player();
-        await shakaInstance.attach(videoPlayer);
-
-        // Configure ClearKey DRM if present
+      if (shakaInstance) {
+        // Configure DRM if present
         const shakaConfig = {
           preferredAudioLanguage: 'en',
           preferredTextLanguage: 'en',
@@ -327,9 +330,10 @@
         ];
         const activeProxy = proxyPatterns.find(p => url.includes(p.match));
         
+        shakaInstance.getNetworkingEngine().clearAllRequestFilters();
+
         if (activeProxy) {
           const proxyUA = 'Dalvik/2.1.0 (Linux; U; Android 12; Pixel 6 Build/SD1A.210817.036)';
-          // Extract the original manifest base path from the stream URL
           let mpdBaseUrl = '';
           const mpdUrlParam = url.match(/\?url=([^&]+)/);
           if (mpdUrlParam) {
@@ -340,97 +344,38 @@
           shakaInstance.getNetworkingEngine().registerRequestFilter((type, request) => {
             for (let i = 0; i < request.uris.length; i++) {
               let uri = request.uris[i];
-              
-              // Skip data URIs
               if (uri.startsWith('data:')) continue;
-              
-              // Already a properly formed proxy URL with ?url= param
               if (uri.includes(activeProxy.match) && uri.includes('?url=') && uri.includes('&ua=')) continue;
-              
-              // URI on the proxy domain but without ?url= (Shaka resolved relative path against BaseURL)
               if (uri.includes(activeProxy.match)) {
                 const domainIdx = uri.indexOf(activeProxy.domainEnd);
                 if (domainIdx > -1) {
                   const afterDomain = uri.substring(domainIdx + activeProxy.domainEnd.length);
-                  // Could be "?url=..." already embedded or just a bare path
                   if (afterDomain && !afterDomain.startsWith('?')) {
-                    // It's a bare segment path — reconstruct the real URL
                     const realUrl = mpdBaseUrl + afterDomain;
                     request.uris[i] = activeProxy.base + '?url=' + encodeURIComponent(realUrl) + '&ua=' + encodeURIComponent(proxyUA);
                   }
                 }
                 continue;
               }
-              
-              // Raw origin URL (not through proxy at all) — wrap it
               request.uris[i] = activeProxy.base + '?url=' + encodeURIComponent(uri) + '&ua=' + encodeURIComponent(proxyUA);
             }
           });
         }
 
-        shakaInstance.addEventListener('error', (event) => {
-          console.error('Shaka Error:', event.detail);
-          showToast('Stream is currently offline or blocked by the provider.');
-        });
-
         try {
           await shakaInstance.load(url);
           videoPlayer.play().catch(e => console.log('Autoplay blocked', e));
-          
-          // Populate quality selector after stream loads
-          populateQualitySelector(shakaInstance);
         } catch (e) {
           console.error('Error loading stream:', e);
           showToast('Failed to load this live stream.');
         }
-      } else {
-        console.error('Shaka Player not loaded.');
-      }
-    } else if (url.includes('.m3u8')) {
-      videoPlayer.classList.remove('hidden');
-      // HLS
-      if (Hls.isSupported()) {
-        hlsInstance = new Hls();
-        hlsInstance.loadSource(url);
-        hlsInstance.attachMedia(videoPlayer);
-        hlsInstance.on(Hls.Events.MANIFEST_PARSED, () => {
-          videoPlayer.play().catch(e => console.log('Autoplay blocked', e));
-        });
-        hlsInstance.on(Hls.Events.ERROR, function (event, data) {
-          if (data.fatal) {
-            console.error("HLS Error:", data);
-            switch (data.type) {
-              case Hls.ErrorTypes.NETWORK_ERROR:
-                showToast('Stream is offline or connection was refused.');
-                break;
-              case Hls.ErrorTypes.MEDIA_ERROR:
-                hlsInstance.recoverMediaError();
-                break;
-              default:
-                showToast('Failed to load this live stream.');
-                hlsInstance.destroy();
-                break;
-            }
-          }
-        });
-      } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
-        // Native HLS (Safari)
-        videoPlayer.src = url;
-        videoPlayer.addEventListener('loadedmetadata', () => {
-          videoPlayer.play().catch(e => console.log('Autoplay blocked', e));
-        });
-      } else {
-        console.error('HLS is not supported in this browser.');
       }
     } else {
       videoPlayer.classList.remove('hidden');
-      // Fallback native
       videoPlayer.src = url;
       videoPlayer.play().catch(e => console.log('Autoplay blocked', e));
     }
   }
-
-
 
   const shareBtn = document.getElementById('shareBtn');
   if (shareBtn) {
@@ -442,91 +387,6 @@
         }).catch(console.error);
       } else {
         showToast('Sharing is not supported on this browser.');
-      }
-    });
-  }
-
-  // Quality Selector
-  const qualityBtn = document.getElementById('qualityBtn');
-  const qualityDropdown = document.getElementById('qualityDropdown');
-  const qualityOptions = document.getElementById('qualityOptions');
-  const qualityLabel = document.getElementById('qualityLabel');
-
-  function populateQualitySelector(player) {
-    if (!qualityOptions || !qualityLabel) return;
-    qualityOptions.innerHTML = '';
-    
-    const tracks = player.getVariantTracks();
-    if (!tracks || tracks.length === 0) return;
-
-    // Dedupe by height and sort descending
-    const heightMap = new Map();
-    for (const t of tracks) {
-      const h = t.height || 0;
-      if (!heightMap.has(h) || t.bandwidth > heightMap.get(h).bandwidth) {
-        heightMap.set(h, t);
-      }
-    }
-    const uniqueTracks = [...heightMap.entries()].sort((a, b) => b[0] - a[0]);
-
-    // Auto option
-    const autoBtn = document.createElement('button');
-    autoBtn.className = 'quality-option active';
-    autoBtn.textContent = 'Auto';
-    if (uniqueTracks.length > 0) {
-      const maxH = uniqueTracks[0][0];
-      const badge = document.createElement('span');
-      badge.className = 'quality-badge';
-      badge.textContent = maxH >= 1080 ? 'HD' : maxH >= 720 ? 'HD' : 'SD';
-      autoBtn.appendChild(badge);
-    }
-    autoBtn.addEventListener('click', () => {
-      player.configure({ abr: { enabled: true } });
-      qualityLabel.textContent = 'Auto';
-      qualityOptions.querySelectorAll('.quality-option').forEach(o => o.classList.remove('active'));
-      autoBtn.classList.add('active');
-      qualityDropdown.classList.add('hidden');
-    });
-    qualityOptions.appendChild(autoBtn);
-
-    // Individual quality options
-    for (const [height, track] of uniqueTracks) {
-      if (height === 0) continue;
-      const btn = document.createElement('button');
-      btn.className = 'quality-option';
-      const label = height + 'p';
-      btn.textContent = label;
-      if (height >= 1080) {
-        const badge = document.createElement('span');
-        badge.className = 'quality-badge';
-        badge.textContent = 'FHD';
-        btn.appendChild(badge);
-      } else if (height >= 720) {
-        const badge = document.createElement('span');
-        badge.className = 'quality-badge';
-        badge.textContent = 'HD';
-        btn.appendChild(badge);
-      }
-      btn.addEventListener('click', () => {
-        player.configure({ abr: { enabled: false } });
-        player.selectVariantTrack(track, true);
-        qualityLabel.textContent = label;
-        qualityOptions.querySelectorAll('.quality-option').forEach(o => o.classList.remove('active'));
-        btn.classList.add('active');
-        qualityDropdown.classList.add('hidden');
-      });
-      qualityOptions.appendChild(btn);
-    }
-  }
-
-  if (qualityBtn && qualityDropdown) {
-    qualityBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      qualityDropdown.classList.toggle('hidden');
-    });
-    document.addEventListener('click', (e) => {
-      if (!qualityDropdown.contains(e.target) && e.target !== qualityBtn) {
-        qualityDropdown.classList.add('hidden');
       }
     });
   }
