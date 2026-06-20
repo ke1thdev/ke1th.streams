@@ -2,15 +2,14 @@
   const initLiveTV = () => {
   const M3U_URL = 'https://iptv-org.github.io/iptv/countries/ph.m3u';
   const grid = document.getElementById('livetvGrid');
-  const modal = document.getElementById('playerModal');
-  const closeBtn = document.getElementById('closePlayerModal');
-  const closeBg = document.getElementById('closePlayerModalBg');
   const videoPlayer = document.getElementById('liveVideoPlayer');
   const iframePlayer = document.getElementById('liveIframePlayer');
-  const playerTitle = document.getElementById('playerTitle');
+  const playerTitle = document.getElementById('inlinePlayerTitle');
+  const playerLogo = document.getElementById('inlinePlayerLogo');
   
   let hlsInstance = null;
   let dashInstance = null;
+  let shakaInstance = null;
   let allChannels = [];
 
 
@@ -82,9 +81,10 @@
   function populateCategories(channels) {
     const filter = document.getElementById('categoryFilter');
     if (!filter) return;
-    const categories = new Set();
-    channels.forEach(ch => categories.add(ch.group));
-    const sortedCategories = Array.from(categories).sort();
+    const categories = [];
+    const seen = new Set();
+    channels.forEach(ch => { if (!seen.has(ch.group)) { seen.add(ch.group); categories.push(ch.group); } });
+    const sortedCategories = categories;
     sortedCategories.forEach(cat => {
       const option = document.createElement('option');
       option.value = cat;
@@ -110,12 +110,12 @@
 
   const categoryOrder = [
     'Kids & Cartoons',
-    'Movies & Cinema',
-    'Entertainment & Drama',
-    'News & Information',
+    'Movies',
+    'News',
+    'Entertainment',
+    'Documentary',
     'Sports',
     'Music',
-    'Lifestyle & Docs',
     'General'
   ];
 
@@ -229,10 +229,19 @@
     if (rightBtn) rightBtn.disabled = rail.scrollLeft >= maxScroll - 4;
   }
 
-  function playChannel(channel) {
-    playerTitle.textContent = channel.name;
-    modal.classList.remove('hidden');
-    modal.setAttribute('aria-hidden', 'false');
+  async function playChannel(channel, scroll = true) {
+    const playerSection = document.querySelector('.livetv-player-section');
+    if (playerSection) playerSection.style.display = 'block';
+
+    if (playerTitle) playerTitle.textContent = channel.name;
+    if (playerLogo) {
+      playerLogo.src = channel.logo || '';
+      playerLogo.style.display = channel.logo ? 'block' : 'none';
+    }
+    
+    if (scroll) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
     // cleanup previous instances
     if (hlsInstance) {
@@ -243,49 +252,118 @@
       dashInstance.destroy();
       dashInstance = null;
     }
+    if (shakaInstance) {
+      shakaInstance.destroy();
+      shakaInstance = null;
+    }
     videoPlayer.src = '';
     iframePlayer.src = '';
     videoPlayer.classList.add('hidden');
     iframePlayer.classList.add('hidden');
+    // Reset quality selector
+    if (qualityLabel) qualityLabel.textContent = 'Auto';
+    if (qualityOptions) qualityOptions.innerHTML = '';
+    if (qualityDropdown) qualityDropdown.classList.add('hidden');
 
     const url = channel.url;
     
     if (url.startsWith('youtube:')) {
       const channelId = url.split(':')[1];
       window.open(`https://www.youtube.com/channel/${channelId}/live`, '_blank');
-      modal.classList.add('hidden');
       return;
     }
     
     if (url.includes('.mpd')) {
       videoPlayer.classList.remove('hidden');
-      // Dash
-      if (typeof dashjs !== 'undefined') {
-        dashInstance = dashjs.MediaPlayer().create();
-        
-        // Dynamically apply ClearKey DRM from JSON if present
-        if (channel.drm) {
-          const clearKeysMap = {};
-          for (const [kidHex, keyHex] of Object.entries(channel.drm)) {
-            clearKeysMap[hexToBase64Url(kidHex)] = hexToBase64Url(keyHex);
+
+      // Use Shaka Player for MPD streams (better DRM + proxy support)
+      if (typeof shaka !== 'undefined') {
+        shaka.polyfill.installAll();
+        if (!shaka.Player.isBrowserSupported()) {
+          showToast('Your browser does not support this stream.');
+          return;
+        }
+
+        shakaInstance = new shaka.Player();
+        await shakaInstance.attach(videoPlayer);
+
+        // Configure ClearKey DRM if present
+        const shakaConfig = {
+          preferredAudioLanguage: 'en',
+          preferredTextLanguage: 'en',
+          drm: {
+            clearKeys: channel.drm || {},
+            servers: {},
+            preferredKeySystems: channel.drm ? ['org.w3.clearkey'] : []
           }
-          dashInstance.setProtectionData({
-            "org.w3.clearkey": {
-              "clearkeys": clearKeysMap
+        };
+        shakaInstance.configure(shakaConfig);
+
+        // Add network filter for proxied streams (Cloudflare or Railway)
+        const proxyPatterns = [
+          { match: 'blue-voice-4f1f', base: 'https://blue-voice-4f1f.czg3i9ixp6ywxh2mw61dxdwf.workers.dev/', domainEnd: '.dev/' },
+          { match: 'prox-production', base: 'https://prox-production-a3e4.up.railway.app/', domainEnd: '.app/' }
+        ];
+        const activeProxy = proxyPatterns.find(p => url.includes(p.match));
+        
+        if (activeProxy) {
+          const proxyUA = 'Dalvik/2.1.0 (Linux; U; Android 12; Pixel 6 Build/SD1A.210817.036)';
+          // Extract the original manifest base path from the stream URL
+          let mpdBaseUrl = '';
+          const mpdUrlParam = url.match(/\?url=([^&]+)/);
+          if (mpdUrlParam) {
+            const decoded = decodeURIComponent(mpdUrlParam[1]);
+            mpdBaseUrl = decoded.substring(0, decoded.lastIndexOf('/') + 1);
+          }
+
+          shakaInstance.getNetworkingEngine().registerRequestFilter((type, request) => {
+            for (let i = 0; i < request.uris.length; i++) {
+              let uri = request.uris[i];
+              
+              // Skip data URIs
+              if (uri.startsWith('data:')) continue;
+              
+              // Already a properly formed proxy URL with ?url= param
+              if (uri.includes(activeProxy.match) && uri.includes('?url=') && uri.includes('&ua=')) continue;
+              
+              // URI on the proxy domain but without ?url= (Shaka resolved relative path against BaseURL)
+              if (uri.includes(activeProxy.match)) {
+                const domainIdx = uri.indexOf(activeProxy.domainEnd);
+                if (domainIdx > -1) {
+                  const afterDomain = uri.substring(domainIdx + activeProxy.domainEnd.length);
+                  // Could be "?url=..." already embedded or just a bare path
+                  if (afterDomain && !afterDomain.startsWith('?')) {
+                    // It's a bare segment path — reconstruct the real URL
+                    const realUrl = mpdBaseUrl + afterDomain;
+                    request.uris[i] = activeProxy.base + '?url=' + encodeURIComponent(realUrl) + '&ua=' + encodeURIComponent(proxyUA);
+                  }
+                }
+                continue;
+              }
+              
+              // Raw origin URL (not through proxy at all) — wrap it
+              request.uris[i] = activeProxy.base + '?url=' + encodeURIComponent(uri) + '&ua=' + encodeURIComponent(proxyUA);
             }
           });
         }
-        
-        dashInstance.on(dashjs.MediaPlayer.events.ERROR, (e) => {
-          console.error("DASH Error:", e);
-          if (e.error === 'download' || e.error === 'manifestError' || e.error === 'mediasource') {
-            showToast('Stream is currently offline or blocked by the provider.');
-          }
+
+        shakaInstance.addEventListener('error', (event) => {
+          console.error('Shaka Error:', event.detail);
+          showToast('Stream is currently offline or blocked by the provider.');
         });
 
-        dashInstance.initialize(videoPlayer, url, true);
+        try {
+          await shakaInstance.load(url);
+          videoPlayer.play().catch(e => console.log('Autoplay blocked', e));
+          
+          // Populate quality selector after stream loads
+          populateQualitySelector(shakaInstance);
+        } catch (e) {
+          console.error('Error loading stream:', e);
+          showToast('Failed to load this live stream.');
+        }
       } else {
-        console.error('DASH Player not loaded.');
+        console.error('Shaka Player not loaded.');
       }
     } else if (url.includes('.m3u8')) {
       videoPlayer.classList.remove('hidden');
@@ -331,25 +409,106 @@
     }
   }
 
-  function closePlayer() {
-    if (document.activeElement) {
-      document.activeElement.blur(); // Fix aria-hidden console warning
-    }
 
-    modal.classList.add('hidden');
-    modal.setAttribute('aria-hidden', 'true');
-    if (hlsInstance) hlsInstance.destroy();
-    if (dashInstance) dashInstance.destroy();
-    videoPlayer.pause();
-    videoPlayer.removeAttribute('src');
-    videoPlayer.load();
-    iframePlayer.src = '';
-    iframePlayer.classList.add('hidden');
-    videoPlayer.classList.remove('hidden');
+
+  const shareBtn = document.getElementById('shareBtn');
+  if (shareBtn) {
+    shareBtn.addEventListener('click', () => {
+      if (navigator.share) {
+        navigator.share({
+          title: `Watching ${playerTitle.textContent} on Live TV`,
+          url: window.location.href
+        }).catch(console.error);
+      } else {
+        showToast('Sharing is not supported on this browser.');
+      }
+    });
   }
 
-  closeBtn.addEventListener('click', closePlayer);
-  closeBg.addEventListener('click', closePlayer);
+  // Quality Selector
+  const qualityBtn = document.getElementById('qualityBtn');
+  const qualityDropdown = document.getElementById('qualityDropdown');
+  const qualityOptions = document.getElementById('qualityOptions');
+  const qualityLabel = document.getElementById('qualityLabel');
+
+  function populateQualitySelector(player) {
+    if (!qualityOptions || !qualityLabel) return;
+    qualityOptions.innerHTML = '';
+    
+    const tracks = player.getVariantTracks();
+    if (!tracks || tracks.length === 0) return;
+
+    // Dedupe by height and sort descending
+    const heightMap = new Map();
+    for (const t of tracks) {
+      const h = t.height || 0;
+      if (!heightMap.has(h) || t.bandwidth > heightMap.get(h).bandwidth) {
+        heightMap.set(h, t);
+      }
+    }
+    const uniqueTracks = [...heightMap.entries()].sort((a, b) => b[0] - a[0]);
+
+    // Auto option
+    const autoBtn = document.createElement('button');
+    autoBtn.className = 'quality-option active';
+    autoBtn.textContent = 'Auto';
+    if (uniqueTracks.length > 0) {
+      const maxH = uniqueTracks[0][0];
+      const badge = document.createElement('span');
+      badge.className = 'quality-badge';
+      badge.textContent = maxH >= 1080 ? 'HD' : maxH >= 720 ? 'HD' : 'SD';
+      autoBtn.appendChild(badge);
+    }
+    autoBtn.addEventListener('click', () => {
+      player.configure({ abr: { enabled: true } });
+      qualityLabel.textContent = 'Auto';
+      qualityOptions.querySelectorAll('.quality-option').forEach(o => o.classList.remove('active'));
+      autoBtn.classList.add('active');
+      qualityDropdown.classList.add('hidden');
+    });
+    qualityOptions.appendChild(autoBtn);
+
+    // Individual quality options
+    for (const [height, track] of uniqueTracks) {
+      if (height === 0) continue;
+      const btn = document.createElement('button');
+      btn.className = 'quality-option';
+      const label = height + 'p';
+      btn.textContent = label;
+      if (height >= 1080) {
+        const badge = document.createElement('span');
+        badge.className = 'quality-badge';
+        badge.textContent = 'FHD';
+        btn.appendChild(badge);
+      } else if (height >= 720) {
+        const badge = document.createElement('span');
+        badge.className = 'quality-badge';
+        badge.textContent = 'HD';
+        btn.appendChild(badge);
+      }
+      btn.addEventListener('click', () => {
+        player.configure({ abr: { enabled: false } });
+        player.selectVariantTrack(track, true);
+        qualityLabel.textContent = label;
+        qualityOptions.querySelectorAll('.quality-option').forEach(o => o.classList.remove('active'));
+        btn.classList.add('active');
+        qualityDropdown.classList.add('hidden');
+      });
+      qualityOptions.appendChild(btn);
+    }
+  }
+
+  if (qualityBtn && qualityDropdown) {
+    qualityBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      qualityDropdown.classList.toggle('hidden');
+    });
+    document.addEventListener('click', (e) => {
+      if (!qualityDropdown.contains(e.target) && e.target !== qualityBtn) {
+        qualityDropdown.classList.add('hidden');
+      }
+    });
+  }
 
   fetchChannels();
   };

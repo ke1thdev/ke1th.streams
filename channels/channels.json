@@ -1,135 +1,10 @@
 [
   {
-    "name": "PTV",
+    "name": "Cartoon Channel PH",
     "type": "TV",
-    "logo": "",
-    "category": "News & Information",
-    "streamUrl": "https://streams.comclark.com/pknsd/ptv/playlist.m3u8"
-  },
-  {
-    "name": "IBC 13",
-    "type": "TV",
-    "logo": "",
-    "category": "News & Information",
-    "streamUrl": "https://streams.comclark.com/pknsd/ibc_13/playlist.m3u8"
-  },
-  {
-    "name": "Living Asia Channel",
-    "type": "TV",
-    "logo": "",
-    "category": "Lifestyle & Docs",
-    "streamUrl": "https://streams.comclark.com/pknsd/lac/playlist.m3u8"
-  },
-  {
-    "name": "Mr. Bean Animated",
-    "type": "TV",
-    "logo": "https://en.wikipedia.org/wiki/Special:FilePath/Mr._Bean_logo.svg",
+    "logo": "https://iyadtv.pages.dev/images/cartoon_channel_ph_47.png",
     "category": "Kids & Cartoons",
-    "streamUrl": "https://amg00627-amg00627c28-rakuten-uk-3984.playouts.now.amagi.tv/playlist/amg00627-banijayfast-mrbeanukcc-rakutenuk/playlist.m3u8"
-  },
-  {
-    "name": "Pokémon",
-    "type": "TV",
-    "logo": "https://en.wikipedia.org/wiki/Special:FilePath/International_Pok%C3%A9mon_logo.svg",
-    "category": "Kids & Cartoons",
-    "streamUrl": "https://docpe51mdltl5.cloudfront.net/Pokemon_GB.m3u8"
-  },
-  {
-    "name": "ABN Bible Movies Channel",
-    "type": "TV",
-    "logo": "",
-    "category": "General",
-    "streamUrl": "https://mediaserver.abnvideos.com/streams/abnbiblemovies.m3u8"
-  },
-  {
-    "name": "Abante Radyo",
-    "type": "TV",
-    "logo": "https://www.abante.com.ph/wp-content/uploads/2023/09/dwar_radio.webp",
-    "category": "News & Information",
-    "streamUrl": "https://amg19223-amg19223c12-amgplt0352.playout.now3.amagi.tv/playlist/amg19223-amg19223c12-amgplt0352/playlist.m3u8"
-  },
-  {
-    "name": "Alien Nation",
-    "type": "TV",
-    "logo": "https://cdn.creativefabrica.com/2023/05/31/Alien-Nation-SVG-Print-Alien-UFO-logo-Graphics-70778983.jpg",
-    "category": "Entertainment & Drama",
-    "streamUrl": "https://linear-888.frequency.stream/dist/xumo/888/hls/master/playlist.m3u8"
-  },
-  {
-    "name": "All Weddings We TV",
-    "type": "TV",
-    "logo": "https://static-us-east-2-fastly-a.www.philo.com/images/channel_logos/ALLWED/large_dark.png?auto=webp&ver=1",
-    "category": "Entertainment & Drama",
-    "streamUrl": "https://amc-allweddings-1-us.xumo.wurl.tv/playlist.m3u8"
-  },
-  {
-    "name": "AMC Thrillers",
-    "type": "TV",
-    "logo": "https://static-us-east-2-fastly-a.www.philo.com/images/channel_logos/AMCRSH/large_dark.png?auto=webp&ver=1",
-    "category": "Entertainment & Drama",
-    "streamUrl": "https://amc-rushbyamc-1-us.vizio.wurl.tv/playlist.m3u8"
-  },
-  {
-    "name": "American Crimes",
-    "type": "TV",
-    "logo": "https://static.wikia.nocookie.net/logopedia/images/e/e0/NBC_American_Crimes.svg/revision/latest/scale-to-width-down/250?cb=20240904000846",
-    "category": "Lifestyle & Docs",
-    "streamUrl": "https://xumo-xumoent-vc-113-at8kn.fast.nbcuni.com/live/master.m3u8"
-  },
-  {
-    "name": "American Ninja Warrior",
-    "type": "TV",
-    "logo": "https://vectorified.com/image/american-ninja-warrior-logo-vector-14.png",
-    "category": "Entertainment & Drama",
-    "streamUrl": "https://xumo-drct-ch812-n4996.fast.nbcuni.com/live/master.m3u8"
-  },
-  {
-    "name": "Bein Sports Xtra",
-    "type": "TV",
-    "logo": "https://tse1.mm.bing.net/th/id/OIP.ob-M2GXzrQzDibjpQHhmxgHaFj?pid=Api&h=220&P=0",
-    "category": "Sports",
-    "streamUrl": "https://amg01334-beinsportsllc-beinxtra-localnow-kcy6r.amagi.tv/playlist.m3u8"
-  },
-  {
-    "name": "Blast Movie",
-    "type": "TV",
-    "logo": "https://static.wikia.nocookie.net/tv-philippines/images/0/0e/Blast_TV_logo.png/revision/latest?cb=20240924121921",
-    "category": "Movies & Cinema",
-    "streamUrl": "https://amg19223-amg19223c7-amgplt0351.playout.now3.amagi.tv/playlist/amg19223-amg19223c7-amgplt0351/playlist.m3u8"
-  },
-  {
-    "name": "Bloomberg Asia",
-    "type": "TV",
-    "logo": "",
-    "category": "News & Information",
-    "streamUrl": "https://www.bloomberg.com/media-manifest/streams/asia.m3u8"
-  },
-  {
-    "name": "Blues TV",
-    "type": "TV",
-    "logo": "",
-    "category": "Music",
-    "streamUrl": "https://2-fss-2.streamhoster.com/pl_138/205510-3094608-1/playlist.m3u8"
-  },
-  {
-    "name": "Billiard TV",
-    "type": "TV",
-    "logo": "https://tse3.mm.bing.net/th/id/OIP.2btxOHsk5DcqPIljOPzgUwHaEK?pid=Api&h=220&P=0",
-    "category": "Sports",
-    "streamUrl": "https://1b29dd71cd5e4191a3eb26afff631ed3.mediatailor.us-west-2.amazonaws.com/v1/master/9d062541f2ff39b5c0f48b743c6411d25f62fc25/SportsTribal-BilliardTV/BILLIARDTV_SCTE.m3u8"
-  },
-  {
-    "name": "Bilyonaryo News Channel",
-    "type": "TV",
-    "logo": "https://en.wikipedia.org/wiki/Special:FilePath/BilyonaryoNewsChannel_Logo_-_Black_(2024).png",
-    "category": "News & Information",
-    "streamUrl": "https://amg19223-amg19223c11-amgplt0352.playout.now3.amagi.tv/playlist/amg19223-amg19223c11-amgplt0352/playlist.m3u8"
-  },
-  {
-    "name": "Blossom Tv",
-    "type": "TV",
-    "category": "Entertainment & Drama",
-    "streamUrl": "https://amg00437-amg00437c3-firetv-us-5409.playouts.now.amagi.tv/playlist720p.m3u8"
+    "streamUrl": "https://live20.bozztv.com/giatv/giatv-cartoonchannelph/cartoonchannelph/chunks.m3u8"
   },
   {
     "name": "Cartoon Classics",
@@ -144,88 +19,21 @@
     "streamUrl": "https://streams2.sofast.tv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/d5543c06-5122-49a7-9662-32187f48aa2c/manifest.m3u8"
   },
   {
-    "name": "Catholic Network",
+    "name": "Cartoon Network",
     "type": "TV",
-    "logo": "https://tse2.mm.bing.net/th/id/OIP.hd-eA4QkTWmKMMvaHxXEZgHaHa?pid=Api&h=220&P=0",
-    "category": "General",
-    "streamUrl": "https://catholictvhd-lh.akamaized.net/hls/live/2043390/CTVLiveHD/master.m3u8"
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/8/80/Cartoon_Network_2010_logo.svg",
+    "category": "Kids & Cartoons",
+    "streamUrl": "https://blue-voice-4f1f.czg3i9ixp6ywxh2mw61dxdwf.workers.dev/?url=https%3A%2F%2Fqp-pldt-live-bpk-01-prod.akamaized.net%2Fbpk-tv%2Fcartoonnetworkhd%2Fdefault%2Findex.mpd&ua=Dalvik%2F2.1.0+%28Linux%3B+U%3B+Android+12%3B+Pixel+6+Build%2FSD1A.210817.036%29",
+    "drm": {
+      "a2d1f552ff9541558b3296b5a932136b": "cdd48fa884dc0c3a3f85aeebca13d444"
+    }
   },
   {
-    "name": "CBS News",
+    "name": "Cartoon Network / Adult Swim (US)",
     "type": "TV",
-    "logo": "https://tse3.mm.bing.net/th/id/OIP.i7GvYQzJJtQMiKYBBxMPgQHaE1?pid=Api&h=220&P=0",
-    "category": "News & Information",
-    "streamUrl": "https://cbsn-us.cbsnstream.cbsnews.com/out/v1/55a8648e8f134e82a470f83d562deeca/master_21.m3u8"
-  },
-  {
-    "name": "CGTN News",
-    "type": "TV",
-    "logo": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/84/fe/30/84fe3021-8e9f-2d7d-073b-9de0321e39ce/AppIcon-0-0-1x_U007epad-0-1-0-sRGB-0-85-220.png/1200x630wa.png",
-    "category": "News & Information",
-    "streamUrl": "https://amg00405-rakutentv-cgtn-rakuten-i9tar.amagi.tv/master720p.m3u8"
-  },
-  {
-    "name": "CGTN DOCUMENTARY",
-    "type": "TV",
-    "logo": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/84/fe/30/84fe3021-8e9f-2d7d-073b-9de0321e39ce/AppIcon-0-0-1x_U007epad-0-1-0-sRGB-0-85-220.png/1200x630wa.png",
-    "category": "Lifestyle & Docs",
-    "streamUrl": "https://amg00405-rakutentv-cgtndocumentary-rakuten-0ql8j.amagi.tv/master720p.m3u8"
-  },
-  {
-    "name": "CH 13 Israel",
-    "type": "TV",
-    "logo": "https://www.coolstreaming.us/img/ch/image28348710201.jpg",
-    "category": "News & Information",
-    "streamUrl": "https://d2xg1g9o5vns8m.cloudfront.net/out/v1/66d4ac8748ce4a9298b4e40e48d1ae2f/index_3.m3u8"
-  },
-  {
-    "name": "Channel News Asia",
-    "type": "TV",
-    "logo": "https://tse1.mm.bing.net/th/id/OIP.ALvg_kpYwp1WPBkzjB-EJAHaHa?pid=Api&h=220&P=0",
-    "category": "News & Information",
-    "streamUrl": "https://d2e1asnsl7br7b.cloudfront.net/7782e205e72f43aeb4a48ec97f66ebbe/index.m3u8"
-  },
-  {
-    "name": "Charge",
-    "type": "TV",
-    "logo": "https://en.wikipedia.org/wiki/Special:FilePath/Charge!_Logo_2020.svg",
-    "category": "News & Information",
-    "streamUrl": "https://fast-channels.sinclairstoryline.com/CHARGE/index_4.m3u8"
-  },
-  {
-    "name": "Chrono TV",
-    "type": "TV",
-    "logo": "",
-    "category": "Sports",
-    "streamUrl": "https://streams2.sofast.tv/ptnr-yupptv/title-CHRONO-TV-ENG_yupptv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/d375ebca-9cd0-475e-ad4d-0cde6634de9c/manifest.m3u8"
-  },
-  {
-    "name": "CNA",
-    "type": "TV",
-    "logo": "https://www.marketbeat.com/logos/cna-financial-co-logo.png?v=20240215143558",
-    "category": "News & Information",
-    "streamUrl": "https://d2e1asnsl7br7b.cloudfront.net/7782e205e72f43aeb4a48ec97f66ebbe/index_2.m3u8"
-  },
-  {
-    "name": "CNN",
-    "type": "TV",
-    "logo": "https://pluspng.com/img-png/cnn-logo-png-cnn-logos-brands-and-logotypes-4390x4390.png",
-    "category": "News & Information",
-    "streamUrl": "https://turnerlive.warnermediacdn.com/hls/live/586495/cnngo/cnn_slate/VIDEO_0_3564000.m3u8"
-  },
-  {
-    "name": "Colour Blind",
-    "type": "TV",
-    "logo": "",
-    "category": "Entertainment & Drama",
-    "streamUrl": "https://streams2.sofast.tv/ptnr-yupptv/title-COLOUR-BLIND-ENG_yupptv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/7e58f6fd-62bc-49bc-9ec6-2766ed521743/manifest.m3u8"
-  },
-  {
-    "name": "Crime 360",
-    "type": "TV",
-    "logo": "https://images-cdn3.welcomesoftware.com/assets/crime+360.jpg/Zz05YjgzM2IwMDlkMzAxMWVmYmYzNGJhZGI5NDNiNTQzZQ==?width=768&height=430",
-    "category": "Lifestyle & Docs",
-    "streamUrl": "https://c664c25d.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEctYXVfQ3JpbWUzNjBfSExT/playlist.m3u8"
+    "logo": "https://hipfonts.com/wp-content/uploads/2022/02/adult-swim-logo.jpg",
+    "category": "Kids & Cartoons",
+    "streamUrl": "https://cn-proxy.ke1th.dev/USA_CARTOON_NETWORK/index.m3u8"
   },
   {
     "name": "Crunchyroll",
@@ -235,230 +43,47 @@
     "streamUrl": "https://8846385a.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEctY2FfQ3J1bmNoeXJvbGxfSExT/playlist.m3u8"
   },
   {
-    "name": "DAILY WIRE",
-    "type": "TV",
-    "logo": "https://tse3.mm.bing.net/th/id/OIP.eICvWAMAXAPBC-FFDlkNfQHaD3?pid=Api&h=220&P=0",
-    "category": "News & Information",
-    "streamUrl": "https://fl1004.bozztv.com/ushba-m10/tracks-v1a1/mono.m3u8"
-  },
-  {
-    "name": "DAZN Combat",
-    "type": "TV",
-    "logo": "https://www.planetecsat.com/wp-content/uploads/2024/02/logo-DAZN-Combat.png",
-    "category": "Sports",
-    "streamUrl": "https://dazn-combat-rakuten.amagi.tv/hls/amagi_hls_data_rakutenAA-dazn-combat-rakuten/CDN/master.m3u8"
-  },
-  {
-    "name": "DAZN Ringside",
-    "type": "TV",
-    "logo": "https://assets.goal.com/images/v3/blt077eff519e5ab803/DAZN-Logo.jpg?auto=webp&format=pjpg&width=3840&quality=60",
-    "category": "Sports",
-    "streamUrl": "https://aegis-cloudfront-1.tubi.video/bfad29e2-5bee-44f3-8256-127324e8b106/playlist.m3u8"
-  },
-  {
-    "name": "Deal or No Deal",
-    "type": "TV",
-    "logo": "https://i.imgur.com/j4OVP7y.jpeg",
-    "category": "Entertainment & Drama",
-    "streamUrl": "https://amg00627-amg00627c21-samsung-ph-5284.playouts.now.amagi.tv/playlist/amg00627-banijayfast-dealornodealrow-samsungph/playlist.m3u8"
-  },
-  {
-    "name": "Declassified",
-    "type": "TV",
-    "logo": "https://tse3.mm.bing.net/th/id/OIP.0bAMZAj_NwH9Pg0qYgRYQQHaEQ?pid=Api&h=220&P=0",
-    "category": "Entertainment & Drama",
-    "streamUrl": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00090-blueantllc-historytime-lgca/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.coppa=0&ads.targetad=[TARGETAD_ALLOWED]"
-  },
-  {
-    "name": "Dont Tell The Bride",
-    "type": "TV",
-    "logo": "https://www.rawechoes.com/wp-content/uploads/2023/01/BBC-DONT-TELL-THE-BRIDE-LOGO.png",
-    "category": "Entertainment & Drama",
-    "streamUrl": "https://lds-donttellbride-rakuten.amagi.tv/360p-cc/index.m3u8"
-  },
-  {
-    "name": "Dream TV PH",
+    "name": "Discovery Kids",
     "type": "TV",
     "logo": "",
-    "category": "General",
-    "streamUrl": "https://dreamtvph.itunerworldwide.workers.dev/master.live.m3u8"
+    "category": "Kids & Cartoons",
+    "streamUrl": "https://bks400-tol-110.quieroxview.com.mx/bpk-tv/discovery_kids_hd/default/index.mpd",
+    "drm": {
+      "52358519f886446d82834a803b36f796": "58b6ac8e07d354b178255e03b9d0f819"
+    }
   },
   {
-    "name": "DW News",
+    "name": "Dreamworks HD",
     "type": "TV",
-    "logo": "https://tse4.mm.bing.net/th/id/OIP.rvbciyNPlvI3gE7JgpJ-dAHaHa?pid=Api&h=220&P=0",
-    "category": "News & Information",
-    "streamUrl": "https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/stream05/streamPlaylist.m3u8"
+    "logo": "https://i.imgur.com/bzTr9Y2.png",
+    "category": "Kids & Cartoons",
+    "streamUrl": "https://blue-voice-4f1f.czg3i9ixp6ywxh2mw61dxdwf.workers.dev/?url=https%3A%2F%2Fqp-pldt-live-bpk-02-prod.akamaized.net%2Fbpk-tv%2Fcg_dreamworks_hd1%2Fdefault%2Findex.mpd&ua=Dalvik%2F2.1.0%20(Linux%3B%20U%3B%20Android%2012%3B%20Pixel%206%20Build%2FSD1A.210817.036)",
+    "drm": {
+      "7b1e9c4d5a2f4d8c9f106d3a8b2c1e77": "8b2904224c6cee13d2d4e06c0a3b2887"
+    }
   },
   {
-    "name": "Edgy TV",
+    "name": "Dreamworks Tagalog",
     "type": "TV",
-    "logo": "",
-    "category": "Entertainment & Drama",
-    "streamUrl": "https://streams2.sofast.tv/ptnr-yupptv/title-EDGY-TV-ENG_yupptv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/49f275ac-7129-4492-93c0-854b3c3138f0/manifest.m3u8"
+    "logo": "https://i.imgur.com/bzTr9Y2.png",
+    "category": "Kids & Cartoons",
+    "streamUrl": "https://blue-voice-4f1f.czg3i9ixp6ywxh2mw61dxdwf.workers.dev/?url=https%3A%2F%2Fqp-pldt-live-bpk-02-prod.akamaized.net%2Fbpk-tv%2Fcg_dreamworktag%2Fdefault%2Findex.mpd&ua=Dalvik%2F2.1.0%20(Linux%3B%20U%3B%20Android%2012%3B%20Pixel%206%20Build%2FSD1A.210817.036)",
+    "drm": {
+      "564b3b1c781043c19242c66e348699c5": "d3ad27d7fe1f14fb1a2cd5688549fbab"
+    }
   },
   {
-    "name": "EWTN Asia-Pacific",
+    "name": "FilmRise Anime",
     "type": "TV",
-    "logo": "https://play-lh.googleusercontent.com/3716tvZCgzpIt-X1giV8jKwCdC8zwOI4eMUfO_ETWzNX6eGKIi2RiUK9a_fr6BCzjw",
-    "category": "General",
-    "streamUrl": "https://cdn3.wowza.com/1/QmVNUVhTNTZSS3Uz/YWQ0aHpi/hls/live/playlist.m3u8"
-  },
-  {
-    "name": "EWTN Europe",
-    "type": "TV",
-    "logo": "https://play-lh.googleusercontent.com/3716tvZCgzpIt-X1giV8jKwCdC8zwOI4eMUfO_ETWzNX6eGKIi2RiUK9a_fr6BCzjw",
-    "category": "General",
-    "streamUrl": "https://cdn3.wowza.com/1/T2NXeHF6UGlGbHY3/WFluRldQ/hls/live/playlist.m3u8"
-  },
-  {
-    "name": "Ewtn USA",
-    "type": "TV",
-    "logo": "https://play-lh.googleusercontent.com/3716tvZCgzpIt-X1giV8jKwCdC8zwOI4eMUfO_ETWzNX6eGKIi2RiUK9a_fr6BCzjw",
-    "category": "General",
-    "streamUrl": "https://cdn3.wowza.com/1/YW5wSWZiRGd2eFlU/bGV0aVBq/hls/fq3bs6qd/720/chunklist.m3u8"
-  },
-  {
-    "name": "EXHBT TV",
-    "type": "TV",
-    "category": "Lifestyle & Docs",
-    "streamUrl": "https://fl1004.bozztv.com/ushba-monj/tracks-v1a1/mono.m3u8"
-  },
-  {
-    "name": "Fail Army",
-    "type": "TV",
-    "logo": "https://m.media-amazon.com/images/M/MV5BMjQyNzU5MTExMF5BMl5BanBnXkFtZTgwMTkwODA2NjE@._V1_.jpg",
-    "category": "Entertainment & Drama",
-    "streamUrl": "https://b5b2d4f7.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEctYXVfRmFpbEFybXlfSExT/playlist.m3u8"
-  },
-  {
-    "name": "FIFA+",
-    "type": "TV",
-    "logo": "https://images.seeklogo.com/logo-png/53/1/fifa-logo-png_seeklogo-537674.png",
-    "category": "Sports",
-    "streamUrl": "https://ca333c39.wurl.com/v1/sysdata_s_p_a_fifa_6/ohlscdn_us/latest/main/hls/playlist.m3u8"
-  },
-  {
-    "name": "FIFA+ (720p)",
-    "type": "TV",
-    "logo": "https://images.seeklogo.com/logo-png/53/1/fifa-logo-png_seeklogo-537674.png",
-    "category": "Sports",
-    "streamUrl": "https://a62dad94.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmFrdXRlblRWLWV1X0ZJRkFQbHVzRW5nbGlzaF9ITFM/playlist.m3u8"
-  },
-  {
-    "name": "Fight+",
-    "type": "TV",
-    "logo": "https://tse1.mm.bing.net/th/id/OIP.Ah19bBjnmRcxS-cEenjljgHaEu?pid=Api&h=220&P=0",
-    "category": "Sports",
-    "streamUrl": "https://amg19223-amg19223c6-amgplt0351.playout.now3.amagi.tv/playlist/amg19223-amg19223c6-amgplt0351/playlist.m3u8"
-  },
-  {
-    "name": "FilAm TV Network",
-    "type": "TV",
-    "logo": "",
-    "category": "General",
-    "streamUrl": "https://streams.comclark.com/pknsd/filamtv/playlist.m3u8"
-  },
-  {
-    "name": "Films TV",
-    "type": "TV",
-    "category": "Movies & Cinema",
-    "streamUrl": "https://fl1003.bozztv.com/ushba-films-m/tracks-v1a1/mono.m3u8"
-  },
-  {
-    "name": "FoodOn",
-    "type": "TV",
-    "category": "Lifestyle & Docs",
-    "streamUrl": "https://amg15905-k20-amg15905c4-lg-au-5399.playouts.now.amagi.tv/playlist/amg15905-mediacan-foodon-lgau/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.targetad=[TARGETAD_ALLOWED]"
-  },
-  {
-    "name": "Fork & Flight",
-    "type": "TV",
-    "logo": "https://tse3.mm.bing.net/th/id/OIP.U5Zsb43ViJB0dW74EVpSogHaEK?pid=Api&h=220&P=0",
-    "category": "Lifestyle & Docs",
-    "streamUrl": "https://amg00346-vizioono-forkandfligt-xumo-us.amagi.tv/240p/index.m3u8"
-  },
-  {
-    "name": "Fx1",
-    "type": "TV",
-    "category": "Entertainment & Drama",
-    "streamUrl": "https://fxtvhls.wns.live/hls/stream.m3u8"
+    "logo": "https://i.imgur.com/3wqeGXM.png",
+    "category": "Kids & Cartoons",
+    "streamUrl": "https://dvu7aia8rjlfm.cloudfront.net/master.m3u8"
   },
   {
     "name": "Fx Cartoon",
     "type": "TV",
     "category": "Kids & Cartoons",
     "streamUrl": "https://toonixhls.wns.live/hls/stream.m3u8"
-  },
-  {
-    "name": "Game Show Network",
-    "type": "TV",
-    "logo": "https://tse3.mm.bing.net/th/id/OIP.A4lBsmu3xqd66_--R0MxTgHaFj?pid=Api&h=220&P=0",
-    "category": "Entertainment & Drama",
-    "streamUrl": "https://a-cdn.klowdtv.com/live2/gsn_720p/chunks.m3u8"
-  },
-  {
-    "name": "Go USA TV",
-    "type": "TV",
-    "logo": "",
-    "category": "Entertainment & Drama",
-    "streamUrl": "https://cc2b7c60df304389ba60c76790d1a82f.mediatailor.us-east-1.amazonaws.com/v1/master/44f73ba4d03e9607dcd9bebdcb8494d86964f1d8/LG-au_GoUSATV/playlist.m3u8"
-  },
-  {
-    "name": "Good Life",
-    "type": "TV",
-    "logo": "",
-    "category": "General",
-    "streamUrl": "https://2-fss-2.streamhoster.com/pl_118/201450-1248872-1/chunklist.m3u8"
-  },
-  {
-    "name": "Grand Cinema",
-    "type": "TV",
-    "logo": "",
-    "category": "Movies & Cinema",
-    "streamUrl": "https://gcinemahls.wns.live/hls/stream.m3u8"
-  },
-  {
-    "name": "Hells Kitchen",
-    "type": "TV",
-    "logo": "https://i.imgur.com/TRmiNiL.jpeg",
-    "category": "General",
-    "streamUrl": "https://amg00654-itv-amg00654c1-samsung-th-9581.playouts.now.amagi.tv/playlist.m3u8"
-  },
-  {
-    "name": "Highlights TV",
-    "type": "TV",
-    "logo": "",
-    "category": "Entertainment & Drama",
-    "streamUrl": "https://highlightstvph.itunerworldwide.workers.dev/master.live.m3u8"
-  },
-  {
-    "name": "History2",
-    "type": "TV",
-    "logo": "",
-    "category": "Lifestyle & Docs",
-    "streamUrl": "https://fast-channels-prod.akamaized.net/out/v1/6fbb677b6ffc4a4fac47a8fd85c8b333/live_1.m3u8"
-  },
-  {
-    "name": "Home Plus",
-    "type": "TV",
-    "logo": "",
-    "category": "Sports",
-    "streamUrl": "https://homeplushls.wns.live/hls/stream.m3u8"
-  },
-  {
-    "name": "Hope Tv",
-    "type": "TV",
-    "logo": "",
-    "category": "General",
-    "streamUrl": "https://cdn-kr-icn.becdn.net/hcorg_ROeXKL3HV6a/s/jsl_7A1swL7Fhlh/master.m3u8?fbclid=IwY2xjawNK_SdleHRuA2FlbQIxMABicmlkETFiOGd1TE93NE9IUWYzbFZyAR6IbBfur0gqX9lkQWTuQYAWFoJLRNTSfiB2UyYW29t9DzQKcGplPu1LSw7sew_aem_ANrGgg4MQcqZ5iF4mxHzUQ"
-  },
-  {
-    "name": "Hype TV by DTMMBS",
-    "type": "TV",
-    "logo": "",
-    "category": "Entertainment & Drama",
-    "streamUrl": "https://hypetvphbydtmmbs.itunerworldwide.workers.dev/master.live.m3u8"
   },
   {
     "name": "HypeTV",
@@ -468,11 +93,11 @@
     "streamUrl": "https://live20.bozztv.com/giatvplayout7/giatv-211468/tracks-v1a1/mono.ts.m3u8"
   },
   {
-    "name": "Jupiter TV",
+    "name": "Kartoon Channel HD",
     "type": "TV",
-    "logo": "",
-    "category": "Movies & Cinema",
-    "streamUrl": "https://streams2.sofast.tv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/c7e85b21-ea01-42b4-85db-15dcfec98942/manifest.m3u8"
+    "logo": "https://www.kartoonchannel.com/themes/custom/gnb/kartoon_channel/logo.png",
+    "category": "Kids & Cartoons",
+    "streamUrl": "https://cdn-apse1-prod.tsv2.amagi.tv/linear/amg01076-lightningintern-kartoonchannel-samsungnz/playlist.m3u8"
   },
   {
     "name": "Kartoon Channel!",
@@ -480,13 +105,6 @@
     "logo": "https://tse2.mm.bing.net/th/id/OIP.WH2OZuRGTKifmNl1kvQKXQHaEc?pid=Api&h=220&P=0",
     "category": "Kids & Cartoons",
     "streamUrl": "https://live-manifest.production-public.tubi.io/live/ede882c2-43d6-4eca-9351-ea29e84dc217/playlist.m3u8"
-  },
-  {
-    "name": "Kartoon Channel HD",
-    "type": "TV",
-    "logo": "https://www.kartoonchannel.com/themes/custom/gnb/kartoon_channel/logo.png",
-    "category": "Kids & Cartoons",
-    "streamUrl": "https://cdn-apse1-prod.tsv2.amagi.tv/linear/amg01076-lightningintern-kartoonchannel-samsungnz/playlist.m3u8"
   },
   {
     "name": "Ketchup TV (720p)",
@@ -524,81 +142,14 @@
     "streamUrl": "https://f571e8a90f1d4af7b0538a225ebf9b62.mediatailor.us-east-1.amazonaws.com/v1/master/44f73ba4d03e9607dcd9bebdcb8494d86964f1d8/LG-ca_KidsTV/playlist.m3u8"
   },
   {
-    "name": "Kocowa",
+    "name": "Kplus",
     "type": "TV",
-    "logo": "",
-    "category": "General",
-    "streamUrl": "https://dbrb49pjoymg4.cloudfront.net/10001/99991348/hls/master.m3u8?includeAssetTags=true&ads.xumo_channelId=99991348&ads._fw_ifa_type=dpid&ads._fw_did=413d7e29-b63e-b34e-b143-bf0efe32f394&ads.amznappId=[AMZN_APP_ID]&ads.lat=[LAT]&ads.lon=[LON]&ads.os=[OS]&ads.osv=[OS_VERSION]&ads.asnw=&ads.caid=Kocowa&ads.csid=xumo_desktopweb_Kocowa_ssai&ads._fw_is_lat=0&ads._fw_us_privacy=1YNN&ads._fw_coppa=0&ads.genre=Action%2CAdventure%2CComedy%2CCrime%2CDrama%2CFamily%2CFantasy%2CHorror%2CMystery%2CRomance%2CSci-Fi%2CThriller%2CWar%2CWestern%2CSuperhero&ads._fw_content_category=IAB1-7&ads._fw_content_language=undefined&ads._fw_content_genre=International&ads._fw_content_rating=TV-14&ads.xumo_contentId=285&ads.xumo_contentName=Kocowa&ads.xumo_providerId=285&ads.xumo_providerName=Kocowa&ads._fw_deviceMake=&ads._fw_device_model=&ads.channelId=99991348&ads.xumo_platform=desktopweb&ads.site_id=26840&ads.appName=xumo&ads.appVersion=2.18.0&ads._fw_app_bundle=&ads._fw_app_store_url=&ads.site_name=XumoPlay&ads.site_page=https%253A%252F%252Fplay.xumo.com"
-  },
-  {
-    "name": "Kronehit",
-    "type": "TV",
-    "logo": "",
-    "category": "Music",
-    "streamUrl": "https://bitcdn-kronehit.bitmovin.com/v2/hls/chunklist_b3128000.m3u8"
-  },
-  {
-    "name": "KTK DIGITAL",
-    "type": "TV",
-    "logo": "",
-    "category": "Lifestyle & Docs",
-    "streamUrl": "https://fl1003.bozztv.com/ushba28/tracks-v1a1/mono.m3u8"
-  },
-  {
-    "name": "Ktv2",
-    "type": "TV",
-    "logo": "",
-    "category": "Entertainment & Drama",
-    "streamUrl": "https://kwtktv2ta.cdn.mangomolo.com/ktv2/smil:ktv2.stream.smil/chunklist_b1500000_t64NzIwcA==.m3u8"
-  },
-  {
-    "name": "LIT Creationz",
-    "type": "TV",
-    "logo": "",
-    "category": "Entertainment & Drama",
-    "streamUrl": "https://fl1004.bozztv.com/ushba-m9/tracks-v1a1/mono.m3u8"
-  },
-  {
-    "name": "Love Wine",
-    "type": "TV",
-    "logo": "",
-    "category": "Entertainment & Drama",
-    "streamUrl": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg01821-lovetvchannels-lovewineusuk-lgau/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.targetad=[TARGETAD_ALLOWED]"
-  },
-  {
-    "name": "Made in Hollywood",
-    "type": "TV",
-    "logo": "https://i.imgur.com/p16HNIM.png",
-    "category": "Lifestyle & Docs",
-    "streamUrl": "https://connection3-ent-nz.samsung.wurl.tv/playlist.m3u8"
-  },
-  {
-    "name": "Mama Benz TV",
-    "type": "TV",
-    "logo": "",
-    "category": "Entertainment & Drama",
-    "streamUrl": "https://streams2.sofast.tv/ptnr-yupptv/title-MAMA-BENZ-TV-ENG_yupptv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/65f99e10-8d57-460a-a6be-731d90cfe7b1/manifest.m3u8"
-  },
-  {
-    "name": "Master Chef",
-    "type": "TV",
-    "logo": "",
-    "category": "Lifestyle & Docs",
-    "streamUrl": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00627-banijaygroup-masterchefuk-lgca/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.coppa=0&ads.targetad=[TARGETAD_ALLOWED]"
-  },
-  {
-    "name": "MHz",
-    "type": "TV",
-    "logo": "",
-    "category": "Movies & Cinema",
-    "streamUrl": "https://mhz-samsung-linear-ca.samsung.wurl.tv/playlist.m3u8"
-  },
-  {
-    "name": "Mindanow Network TV",
-    "type": "TV",
-    "logo": "",
-    "category": "General",
-    "streamUrl": "https://streams.comclark.com/overlay/mindanow/playlist.m3u8"
+    "logo": "https://www.pngkey.com/png/detail/306-3060351_k-plus-k-plus-channel-logo.png",
+    "category": "Kids & Cartoons",
+    "streamUrl": "https://blue-voice-4f1f.czg3i9ixp6ywxh2mw61dxdwf.workers.dev/?url=http%3A%2F%2Flinearjitp-playback.astro.com.my%2Fdash-wv%2Flinear%2F9983%2Fdefault_ott.mpd&ua=Dalvik%2F2.1.0%20(Linux%3B%20U%3B%20Android%2012%3B%20Pixel%206%20Build%2FSD1A.210817.036)",
+    "drm": {
+      "aa48b28bd723f91214887df6ed9fad10": "b5a3a800848120c843ae0fa68c09c261"
+    }
   },
   {
     "name": "Moonbug Kids",
@@ -608,109 +159,28 @@
     "streamUrl": "https://moonbug-rokuus.amagi.tv/playlist.m3u8"
   },
   {
-    "name": "Movie Box",
+    "name": "Mr. Bean Animated",
     "type": "TV",
-    "logo": "https://i.imgur.com/xeO1Zb4.png",
-    "category": "Movies & Cinema",
-    "streamUrl": "https://cdn4.skygo.mn/live/disk1/Moviebox/HLSv3-FTA/Moviebox.m3u8"
+    "logo": "https://en.wikipedia.org/wiki/Special:FilePath/Mr._Bean_logo.svg",
+    "category": "Kids & Cartoons",
+    "streamUrl": "https://amg00627-amg00627c28-rakuten-uk-3984.playouts.now.amagi.tv/playlist/amg00627-banijayfast-mrbeanukcc-rakutenuk/playlist.m3u8"
   },
   {
-    "name": "Movie Box Ph",
+    "name": "Nickelodeon",
     "type": "TV",
-    "category": "Movies & Cinema",
-    "streamUrl": "https://live20.bozztv.com/giatvplayout7/giatv-210731/tracks-v1a1/mono.ts.m3u8",
-    "logo": ""
+    "logo": "https://en.wikipedia.org/wiki/Special:FilePath/Nickelodeon_2023_logo_(outline).svg",
+    "category": "Kids & Cartoons",
+    "streamUrl": "https://nick-proxy.ke1th.dev/USA_NICKELODEON/index.m3u8"
   },
   {
-    "name": "Movie Favorites by Lifetime",
+    "name": "Nickjr",
     "type": "TV",
-    "logo": "",
-    "category": "Movies & Cinema",
-    "streamUrl": "https://33ce6dcb.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEdfSG9saWRheU1vdmllRmF2b3JpdGVzYnlMaWZldGltZV9ITFM/playlist.m3u8"
-  },
-  {
-    "name": "Movie Sphere",
-    "type": "TV",
-    "logo": "https://10play.com.au/ip/s3/2022/12/05/f67e539ee7ca067d20f1d406a196abd8-1202911.png",
-    "category": "Movies & Cinema",
-    "streamUrl": "https://moviesphereuk-samsunguk.amagi.tv/playlist.m3u8"
-  },
-  {
-    "name": "Movie Sphere by Lionsgate",
-    "type": "TV",
-    "logo": "https://tse4.mm.bing.net/th/id/OIP.OH6KANOcVN-rpIennsy6MgHaEK?pid=Api&h=220&P=0",
-    "category": "Movies & Cinema",
-    "streamUrl": "https://amg00353-lionsgatestudio-moviesphere-xumo-zh5u0.amagi.tv/playlist.m3u8"
-  },
-  {
-    "name": "Movies Sphere",
-    "type": "TV",
-    "logo": "https://i.imgur.com/PfhtYtr.jpeg",
-    "category": "Movies & Cinema",
-    "streamUrl": "https://moviesphereuk-samsunguk.amagi.tv/720p-vtt/index.m3u8"
-  },
-  {
-    "name": "MTA1 World",
-    "type": "TV",
-    "logo": "",
-    "category": "General",
-    "streamUrl": "https://chlivemta1.akamaized.net/hls/live/2008145/mta1/playlist.m3u8"
-  },
-  {
-    "name": "MTA8 HD America",
-    "type": "TV",
-    "logo": "",
-    "category": "General",
-    "streamUrl": "https://chlivemta.akamaized.net/hls/live/2016718/mta8/playlist.m3u8"
-  },
-  {
-    "name": "MTRSPRT1",
-    "type": "TV",
-    "logo": "",
-    "category": "Sports",
-    "streamUrl": "https://amg02873-kravemedia-mtrspt1-distrotv-mnsrl.amagi.tv/playlist/amg02873-kravemedia-mtrspt1-distrotv/playlist.m3u8"
-  },
-  {
-    "name": "National Geographic Wild",
-    "type": "TV",
-    "logo": "https://en.wikipedia.org/wiki/Special:FilePath/National_Geographic_Wild_logo.svg",
-    "category": "Lifestyle & Docs",
-    "streamUrl": "https://amg00426-littledotstudio-realwildnz-samsungnz-wz0bm.amagi.tv/playlist/amg00426-littledotstudio-realwildnz-samsungnz/playlist.m3u8"
-  },
-  {
-    "name": "Nautical Channel",
-    "type": "TV",
-    "logo": "",
-    "category": "Sports",
-    "streamUrl": "https://a-cdn.klowdtv.com/live2/nautical_720p/chunks.m3u8"
-  },
-  {
-    "name": "NBC News Now",
-    "type": "TV",
-    "logo": "",
-    "category": "News & Information",
-    "streamUrl": "https://d4whmvwm0rdvi.cloudfront.net/10007/99992212/hls/master.m3u8?ads.xumo_channelId=99992212&ads.asnw=169843&ads.afid=137704898&ads.sfid=16373024&ads.csid=lgchannels_us_nbcnewsnow_ssai_cro&ads._fw_is_lat=[LMT]&ads._fw_us_privacy=[US_PRIVACY]&ads._fw_coppa=0&ads._fw_did=[IFA]&ads._fw_vcid2=512116:[IFA]&ads._fw_app_bundle=[APP_BUNDLE]&ads._fw_app_store_url=[APP_STOREURL]&ads._fw_content_category=IAB12&ads._fw_content_genre=News&ads._fw_content_language=en&ads._fw_content_rating=&ads._fw_deviceMake=[DEVICE_MAKE]&ads._fw_device_model=[DEVICE_MODEL]&ads._fw_deviceType=3-Connected_TV&ads.appVersion=[APP_VERSION]&ads.appName=lgchannels&ads.xumo_contentId=1828&ads.xumo_contentName=NBCNewsNOW&ads.xumo_providerId=1828&ads.xumo_providerName=NBCNewsNOW&ads.channelId=99992212&ads._fw_ifa_type=dpid&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]"
-  },
-  {
-    "name": "New K-Pop",
-    "type": "TV",
-    "logo": "https://24hrkpop.com/wp-content/uploads/2020/04/KPOP-Logo-Alpha.png",
-    "category": "Music",
-    "streamUrl": "https://newidco-newkid-1-eu.xiaomi.wurl.tv/playlist.m3u8"
-  },
-  {
-    "name": "News12 New York",
-    "type": "TV",
-    "logo": "",
-    "category": "News & Information",
-    "streamUrl": "https://aegis-cloudfront-1.tubi.video/97fbb992-c212-4164-8406-abb6f731e517/3.m3u8"
-  },
-  {
-    "name": "Newsmax N1",
-    "type": "TV",
-    "logo": "",
-    "category": "News & Information",
-    "streamUrl": "https://amg00217-newsmax-amg00217c2-lg-ca-4271.playouts.now.amagi.tv/playlist/amg00217-newsmaxmediafast-newsmaxn1-lgca/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.targetad=[TARGETAD_ALLOWED]"
+    "logo": "https://vignette.wikia.nocookie.net/logaekranowe/images/4/45/1024px-Nick_Jr._logo_2009.svg.png/revision/latest?cb=20180616122202&path-prefix=pl",
+    "category": "Kids & Cartoons",
+    "streamUrl": "https://blue-voice-4f1f.czg3i9ixp6ywxh2mw61dxdwf.workers.dev/?url=https%3A%2F%2Fqp-pldt-live-bpk-01-prod.akamaized.net%2Fbpk-tv%2Fdr_nickjr%2Fdefault%2Findex.mpd&ua=Dalvik%2F2.1.0%20(Linux%3B%20U%3B%20Android%2012%3B%20Pixel%206%20Build%2FSD1A.210817.036)",
+    "drm": {
+      "bab5c11178b646749fbae87962bf5113": "0ac679aad3b9d619ac39ad634ec76bc8"
+    }
   },
   {
     "name": "Ninja Kidz TV",
@@ -718,20 +188,6 @@
     "logo": "https://i.imgur.com/7EngqUi.png",
     "category": "Kids & Cartoons",
     "streamUrl": "https://playworksdigital-ninjakidztv-1-us.xumo.wurl.tv/playlist.m3u8"
-  },
-  {
-    "name": "Nitro TV",
-    "type": "TV",
-    "logo": "",
-    "category": "Sports",
-    "streamUrl": "https://streams2.sofast.tv/ptnr-yupptv/title-NITRO-TV-ENG_yupptv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/3265a84f-1238-4439-bb40-cc0b716719f7/manifest.m3u8"
-  },
-  {
-    "name": "Outdoor Channel HD",
-    "type": "TV",
-    "logo": "",
-    "category": "Entertainment & Drama",
-    "streamUrl": "https://cdn-apse1-prod.tsv2.amagi.tv/linear/amg00718-outdoorchannela-outdoortvnz-samsungnz/playlist.m3u8"
   },
   {
     "name": "PBS Kids",
@@ -748,25 +204,1023 @@
     "streamUrl": "https://junhls.persiana.live/hls/stream.m3u8"
   },
   {
-    "name": "Persiana Korea",
+    "name": "Pokémon",
     "type": "TV",
-    "logo": "https://i.imgur.com/si2ZnIA.png",
-    "category": "Entertainment & Drama",
-    "streamUrl": "https://korhls.persiana.live/hls/stream.m3u8"
+    "logo": "https://en.wikipedia.org/wiki/Special:FilePath/International_Pok%C3%A9mon_logo.svg",
+    "category": "Kids & Cartoons",
+    "streamUrl": "https://docpe51mdltl5.cloudfront.net/Pokemon_GB.m3u8"
+  },
+  {
+    "name": "3rsMovieBoxPh",
+    "type": "TV",
+    "logo": "https://i.imgur.com/b4rjf8nl.png",
+    "category": "Movies",
+    "streamUrl": "https://live20.bozztv.com/giatvplayout7/giatv-210731/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "name": "Blast Movie",
+    "type": "TV",
+    "logo": "https://static.wikia.nocookie.net/tv-philippines/images/0/0e/Blast_TV_logo.png/revision/latest?cb=20240924121921",
+    "category": "Movies",
+    "streamUrl": "https://amg19223-amg19223c7-amgplt0351.playout.now3.amagi.tv/playlist/amg19223-amg19223c7-amgplt0351/playlist.m3u8"
+  },
+  {
+    "name": "Blast Movies",
+    "type": "TV",
+    "logo": "https://i.ibb.co/G3sSvQmD/unnamed-2.png",
+    "category": "Movies",
+    "streamUrl": "https://amg19223-amg19223c7-amgplt0351.playout.now3.amagi.tv/playlist/amg19223-amg19223c7-amgplt0351/playlist.m3u8"
+  },
+  {
+    "name": "CinemaOne",
+    "type": "TV",
+    "logo": "https://static.wikia.nocookie.net/russel/images/9/94/Cinema_One_Logo_2020.png",
+    "category": "Movies",
+    "streamUrl": "https://abslive.akamaized.net/dash/live/2027618/c1ph/manifest.mpd",
+    "drm": {
+      "55eddd1e157e4c3b830866e4679e7032": "525030e984567ba8df0af80660952368"
+    }
+  },
+  {
+    "name": "Cinemax",
+    "type": "TV",
+    "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFgovJL0c5CV8hntZiJ9YiHRF2kbssZQVCAQ&s",
+    "category": "Movies",
+    "streamUrl": "https://blue-voice-4f1f.czg3i9ixp6ywxh2mw61dxdwf.workers.dev/?url=https%3A%2F%2Fqp-pldt-live-bpk-02-prod.akamaized.net%2Fbpk-tv%2Fcg_cinemax%2Fdefault%2Findex.mpd&ua=Dalvik%2F2.1.0%20(Linux%3B%20U%3B%20Android%2012%3B%20Pixel%206%20Build%2FSD1A.210817.036)",
+    "drm": {
+      "b207c44332844523a3a3b0469e5652d7": "fe71aea346db08f8c6fbf0592209f955"
+    }
+  },
+  {
+    "name": "Cinemo! Global",
+    "type": "TV",
+    "logo": "https://ottepg8.comclark.com:8443/iptvepg/images/markurl/mark_1723219276891.png",
+    "category": "Movies",
+    "streamUrl": "https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01006-abs-cbn-cinemo-dash-abscbnono/index.mpd",
+    "drm": {
+      "aa8aebe35ccc4541b7ce6292efcb1bfb": "f06b6031a3604cc6708c14d83f1a1b27"
+    }
+  },
+  {
+    "name": "Films TV",
+    "type": "TV",
+    "category": "Movies",
+    "streamUrl": "https://fl1003.bozztv.com/ushba-films-m/tracks-v1a1/mono.m3u8"
+  },
+  {
+    "name": "Grand Cinema",
+    "type": "TV",
+    "logo": "",
+    "category": "Movies",
+    "streamUrl": "https://gcinemahls.wns.live/hls/stream.m3u8"
+  },
+  {
+    "name": "HBO Family",
+    "type": "TV",
+    "logo": "https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/450_144.png",
+    "category": "Movies",
+    "streamUrl": "https://blue-voice-4f1f.czg3i9ixp6ywxh2mw61dxdwf.workers.dev/?url=https%3A%2F%2Fqp-pldt-live-bpk-02-prod.akamaized.net%2Fbpk-tv%2Fcg_hbofam%2Fdefault%2Findex.mpd&ua=Dalvik%2F2.1.0%20(Linux%3B%20U%3B%20Android%2012%3B%20Pixel%206%20Build%2FSD1A.210817.036)",
+    "drm": {
+      "872910c843294319800d85f9a0940607": "f79fd895b79c590708cf5e8b5c6263be"
+    }
+  },
+  {
+    "name": "HBO HD",
+    "type": "TV",
+    "logo": "https://th.bing.com/th/id/OIP.lY5V2M3D9jtBFJNbOAI8swHaDt?rs=1&pid=ImgDetMain",
+    "category": "Movies",
+    "streamUrl": "https://blue-voice-4f1f.czg3i9ixp6ywxh2mw61dxdwf.workers.dev/?url=https%3A%2F%2Fqp-pldt-live-bpk-02-prod.akamaized.net%2Fbpk-tv%2Fcg_hbohd%2Fdefault%2Findex.mpd&ua=Dalvik%2F2.1.0%20(Linux%3B%20U%3B%20Android%2012%3B%20Pixel%206%20Build%2FSD1A.210817.036)",
+    "drm": {
+      "c2b7a1e95d4f4c3a8e617f9d0a2b6c18": "27fca1ab042998b0c2f058b0764d7ed4"
+    }
+  },
+  {
+    "name": "HBO Hits",
+    "type": "TV",
+    "logo": "https://vignette.wikia.nocookie.net/logopedia/images/0/04/HBO_HiTS.svg/revision/latest/scale-to-width-down/627?cb=20100511073403",
+    "category": "Movies",
+    "streamUrl": "https://blue-voice-4f1f.czg3i9ixp6ywxh2mw61dxdwf.workers.dev/?url=https%3A%2F%2Fqp-pldt-live-bpk-02-prod.akamaized.net%2Fbpk-tv%2Fcg_hbohits%2Fdefault%2Findex.mpd&ua=Dalvik%2F2.1.0%20(Linux%3B%20U%3B%20Android%2012%3B%20Pixel%206%20Build%2FSD1A.210817.036)",
+    "drm": {
+      "b04ae8017b5b4601a5a0c9060f6d5b7d": "a8795f3bdb8a4778b7e888ee484cc7a1"
+    }
+  },
+  {
+    "name": "HBO Signature",
+    "type": "TV",
+    "logo": "https://th.bing.com/th/id/OIP.PNeE4yWz4_Tp1O-dCdY_xAHaEP?rs=1&pid=ImgDetMain",
+    "category": "Movies",
+    "streamUrl": "https://blue-voice-4f1f.czg3i9ixp6ywxh2mw61dxdwf.workers.dev/?url=https%3A%2F%2Fqp-pldt-live-bpk-02-prod.akamaized.net%2Fbpk-tv%2Fcg_hbosign%2Fdefault%2Findex.mpd&ua=Dalvik%2F2.1.0%20(Linux%3B%20U%3B%20Android%2012%3B%20Pixel%206%20Build%2FSD1A.210817.036)",
+    "drm": {
+      "a06ca6c275744151895762e0346380f5": "559da1b63eec77b5a942018f14d3f56f"
+    }
+  },
+  {
+    "name": "Hits HD",
+    "type": "TV",
+    "logo": "https://th.bing.com/th/id/OIP.x2dQgh_yGBdnttScluIGYAHaCp?w=900&h=322&rs=1&pid=ImgDetMain",
+    "category": "Movies",
+    "streamUrl": "https://blue-voice-4f1f.czg3i9ixp6ywxh2mw61dxdwf.workers.dev/?url=https%3A%2F%2Fqp-pldt-live-bpk-02-prod.akamaized.net%2Fbpk-tv%2Fhits_hd1%2Fdefault%2Findex.mpd&ua=Dalvik%2F2.1.0%20(Linux%3B%20U%3B%20Android%2012%3B%20Pixel%206%20Build%2FSD1A.210817.036)",
+    "drm": {
+      "6d2f8a1c9b5e4c7da1f03e7b9d6c2a55": "37c9835795779f8d848a6119d3270c69"
+    }
+  },
+  {
+    "name": "Hits Movies",
+    "type": "TV",
+    "logo": "https://tse2.mm.bing.net/th/id/OIP.IVTdT_KbbSE3puMAYpFGaQAAAA?cb=12&w=434&h=284&rs=1&pid=ImgDetMain&o=7&rm=3",
+    "category": "Movies",
+    "streamUrl": "https://blue-voice-4f1f.czg3i9ixp6ywxh2mw61dxdwf.workers.dev/?url=https%3A%2F%2Fqp-pldt-live-bpk-02-prod.akamaized.net%2Fbpk-tv%2Fhitsmovies%2Fdefault%2Findex.mpd&ua=Dalvik%2F2.1.0%20(Linux%3B%20U%3B%20Android%2012%3B%20Pixel%206%20Build%2FSD1A.210817.036)",
+    "drm": {
+      "f56b57b32d7e4b2cb21748c0b56761a7": "3df06a89aa01b32655a77d93e09e266f"
+    }
+  },
+  {
+    "name": "Hits Now",
+    "type": "TV",
+    "logo": "https://th.bing.com/th/id/OIP.cM1HO2isouoNessbj31CcgAAAA?rs=1&pid=ImgDetMain",
+    "category": "Movies",
+    "streamUrl": "https://blue-voice-4f1f.czg3i9ixp6ywxh2mw61dxdwf.workers.dev/?url=https%3A%2F%2Fqp-pldt-live-bpk-02-prod.akamaized.net%2Fbpk-tv%2Fcg_hitsnow%2Fdefault%2Findex.mpd&ua=Dalvik%2F2.1.0%20(Linux%3B%20U%3B%20Android%2012%3B%20Pixel%206%20Build%2FSD1A.210817.036)",
+    "drm": {
+      "f9c3d6b18a2e4d7f9e453b1a8c6d2f70": "ce8874347ec428c624558dcdc3575dd4"
+    }
+  },
+  {
+    "name": "Jupiter TV",
+    "type": "TV",
+    "logo": "",
+    "category": "Movies",
+    "streamUrl": "https://streams2.sofast.tv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/c7e85b21-ea01-42b4-85db-15dcfec98942/manifest.m3u8"
+  },
+  {
+    "name": "MHz",
+    "type": "TV",
+    "logo": "",
+    "category": "Movies",
+    "streamUrl": "https://mhz-samsung-linear-ca.samsung.wurl.tv/playlist.m3u8"
+  },
+  {
+    "name": "Movie Box",
+    "type": "TV",
+    "logo": "https://i.imgur.com/xeO1Zb4.png",
+    "category": "Movies",
+    "streamUrl": "https://cdn4.skygo.mn/live/disk1/Moviebox/HLSv3-FTA/Moviebox.m3u8"
+  },
+  {
+    "name": "Movie Box Ph",
+    "type": "TV",
+    "category": "Movies",
+    "streamUrl": "https://live20.bozztv.com/giatvplayout7/giatv-210731/tracks-v1a1/mono.ts.m3u8",
+    "logo": ""
+  },
+  {
+    "name": "Movie Favorites by Lifetime",
+    "type": "TV",
+    "logo": "",
+    "category": "Movies",
+    "streamUrl": "https://33ce6dcb.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEdfSG9saWRheU1vdmllRmF2b3JpdGVzYnlMaWZldGltZV9ITFM/playlist.m3u8"
+  },
+  {
+    "name": "Movie Sphere",
+    "type": "TV",
+    "logo": "https://10play.com.au/ip/s3/2022/12/05/f67e539ee7ca067d20f1d406a196abd8-1202911.png",
+    "category": "Movies",
+    "streamUrl": "https://moviesphereuk-samsunguk.amagi.tv/playlist.m3u8"
+  },
+  {
+    "name": "Movie Sphere by Lionsgate",
+    "type": "TV",
+    "logo": "https://tse4.mm.bing.net/th/id/OIP.OH6KANOcVN-rpIennsy6MgHaEK?pid=Api&h=220&P=0",
+    "category": "Movies",
+    "streamUrl": "https://amg00353-lionsgatestudio-moviesphere-xumo-zh5u0.amagi.tv/playlist.m3u8"
+  },
+  {
+    "name": "Movies Now",
+    "type": "TV",
+    "logo": "https://i.imgur.com/3BCg3pS.png",
+    "category": "Movies",
+    "streamUrl": "https://blue-voice-4f1f.czg3i9ixp6ywxh2mw61dxdwf.workers.dev/?url=https%3A%2F%2Ftimes-ott-live.akamaized.net%2Fmoviesnow_wv_drm%2Findex.mpd&ua=Dalvik%2F2.1.0%20(Linux%3B%20U%3B%20Android%2012%3B%20Pixel%206%20Build%2FSD1A.210817.036)",
+    "drm": {
+      "40f019b86241d23ef075633fd7f1e927": "058dec845bd340178a388edd104a015e"
+    }
+  },
+  {
+    "name": "Movies Sphere",
+    "type": "TV",
+    "logo": "https://i.imgur.com/PfhtYtr.jpeg",
+    "category": "Movies",
+    "streamUrl": "https://moviesphereuk-samsunguk.amagi.tv/720p-vtt/index.m3u8"
   },
   {
     "name": "Persiana One",
     "type": "TV",
     "logo": "https://i.imgur.com/X1Dv6st.png",
-    "category": "Movies & Cinema",
+    "category": "Movies",
     "streamUrl": "https://onehls.persiana.live/hls/stream.m3u8"
+  },
+  {
+    "name": "Pop UK Rakuten",
+    "type": "TV",
+    "logo": "",
+    "category": "Movies",
+    "streamUrl": "https://narrative-popkids-rakuten.amagi.tv/playlist.m3u8"
+  },
+  {
+    "name": "Popflix (720p)",
+    "type": "TV",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Popflix_logo.svg/2560px-Popflix_logo.svg.png",
+    "category": "Movies",
+    "streamUrl": "https://signatureentertainment-popflix-1-gb.rakuten.wurl.tv/playlist.m3u8"
+  },
+  {
+    "name": "Rakuten Top Movies UK (1080p)",
+    "type": "TV",
+    "logo": "https://i.imgur.com/Meew6eX.png",
+    "category": "Movies",
+    "streamUrl": "https://0145451975a64b35866170fd2e8fa486.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-5987/master.m3u8"
+  },
+  {
+    "name": "Rakuten TV Action Movies Finland (1080p)",
+    "type": "TV",
+    "logo": "https://i.imgur.com/Meew6eX.png",
+    "category": "Movies",
+    "streamUrl": "https://bca5a421a70c46ad911efd0a4767c4bf.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6075/master.m3u8"
+  },
+  {
+    "name": "Rakuten TV Action Movies UK (1080p)",
+    "type": "TV",
+    "logo": "https://i.imgur.com/Meew6eX.png",
+    "category": "Movies",
+    "streamUrl": "https://54045f0c40fd442c8b06df076aaf1e85.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6065/master.m3u8"
+  },
+  {
+    "name": "Rakuten TV Comedy Movies Finland (1080p)",
+    "type": "TV",
+    "logo": "https://i.imgur.com/Meew6eX.png",
+    "category": "Movies",
+    "streamUrl": "https://a300af98e00746e2acf2346f43e47bd1.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6191/master.m3u8"
+  },
+  {
+    "name": "Rakuten TV Comedy Movies UK (1080p)",
+    "type": "TV",
+    "logo": "https://i.imgur.com/Meew6eX.png",
+    "category": "Movies",
+    "streamUrl": "https://9be783d652cd4b099cf63e1dc134c4a3.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6181/master.m3u8"
+  },
+  {
+    "name": "Rakuten TV Drama Movies Finland (1080p)",
+    "type": "TV",
+    "logo": "https://i.imgur.com/Meew6eX.png",
+    "category": "Movies",
+    "streamUrl": "https://d7e8ee3c924d4305a0c1840fe94c5d36.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6102/master.m3u8"
+  },
+  {
+    "name": "Rakuten TV Drama Movies UK (1080p)",
+    "type": "TV",
+    "logo": "https://i.imgur.com/Meew6eX.png",
+    "category": "Movies",
+    "streamUrl": "https://fee09fd665814f51b939b6d106cf5f66.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6093/master.m3u8"
+  },
+  {
+    "name": "Rakuten TV Family Movies Finland (1080p)",
+    "type": "TV",
+    "logo": "https://i.imgur.com/Meew6eX.png",
+    "category": "Movies",
+    "streamUrl": "https://758ee983d61e400381dea6fa8154f4e0.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6227/master.m3u8"
+  },
+  {
+    "name": "Rakuten TV Family Movies UK (1080p)",
+    "type": "TV",
+    "logo": "https://i.imgur.com/Meew6eX.png",
+    "category": "Movies",
+    "streamUrl": "https://e3207568b726401995c25670faaf32e4.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6203/master.m3u8"
+  },
+  {
+    "name": "Rakuten TV Top Movies Finland (1080p)",
+    "type": "TV",
+    "logo": "https://i.imgur.com/Meew6eX.png",
+    "category": "Movies",
+    "streamUrl": "https://1d1b0d4cb6ae4c31985d13221795695b.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6057/master.m3u8"
+  },
+  {
+    "name": "Rock Action",
+    "type": "TV",
+    "logo": "https://th.bing.com/th/id/OIP.0c6d3hoH5evqsJVNnbhVNwHaC3?rs=1&pid=ImgDetMain",
+    "category": "Movies",
+    "streamUrl": "https://blue-voice-4f1f.czg3i9ixp6ywxh2mw61dxdwf.workers.dev/?url=https%3A%2F%2Fqp-pldt-live-bpk-01-prod.akamaized.net%2Fbpk-tv%2Fdepedch_sd%2Fdefault%2Findex.mpd&ua=Dalvik%2F2.1.0%20(Linux%3B%20U%3B%20Android%2012%3B%20Pixel%206%20Build%2FSD1A.210817.036)",
+    "drm": {
+      "0f853706412b11edb8780242ac120002": "2157d6529d80a760f60a8b5350dbc4df"
+    }
+  },
+  {
+    "name": "Runtime HD",
+    "type": "TV",
+    "logo": "",
+    "category": "Movies",
+    "streamUrl": "https://stream.ads.ottera.tv/playlist.m3u8?network_id=2648"
+  },
+  {
+    "name": "Sci-Fi World",
+    "type": "TV",
+    "logo": "",
+    "category": "Movies",
+    "streamUrl": "https://streams2.sofast.tv/ptnr-yupptv/title-SCIFI-WORLD-ENG_yupptv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/a985e052-6868-4365-ac45-52afe9008b25/manifest.m3u8"
+  },
+  {
+    "name": "Sine Plus",
+    "type": "TV",
+    "logo": "",
+    "category": "Movies",
+    "streamUrl": "https://sineplusph.itunerworldwide.workers.dev/master.live.m3u8"
+  },
+  {
+    "name": "SineManila",
+    "type": "TV",
+    "logo": "https://i.imgur.com/zcFUYC5.png",
+    "category": "Movies",
+    "streamUrl": "https://live20.bozztv.com/giatv/giatv-sinemanila/sinemanila/chunks.m3u8"
+  },
+  {
+    "name": "Sony Cine",
+    "type": "TV",
+    "logo": "https://th.bing.com/th/id/OIP._NGk-Rpn5n6TOVRIjvnZ6QHaHb?rs=1&pid=ImgDetMain",
+    "category": "Movies",
+    "streamUrl": "https://a-cdn.klowdtv.com/live1/cine_720p/chunks.m3u8"
+  },
+  {
+    "name": "Sony Movies",
+    "type": "TV",
+    "logo": "https://static.wikia.nocookie.net/logopedia/images/1/1c/Sony_Movies_2019_%28Print%29.png/revision/latest/scale-to-width-down/1000?cb=20190917082854",
+    "category": "Movies",
+    "streamUrl": "https://a-cdn.klowdtv.com/live1/smc_720p/playlist.m3u8"
+  },
+  {
+    "name": "Stories by AMC",
+    "type": "TV",
+    "logo": "https://tse1.mm.bing.net/th/id/OIP.E_ALVOsrM9xvzepA1oq4-gHaEJ?pid=Api&h=220&P=0",
+    "category": "Movies",
+    "streamUrl": "https://amc-amcpresents-1-us.plex.wurl.tv/playlist.m3u8"
+  },
+  {
+    "name": "Tap Movies",
+    "type": "TV",
+    "logo": "https://cms.cignal.tv/Upload/Images/Tap-movies.jpg",
+    "category": "Movies",
+    "streamUrl": "https://blue-voice-4f1f.czg3i9ixp6ywxh2mw61dxdwf.workers.dev/?url=https%3A%2F%2Fqp-pldt-live-bpk-02-prod.akamaized.net%2Fbpk-tv%2Fcg_tapmovies_hd1%2Fdefault%2Findex.mpd&ua=Dalvik%2F2.1.0%20(Linux%3B%20U%3B%20Android%2012%3B%20Pixel%206%20Build%2FSD1A.210817.036)",
+    "drm": {
+      "71cbdf02b595468bb77398222e1ade09": "c3f2aa420b8908ab8761571c01899460"
+    }
+  },
+  {
+    "name": "Telemundo Accion",
+    "type": "TV",
+    "logo": "",
+    "category": "Movies",
+    "streamUrl": "https://xumo-drct-ch835-ekq0p.fast.nbcuni.com/live/master_1.m3u8"
+  },
+  {
+    "name": "Thrill",
+    "type": "TV",
+    "logo": "https://www.mncvision.id/userfiles/image/channel/thrill_150x150px.jpg",
+    "category": "Movies",
+    "streamUrl": "https://blue-voice-4f1f.czg3i9ixp6ywxh2mw61dxdwf.workers.dev/?url=https%3A%2F%2Fqp-pldt-live-bpk-01-prod.akamaized.net%2Fbpk-tv%2Fcg_thrill_sd%2Fdefault%2Findex.mpd&ua=Dalvik%2F2.1.0%20(Linux%3B%20U%3B%20Android%2012%3B%20Pixel%206%20Build%2FSD1A.210817.036)",
+    "drm": {
+      "928114ffb2394d14b5585258f70ed183": "a82edc340bc73447bac16cdfed0a4c62"
+    }
+  },
+  {
+    "name": "TMC",
+    "type": "TV",
+    "logo": "https://th.bing.com/th/id/OIP.mskveWFrbAwpq6athkC91gAAAA?rs=1&pid=ImgDetMain",
+    "category": "Movies",
+    "streamUrl": "https://blue-voice-4f1f.czg3i9ixp6ywxh2mw61dxdwf.workers.dev/?url=https%3A%2F%2Fqp-pldt-live-bpk-01-prod.akamaized.net%2Fbpk-tv%2Fcg_tagalogmovie%2Fdefault%2Findex.mpd&ua=Dalvik%2F2.1.0%20(Linux%3B%20U%3B%20Android%2012%3B%20Pixel%206%20Build%2FSD1A.210817.036)",
+    "drm": {
+      "96701d297d1241e492d41c397631d857": "ca2931211c1a261f082a3a2c4fd9f91b"
+    }
+  },
+  {
+    "name": "TVN Movies (Tagalog)",
+    "type": "TV",
+    "logo": "https://i.imgur.com/3zLgtdM.png",
+    "category": "Movies",
+    "streamUrl": "https://blue-voice-4f1f.czg3i9ixp6ywxh2mw61dxdwf.workers.dev/?url=https%3A%2F%2Fqp-pldt-live-bpk-02-prod.akamaized.net%2Fbpk-tv%2Fcg_tvnmovie%2Fdefault%2Findex.mpd&ua=Dalvik%2F2.1.0%20(Linux%3B%20U%3B%20Android%2012%3B%20Pixel%206%20Build%2FSD1A.210817.036)",
+    "drm": {
+      "2e53f8d8a5e94bca8f9a1e16ce67df33": "3471b2464b5c7b033a03bb8307d9fa35"
+    }
+  },
+  {
+    "name": "Abante Radyo",
+    "type": "TV",
+    "logo": "https://www.abante.com.ph/wp-content/uploads/2023/09/dwar_radio.webp",
+    "category": "News",
+    "streamUrl": "https://amg19223-amg19223c12-amgplt0352.playout.now3.amagi.tv/playlist/amg19223-amg19223c12-amgplt0352/playlist.m3u8"
+  },
+  {
+    "name": "Bilyonaryo News Channel",
+    "type": "TV",
+    "logo": "https://en.wikipedia.org/wiki/Special:FilePath/BilyonaryoNewsChannel_Logo_-_Black_(2024).png",
+    "category": "News",
+    "streamUrl": "https://amg19223-amg19223c11-amgplt0352.playout.now3.amagi.tv/playlist/amg19223-amg19223c11-amgplt0352/playlist.m3u8"
+  },
+  {
+    "name": "Bloomberg Asia",
+    "type": "TV",
+    "logo": "",
+    "category": "News",
+    "streamUrl": "https://www.bloomberg.com/media-manifest/streams/asia.m3u8"
+  },
+  {
+    "name": "CBS News",
+    "type": "TV",
+    "logo": "https://tse3.mm.bing.net/th/id/OIP.i7GvYQzJJtQMiKYBBxMPgQHaE1?pid=Api&h=220&P=0",
+    "category": "News",
+    "streamUrl": "https://cbsn-us.cbsnstream.cbsnews.com/out/v1/55a8648e8f134e82a470f83d562deeca/master_21.m3u8"
+  },
+  {
+    "name": "CGTN News",
+    "type": "TV",
+    "logo": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/84/fe/30/84fe3021-8e9f-2d7d-073b-9de0321e39ce/AppIcon-0-0-1x_U007epad-0-1-0-sRGB-0-85-220.png/1200x630wa.png",
+    "category": "News",
+    "streamUrl": "https://amg00405-rakutentv-cgtn-rakuten-i9tar.amagi.tv/master720p.m3u8"
+  },
+  {
+    "name": "CH 13 Israel",
+    "type": "TV",
+    "logo": "https://www.coolstreaming.us/img/ch/image28348710201.jpg",
+    "category": "News",
+    "streamUrl": "https://d2xg1g9o5vns8m.cloudfront.net/out/v1/66d4ac8748ce4a9298b4e40e48d1ae2f/index_3.m3u8"
+  },
+  {
+    "name": "Channel News Asia",
+    "type": "TV",
+    "logo": "https://tse1.mm.bing.net/th/id/OIP.ALvg_kpYwp1WPBkzjB-EJAHaHa?pid=Api&h=220&P=0",
+    "category": "News",
+    "streamUrl": "https://d2e1asnsl7br7b.cloudfront.net/7782e205e72f43aeb4a48ec97f66ebbe/index.m3u8"
+  },
+  {
+    "name": "Charge",
+    "type": "TV",
+    "logo": "https://en.wikipedia.org/wiki/Special:FilePath/Charge!_Logo_2020.svg",
+    "category": "News",
+    "streamUrl": "https://fast-channels.sinclairstoryline.com/CHARGE/index_4.m3u8"
+  },
+  {
+    "name": "CNA",
+    "type": "TV",
+    "logo": "https://www.marketbeat.com/logos/cna-financial-co-logo.png?v=20240215143558",
+    "category": "News",
+    "streamUrl": "https://d2e1asnsl7br7b.cloudfront.net/7782e205e72f43aeb4a48ec97f66ebbe/index_2.m3u8"
+  },
+  {
+    "name": "CNN",
+    "type": "TV",
+    "logo": "https://pluspng.com/img-png/cnn-logo-png-cnn-logos-brands-and-logotypes-4390x4390.png",
+    "category": "News",
+    "streamUrl": "https://turnerlive.warnermediacdn.com/hls/live/586495/cnngo/cnn_slate/VIDEO_0_3564000.m3u8"
+  },
+  {
+    "name": "DAILY WIRE",
+    "type": "TV",
+    "logo": "https://tse3.mm.bing.net/th/id/OIP.eICvWAMAXAPBC-FFDlkNfQHaD3?pid=Api&h=220&P=0",
+    "category": "News",
+    "streamUrl": "https://fl1004.bozztv.com/ushba-m10/tracks-v1a1/mono.m3u8"
+  },
+  {
+    "name": "DW News",
+    "type": "TV",
+    "logo": "https://tse4.mm.bing.net/th/id/OIP.rvbciyNPlvI3gE7JgpJ-dAHaHa?pid=Api&h=220&P=0",
+    "category": "News",
+    "streamUrl": "https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/stream05/streamPlaylist.m3u8"
+  },
+  {
+    "name": "GMA News TV",
+    "type": "TV",
+    "logo": "https://th.bing.com/th/id/OIP.rziiLbLj2AZSThcW3EQ0uAHaHa?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3",
+    "category": "News",
+    "streamUrl": "https://abslive.akamaized.net/dash/live/2099522/gnews3/manifest.mpd",
+    "drm": {
+      "d5d848730e4a4f9b962290039dd2b96b": "c959dc12f1bff5a66d030117fb7e9855"
+    }
+  },
+  {
+    "name": "IBC 13",
+    "type": "TV",
+    "logo": "",
+    "category": "News",
+    "streamUrl": "https://streams.comclark.com/pknsd/ibc_13/playlist.m3u8"
+  },
+  {
+    "name": "NBC News Now",
+    "type": "TV",
+    "logo": "",
+    "category": "News",
+    "streamUrl": "https://d4whmvwm0rdvi.cloudfront.net/10007/99992212/hls/master.m3u8?ads.xumo_channelId=99992212&ads.asnw=169843&ads.afid=137704898&ads.sfid=16373024&ads.csid=lgchannels_us_nbcnewsnow_ssai_cro&ads._fw_is_lat=[LMT]&ads._fw_us_privacy=[US_PRIVACY]&ads._fw_coppa=0&ads._fw_did=[IFA]&ads._fw_vcid2=512116:[IFA]&ads._fw_app_bundle=[APP_BUNDLE]&ads._fw_app_store_url=[APP_STOREURL]&ads._fw_content_category=IAB12&ads._fw_content_genre=News&ads._fw_content_language=en&ads._fw_content_rating=&ads._fw_deviceMake=[DEVICE_MAKE]&ads._fw_device_model=[DEVICE_MODEL]&ads._fw_deviceType=3-Connected_TV&ads.appVersion=[APP_VERSION]&ads.appName=lgchannels&ads.xumo_contentId=1828&ads.xumo_contentName=NBCNewsNOW&ads.xumo_providerId=1828&ads.xumo_providerName=NBCNewsNOW&ads.channelId=99992212&ads._fw_ifa_type=dpid&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]"
+  },
+  {
+    "name": "News12 New York",
+    "type": "TV",
+    "logo": "",
+    "category": "News",
+    "streamUrl": "https://aegis-cloudfront-1.tubi.video/97fbb992-c212-4164-8406-abb6f731e517/3.m3u8"
+  },
+  {
+    "name": "Newsmax N1",
+    "type": "TV",
+    "logo": "",
+    "category": "News",
+    "streamUrl": "https://amg00217-newsmax-amg00217c2-lg-ca-4271.playouts.now.amagi.tv/playlist/amg00217-newsmaxmediafast-newsmaxn1-lgca/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.targetad=[TARGETAD_ALLOWED]"
+  },
+  {
+    "name": "PTV",
+    "type": "TV",
+    "logo": "",
+    "category": "News",
+    "streamUrl": "https://streams.comclark.com/pknsd/ptv/playlist.m3u8"
+  },
+  {
+    "name": "Reuters",
+    "type": "TV",
+    "logo": "",
+    "category": "News",
+    "streamUrl": "https://amg00453-reuters-amg00453c1-xumo-us-2073.playouts.now.amagi.tv/reuters-reuters-hls/playlist576P.m3u8"
+  },
+  {
+    "name": "A2Z",
+    "type": "TV",
+    "logo": "https://i.imgur.com/pRwyOMP.png",
+    "category": "Entertainment",
+    "streamUrl": "https://blue-voice-4f1f.czg3i9ixp6ywxh2mw61dxdwf.workers.dev/?url=https%3A%2F%2Fqp-pldt-live-bpk-01-prod.akamaized.net%2Fbpk-tv%2Fcg_a2z%2Fdefault%2Findex.mpd&ua=Dalvik%2F2.1.0%20(Linux%3B%20U%3B%20Android%2012%3B%20Pixel%206%20Build%2FSD1A.210817.036)",
+    "drm": {
+      "3f6d8a2c1b7e4c9f8d52a7e1b0c6f93d": "4019f9269b9054a2b9e257b114ebbaf2"
+    }
+  },
+  {
+    "name": "Alien Nation",
+    "type": "TV",
+    "logo": "https://cdn.creativefabrica.com/2023/05/31/Alien-Nation-SVG-Print-Alien-UFO-logo-Graphics-70778983.jpg",
+    "category": "Entertainment",
+    "streamUrl": "https://linear-888.frequency.stream/dist/xumo/888/hls/master/playlist.m3u8"
+  },
+  {
+    "name": "All Weddings We TV",
+    "type": "TV",
+    "logo": "https://static-us-east-2-fastly-a.www.philo.com/images/channel_logos/ALLWED/large_dark.png?auto=webp&ver=1",
+    "category": "Entertainment",
+    "streamUrl": "https://amc-allweddings-1-us.xumo.wurl.tv/playlist.m3u8"
+  },
+  {
+    "name": "AMC Thrillers",
+    "type": "TV",
+    "logo": "https://static-us-east-2-fastly-a.www.philo.com/images/channel_logos/AMCRSH/large_dark.png?auto=webp&ver=1",
+    "category": "Entertainment",
+    "streamUrl": "https://amc-rushbyamc-1-us.vizio.wurl.tv/playlist.m3u8"
+  },
+  {
+    "name": "American Ninja Warrior",
+    "type": "TV",
+    "logo": "https://vectorified.com/image/american-ninja-warrior-logo-vector-14.png",
+    "category": "Entertainment",
+    "streamUrl": "https://xumo-drct-ch812-n4996.fast.nbcuni.com/live/master.m3u8"
+  },
+  {
+    "name": "Blossom Tv",
+    "type": "TV",
+    "category": "Entertainment",
+    "streamUrl": "https://amg00437-amg00437c3-firetv-us-5409.playouts.now.amagi.tv/playlist720p.m3u8"
+  },
+  {
+    "name": "Colour Blind",
+    "type": "TV",
+    "logo": "",
+    "category": "Entertainment",
+    "streamUrl": "https://streams2.sofast.tv/ptnr-yupptv/title-COLOUR-BLIND-ENG_yupptv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/7e58f6fd-62bc-49bc-9ec6-2766ed521743/manifest.m3u8"
+  },
+  {
+    "name": "Deal or No Deal",
+    "type": "TV",
+    "logo": "https://i.imgur.com/j4OVP7y.jpeg",
+    "category": "Entertainment",
+    "streamUrl": "https://amg00627-amg00627c21-samsung-ph-5284.playouts.now.amagi.tv/playlist/amg00627-banijayfast-dealornodealrow-samsungph/playlist.m3u8"
+  },
+  {
+    "name": "Declassified",
+    "type": "TV",
+    "logo": "https://tse3.mm.bing.net/th/id/OIP.0bAMZAj_NwH9Pg0qYgRYQQHaEQ?pid=Api&h=220&P=0",
+    "category": "Entertainment",
+    "streamUrl": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00090-blueantllc-historytime-lgca/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.coppa=0&ads.targetad=[TARGETAD_ALLOWED]"
+  },
+  {
+    "name": "Dont Tell The Bride",
+    "type": "TV",
+    "logo": "https://www.rawechoes.com/wp-content/uploads/2023/01/BBC-DONT-TELL-THE-BRIDE-LOGO.png",
+    "category": "Entertainment",
+    "streamUrl": "https://lds-donttellbride-rakuten.amagi.tv/360p-cc/index.m3u8"
+  },
+  {
+    "name": "Edgy TV",
+    "type": "TV",
+    "logo": "",
+    "category": "Entertainment",
+    "streamUrl": "https://streams2.sofast.tv/ptnr-yupptv/title-EDGY-TV-ENG_yupptv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/49f275ac-7129-4492-93c0-854b3c3138f0/manifest.m3u8"
+  },
+  {
+    "name": "Fail Army",
+    "type": "TV",
+    "logo": "https://m.media-amazon.com/images/M/MV5BMjQyNzU5MTExMF5BMl5BanBnXkFtZTgwMTkwODA2NjE@._V1_.jpg",
+    "category": "Entertainment",
+    "streamUrl": "https://b5b2d4f7.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEctYXVfRmFpbEFybXlfSExT/playlist.m3u8"
+  },
+  {
+    "name": "Fx1",
+    "type": "TV",
+    "category": "Entertainment",
+    "streamUrl": "https://fxtvhls.wns.live/hls/stream.m3u8"
+  },
+  {
+    "name": "Game Show Network",
+    "type": "TV",
+    "logo": "https://tse3.mm.bing.net/th/id/OIP.A4lBsmu3xqd66_--R0MxTgHaFj?pid=Api&h=220&P=0",
+    "category": "Entertainment",
+    "streamUrl": "https://a-cdn.klowdtv.com/live2/gsn_720p/chunks.m3u8"
+  },
+  {
+    "name": "GMA Life TV",
+    "type": "TV",
+    "logo": "https://tse3.mm.bing.net/th/id/OIP.HpKkv2iTbDKmWpYintzOxQAAAA?rs=1&pid=ImgDetMain&o=7&rm=3",
+    "category": "Entertainment",
+    "streamUrl": "https://abslive.akamaized.net/dash/live/2099522/glife3/manifest.mpd",
+    "drm": {
+      "5d308ef487f54107b7da758e195ecbd3": "9d4004d4c065dd4b85ad5bd12c35386f"
+    }
+  },
+  {
+    "name": "GMA Pinoy TV",
+    "type": "TV",
+    "logo": "https://th.bing.com/th/id/OIP.ntjNVRaXsZJ0vrhWBA35sQHaE7?rs=1&pid=ImgDetMain",
+    "category": "Entertainment",
+    "streamUrl": "https://abslive.akamaized.net/dash/live/2099522/gmapt3/manifest.mpd",
+    "drm": {
+      "7b5d15a7385546768aca9fd505ad5e16": "f534393c84c1a9c17fa36bc3a4380981"
+    }
+  },
+  {
+    "name": "Go USA TV",
+    "type": "TV",
+    "logo": "",
+    "category": "Entertainment",
+    "streamUrl": "https://cc2b7c60df304389ba60c76790d1a82f.mediatailor.us-east-1.amazonaws.com/v1/master/44f73ba4d03e9607dcd9bebdcb8494d86964f1d8/LG-au_GoUSATV/playlist.m3u8"
+  },
+  {
+    "name": "Highlights TV",
+    "type": "TV",
+    "logo": "",
+    "category": "Entertainment",
+    "streamUrl": "https://highlightstvph.itunerworldwide.workers.dev/master.live.m3u8"
+  },
+  {
+    "name": "Hype TV by DTMMBS",
+    "type": "TV",
+    "logo": "",
+    "category": "Entertainment",
+    "streamUrl": "https://hypetvphbydtmmbs.itunerworldwide.workers.dev/master.live.m3u8"
+  },
+  {
+    "name": "Kapamilya Channel",
+    "type": "TV",
+    "logo": "https://i.imgur.com/WcYS3S3.png",
+    "category": "Entertainment",
+    "streamUrl": "https://blue-voice-4f1f.czg3i9ixp6ywxh2mw61dxdwf.workers.dev/?url=https%3A%2F%2Fcdn-ue1-prod.tsv2.amagi.tv%2Flinear%2Famg01006-abs-cbn-kapcha-dash-abscbnono%2Fmanifest.mpd&ua=Dalvik%2F2.1.0%20(Linux%3B%20U%3B%20Android%2012%3B%20Pixel%206%20Build%2FSD1A.210817.036)",
+    "drm": {
+      "292dee4236d04054910e9706ee22626b": "b7c5d3220f6eb6e042a2bcb367b5c09b"
+    }
+  },
+  {
+    "name": "Ktv2",
+    "type": "TV",
+    "logo": "",
+    "category": "Entertainment",
+    "streamUrl": "https://kwtktv2ta.cdn.mangomolo.com/ktv2/smil:ktv2.stream.smil/chunklist_b1500000_t64NzIwcA==.m3u8"
+  },
+  {
+    "name": "LIT Creationz",
+    "type": "TV",
+    "logo": "",
+    "category": "Entertainment",
+    "streamUrl": "https://fl1004.bozztv.com/ushba-m9/tracks-v1a1/mono.m3u8"
+  },
+  {
+    "name": "Love Wine",
+    "type": "TV",
+    "logo": "",
+    "category": "Entertainment",
+    "streamUrl": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg01821-lovetvchannels-lovewineusuk-lgau/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.targetad=[TARGETAD_ALLOWED]"
+  },
+  {
+    "name": "Mama Benz TV",
+    "type": "TV",
+    "logo": "",
+    "category": "Entertainment",
+    "streamUrl": "https://streams2.sofast.tv/ptnr-yupptv/title-MAMA-BENZ-TV-ENG_yupptv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/65f99e10-8d57-460a-a6be-731d90cfe7b1/manifest.m3u8"
+  },
+  {
+    "name": "Outdoor Channel HD",
+    "type": "TV",
+    "logo": "",
+    "category": "Entertainment",
+    "streamUrl": "https://cdn-apse1-prod.tsv2.amagi.tv/linear/amg00718-outdoorchannela-outdoortvnz-samsungnz/playlist.m3u8"
+  },
+  {
+    "name": "Persiana Korea",
+    "type": "TV",
+    "logo": "https://i.imgur.com/si2ZnIA.png",
+    "category": "Entertainment",
+    "streamUrl": "https://korhls.persiana.live/hls/stream.m3u8"
   },
   {
     "name": "Pet Club TV HD",
     "type": "TV",
     "logo": "",
-    "category": "Entertainment & Drama",
+    "category": "Entertainment",
     "streamUrl": "https://cdn-apse1-prod.tsv2.amagi.tv/linear/amg01076-lightningintern-petclub-samsungnz/playlist.m3u8"
+  },
+  {
+    "name": "Rakuten Viki (Korea)",
+    "type": "TV",
+    "logo": "",
+    "category": "Entertainment",
+    "streamUrl": "https://newidco-rakutenviki-2-eu.xiaomi.wurl.tv/4300.m3u8"
+  },
+  {
+    "name": "Robot Wars by Mech+",
+    "type": "TV",
+    "logo": "",
+    "category": "Entertainment",
+    "streamUrl": "https://756db222c2d642f3beda9099815b4cf4.mediatailor.us-east-1.amazonaws.com/v1/master/44f73ba4d03e9607dcd9bebdcb8494d86964f1d8/LG-au_MechPlus/playlist.m3u8"
+  },
+  {
+    "name": "RTB Aneka",
+    "type": "TV",
+    "logo": "",
+    "category": "Entertainment",
+    "streamUrl": "https://d1211whpimeups.cloudfront.net/smil:rtb2/chunklist_b4096000_slENG.m3u8"
+  },
+  {
+    "name": "RTB Aneka (720p)",
+    "type": "TV",
+    "logo": "https://i.imgur.com/MY40GrC.png",
+    "category": "Entertainment",
+    "streamUrl": "https://d1211whpimeups.cloudfront.net/smil:rtb2/playlist.m3u8"
+  },
+  {
+    "name": "Shop Channel (1080p) [Not 24/7]",
+    "type": "TV",
+    "logo": "https://www.shopch.jp/com/images/common/logo_2021.png",
+    "category": "Entertainment",
+    "streamUrl": "https://stream3.shopch.jp/HLS/master.m3u8"
+  },
+  {
+    "name": "Survivor",
+    "type": "TV",
+    "logo": "https://i.imgur.com/3DumwvT.jpeg",
+    "category": "Entertainment",
+    "streamUrl": "https://amg00627-amg00627c16-samsung-ph-5303.playouts.now.amagi.tv/playlist/amg00627-banijayfast-survivor-samsungph/playlist.m3u8"
+  },
+  {
+    "name": "Telemundo",
+    "type": "TV",
+    "logo": "",
+    "category": "Entertainment",
+    "streamUrl": "https://nbculocallive.akamaized.net/hls/live/2037499/puertorico/stream1/master_720.m3u8"
+  },
+  {
+    "name": "Televiza",
+    "type": "TV",
+    "logo": "",
+    "category": "Entertainment",
+    "streamUrl": "https://televisa-televisa-1-it.samsung.wurl.tv/1200.m3u8"
+  },
+  {
+    "name": "The Manila Times",
+    "type": "TV",
+    "logo": "",
+    "category": "Entertainment",
+    "streamUrl": "https://customer-ksrwu2hvu2ipx2fb.cloudflarestream.com/121fd4c01c7ed1c0b1d2c6699e52309a/manifest/video.m3u8?parentOrigin=https%3A%2F%2Fwww.manilatimes.net"
+  },
+  {
+    "name": "Tinovelas Europa",
+    "type": "TV",
+    "logo": "",
+    "category": "Entertainment",
+    "streamUrl": "https://televisa-televisa-1-it.samsung.wurl.tv/playlist.m3u8"
+  },
+  {
+    "name": "TV5",
+    "type": "TV",
+    "logo": "https://cms.cignal.tv/Upload/Thumbnails/TV5%20HD%20logo%20(1).png",
+    "category": "Entertainment",
+    "streamUrl": "https://blue-voice-4f1f.czg3i9ixp6ywxh2mw61dxdwf.workers.dev/?url=https%3A%2F%2Fqp-pldt-live-bpk-02-prod.akamaized.net%2Fbpk-tv%2Ftv5_hd%2Fdefault1%2Findex.mpd&ua=Dalvik%2F2.1.0%20(Linux%3B%20U%3B%20Android%2012%3B%20Pixel%206%20Build%2FSD1A.210817.036)",
+    "drm": {
+      "2615129ef2c846a9bbd43a641c7303ef": "07c7f996b1734ea288641a68e1cfdc4d"
+    }
+  },
+  {
+    "name": "TV5 Monde",
+    "type": "TV",
+    "logo": "https://klean.nl/wp-content/uploads/Logo_TV5_Monde_-_2021.svg_.png",
+    "category": "Entertainment",
+    "streamUrl": "https://blue-voice-4f1f.czg3i9ixp6ywxh2mw61dxdwf.workers.dev/?url=https%3A%2F%2Fqp-pldt-live-bpk-01-prod.akamaized.net%2Fbpk-tv%2Fdr_tv5_monde%2Fdefault%2Findex.mpd&ua=Dalvik%2F2.1.0%20(Linux%3B%20U%3B%20Android%2012%3B%20Pixel%206%20Build%2FSD1A.210817.036)",
+    "drm": {
+      "fba5a720b4a541b286552899ba86e38b": "f63fa50423148bfcbaa58c91dfcffd0e"
+    }
+  },
+  {
+    "name": "American Crimes",
+    "type": "TV",
+    "logo": "https://static.wikia.nocookie.net/logopedia/images/e/e0/NBC_American_Crimes.svg/revision/latest/scale-to-width-down/250?cb=20240904000846",
+    "category": "Documentary",
+    "streamUrl": "https://xumo-xumoent-vc-113-at8kn.fast.nbcuni.com/live/master.m3u8"
+  },
+  {
+    "name": "Animal Planet",
+    "type": "TV",
+    "logo": "https://api.discovery.com/v1/images/5bc91c366b66d1494068339e?aspectRatio=1x1&width=192&key=3020a40c2356a645b4b4",
+    "category": "Documentary",
+    "streamUrl": "https://nog-live1-ott.izzigo.tv/12/out/u/dash/ANIMAL-PLANET-HD/default.mpd",
+    "drm": {
+      "ecc518be0092c0ed80d8b1eeb243c5b6": "7292a98762ff0ce0cf7ab33158f95ecf"
+    }
+  },
+  {
+    "name": "CGTN DOCUMENTARY",
+    "type": "TV",
+    "logo": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/84/fe/30/84fe3021-8e9f-2d7d-073b-9de0321e39ce/AppIcon-0-0-1x_U007epad-0-1-0-sRGB-0-85-220.png/1200x630wa.png",
+    "category": "Documentary",
+    "streamUrl": "https://amg00405-rakutentv-cgtndocumentary-rakuten-0ql8j.amagi.tv/master720p.m3u8"
+  },
+  {
+    "name": "Crime 360",
+    "type": "TV",
+    "logo": "https://images-cdn3.welcomesoftware.com/assets/crime+360.jpg/Zz05YjgzM2IwMDlkMzAxMWVmYmYzNGJhZGI5NDNiNTQzZQ==?width=768&height=430",
+    "category": "Documentary",
+    "streamUrl": "https://c664c25d.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEctYXVfQ3JpbWUzNjBfSExT/playlist.m3u8"
+  },
+  {
+    "name": "EXHBT TV",
+    "type": "TV",
+    "category": "Documentary",
+    "streamUrl": "https://fl1004.bozztv.com/ushba-monj/tracks-v1a1/mono.m3u8"
+  },
+  {
+    "name": "FoodOn",
+    "type": "TV",
+    "category": "Documentary",
+    "streamUrl": "https://amg15905-k20-amg15905c4-lg-au-5399.playouts.now.amagi.tv/playlist/amg15905-mediacan-foodon-lgau/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.targetad=[TARGETAD_ALLOWED]"
+  },
+  {
+    "name": "Fork & Flight",
+    "type": "TV",
+    "logo": "https://tse3.mm.bing.net/th/id/OIP.U5Zsb43ViJB0dW74EVpSogHaEK?pid=Api&h=220&P=0",
+    "category": "Documentary",
+    "streamUrl": "https://amg00346-vizioono-forkandfligt-xumo-us.amagi.tv/240p/index.m3u8"
+  },
+  {
+    "name": "History2",
+    "type": "TV",
+    "logo": "",
+    "category": "Documentary",
+    "streamUrl": "https://fast-channels-prod.akamaized.net/out/v1/6fbb677b6ffc4a4fac47a8fd85c8b333/live_1.m3u8"
+  },
+  {
+    "name": "KTK DIGITAL",
+    "type": "TV",
+    "logo": "",
+    "category": "Documentary",
+    "streamUrl": "https://fl1003.bozztv.com/ushba28/tracks-v1a1/mono.m3u8"
+  },
+  {
+    "name": "Living Asia Channel",
+    "type": "TV",
+    "logo": "",
+    "category": "Documentary",
+    "streamUrl": "https://streams.comclark.com/pknsd/lac/playlist.m3u8"
+  },
+  {
+    "name": "Made in Hollywood",
+    "type": "TV",
+    "logo": "https://i.imgur.com/p16HNIM.png",
+    "category": "Documentary",
+    "streamUrl": "https://connection3-ent-nz.samsung.wurl.tv/playlist.m3u8"
+  },
+  {
+    "name": "Master Chef",
+    "type": "TV",
+    "logo": "",
+    "category": "Documentary",
+    "streamUrl": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00627-banijaygroup-masterchefuk-lgca/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.coppa=0&ads.targetad=[TARGETAD_ALLOWED]"
+  },
+  {
+    "name": "National Geographic Wild",
+    "type": "TV",
+    "logo": "https://en.wikipedia.org/wiki/Special:FilePath/National_Geographic_Wild_logo.svg",
+    "category": "Documentary",
+    "streamUrl": "https://amg00426-littledotstudio-realwildnz-samsungnz-wz0bm.amagi.tv/playlist/amg00426-littledotstudio-realwildnz-samsungnz/playlist.m3u8"
+  },
+  {
+    "name": "Real Disaster Channel",
+    "type": "TV",
+    "logo": "",
+    "category": "Documentary",
+    "streamUrl": "https://linear-475.frequency.stream/dist/glewedtv/475/hls/master/playlist_1920x1080.m3u8"
+  },
+  {
+    "name": "Time Line",
+    "type": "TV",
+    "logo": "",
+    "category": "Documentary",
+    "streamUrl": "https://timeline-samsung-uk.amagi.tv/playlist.m3u8"
+  },
+  {
+    "name": "Bein Sports Xtra",
+    "type": "TV",
+    "logo": "https://tse1.mm.bing.net/th/id/OIP.ob-M2GXzrQzDibjpQHhmxgHaFj?pid=Api&h=220&P=0",
+    "category": "Sports",
+    "streamUrl": "https://amg01334-beinsportsllc-beinxtra-localnow-kcy6r.amagi.tv/playlist.m3u8"
+  },
+  {
+    "name": "Billiard TV",
+    "type": "TV",
+    "logo": "https://tse3.mm.bing.net/th/id/OIP.2btxOHsk5DcqPIljOPzgUwHaEK?pid=Api&h=220&P=0",
+    "category": "Sports",
+    "streamUrl": "https://1b29dd71cd5e4191a3eb26afff631ed3.mediatailor.us-west-2.amazonaws.com/v1/master/9d062541f2ff39b5c0f48b743c6411d25f62fc25/SportsTribal-BilliardTV/BILLIARDTV_SCTE.m3u8"
+  },
+  {
+    "name": "Chrono TV",
+    "type": "TV",
+    "logo": "",
+    "category": "Sports",
+    "streamUrl": "https://streams2.sofast.tv/ptnr-yupptv/title-CHRONO-TV-ENG_yupptv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/d375ebca-9cd0-475e-ad4d-0cde6634de9c/manifest.m3u8"
+  },
+  {
+    "name": "DAZN Combat",
+    "type": "TV",
+    "logo": "https://www.planetecsat.com/wp-content/uploads/2024/02/logo-DAZN-Combat.png",
+    "category": "Sports",
+    "streamUrl": "https://dazn-combat-rakuten.amagi.tv/hls/amagi_hls_data_rakutenAA-dazn-combat-rakuten/CDN/master.m3u8"
+  },
+  {
+    "name": "DAZN Ringside",
+    "type": "TV",
+    "logo": "https://assets.goal.com/images/v3/blt077eff519e5ab803/DAZN-Logo.jpg?auto=webp&format=pjpg&width=3840&quality=60",
+    "category": "Sports",
+    "streamUrl": "https://aegis-cloudfront-1.tubi.video/bfad29e2-5bee-44f3-8256-127324e8b106/playlist.m3u8"
+  },
+  {
+    "name": "FIFA+",
+    "type": "TV",
+    "logo": "https://images.seeklogo.com/logo-png/53/1/fifa-logo-png_seeklogo-537674.png",
+    "category": "Sports",
+    "streamUrl": "https://ca333c39.wurl.com/v1/sysdata_s_p_a_fifa_6/ohlscdn_us/latest/main/hls/playlist.m3u8"
+  },
+  {
+    "name": "FIFA+ (720p)",
+    "type": "TV",
+    "logo": "https://images.seeklogo.com/logo-png/53/1/fifa-logo-png_seeklogo-537674.png",
+    "category": "Sports",
+    "streamUrl": "https://a62dad94.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmFrdXRlblRWLWV1X0ZJRkFQbHVzRW5nbGlzaF9ITFM/playlist.m3u8"
+  },
+  {
+    "name": "Fight+",
+    "type": "TV",
+    "logo": "https://tse1.mm.bing.net/th/id/OIP.Ah19bBjnmRcxS-cEenjljgHaEu?pid=Api&h=220&P=0",
+    "category": "Sports",
+    "streamUrl": "https://amg19223-amg19223c6-amgplt0351.playout.now3.amagi.tv/playlist/amg19223-amg19223c6-amgplt0351/playlist.m3u8"
+  },
+  {
+    "name": "Home Plus",
+    "type": "TV",
+    "logo": "",
+    "category": "Sports",
+    "streamUrl": "https://homeplushls.wns.live/hls/stream.m3u8"
+  },
+  {
+    "name": "MTRSPRT1",
+    "type": "TV",
+    "logo": "",
+    "category": "Sports",
+    "streamUrl": "https://amg02873-kravemedia-mtrspt1-distrotv-mnsrl.amagi.tv/playlist/amg02873-kravemedia-mtrspt1-distrotv/playlist.m3u8"
+  },
+  {
+    "name": "Nautical Channel",
+    "type": "TV",
+    "logo": "",
+    "category": "Sports",
+    "streamUrl": "https://a-cdn.klowdtv.com/live2/nautical_720p/chunks.m3u8"
+  },
+  {
+    "name": "Nitro TV",
+    "type": "TV",
+    "logo": "",
+    "category": "Sports",
+    "streamUrl": "https://streams2.sofast.tv/ptnr-yupptv/title-NITRO-TV-ENG_yupptv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/3265a84f-1238-4439-bb40-cc0b716719f7/manifest.m3u8"
   },
   {
     "name": "Pickle TV",
@@ -777,20 +1231,6 @@
     "streamUrl": "https://fce26776.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/U3BvcnRzVHJpYmFsLWV1X1BpY2tsZVRWX0hMUw/playlist.m3u8"
   },
   {
-    "name": "Pop UK Rakuten",
-    "type": "TV",
-    "logo": "",
-    "category": "Movies & Cinema",
-    "streamUrl": "https://narrative-popkids-rakuten.amagi.tv/playlist.m3u8"
-  },
-  {
-    "name": "Popflix (720p)",
-    "type": "TV",
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Popflix_logo.svg/2560px-Popflix_logo.svg.png",
-    "category": "Movies & Cinema",
-    "streamUrl": "https://signatureentertainment-popflix-1-gb.rakuten.wurl.tv/playlist.m3u8"
-  },
-  {
     "name": "Racer International",
     "type": "TV",
     "logo": "",
@@ -798,165 +1238,11 @@
     "streamUrl": "https://amg00378-mavtv-amg00378c2-rakuten-us-1048.playouts.now.amagi.tv/playlist/amg00378-mavtvfast-motorsportsnetwork-rakutenus/cb7f3e1e7b736f8a9ecf3e6cd1f041f2d1526381573add353ba35e9472c11e538db4f1c9ea19bb4a03e24094385631004262d519ce64669e802ef716776c69108a99b265d992026eeb86092e21a3321855e71e6490650f77eeec18238c29fa2c5644a65a38167aa6953dd00a4ed5dc53d02a39fcf88e3a66644a2cc71f02b8f541a2fce84345c66cbfb10c2bc47914a5db5dccd71ba583d2498a10877ef812ce91a696db1981d78c62a801b279510b2729d4d02fcbcd5ce5839e3b6d9f251a5c74208e7b41f9345eb66f0137c8f7c2b36cef03c78720921258d162b97cf4fb0ef6c873c3c05da9acc1b32a85b7a3b63d4c26aeecac8bb9425b428e50c19bbf232ce39a397d53db62980f2a3699f1ca5ee2a971c7e673d3e628754cb134054b8fbad2a290f44c0ba1cb06aaa61d082542170b87128f9b63d225dc4265af792e71425ea49659c5c98c10602207b18950d01c0caa9ba5b79f5f6b8430401adf69d70d51378c2c3a28ac6dd88a2c608c110f871e34ef1760d315b2eb7ab5eff0cd32169992874ef664eaf52dd7f509a6247c7a0aa1fd215a0a1d2e89a0364360379305d7d2cce065004fb9a49ab093054a72537d650585e6e86788ce91796f71ef676631245e47ec47bc0ff80f460722cc64a38f01668a0b246dabe70854546899dfa2c3e0f2cf57be6bdcdff75a7e6e0c7bdcd3649bf15013eba6587b7d3bdd94f8826feb0d352a7a5e/155/1280x720_2657019/index.m3u8"
   },
   {
-    "name": "Rakuten Top Movies UK (1080p)",
-    "type": "TV",
-    "logo": "https://i.imgur.com/Meew6eX.png",
-    "category": "Movies & Cinema",
-    "streamUrl": "https://0145451975a64b35866170fd2e8fa486.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-5987/master.m3u8"
-  },
-  {
-    "name": "Rakuten TV Action Movies Finland (1080p)",
-    "type": "TV",
-    "logo": "https://i.imgur.com/Meew6eX.png",
-    "category": "Movies & Cinema",
-    "streamUrl": "https://bca5a421a70c46ad911efd0a4767c4bf.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6075/master.m3u8"
-  },
-  {
-    "name": "Rakuten TV Action Movies UK (1080p)",
-    "type": "TV",
-    "logo": "https://i.imgur.com/Meew6eX.png",
-    "category": "Movies & Cinema",
-    "streamUrl": "https://54045f0c40fd442c8b06df076aaf1e85.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6065/master.m3u8"
-  },
-  {
-    "name": "Rakuten TV Comedy Movies Finland (1080p)",
-    "type": "TV",
-    "logo": "https://i.imgur.com/Meew6eX.png",
-    "category": "Movies & Cinema",
-    "streamUrl": "https://a300af98e00746e2acf2346f43e47bd1.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6191/master.m3u8"
-  },
-  {
-    "name": "Rakuten TV Comedy Movies UK (1080p)",
-    "type": "TV",
-    "logo": "https://i.imgur.com/Meew6eX.png",
-    "category": "Movies & Cinema",
-    "streamUrl": "https://9be783d652cd4b099cf63e1dc134c4a3.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6181/master.m3u8"
-  },
-  {
-    "name": "Rakuten TV Drama Movies Finland (1080p)",
-    "type": "TV",
-    "logo": "https://i.imgur.com/Meew6eX.png",
-    "category": "Movies & Cinema",
-    "streamUrl": "https://d7e8ee3c924d4305a0c1840fe94c5d36.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6102/master.m3u8"
-  },
-  {
-    "name": "Rakuten TV Drama Movies UK (1080p)",
-    "type": "TV",
-    "logo": "https://i.imgur.com/Meew6eX.png",
-    "category": "Movies & Cinema",
-    "streamUrl": "https://fee09fd665814f51b939b6d106cf5f66.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6093/master.m3u8"
-  },
-  {
-    "name": "Rakuten TV Family Movies Finland (1080p)",
-    "type": "TV",
-    "logo": "https://i.imgur.com/Meew6eX.png",
-    "category": "Movies & Cinema",
-    "streamUrl": "https://758ee983d61e400381dea6fa8154f4e0.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6227/master.m3u8"
-  },
-  {
-    "name": "Rakuten TV Family Movies UK (1080p)",
-    "type": "TV",
-    "logo": "https://i.imgur.com/Meew6eX.png",
-    "category": "Movies & Cinema",
-    "streamUrl": "https://e3207568b726401995c25670faaf32e4.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6203/master.m3u8"
-  },
-  {
-    "name": "Rakuten TV Top Movies Finland (1080p)",
-    "type": "TV",
-    "logo": "https://i.imgur.com/Meew6eX.png",
-    "category": "Movies & Cinema",
-    "streamUrl": "https://1d1b0d4cb6ae4c31985d13221795695b.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6057/master.m3u8"
-  },
-  {
-    "name": "Rakuten Viki (Korea)",
-    "type": "TV",
-    "logo": "",
-    "category": "Entertainment & Drama",
-    "streamUrl": "https://newidco-rakutenviki-2-eu.xiaomi.wurl.tv/4300.m3u8"
-  },
-  {
-    "name": "Real Disaster Channel",
-    "type": "TV",
-    "logo": "",
-    "category": "Lifestyle & Docs",
-    "streamUrl": "https://linear-475.frequency.stream/dist/glewedtv/475/hls/master/playlist_1920x1080.m3u8"
-  },
-  {
     "name": "Red Bull TV",
     "type": "TV",
     "logo": "",
     "category": "Sports",
     "streamUrl": "https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master_3360.m3u8"
-  },
-  {
-    "name": "Reuters",
-    "type": "TV",
-    "logo": "",
-    "category": "News & Information",
-    "streamUrl": "https://amg00453-reuters-amg00453c1-xumo-us-2073.playouts.now.amagi.tv/reuters-reuters-hls/playlist576P.m3u8"
-  },
-  {
-    "name": "Robot Wars by Mech+",
-    "type": "TV",
-    "logo": "",
-    "category": "Entertainment & Drama",
-    "streamUrl": "https://756db222c2d642f3beda9099815b4cf4.mediatailor.us-east-1.amazonaws.com/v1/master/44f73ba4d03e9607dcd9bebdcb8494d86964f1d8/LG-au_MechPlus/playlist.m3u8"
-  },
-  {
-    "name": "RomKom K Drama",
-    "type": "TV",
-    "logo": "",
-    "category": "General",
-    "streamUrl": "https://4df655f2.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEctY2FfUm9tQ29tS0RyYW1hX0hMUw/playlist.m3u8"
-  },
-  {
-    "name": "RTB Aneka",
-    "type": "TV",
-    "logo": "",
-    "category": "Entertainment & Drama",
-    "streamUrl": "https://d1211whpimeups.cloudfront.net/smil:rtb2/chunklist_b4096000_slENG.m3u8"
-  },
-  {
-    "name": "RTB Aneka (720p)",
-    "type": "TV",
-    "logo": "https://i.imgur.com/MY40GrC.png",
-    "category": "Entertainment & Drama",
-    "streamUrl": "https://d1211whpimeups.cloudfront.net/smil:rtb2/playlist.m3u8"
-  },
-  {
-    "name": "Runtime HD",
-    "type": "TV",
-    "logo": "",
-    "category": "Movies & Cinema",
-    "streamUrl": "https://stream.ads.ottera.tv/playlist.m3u8?network_id=2648"
-  },
-  {
-    "name": "Sci-Fi World",
-    "type": "TV",
-    "logo": "",
-    "category": "Movies & Cinema",
-    "streamUrl": "https://streams2.sofast.tv/ptnr-yupptv/title-SCIFI-WORLD-ENG_yupptv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/a985e052-6868-4365-ac45-52afe9008b25/manifest.m3u8"
-  },
-  {
-    "name": "Sine Plus",
-    "type": "TV",
-    "logo": "",
-    "category": "Movies & Cinema",
-    "streamUrl": "https://sineplusph.itunerworldwide.workers.dev/master.live.m3u8"
-  },
-  {
-    "name": "Shop Channel (1080p) [Not 24/7]",
-    "type": "TV",
-    "logo": "https://www.shopch.jp/com/images/common/logo_2021.png",
-    "category": "Entertainment & Drama",
-    "streamUrl": "https://stream3.shopch.jp/HLS/master.m3u8"
-  },
-  {
-    "name": "Sony Movies",
-    "type": "TV",
-    "logo": "https://static.wikia.nocookie.net/logopedia/images/1/1c/Sony_Movies_2019_%28Print%29.png/revision/latest/scale-to-width-down/1000?cb=20190917082854",
-    "category": "Movies & Cinema",
-    "streamUrl": "https://a-cdn.klowdtv.com/live1/smc_720p/playlist.m3u8"
   },
   {
     "name": "SPEED SPORTS",
@@ -973,18 +1259,32 @@
     "streamUrl": "https://aegis-cloudfront-1.tubi.video/74681dcc-e6d0-4add-ad67-a22ad9c152e6/playlist_5.m3u8"
   },
   {
-    "name": "Star Television",
+    "name": "Tennis+",
     "type": "TV",
-    "logo": "https://i.imgur.com/QalEBc8.jpeg",
-    "category": "General",
-    "streamUrl": "https://startelevisionph.itunerworldwide.workers.dev/master.live.m3u8"
+    "logo": "https://tse4.mm.bing.net/th/id/OIP.YLaFJUU8hyI5A4hSbhPa5AHaEK?pid=Api&h=220&P=0",
+    "category": "Sports",
+    "streamUrl": "https://amg01935-amg01935c1-amgplt0352.playout.now3.amagi.tv/playlist/amg01935-amg01935c1-amgplt0352/playlist.m3u8"
   },
   {
-    "name": "Star TV Philippines",
+    "name": "Blues TV",
     "type": "TV",
     "logo": "",
-    "category": "General",
-    "streamUrl": "https://startvphilippines.itunerworldwide.workers.dev/master.live.m3u8"
+    "category": "Music",
+    "streamUrl": "https://2-fss-2.streamhoster.com/pl_138/205510-3094608-1/playlist.m3u8"
+  },
+  {
+    "name": "Kronehit",
+    "type": "TV",
+    "logo": "",
+    "category": "Music",
+    "streamUrl": "https://bitcdn-kronehit.bitmovin.com/v2/hls/chunklist_b3128000.m3u8"
+  },
+  {
+    "name": "New K-Pop",
+    "type": "TV",
+    "logo": "https://24hrkpop.com/wp-content/uploads/2020/04/KPOP-Logo-Alpha.png",
+    "category": "Music",
+    "streamUrl": "https://newidco-newkid-1-eu.xiaomi.wurl.tv/playlist.m3u8"
   },
   {
     "name": "Stingray Karaoke",
@@ -1001,48 +1301,6 @@
     "streamUrl": "https://lotus.stingray.com/manifest/ose-104ads-montreal/samsungtvplus/master.m3u8"
   },
   {
-    "name": "Stories by AMC",
-    "type": "TV",
-    "logo": "https://tse1.mm.bing.net/th/id/OIP.E_ALVOsrM9xvzepA1oq4-gHaEJ?pid=Api&h=220&P=0",
-    "category": "Movies & Cinema",
-    "streamUrl": "https://amc-amcpresents-1-us.plex.wurl.tv/playlist.m3u8"
-  },
-  {
-    "name": "Survivor",
-    "type": "TV",
-    "logo": "https://i.imgur.com/3DumwvT.jpeg",
-    "category": "Entertainment & Drama",
-    "streamUrl": "https://amg00627-amg00627c16-samsung-ph-5303.playouts.now.amagi.tv/playlist/amg00627-banijayfast-survivor-samsungph/playlist.m3u8"
-  },
-  {
-    "name": "Telemundo",
-    "type": "TV",
-    "logo": "",
-    "category": "Entertainment & Drama",
-    "streamUrl": "https://nbculocallive.akamaized.net/hls/live/2037499/puertorico/stream1/master_720.m3u8"
-  },
-  {
-    "name": "Telemundo Accion",
-    "type": "TV",
-    "logo": "",
-    "category": "Movies & Cinema",
-    "streamUrl": "https://xumo-drct-ch835-ekq0p.fast.nbcuni.com/live/master_1.m3u8"
-  },
-  {
-    "name": "Televiza",
-    "type": "TV",
-    "logo": "",
-    "category": "Entertainment & Drama",
-    "streamUrl": "https://televisa-televisa-1-it.samsung.wurl.tv/1200.m3u8"
-  },
-  {
-    "name": "Tennis+",
-    "type": "TV",
-    "logo": "https://tse4.mm.bing.net/th/id/OIP.YLaFJUU8hyI5A4hSbhPa5AHaEK?pid=Api&h=220&P=0",
-    "category": "Sports",
-    "streamUrl": "https://amg01935-amg01935c1-amgplt0352.playout.now3.amagi.tv/playlist/amg01935-amg01935c1-amgplt0352/playlist.m3u8"
-  },
-  {
     "name": "The Country Network",
     "type": "TV",
     "logo": "",
@@ -1050,38 +1308,122 @@
     "streamUrl": "https://a-cdn.klowdtv.com/live2/countrytv_720p/chunks.m3u8"
   },
   {
-    "name": "The Manila Times",
+    "name": "ABN Bible Movies Channel",
     "type": "TV",
     "logo": "",
-    "category": "Entertainment & Drama",
-    "streamUrl": "https://customer-ksrwu2hvu2ipx2fb.cloudflarestream.com/121fd4c01c7ed1c0b1d2c6699e52309a/manifest/video.m3u8?parentOrigin=https%3A%2F%2Fwww.manilatimes.net"
+    "category": "General",
+    "streamUrl": "https://mediaserver.abnvideos.com/streams/abnbiblemovies.m3u8"
   },
   {
-    "name": "Time Line",
+    "name": "Catholic Network",
+    "type": "TV",
+    "logo": "https://tse2.mm.bing.net/th/id/OIP.hd-eA4QkTWmKMMvaHxXEZgHaHa?pid=Api&h=220&P=0",
+    "category": "General",
+    "streamUrl": "https://catholictvhd-lh.akamaized.net/hls/live/2043390/CTVLiveHD/master.m3u8"
+  },
+  {
+    "name": "Dream TV PH",
     "type": "TV",
     "logo": "",
-    "category": "Lifestyle & Docs",
-    "streamUrl": "https://timeline-samsung-uk.amagi.tv/playlist.m3u8"
+    "category": "General",
+    "streamUrl": "https://dreamtvph.itunerworldwide.workers.dev/master.live.m3u8"
   },
   {
-    "name": "Tinovelas Europa",
+    "name": "EWTN Asia-Pacific",
+    "type": "TV",
+    "logo": "https://play-lh.googleusercontent.com/3716tvZCgzpIt-X1giV8jKwCdC8zwOI4eMUfO_ETWzNX6eGKIi2RiUK9a_fr6BCzjw",
+    "category": "General",
+    "streamUrl": "https://cdn3.wowza.com/1/QmVNUVhTNTZSS3Uz/YWQ0aHpi/hls/live/playlist.m3u8"
+  },
+  {
+    "name": "EWTN Europe",
+    "type": "TV",
+    "logo": "https://play-lh.googleusercontent.com/3716tvZCgzpIt-X1giV8jKwCdC8zwOI4eMUfO_ETWzNX6eGKIi2RiUK9a_fr6BCzjw",
+    "category": "General",
+    "streamUrl": "https://cdn3.wowza.com/1/T2NXeHF6UGlGbHY3/WFluRldQ/hls/live/playlist.m3u8"
+  },
+  {
+    "name": "Ewtn USA",
+    "type": "TV",
+    "logo": "https://play-lh.googleusercontent.com/3716tvZCgzpIt-X1giV8jKwCdC8zwOI4eMUfO_ETWzNX6eGKIi2RiUK9a_fr6BCzjw",
+    "category": "General",
+    "streamUrl": "https://cdn3.wowza.com/1/YW5wSWZiRGd2eFlU/bGV0aVBq/hls/fq3bs6qd/720/chunklist.m3u8"
+  },
+  {
+    "name": "FilAm TV Network",
     "type": "TV",
     "logo": "",
-    "category": "Entertainment & Drama",
-    "streamUrl": "https://televisa-televisa-1-it.samsung.wurl.tv/playlist.m3u8"
+    "category": "General",
+    "streamUrl": "https://streams.comclark.com/pknsd/filamtv/playlist.m3u8"
   },
   {
-    "name": "Cartoon Network / Adult Swim (US)",
+    "name": "Good Life",
     "type": "TV",
-    "logo": "https://hipfonts.com/wp-content/uploads/2022/02/adult-swim-logo.jpg",
-    "category": "Kids & Cartoons",
-    "streamUrl": "https://cn-proxy.ke1th.dev/USA_CARTOON_NETWORK/index.m3u8"
+    "logo": "",
+    "category": "General",
+    "streamUrl": "https://2-fss-2.streamhoster.com/pl_118/201450-1248872-1/chunklist.m3u8"
   },
   {
-    "name": "Nickelodeon",
+    "name": "Hells Kitchen",
     "type": "TV",
-    "logo": "https://en.wikipedia.org/wiki/Special:FilePath/Nickelodeon_2023_logo_(outline).svg",
-    "category": "Kids & Cartoons",
-    "streamUrl": "https://nick-proxy.ke1th.dev/USA_NICKELODEON/index.m3u8"
+    "logo": "https://i.imgur.com/TRmiNiL.jpeg",
+    "category": "General",
+    "streamUrl": "https://amg00654-itv-amg00654c1-samsung-th-9581.playouts.now.amagi.tv/playlist.m3u8"
+  },
+  {
+    "name": "Hope Tv",
+    "type": "TV",
+    "logo": "",
+    "category": "General",
+    "streamUrl": "https://cdn-kr-icn.becdn.net/hcorg_ROeXKL3HV6a/s/jsl_7A1swL7Fhlh/master.m3u8?fbclid=IwY2xjawNK_SdleHRuA2FlbQIxMABicmlkETFiOGd1TE93NE9IUWYzbFZyAR6IbBfur0gqX9lkQWTuQYAWFoJLRNTSfiB2UyYW29t9DzQKcGplPu1LSw7sew_aem_ANrGgg4MQcqZ5iF4mxHzUQ"
+  },
+  {
+    "name": "Kocowa",
+    "type": "TV",
+    "logo": "",
+    "category": "General",
+    "streamUrl": "https://dbrb49pjoymg4.cloudfront.net/10001/99991348/hls/master.m3u8?includeAssetTags=true&ads.xumo_channelId=99991348&ads._fw_ifa_type=dpid&ads._fw_did=413d7e29-b63e-b34e-b143-bf0efe32f394&ads.amznappId=[AMZN_APP_ID]&ads.lat=[LAT]&ads.lon=[LON]&ads.os=[OS]&ads.osv=[OS_VERSION]&ads.asnw=&ads.caid=Kocowa&ads.csid=xumo_desktopweb_Kocowa_ssai&ads._fw_is_lat=0&ads._fw_us_privacy=1YNN&ads._fw_coppa=0&ads.genre=Action%2CAdventure%2CComedy%2CCrime%2CDrama%2CFamily%2CFantasy%2CHorror%2CMystery%2CRomance%2CSci-Fi%2CThriller%2CWar%2CWestern%2CSuperhero&ads._fw_content_category=IAB1-7&ads._fw_content_language=undefined&ads._fw_content_genre=International&ads._fw_content_rating=TV-14&ads.xumo_contentId=285&ads.xumo_contentName=Kocowa&ads.xumo_providerId=285&ads.xumo_providerName=Kocowa&ads._fw_deviceMake=&ads._fw_device_model=&ads.channelId=99991348&ads.xumo_platform=desktopweb&ads.site_id=26840&ads.appName=xumo&ads.appVersion=2.18.0&ads._fw_app_bundle=&ads._fw_app_store_url=&ads.site_name=XumoPlay&ads.site_page=https%253A%252F%252Fplay.xumo.com"
+  },
+  {
+    "name": "Mindanow Network TV",
+    "type": "TV",
+    "logo": "",
+    "category": "General",
+    "streamUrl": "https://streams.comclark.com/overlay/mindanow/playlist.m3u8"
+  },
+  {
+    "name": "MTA1 World",
+    "type": "TV",
+    "logo": "",
+    "category": "General",
+    "streamUrl": "https://chlivemta1.akamaized.net/hls/live/2008145/mta1/playlist.m3u8"
+  },
+  {
+    "name": "MTA8 HD America",
+    "type": "TV",
+    "logo": "",
+    "category": "General",
+    "streamUrl": "https://chlivemta.akamaized.net/hls/live/2016718/mta8/playlist.m3u8"
+  },
+  {
+    "name": "RomKom K Drama",
+    "type": "TV",
+    "logo": "",
+    "category": "General",
+    "streamUrl": "https://4df655f2.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEctY2FfUm9tQ29tS0RyYW1hX0hMUw/playlist.m3u8"
+  },
+  {
+    "name": "Star Television",
+    "type": "TV",
+    "logo": "https://i.imgur.com/QalEBc8.jpeg",
+    "category": "General",
+    "streamUrl": "https://startelevisionph.itunerworldwide.workers.dev/master.live.m3u8"
+  },
+  {
+    "name": "Star TV Philippines",
+    "type": "TV",
+    "logo": "",
+    "category": "General",
+    "streamUrl": "https://startvphilippines.itunerworldwide.workers.dev/master.live.m3u8"
   }
 ]

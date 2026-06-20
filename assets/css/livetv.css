@@ -72,31 +72,98 @@
   margin-top: 4px;
 }
 
-.livetv-header {
-  padding: 80px 48px 20px;
-  max-width: 1920px;
-  margin: 0 auto;
+/* Standalone Header */
+.livetv-standalone-header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(18, 18, 18, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  z-index: 500;
+  margin-bottom: 20px;
+}
+
+.livetv-standalone-header .back-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  cursor: pointer;
+  padding: 0;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  transition: all 0.2s;
+  border: none;
+}
+
+.livetv-standalone-header .back-btn:active {
+  transform: scale(0.9);
+}
+
+.livetv-standalone-header .back-btn svg {
+  width: 22px;
+  height: 22px;
+  position: relative;
+  z-index: 2;
+}
+
+.livetv-standalone-header .back-text {
+  display: none;
+}
+
+.livetv-standalone-header .watch-title-wrap {
+  flex: 1;
+  text-align: center;
+  padding: 0 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.livetv-standalone-header #watchTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8);
+}
+
+.livetv-standalone-header .header-actions {
+  width: 44px;
 }
 
 @media (max-width: 768px) {
-  .livetv-header {
-    padding: 80px 16px 16px;
+  .livetv-standalone-header {
+    padding: 12px 14px;
+    padding-top: max(12px, env(safe-area-inset-top));
+    margin-bottom: 12px;
   }
-}
 
-.livetv-title {
-  font-size: 2.2rem;
-  font-weight: 900;
-  color: var(--text-bright);
-  letter-spacing: -0.02em;
-  margin-bottom: 8px;
-}
+  .livetv-standalone-header .back-btn {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+  }
+  
+  .livetv-standalone-header .back-btn svg {
+    width: 20px;
+    height: 20px;
+  }
 
-.livetv-subtitle {
-  font-size: 1rem;
-  color: var(--text-muted);
-  max-width: 600px;
-  line-height: 1.5;
+  .livetv-standalone-header #watchTitle {
+    font-size: 1rem;
+  }
 }
 
 /* Hide the old top-toolbar close button on mobile portrait because LandscapeForcer adds a floating glass one */
@@ -104,4 +171,178 @@
   .player-toolbar {
     display: none !important;
   }
+}
+
+/* Inline Player Section Styles */
+.livetv-player-section {
+  max-width: 1200px;
+  margin: 0 auto 20px;
+  padding: 0 16px;
+}
+.player-container {
+  background: #151515;
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+.player-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.player-channel-logo {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  border-radius: 4px;
+  background: #111;
+  padding: 4px;
+}
+.player-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #fff;
+}
+.player-actions {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 12px;
+}
+.share-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.share-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Category Filter & Other Channels Header */
+.other-channels-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+}
+.category-filter {
+  padding: 8px 36px 8px 16px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05) url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e") no-repeat right 12px center;
+  background-size: 16px;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  transition: all 0.2s;
+}
+.category-filter:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.category-filter option {
+  background: #1e1e1e;
+  color: #fff;
+}
+
+/* Quality Selector */
+.quality-selector-wrap {
+  position: relative;
+}
+.quality-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+.quality-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+.quality-dropdown {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  right: 0;
+  min-width: 200px;
+  background: rgba(20, 20, 25, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 8px 0;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+  z-index: 100;
+  animation: qualityFadeIn 0.15s ease;
+}
+.quality-dropdown.hidden {
+  display: none;
+}
+@keyframes qualityFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.quality-dropdown-title {
+  padding: 8px 16px 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.quality-options {
+  display: flex;
+  flex-direction: column;
+}
+.quality-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+}
+.quality-option:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+.quality-option.active {
+  color: #e50914;
+}
+.quality-option.active::after {
+  content: '✓';
+  font-weight: 700;
+  color: #e50914;
+}
+.quality-option .quality-badge {
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(229, 9, 20, 0.2);
+  color: #e50914;
+  font-weight: 700;
+  margin-left: 8px;
 }
