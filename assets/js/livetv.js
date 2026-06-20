@@ -253,7 +253,11 @@
       dashInstance = null;
     }
     if (shakaInstance) {
-      shakaInstance.destroy();
+      try {
+        await shakaInstance.destroy();
+      } catch(e) {
+        console.error('Error destroying shaka:', e);
+      }
       shakaInstance = null;
     }
     videoPlayer.src = '';
