@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mux.js/7.0.3/mux.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/shaka-player@4.7.11/dist/shaka-player.compiled.js"></script>
+</head>
+<body>
+  <video id="video" width="640" height="360" controls autoplay></video>
+  <div id="logs" style="font-family: monospace; white-space: pre-wrap;"></div>
+  <script>
+    function log(msg) {
+        document.getElementById('logs').innerHTML += msg + '\n';
+        console.log(msg);
+    }
+    shaka.polyfill.installAll();
+    const video = document.getElementById('video');
+    const player = new shaka.Player(video);
+    
+    player.addEventListener('error', (e) => log('Error code: ' + (e.detail && e.detail.code) + ' msg: ' + JSON.stringify(e.detail)));
+    
+    const url = 'https://prox-production-a3e4.up.railway.app/?url=http%3A%2F%2F136.158.97.2%3A6610%2F001%2F2%2Fch00000090990000001093%2Fmanifest.mpd%3FAuthInfo%3Dv87HD9rEhwHiAdYyrP20Tg5pgSMSITY%252FHYvvCWJRp%252BoLvT86fM74ocVChyFS93HUytokK1MIobcue1ImXa0ZEA%253D%253D%26version%3Dv1.0%26BreakPoint%3D0%26virtualDomain%3D001.live_hls.zte.com%26programid%3Dch00000000000000001214%26contentid%3Dch00000000000000001214%26videoid%3Dch00000090990000001093%26recommendtype%3D0%26userid%3D1084724632836%26boid%3D001%26stbid%3D02%253A00%253A00%253A00%253A00%253A00%26terminalflag%3D1%26profilecode%3D%26usersessionid%3DFGE3OISG4KGXXX%26NeedJITP%3D1%26JITPMediaType%3DDASH%26JITPDRMType%3DNO&ua=Dalvik%2F2.1.0+%28Linux%3B+U%3B+Android+12%3B+Pixel+6+Build%2FSD1A.210817.036%29';
+    
+    player.configure({
+      manifest: {
+        dash: {
+          ignoreMinBufferTime: true,
+          ignoreSuggestedPresentationDelay: true,
+          clockSyncUri: 'https://time.akamai.com/?iso'
+        }
+      },
+      streaming: { inaccurateManifestTolerance: 5 }
+    });
+
+    const activeProxy = { match: 'blue-voice-4f1f', base: 'https://blue-voice-4f1f.czg3i9ixp6ywxh2mw61dxdwf.workers.dev/', domainEnd: '.dev/' };
+    const proxyUA = 'Dalvik/2.1.0';
+    let mpdBaseUrl = '';
+    let currentProxyBase = '';
+    if (url.includes('?url=')) {
+      currentProxyBase = url.substring(0, url.indexOf('?url='));
+      const mpdUrlParam = url.match(/\?url=([^&]+)/);
+      if (mpdUrlParam) {
+        const decoded = decodeURIComponent(mpdUrlParam[1]);
+        mpdBaseUrl = decoded.substring(0, decoded.lastIndexOf('/') + 1);
+      }
+    }
+
+    player.getNetworkingEngine().registerRequestFilter((type, request) => {
+      for (let i = 0; i < request.uris.length; i++) {
+        let uri = request.uris[i];
+        if (uri.startsWith('data:')) continue;
+        
+        if (currentProxyBase && uri.startsWith(currentProxyBase)) {
+          if (uri.includes('?url=')) continue;
+          
+          const afterDomain = uri.substring(currentProxyBase.length);
+          if (afterDomain) {
+            let fixDomain = afterDomain;
+            if(fixDomain.startsWith('dash/')) fixDomain = fixDomain.substring(5);
+            const realUrl = mpdBaseUrl + fixDomain;
+            request.uris[i] = currentProxyBase + '?url=' + encodeURIComponent(realUrl) + '&ua=' + encodeURIComponent(proxyUA);
+          }
+          continue;
+        }
+        
+        if (!uri.includes('?url=')) {
+          const baseProxy = currentProxyBase || activeProxy.base;
+          request.uris[i] = baseProxy + '?url=' + encodeURIComponent(uri) + '&ua=' + encodeURIComponent(proxyUA);
+        }
+      }
+    });
+
+    player.load(url).then(() => {
+      log('The video has now been loaded!');
+    }).catch(e => log('Load failed: ' + e));
+  </script>
+</body>
+</html>

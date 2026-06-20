@@ -377,12 +377,16 @@
         shakaInstance.getNetworkingEngine().clearAllRequestFilters();
 
         if (activeProxy) {
-          const proxyUA = 'Dalvik/2.1.0 (Linux; U; Android 12; Pixel 6 Build/SD1A.210817.036)';
+          const proxyUA = 'Dalvik/2.1.0';
           let mpdBaseUrl = '';
-          const mpdUrlParam = url.match(/\?url=([^&]+)/);
-          if (mpdUrlParam) {
-            const decoded = decodeURIComponent(mpdUrlParam[1]);
-            mpdBaseUrl = decoded.substring(0, decoded.lastIndexOf('/') + 1);
+          let currentProxyBase = '';
+          if (url.includes('?url=')) {
+            currentProxyBase = url.substring(0, url.indexOf('?url='));
+            const mpdUrlParam = url.match(/\?url=([^&]+)/);
+            if (mpdUrlParam) {
+              const decoded = decodeURIComponent(mpdUrlParam[1]);
+              mpdBaseUrl = decoded.substring(0, decoded.lastIndexOf('/') + 1);
+            }
           }
 
           shakaInstance.getNetworkingEngine().registerRequestFilter((type, request) => {
@@ -393,21 +397,26 @@
             for (let i = 0; i < request.uris.length; i++) {
               let uri = request.uris[i];
               if (uri.startsWith('data:')) continue;
-              if (uri.includes(activeProxy.match) && uri.includes('?url=') && uri.includes('&ua=')) continue;
-              if (uri.includes(activeProxy.match)) {
-                const domainIdx = uri.indexOf(activeProxy.domainEnd);
-                if (domainIdx > -1) {
-                  const afterDomain = uri.substring(domainIdx + activeProxy.domainEnd.length);
-                  if (afterDomain && !afterDomain.startsWith('?')) {
-                    let fixDomain = afterDomain;
-                    if(fixDomain.startsWith('dash/')) fixDomain = fixDomain.substring(5);
-                    const realUrl = mpdBaseUrl + fixDomain;
-                    request.uris[i] = activeProxy.base + '?url=' + encodeURIComponent(realUrl) + '&ua=' + encodeURIComponent(proxyUA);
-                  }
+              
+              // If we know the active proxy base and the uri starts with it
+              if (currentProxyBase && uri.startsWith(currentProxyBase)) {
+                if (uri.includes('?url=')) continue; // Already proxied properly
+                
+                const afterDomain = uri.substring(currentProxyBase.length);
+                if (afterDomain) {
+                  let fixDomain = afterDomain;
+                  if(fixDomain.startsWith('dash/')) fixDomain = fixDomain.substring(5);
+                  const realUrl = mpdBaseUrl + fixDomain;
+                  request.uris[i] = currentProxyBase + '?url=' + encodeURIComponent(realUrl) + '&ua=' + encodeURIComponent(proxyUA);
                 }
                 continue;
               }
-              request.uris[i] = activeProxy.base + '?url=' + encodeURIComponent(uri) + '&ua=' + encodeURIComponent(proxyUA);
+              
+              // If it's an absolute URL that isn't using the proxy yet, proxy it
+              if (!uri.includes('?url=')) {
+                const baseProxy = currentProxyBase || activeProxy.base;
+                request.uris[i] = baseProxy + '?url=' + encodeURIComponent(uri) + '&ua=' + encodeURIComponent(proxyUA);
+              }
             }
           });
           
