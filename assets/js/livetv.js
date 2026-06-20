@@ -321,7 +321,9 @@
         // Add network filter for proxied streams (Cloudflare or Railway)
         const proxyPatterns = [
           { match: 'blue-voice-4f1f', base: 'https://blue-voice-4f1f.czg3i9ixp6ywxh2mw61dxdwf.workers.dev/', domainEnd: '.dev/' },
-          { match: 'prox-production', base: 'https://prox-production-a3e4.up.railway.app/', domainEnd: '.app/' }
+          { match: 'prox-production', base: 'https://prox-production-a3e4.up.railway.app/', domainEnd: '.app/' },
+          { match: 'floral-bird-e8ca', base: 'https://floral-bird-e8ca.zjhw6oev542aefbid27l4ifo.workers.dev/', domainEnd: '.dev/' },
+          { match: 'tiny-sky-b9fd', base: 'https://tiny-sky-b9fd.v32k84wntwbguzg6hf4tkrsq.workers.dev/', domainEnd: '.dev/' }
         ];
         const activeProxy = proxyPatterns.find(p => url.includes(p.match));
         

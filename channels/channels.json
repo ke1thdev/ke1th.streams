@@ -10,13 +10,6 @@
     }
   },
   {
-    "name": "ANIMAX HD",
-    "type": "TV",
-    "logo": "https://i.imgur.com/rN5c88Q.png",
-    "category": "Kids & Cartoons",
-    "streamUrl": "https://tiny-sky-b9fd.v32k84wntwbguzg6hf4tkrsq.workers.dev/?url=https%3A%2F%2Famg02159-amg02159c9-amgplt0352.playout.now3.amagi.tv%2Fts-eu-w1-n2%2Fbeacon%2Famg02159-amg02159c9-amgplt0352%2F2406443a-6c55-11f1-a313-42cd573ebbfc%2F1920x1080_5129264%3Fbcn%3D1%26ca%3D0%26cid%3D7010199blackcloverseason2%26dur%3D6.006000%26media_type%3DC%26redirect_url%3Dhttps%253A%252F%252Famg02159-amg02159c9-amgplt0352.playout.now3.amagi.tv%252Fplaylist_6038302570350491800_5900a311_17393257687695812080_3222254.ts%26seen-ad%3D1%26seg_id%3D3222254%26user_id%3D2406443a-6c55-11f1-a313-42cd573ebbfc"
-  },
-  {
     "name": "Cartoon Channel PH",
     "type": "TV",
     "logo": "https://iyadtv.pages.dev/images/cartoon_channel_ph_47.png",
@@ -280,7 +273,7 @@
     "type": "TV",
     "logo": "https://i.imgur.com/gA3qj2n.png",
     "category": "Movies",
-    "streamUrl": "https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01006-abs-cbn-cinemo-dash-abscbnono/98247661-3c19-47c7-a79c-39e9701d96c8/index.mpd"
+    "streamUrl": "https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01006-abs-cbn-cinemo-dash-abscbnono/index.mpd"
   },
   {
     "name": "Cinemo! Global",
