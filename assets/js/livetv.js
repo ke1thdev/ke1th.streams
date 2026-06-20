@@ -244,6 +244,19 @@
         const fallbackLogo = `https://ui-avatars.com/api/?name=${encodedName}&background=random&color=fff&size=256&font-size=0.33&bold=true`;
         const logoUrl = ch.logo || fallbackLogo;
         
+        const url = ch.url || ch.streamUrl;
+        const isIosBlocked = ch.drm || (url && url.includes('prox-production'));
+        
+        let iosIndicator = '';
+        if (isIosBlocked) {
+          iosIndicator = `
+            <span title="Not supported on iOS" style="display: inline-flex; align-items: center; justify-content: center; margin-left: 6px; vertical-align: middle; color: var(--text-muted); position: relative;">
+              <svg viewBox="0 0 384 512" width="12" height="12" fill="currentColor"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.3 48.6-.7 90.4-82.5 102.7-119.3-65.2-30.7-61.7-90-62-91.3zM85.3 18.2c24.2-29.2 55.9-49.1 82.2-46.7-.4 31.5-12.8 61.2-35.1 85.5-22.3 24.3-54.8 43.1-84.7 39.7 1.8-31 13.4-58.8 37.6-78.5z"/></svg>
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#e50914" stroke-width="3" style="position: absolute;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </span>
+          `;
+        }
+
         card.innerHTML = `
           <div class="card-img-wrap" style="aspect-ratio: 16/9; background: #BDBDBD;">
             <img class="card-image" src="${logoUrl}" alt="${ch.name}" loading="lazy" style="object-fit: contain; padding: 16px; background: #BDBDBD;" onerror="if(this.src!=='${fallbackLogo}')this.src='${fallbackLogo}';">
@@ -251,8 +264,8 @@
               <svg viewBox="0 0 24 24" width="48" height="48" fill="white"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
             </div>
           </div>
-          <div class="card-info" style="padding: 12px; text-align: center;">
-            <span class="card-info-title" style="font-size: 0.95rem; font-weight: 700; color: var(--text-bright);">${ch.name}</span>
+          <div class="card-info" style="padding: 12px; text-align: center; display: flex; align-items: center; justify-content: center;">
+            <span class="card-info-title" style="font-size: 0.95rem; font-weight: 700; color: var(--text-bright);">${ch.name}</span>${iosIndicator}
           </div>
         `;
         
