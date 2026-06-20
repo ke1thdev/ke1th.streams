@@ -140,7 +140,7 @@
 }
 
 .livetv-standalone-header .header-actions {
-  width: 44px;
+  width: auto;
 }
 
 @media (max-width: 768px) {
