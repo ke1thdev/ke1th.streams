@@ -72,6 +72,16 @@
       
       populateCategories(allChannels);
       renderChannels(allChannels);
+      
+      // Auto-play channel from URL if present
+      const urlParams = new URLSearchParams(window.location.search);
+      const targetChannelName = urlParams.get('ch');
+      if (targetChannelName) {
+        const targetChannel = allChannels.find(c => c.name.toLowerCase() === targetChannelName.toLowerCase());
+        if (targetChannel) {
+          playChannel(targetChannel, true);
+        }
+      }
     } catch (err) {
       console.error('Error fetching channels:', err);
       grid.innerHTML = '<p style="color: var(--text); padding: 20px;">Failed to load channels. Please try again later.</p>';
@@ -242,6 +252,11 @@
     if (scroll) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+
+    // Update URL to include the channel name for sharing
+    const newUrl = new URL(window.location.href);
+    newUrl.searchParams.set('ch', channel.name);
+    window.history.replaceState({}, '', newUrl);
 
     // cleanup previous instances
     if (hlsInstance) {
