@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ke1th-streams-v3.3.15';
+const CACHE_NAME = 'ke1th-streams-v3.3.16';
 const APP_SHELL = [
   '/',
   '/index.html',
@@ -137,4 +137,5 @@ self.addEventListener('fetch', event => {
     })()
   );
 });
+
 
