@@ -413,6 +413,20 @@
           console.error('Error loading stream:', e);
           showToast('Failed to load this live stream.');
         }
+      } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
+        // Fallback for iOS/Safari native HLS playback
+        let nativeUrl = url;
+        
+        // Attempt to seamlessly translate DASH manifest URLs into HLS playlists
+        if (nativeUrl.includes('manifest.mpd')) {
+          nativeUrl = nativeUrl.replace('manifest.mpd', 'index.m3u8');
+          nativeUrl = nativeUrl.replace('JITPMediaType=DASH', 'JITPMediaType=HLS');
+        } else if (nativeUrl.includes('.dash')) {
+          nativeUrl = nativeUrl.replace('.dash', '.m3u8');
+        }
+
+        videoPlayer.src = nativeUrl;
+        videoPlayer.play().catch(e => console.log('Autoplay blocked', e));
       }
     } else {
       videoPlayer.classList.remove('hidden');
