@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mux.js/7.0.3/mux.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/shaka-player@4.7.11/dist/shaka-player.compiled.js"></script>
+</head>
+<body>
+  <video id="video" width="640" height="360" controls autoplay></video>
+  <div id="logs" style="font-family: monospace; white-space: pre-wrap;"></div>
+  <script>
+    function log(msg) {
+        document.getElementById('logs').innerHTML += msg + '\n';
+        console.log(msg);
+    }
+    shaka.polyfill.installAll();
+    const video = document.getElementById('video');
+    const player = new shaka.Player(video);
+    
+    player.addEventListener('error', (e) => log('Error code: ' + (e.detail && e.detail.code) + ' msg: ' + JSON.stringify(e.detail)));
+    
+    const url = 'https://blue-voice-4f1f.czg3i9ixp6ywxh2mw61dxdwf.workers.dev/?url=https%3A%2F%2Fcdn-ue1-prod.tsv2.amagi.tv%2Flinear%2Famg01006-abs-cbn-kapcha-dash-abscbnono%2Fmanifest.mpd&ua=Dalvik%2F2.1.0';
+    
+    player.configure({
+      drm: {
+        clearKeys: {
+          '292dee4236d04054910e9706ee22626b': 'b7c5d3220f6eb6e042a2bcb367b5c09b'
+        }
+      },
+      manifest: {
+        dash: {
+          ignoreMinBufferTime: true,
+          ignoreSuggestedPresentationDelay: true,
+          clockSyncUri: 'https://time.akamai.com/?iso'
+        }
+      },
+      streaming: { inaccurateManifestTolerance: 5 }
+    });
+
+    const activeProxy = { match: 'blue-voice-4f1f', base: 'https://blue-voice-4f1f.czg3i9ixp6ywxh2mw61dxdwf.workers.dev/', domainEnd: '.dev/' };
+    const proxyUA = 'Dalvik/2.1.0';
+    let mpdBaseUrl = 'https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01006-abs-cbn-kapcha-dash-abscbnono/';
+
+    player.getNetworkingEngine().registerRequestFilter((type, request) => {
+      log('Request: ' + type + ' ' + request.uris[0]);
+      for (let i = 0; i < request.uris.length; i++) {
+        let uri = request.uris[i];
+        if (uri.startsWith('data:')) continue;
+        if (uri.includes(activeProxy.match) && uri.includes('?url=') && uri.includes('&ua=')) continue;
+        if (uri.includes(activeProxy.match)) {
+          const domainIdx = uri.indexOf(activeProxy.domainEnd);
+          if (domainIdx > -1) {
+            const afterDomain = uri.substring(domainIdx + activeProxy.domainEnd.length);
+            if (afterDomain && !afterDomain.startsWith('?')) {
+              let fixDomain = afterDomain;
+              if(fixDomain.startsWith('dash/')) fixDomain = fixDomain.substring(5);
+              const realUrl = mpdBaseUrl + fixDomain;
+              request.uris[i] = activeProxy.base + '?url=' + encodeURIComponent(realUrl) + '&ua=' + encodeURIComponent(proxyUA);
+            }
+          }
+          continue;
+        }
+        request.uris[i] = activeProxy.base + '?url=' + encodeURIComponent(uri) + '&ua=' + encodeURIComponent(proxyUA);
+      }
+    });
+
+    player.load(url).then(() => {
+      log('The video has now been loaded!');
+    }).catch(e => log('Load failed: ' + e));
+  </script>
+</body>
+</html>

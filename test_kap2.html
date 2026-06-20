@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mux.js/7.0.3/mux.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/shaka-player@4.7.11/dist/shaka-player.compiled.js"></script>
+</head>
+<body>
+  <video id="video" width="640" height="360" controls autoplay></video>
+  <div id="logs" style="font-family: monospace; white-space: pre-wrap;"></div>
+  <script>
+    function log(msg) {
+        document.getElementById('logs').innerHTML += msg + '\n';
+        console.log(msg);
+    }
+    shaka.polyfill.installAll();
+    const video = document.getElementById('video');
+    const player = new shaka.Player(video);
+    
+    player.addEventListener('error', (e) => log('Error code: ' + (e.detail && e.detail.code) + ' msg: ' + JSON.stringify(e.detail)));
+    
+    const url = 'https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01006-abs-cbn-kapcha-dash-abscbnono/manifest.mpd';
+    
+    player.configure({
+      drm: {
+        clearKeys: {
+          '292dee4236d04054910e9706ee22626b': 'b7c5d3220f6eb6e042a2bcb367b5c09b'
+        }
+      },
+      manifest: {
+        dash: {
+          ignoreMinBufferTime: true,
+          ignoreSuggestedPresentationDelay: true,
+          clockSyncUri: 'https://time.akamai.com/?iso'
+        }
+      },
+      streaming: { inaccurateManifestTolerance: 5 }
+    });
+
+    player.load(url).then(() => {
+      log('The video has now been loaded!');
+    }).catch(e => log('Load failed: ' + e));
+  </script>
+</body>
+</html>
