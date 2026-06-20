@@ -878,7 +878,7 @@
     "type": "TV",
     "logo": "https://i.imgur.com/b9UaL8G.png",
     "category": "Entertainment",
-    "streamUrl": "https://prox-production-a3e4.up.railway.app/?url=http%3A%2F%2F136.158.97.2%3A6610%2F001%2F2%2Fch00000090990000001093%2Fmanifest.mpd%3FAuthInfo%3Dv87HD9rEhwHiAdYyrP20Tg5pgSMSITY%252FHYvvCWJRp%252BoLvT86fM74ocVChyFS93HUytokK1MIobcue1ImXa0ZEA%253D%253D%26version%3Dv1.0&ua=Dalvik%2F2.1.0%20(Linux%3B%20U%3B%20Android%2012%3B%20Pixel%206%20Build%2FSD1A.210817.036)"
+    "streamUrl": "https://prox-production-a3e4.up.railway.app/?url=http%3A%2F%2F136.158.97.2%3A6610%2F001%2F2%2Fch00000090990000001093%2Fmanifest.mpd%3FAuthInfo%3Dv87HD9rEhwHiAdYyrP20Tg5pgSMSITY%252FHYvvCWJRp%252BoLvT86fM74ocVChyFS93HUytokK1MIobcue1ImXa0ZEA%253D%253D%26version%3Dv1.0%26BreakPoint%3D0%26virtualDomain%3D001.live_hls.zte.com%26programid%3Dch00000000000000001214%26contentid%3Dch00000000000000001214%26videoid%3Dch00000090990000001093%26recommendtype%3D0%26userid%3D1084724632836%26boid%3D001%26stbid%3D02%253A00%253A00%253A00%253A00%253A00%26terminalflag%3D1%26profilecode%3D%26usersessionid%3DFGE3OISG4KGXXX%26NeedJITP%3D1%26JITPMediaType%3DDASH%26JITPDRMType%3DNO&ua=Dalvik%2F2.1.0+%28Linux%3B+U%3B+Android+12%3B+Pixel+6+Build%2FSD1A.210817.036%29"
   },
   {
     "name": "GMA Life TV",
