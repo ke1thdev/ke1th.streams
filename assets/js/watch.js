@@ -293,9 +293,11 @@
            };
            localStorage.setItem('watchProgress', JSON.stringify(progressData));
 
-           // Show Next Episode FAB when near the end (90%+)
-           if (progRatio >= 90 && state.hasNextEpisode && els.nextEpBtn) {
+           // Show Next Episode FAB when really near the end (97%+)
+           if (progRatio >= 97 && state.hasNextEpisode && els.nextEpBtn) {
                els.nextEpBtn.classList.add('visible');
+           } else if (progRatio < 97 && els.nextEpBtn) {
+               els.nextEpBtn.classList.remove('visible');
            }
 
 
@@ -381,6 +383,7 @@
 
   function playNextEpisode() {
       if (!state.hasNextEpisode || !state.nextEpisodeInfo) return;
+      if (els.nextEpBtn) els.nextEpBtn.classList.remove('visible');
       state.season = state.nextEpisodeInfo.season;
       state.episode = state.nextEpisodeInfo.episode;
       const url = new URL(window.location);
