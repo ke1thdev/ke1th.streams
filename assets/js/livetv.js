@@ -46,9 +46,18 @@
         showToast('Your browser does not support this stream.');
         return;
       }
-      shakaInstance = new shaka.Player(videoPlayer);
-      const videoContainer = document.getElementById('videoContainer');
-      ui = new shaka.ui.Overlay(shakaInstance, videoContainer, videoPlayer);
+
+      // If Shaka UI auto-setup ran on the video element, grab its player instance
+      if (videoPlayer['ui']) {
+        ui = videoPlayer['ui'];
+        shakaInstance = ui.getControls().getPlayer();
+      } else {
+        // Fallback manual setup
+        shakaInstance = new shaka.Player();
+        shakaInstance.attach(videoPlayer);
+        const videoContainer = document.getElementById('videoContainer');
+        ui = new shaka.ui.Overlay(shakaInstance, videoContainer, videoPlayer);
+      }
       
       const config = {
         controlPanelElements: ['play_pause', 'time_and_duration', 'spacer', 'mute', 'volume', 'quality', 'fullscreen'],
@@ -58,7 +67,6 @@
 
       shakaInstance.addEventListener('error', (event) => {
         console.error('Shaka Error:', event.detail);
-        showToast('Stream is currently offline or blocked by the provider.');
       });
     }
   }
