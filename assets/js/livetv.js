@@ -269,6 +269,8 @@
     if (!channel) return;
     
     playerTitle.textContent = channel.name;
+    document.querySelector('.livetv-player-section').style.display = 'block';
+    
     if (channel.logo) {
       playerLogo.src = channel.logo;
       playerLogo.style.display = 'block';
