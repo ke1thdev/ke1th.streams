@@ -160,151 +160,115 @@
 
   const categoryFilter = document.getElementById('categoryFilter');
 
+  const PH_CHANNELS = [
+    'A2Z', 'GMA 7', 'GMA Life TV', 'GMA Pinoy TV', 'Kapamilya Channel', 
+    'TV5', 'IBC 13', 'PTV', 'TVN Movies (Tagalog)', 'Solar', 'PIE', 'One PH', 'GTV', 'Cinemax', 'HBO'
+  ];
+
+  let filteredChannelsList = [];
+  let visibleCount = 0;
+  const BATCH_SIZE = 30;
+
+  function isPhChannel(name) {
+    const lowerName = name.toLowerCase();
+    return PH_CHANNELS.some(ph => lowerName.includes(ph.toLowerCase()) || ph.toLowerCase().includes(lowerName));
+  }
+
+  function sortChannels(channels) {
+    return channels.sort((a, b) => {
+      const isAPh = isPhChannel(a.name);
+      const isBPh = isPhChannel(b.name);
+      if (isAPh && !isBPh) return -1;
+      if (!isAPh && isBPh) return 1;
+      return a.name.localeCompare(b.name);
+    });
+  }
+
   function filterChannels() {
+    const categoryFilter = document.getElementById('categoryFilter');
+    const searchInput = document.getElementById('liveTvSearchInput');
     const selectedCategory = categoryFilter ? categoryFilter.value : 'All';
+    const query = searchInput ? searchInput.value.toLowerCase() : '';
 
     const filtered = allChannels.filter(ch => {
       const matchesCategory = selectedCategory === 'All' || ch.group === selectedCategory;
-      return matchesCategory;
+      const matchesSearch = ch.name.toLowerCase().includes(query);
+      return matchesCategory && matchesSearch;
     });
 
-    renderChannels(filtered);
+    filteredChannelsList = sortChannels(filtered);
+    visibleCount = 0;
+    grid.innerHTML = '';
+    renderBatch();
   }
 
   if (categoryFilter) categoryFilter.addEventListener('change', filterChannels);
+  
+  const searchInput = document.getElementById('liveTvSearchInput');
+  if (searchInput) searchInput.addEventListener('input', filterChannels);
 
-  const categoryOrder = [
-    'Kids & Cartoons',
-    'Movies',
-    'News',
-    'Entertainment',
-    'Documentary',
-    'Sports',
-    'Music',
-    'General'
-  ];
+  function renderBatch() {
+    const nextBatch = filteredChannelsList.slice(visibleCount, visibleCount + BATCH_SIZE);
+    if (nextBatch.length === 0) return;
+
+    nextBatch.forEach(ch => {
+      const card = document.createElement('div');
+      card.className = 'channel-card';
+      
+      const encodedName = encodeURIComponent(ch.name);
+      const fallbackLogo = `https://ui-avatars.com/api/?name=${encodedName}&background=random&color=fff&size=256&font-size=0.33&bold=true`;
+      const logoUrl = ch.logo || fallbackLogo;
+      
+      const url = ch.url || ch.streamUrl;
+      const isIosBlocked = ch.drm || (url && url.includes('prox-production'));
+      
+      let iosIndicator = '';
+      if (isIosBlocked) {
+        iosIndicator = `
+          <span title="Not supported on iOS" style="display: inline-flex; align-items: center; justify-content: center; margin-left: 6px; vertical-align: middle; color: var(--text-muted); position: relative;">
+            <svg viewBox="0 0 384 512" width="12" height="12" fill="currentColor"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.3 48.6-.7 90.4-82.5 102.7-119.3-65.2-30.7-61.7-90-62-91.3zM85.3 18.2c24.2-29.2 55.9-49.1 82.2-46.7-.4 31.5-12.8 61.2-35.1 85.5-22.3 24.3-54.8 43.1-84.7 39.7 1.8-31 13.4-58.8 37.6-78.5z"/></svg>
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#e50914" stroke-width="3" style="position: absolute;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </span>
+        `;
+      }
+
+      card.innerHTML = `
+        <div class="channel-logo-wrap" style="background: #BDBDBD;">
+          <img class="channel-logo" src="${logoUrl}" alt="${ch.name}" loading="lazy" onerror="if(this.src!=='${fallbackLogo}')this.src='${fallbackLogo}';">
+        </div>
+        <div class="channel-info">
+          <div class="channel-name" style="display: flex; align-items: center; justify-content: center;">${ch.name}${iosIndicator}</div>
+          <div class="channel-group">${ch.group}</div>
+        </div>
+      `;
+      
+      card.addEventListener('click', () => {
+        playChannel(ch);
+      });
+      
+      grid.appendChild(card);
+    });
+
+    visibleCount += nextBatch.length;
+  }
 
   function renderChannels(channels) {
+    // This function is kept for compatibility with the initial load sequence
+    filteredChannelsList = sortChannels(channels);
+    visibleCount = 0;
     grid.innerHTML = '';
+    renderBatch();
     
-    // Group channels
-    const grouped = {};
-    channels.forEach(ch => {
-      if (!grouped[ch.group]) grouped[ch.group] = [];
-      grouped[ch.group].push(ch);
-    });
-
-    // Sort categories based on requested order
-    const sortedCategories = Object.keys(grouped).sort((a, b) => {
-      let idxA = categoryOrder.indexOf(a);
-      let idxB = categoryOrder.indexOf(b);
-      if (idxA === -1) idxA = 999;
-      if (idxB === -1) idxB = 999;
-      if (idxA !== idxB) return idxA - idxB;
-      return a.localeCompare(b);
-    });
-
-    sortedCategories.forEach((cat, index) => {
-      const section = document.createElement('section');
-      section.className = 'media-section row';
-      section.style.paddingTop = '10px';
-      section.style.paddingBottom = '10px';
-      
-      const header = document.createElement('div');
-      header.className = 'section-header';
-      header.innerHTML = `<h2 class="section-title">${cat}</h2>`;
-      section.appendChild(header);
-
-      const railId = `livetv-rail-${index}`;
-      const sliderContainer = document.createElement('div');
-      sliderContainer.className = 'rail-container';
-      sliderContainer.innerHTML = `
-        <button class="row-arrow rail-arrow-left" data-target="${railId}" disabled aria-label="Scroll left">
-          <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-        </button>
-        <button class="row-arrow rail-arrow-right" data-target="${railId}" aria-label="Scroll right">
-          <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-        </button>
-      `;
-
-      const slider = document.createElement('div');
-      slider.className = 'media-slider card-rail';
-      slider.id = railId;
-      // Inline styles to ensure horizontal scrolling inside the container
-      slider.style.display = 'flex';
-      slider.style.gap = '16px';
-      slider.style.overflowX = 'auto';
-      slider.style.scrollSnapType = 'x mandatory';
-      slider.style.scrollbarWidth = 'none';
-      // Sort channels within the category alphabetically
-      grouped[cat].sort((a, b) => a.name.localeCompare(b.name)).forEach(ch => {
-        const card = document.createElement('div');
-        card.className = 'card card-landscape channel-card';
-        card.style.flex = '0 0 auto';
-        card.style.width = '240px';
-        card.style.scrollSnapAlign = 'start';
-        
-        const encodedName = encodeURIComponent(ch.name);
-        const fallbackLogo = `https://ui-avatars.com/api/?name=${encodedName}&background=random&color=fff&size=256&font-size=0.33&bold=true`;
-        const logoUrl = ch.logo || fallbackLogo;
-        
-        const url = ch.url || ch.streamUrl;
-        const isIosBlocked = ch.drm || (url && url.includes('prox-production'));
-        
-        let iosIndicator = '';
-        if (isIosBlocked) {
-          iosIndicator = `
-            <span title="Not supported on iOS" style="display: inline-flex; align-items: center; justify-content: center; margin-left: 6px; vertical-align: middle; color: var(--text-muted); position: relative;">
-              <svg viewBox="0 0 384 512" width="12" height="12" fill="currentColor"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.3 48.6-.7 90.4-82.5 102.7-119.3-65.2-30.7-61.7-90-62-91.3zM85.3 18.2c24.2-29.2 55.9-49.1 82.2-46.7-.4 31.5-12.8 61.2-35.1 85.5-22.3 24.3-54.8 43.1-84.7 39.7 1.8-31 13.4-58.8 37.6-78.5z"/></svg>
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#e50914" stroke-width="3" style="position: absolute;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-            </span>
-          `;
+    // Setup intersection observer for infinite scroll
+    const sentinel = document.getElementById('scrollSentinel');
+    if (sentinel) {
+      const observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          renderBatch();
         }
-
-        card.innerHTML = `
-          <div class="card-img-wrap" style="aspect-ratio: 16/9; background: #BDBDBD;">
-            <img class="card-image" src="${logoUrl}" alt="${ch.name}" loading="lazy" style="object-fit: contain; padding: 16px; background: #BDBDBD;" onerror="if(this.src!=='${fallbackLogo}')this.src='${fallbackLogo}';">
-            <div class="card-overlay" style="justify-content: center; align-items: center; background: rgba(0,0,0,0.3);">
-              <svg viewBox="0 0 24 24" width="48" height="48" fill="white"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-            </div>
-          </div>
-          <div class="card-info" style="padding: 12px; text-align: center; display: flex; align-items: center; justify-content: center;">
-            <span class="card-info-title" style="font-size: 0.95rem; font-weight: 700; color: var(--text-bright);">${ch.name}</span>${iosIndicator}
-          </div>
-        `;
-        
-        card.addEventListener('click', () => {
-          playChannel(ch);
-        });
-        
-        slider.appendChild(card);
-      });
-
-      sliderContainer.appendChild(slider);
-      section.appendChild(sliderContainer);
-      grid.appendChild(section);
-
-      const leftBtn = sliderContainer.querySelector('.rail-arrow-left');
-      const rightBtn = sliderContainer.querySelector('.rail-arrow-right');
-      
-      leftBtn.addEventListener('click', () => scrollRail(slider, true, leftBtn, rightBtn));
-      rightBtn.addEventListener('click', () => scrollRail(slider, false, leftBtn, rightBtn));
-      
-      slider.addEventListener('scroll', () => updateArrows(slider, leftBtn, rightBtn), { passive: true });
-      setTimeout(() => updateArrows(slider, leftBtn, rightBtn), 100);
-    });
-  }
-
-  function scrollRail(rail, isLeft, leftBtn, rightBtn) {
-    const amount = rail.clientWidth * 0.8;
-    rail.scrollBy({ left: isLeft ? -amount : amount, behavior: "smooth" });
-    setTimeout(() => updateArrows(rail, leftBtn, rightBtn), 300);
-  }
-
-  function updateArrows(rail, leftBtn, rightBtn) {
-    const maxScroll = rail.scrollWidth - rail.clientWidth;
-    if (leftBtn) leftBtn.disabled = rail.scrollLeft <= 4;
-    if (rightBtn) rightBtn.disabled = rail.scrollLeft >= maxScroll - 4;
+      }, { rootMargin: '200px' });
+      observer.observe(sentinel);
+    }
   }
 
   async function playChannel(channel, scroll = true) {

@@ -317,3 +317,120 @@
 .shaka-volume-bar-container, .shaka-seek-bar-container {
   cursor: pointer;
 }
+
+/* Live TV Redesign Styles */
+.livetv-grid-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  max-width: 1920px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 48px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.livetv-grid-header .other-channels-title {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.header-controls {
+  display: flex;
+  gap: 12px;
+  flex: 1;
+  max-width: 500px;
+  align-items: center;
+}
+
+.inline-search-wrapper {
+  position: relative;
+  flex: 1;
+}
+
+.inline-search-wrapper .search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+}
+
+#liveTvSearchInput {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 10px 16px 10px 40px;
+  color: #fff;
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.2s;
+}
+
+#liveTvSearchInput:focus {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+@media (max-width: 768px) {
+  .livetv-grid-header {
+    padding: 0 16px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .header-controls {
+    max-width: 100%;
+  }
+}
+
+/* Skeleton Loading */
+@keyframes shimmer-live {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton-card {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+}
+
+.skeleton-logo {
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: linear-gradient(90deg, #1a1a1a 25%, #2a2a2a 50%, #1a1a1a 75%);
+  background-size: 200% 100%;
+  animation: shimmer-live 1.5s infinite;
+}
+
+.skeleton-info {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.skeleton-title {
+  width: 60%;
+  height: 16px;
+  background: linear-gradient(90deg, #1a1a1a 25%, #2a2a2a 50%, #1a1a1a 75%);
+  background-size: 200% 100%;
+  animation: shimmer-live 1.5s infinite;
+  border-radius: 4px;
+}
+
+.skeleton-subtitle {
+  width: 40%;
+  height: 12px;
+  background: linear-gradient(90deg, #1a1a1a 25%, #2a2a2a 50%, #1a1a1a 75%);
+  background-size: 200% 100%;
+  animation: shimmer-live 1.5s infinite;
+  border-radius: 4px;
+}
