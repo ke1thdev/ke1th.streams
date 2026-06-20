@@ -1,5 +1,22 @@
 [
   {
+    "name": "ANIMAX",
+    "type": "TV",
+    "logo": "https://i.imgur.com/rN5c88Q.png",
+    "category": "Kids & Cartoons",
+    "streamUrl": "https://floral-bird-e8ca.zjhw6oev542aefbid27l4ifo.workers.dev/?url=https%3A%2F%2Fqp-pldt-live-bpk-02-prod.akamaized.net%2Fbpk-tv%2Fcg_animax_sd_new%2Fdefault%2Findex.mpd&ua=Dalvik%2F2.1.0+%28Linux%3B+U%3B+Android+12%3B+Pixel+6+Build%2FSD1A.210817.036%29",
+    "drm": {
+      "92032b0e41a543fb9830751273b8debd": "a8c99e98e29a9ed3e7534b8c660dd75d"
+    }
+  },
+  {
+    "name": "ANIMAX HD",
+    "type": "TV",
+    "logo": "https://i.imgur.com/rN5c88Q.png",
+    "category": "Kids & Cartoons",
+    "streamUrl": "https://tiny-sky-b9fd.v32k84wntwbguzg6hf4tkrsq.workers.dev/?url=https%3A%2F%2Famg02159-amg02159c9-amgplt0352.playout.now3.amagi.tv%2Fts-eu-w1-n2%2Fbeacon%2Famg02159-amg02159c9-amgplt0352%2F2406443a-6c55-11f1-a313-42cd573ebbfc%2F1920x1080_5129264%3Fbcn%3D1%26ca%3D0%26cid%3D7010199blackcloverseason2%26dur%3D6.006000%26media_type%3DC%26redirect_url%3Dhttps%253A%252F%252Famg02159-amg02159c9-amgplt0352.playout.now3.amagi.tv%252Fplaylist_6038302570350491800_5900a311_17393257687695812080_3222254.ts%26seen-ad%3D1%26seg_id%3D3222254%26user_id%3D2406443a-6c55-11f1-a313-42cd573ebbfc"
+  },
+  {
     "name": "Cartoon Channel PH",
     "type": "TV",
     "logo": "https://iyadtv.pages.dev/images/cartoon_channel_ph_47.png",
@@ -218,6 +235,13 @@
     "streamUrl": "https://live20.bozztv.com/giatvplayout7/giatv-210731/tracks-v1a1/mono.ts.m3u8"
   },
   {
+    "name": "3rsSinePinoy",
+    "type": "TV",
+    "logo": "",
+    "category": "Movies",
+    "streamUrl": "https://live20.bozztv.com/giatvplayout7/giatv-210267/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
     "name": "Blast Movie",
     "type": "TV",
     "logo": "https://static.wikia.nocookie.net/tv-philippines/images/0/0e/Blast_TV_logo.png/revision/latest?cb=20240924121921",
@@ -250,6 +274,13 @@
     "drm": {
       "b207c44332844523a3a3b0469e5652d7": "fe71aea346db08f8c6fbf0592209f955"
     }
+  },
+  {
+    "name": "Cinemo Global",
+    "type": "TV",
+    "logo": "https://i.imgur.com/gA3qj2n.png",
+    "category": "Movies",
+    "streamUrl": "https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01006-abs-cbn-cinemo-dash-abscbnono/98247661-3c19-47c7-a79c-39e9701d96c8/index.mpd"
   },
   {
     "name": "Cinemo! Global",
@@ -841,6 +872,13 @@
     "logo": "https://tse3.mm.bing.net/th/id/OIP.A4lBsmu3xqd66_--R0MxTgHaFj?pid=Api&h=220&P=0",
     "category": "Entertainment",
     "streamUrl": "https://a-cdn.klowdtv.com/live2/gsn_720p/chunks.m3u8"
+  },
+  {
+    "name": "GMA 7",
+    "type": "TV",
+    "logo": "https://i.imgur.com/b9UaL8G.png",
+    "category": "Entertainment",
+    "streamUrl": "https://prox-production-a3e4.up.railway.app/?url=http%3A%2F%2F136.158.97.2%3A6610%2F001%2F2%2Fch00000090990000001093%2Fmanifest.mpd%3FAuthInfo%3Dv87HD9rEhwHiAdYyrP20Tg5pgSMSITY%252FHYvvCWJRp%252BoLvT86fM74ocVChyFS93HUytokK1MIobcue1ImXa0ZEA%253D%253D%26version%3Dv1.0&ua=Dalvik%2F2.1.0%20(Linux%3B%20U%3B%20Android%2012%3B%20Pixel%206%20Build%2FSD1A.210817.036)"
   },
   {
     "name": "GMA Life TV",
