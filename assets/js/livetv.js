@@ -369,6 +369,10 @@
           }
 
           shakaInstance.getNetworkingEngine().registerRequestFilter((type, request) => {
+            if (type === shaka.net.NetworkingEngine.RequestType.LICENSE) {
+              request.headers['Content-Type'] = 'application/octet-stream';
+            }
+            
             for (let i = 0; i < request.uris.length; i++) {
               let uri = request.uris[i];
               if (uri.startsWith('data:')) continue;
@@ -378,13 +382,26 @@
                 if (domainIdx > -1) {
                   const afterDomain = uri.substring(domainIdx + activeProxy.domainEnd.length);
                   if (afterDomain && !afterDomain.startsWith('?')) {
-                    const realUrl = mpdBaseUrl + afterDomain;
+                    let fixDomain = afterDomain;
+                    if(fixDomain.startsWith('dash/')) fixDomain = fixDomain.substring(5);
+                    const realUrl = mpdBaseUrl + fixDomain;
                     request.uris[i] = activeProxy.base + '?url=' + encodeURIComponent(realUrl) + '&ua=' + encodeURIComponent(proxyUA);
                   }
                 }
                 continue;
               }
               request.uris[i] = activeProxy.base + '?url=' + encodeURIComponent(uri) + '&ua=' + encodeURIComponent(proxyUA);
+            }
+          });
+          
+          // Add response filter to fix invalid XML ampersands from proxy
+          shakaInstance.getNetworkingEngine().registerResponseFilter((type, response) => {
+            if (type === shaka.net.NetworkingEngine.RequestType.MANIFEST) {
+              let text = shaka.util.StringUtils.fromUTF8(response.data);
+              if (text.includes('<?xml')) {
+                text = text.replace(/&(?!amp;|lt;|gt;|quot;|apos;)/g, '&amp;');
+                response.data = shaka.util.StringUtils.toUTF8(text);
+              }
             }
           });
         }

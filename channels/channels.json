@@ -1,5 +1,12 @@
 [
   {
+    "name": "GIA TV",
+    "url": "https://live20.bozztv.com/giatvplayout7/giatv-210267/tracks-v1a1/mono.ts.m3u8",
+    "group": "Entertainment",
+    "drm": null,
+    "logo": ""
+  },
+  {
     "name": "ANIMAX",
     "type": "TV",
     "logo": "https://i.imgur.com/rN5c88Q.png",
