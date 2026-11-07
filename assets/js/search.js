@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let searchFilter = "all";
   let searchDebounce = null;
-  const FALLBACK_POSTER = "/assets/imgs/poster-placeholder.png"; // verify path if needed
+  const FALLBACK_POSTER = "assets/imgs/android-chrome-192x192.png";
 
   const esc = (str) => {
     const div = document.createElement("div");

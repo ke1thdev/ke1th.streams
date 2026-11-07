@@ -1,3 +1,10 @@
+const appRoot = new URL(".", document.baseURI);
+window.APP_CONFIG = {
+  APP_BASE: appRoot.pathname.slice(0, -1),
+  HOME_URL: appRoot.href,
+  ...window.APP_CONFIG
+};
+
 // TMDB API Configuration
 // Note: TMDB API keys are designed for client-side use and are rate-limited
 const TMDB_CONFIG = {
@@ -16,7 +23,7 @@ window.TMDB_CONFIG = TMDB_CONFIG;
 // Register Service Worker for PWA
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js').then(registration => {
+    navigator.serviceWorker.register('sw.js').then(registration => {
       //console.log('ServiceWorker registration successful with scope: ', registration.scope);
     }, err => {
       //console.log('ServiceWorker registration failed: ', err);
@@ -103,9 +110,23 @@ function showInstallPromotion() {
       const anim = document.createElement('style');
       anim.id = 'pwa-anim';
       anim.textContent = `
+        @media (max-width: 980px) {
+          body:has(.mobile-dock-wrapper) #pwa-install-banner {
+            --install-banner-bottom: calc(max(10px, env(safe-area-inset-bottom)) + clamp(58px, 16vw, 66px) + 12px);
+            max-width: calc(100vw - 24px);
+            padding-inline: 12px !important;
+            gap: 8px !important;
+          }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          #pwa-install-banner {
+            animation: none !important;
+            bottom: var(--install-banner-bottom, 20px) !important;
+          }
+        }
         @keyframes slideUpPwa {
             from { bottom: -100px; opacity: 0; }
-            to { bottom: 20px; opacity: 1; }
+            to { bottom: var(--install-banner-bottom, 20px); opacity: 1; }
         }
       `;
       document.head.appendChild(anim);
@@ -113,7 +134,7 @@ function showInstallPromotion() {
 
   banner.innerHTML = `
     <div style="display:flex; align-items:center; gap:10px;">
-        <img src="/assets/imgs/android-chrome-192x192.png" style="width:32px; height:32px; border-radius:6px;" />
+        <img src="assets/imgs/android-chrome-192x192.png" style="width:32px; height:32px; border-radius:6px;" />
         <div style="display:flex; flex-direction:column;">
             <span style="font-weight:600; color:#fff;">Install App</span>
             <span style="font-size:0.75rem; color:#aaa;">Add to Home Screen</span>
@@ -138,96 +159,3 @@ function showInstallPromotion() {
     banner.style.display = 'none';
   });
 }
-
-// Mobile Dock SPA (PJAX) Router
-// Keeps the navigation bar persistent so the highlight animation transfers smoothly without disappearing.
-(function initRouter() {
-  const initDockListeners = () => {
-    const dockBtns = document.querySelectorAll('.mobile-dock .dock-btn');
-    if (!dockBtns.length) return;
-    
-    dockBtns.forEach((btn) => {
-      // Remove old listeners to prevent duplicates if initRouter is called again
-      const newBtn = btn.cloneNode(true);
-      btn.parentNode.replaceChild(newBtn, btn);
-      
-      newBtn.addEventListener('click', async (e) => {
-        if (newBtn.classList.contains('dock-active') || e.ctrlKey || e.metaKey || e.shiftKey || e.button !== 0) return;
-        e.preventDefault();
-        
-        // 1. Visually update the dock highlight immediately
-        document.querySelector('.mobile-dock .dock-active')?.classList.remove('dock-active');
-        newBtn.classList.add('dock-active');
-        
-        const targetUrl = newBtn.getAttribute('href') || '/';
-        history.pushState(null, '', targetUrl);
-        await pjaxNavigate(targetUrl);
-      });
-    });
-  };
-
-  async function pjaxNavigate(url) {
-    try {
-      const res = await fetch(url);
-      const htmlText = await res.text();
-      const doc = new DOMParser().parseFromString(htmlText, 'text/html');
-      
-      // Load missing stylesheets
-      const newLinks = Array.from(doc.querySelectorAll('link[rel="stylesheet"]'));
-      newLinks.forEach(newLink => {
-        const cleanHref = newLink.getAttribute('href').split('?')[0];
-        if (!document.querySelector(`link[href^="${cleanHref}"]`)) {
-          const addedLink = document.createElement('link');
-          addedLink.rel = 'stylesheet';
-          addedLink.href = newLink.href;
-          document.head.appendChild(addedLink);
-        }
-      });
-      
-      // Swap <main>
-      const currentMain = document.querySelector('main');
-      const newMain = doc.querySelector('main');
-      if (currentMain && newMain) {
-        currentMain.innerHTML = newMain.innerHTML;
-        currentMain.className = newMain.className;
-      }
-      
-      document.title = doc.title;
-      window.scrollTo(0, 0);
-      
-      // Inject and execute page specific script
-      const scripts = Array.from(doc.querySelectorAll('script'));
-      const pageScript = scripts.find(s => s.src && s.src.match(/(home|browse|livetv|watch|media)\.js/));
-      
-      if (pageScript) {
-         document.querySelectorAll('script[data-pjax]').forEach(s => s.remove());
-         const newScript = document.createElement('script');
-         newScript.src = pageScript.src;
-         newScript.setAttribute('data-pjax', 'true');
-         document.body.appendChild(newScript);
-      }
-    } catch (err) {
-      // Fallback to hard navigation on error
-      window.location.href = url;
-    }
-  }
-
-  window.addEventListener('popstate', () => {
-    const path = window.location.pathname;
-    document.querySelectorAll('.mobile-dock .dock-btn').forEach(btn => {
-       const btnPath = new URL(btn.href, window.location.origin).pathname;
-       if (btnPath === path || (path === '/' && btnPath.includes('index.html'))) {
-           btn.classList.add('dock-active');
-       } else {
-           btn.classList.remove('dock-active');
-       }
-    });
-    pjaxNavigate(window.location.href);
-  });
-
-  if (document.readyState === "loading") {
-    document.addEventListener('DOMContentLoaded', initDockListeners);
-  } else {
-    initDockListeners();
-  }
-})();

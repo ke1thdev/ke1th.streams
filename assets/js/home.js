@@ -109,6 +109,9 @@
 
   async function init() {
     bindEvents();
+    window.addEventListener('pageshow', event => {
+      if (event.persisted) refreshContinueRow();
+    });
 
     renderHeroSkeleton();
     renderSkeletonRows();
@@ -191,54 +194,9 @@
     // Fetch rows sequentially to avoid overwhelming the API
     const results = [];
     
-    // Inject Continue Watching row if present
     if (state.currentCategory === 'all') {
-      try {
-        const progressData = JSON.parse(localStorage.getItem('watchProgress') || '{}');
-        const sortedProgress = Object.entries(progressData)
-          .filter(([key, data]) => data.lastUpdated && data.progress < 95)
-          .sort((a, b) => b[1].lastUpdated - a[1].lastUpdated)
-          .slice(0, 12);
-
-        if (sortedProgress.length > 0) {
-          const continueItems = [];
-          for (const [key, data] of sortedProgress) {
-             const parts = key.split('_');
-             const pType = parts[0];
-             const pId = parts[1];
-             const season = parts[2];
-             const episode = parts[3];
-             
-             try {
-                let tmdbData;
-                if (pType === 'tv') {
-                   tmdbData = await TMDB.getTVDetails(pId);
-                } else if (pType === 'movie') {
-                   tmdbData = await TMDB.getMovieDetails(pId);
-                }
-                
-                if (tmdbData) {
-                   tmdbData.mediaType = pType;
-                   tmdbData.progressData = data;
-                   tmdbData.progressKey = key;
-                   tmdbData.season = season;
-                   tmdbData.episode = episode;
-                   continueItems.push(tmdbData);
-                }
-             } catch(err) {}
-          }
-          
-          if (continueItems.length > 0) {
-             results.push({
-               key: 'continue_watching',
-               title: 'Continue Watching',
-               tileStyle: 'landscape',
-               items: continueItems,
-               dropdownType: null
-             });
-          }
-        }
-      } catch(e) {}
+      const continueRow = await loadContinueRow();
+      if (continueRow) results.push(continueRow);
 
       // Inject Watch Later row if present
       try {
@@ -403,15 +361,9 @@
       }
     }, {passive: true});
 
-    // Mobile dock
-    $$("[data-nav]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        $$("[data-nav]").forEach(b => b.classList.remove("dock-active"));
-        btn.classList.add("dock-active");
-        const action = btn.dataset.nav;
-        if (action === "home") window.scrollTo({ top: 0, behavior: "smooth" });
-        if (action === "search") document.getElementById("openSearchBtnMobile")?.click();
-      });
+    $('[data-nav="home"]')?.addEventListener("click", () => {
+      const behavior = matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+      window.scrollTo({ top: 0, behavior });
     });
 
   }
@@ -423,16 +375,13 @@
       e.stopPropagation();
       const key = removeBtn.dataset.key;
       if (key) {
-         let progressData = JSON.parse(localStorage.getItem('watchProgress') || '{}');
-         delete progressData[key];
-         localStorage.setItem('watchProgress', JSON.stringify(progressData));
-         const card = removeBtn.closest('.card');
+         WatchHistory.dismiss(key);
+         const card = removeBtn.closest('.continue-card');
          if (card) {
             const rail = card.closest('.card-rail');
             card.remove();
-            if (rail && rail.children.length === 0) {
-               rail.closest('.row').remove();
-            }
+            if (!rail.children.length) rail.closest('.row').remove();
+            else updateArrows(rail);
          }
       }
       return;
@@ -477,12 +426,17 @@
       const isResume = card.dataset.resume === "1";
       
       if (isResume) {
-         let url = `/watch.html?type=${type}&id=${id}`;
-         if (card.dataset.season && card.dataset.episode) {
-            url += `&season=${card.dataset.season}&episode=${card.dataset.episode}`;
-         }
-         window.location.href = url;
-         return;
+        const params = new URLSearchParams({ type, id });
+        if (card.dataset.episode) {
+          params.set('season', card.dataset.season);
+          params.set('episode', card.dataset.episode);
+        }
+        if (isAnime) {
+          params.set('anime', '1');
+          if (card.dataset.malId) params.set('malId', card.dataset.malId);
+        }
+        window.location.href = 'watch.html?' + params;
+        return;
       }
       
       if (isAnime) {
@@ -586,6 +540,34 @@
   }
 
   // ─── Rows ───
+  async function loadContinueRow() {
+    const items = [];
+    for (const entry of WatchHistory.getContinueWatching().slice(0, 12)) {
+      try {
+        const detail = entry.type === 'tv' ? await TMDB.getTVDetails(entry.id) : await TMDB.getMovieDetails(entry.id);
+        if (detail) items.push({ ...detail, mediaType: entry.type, isAnime: entry.isAnime, progressData: entry });
+      } catch {
+        // A catalog lookup failure should leave the saved history available.
+      }
+    }
+    return items.length ? { key: 'continue_watching', title: 'Continue Watching', tileStyle: 'landscape', items } : null;
+  }
+
+  async function refreshContinueRow() {
+    if (!state.rowsData.length || state.currentCategory !== 'all') return;
+    const row = await loadContinueRow();
+    if (state.currentCategory !== 'all') return;
+    const previous = els.rows.querySelector('[data-row-key="continue_watching"]');
+    if (!row) {
+      previous?.remove();
+      return;
+    }
+    const section = buildRow(row, 0);
+    if (previous) previous.replaceWith(section);
+    else els.rows.prepend(section);
+    bindRail(section.querySelector('.card-rail'));
+  }
+
   function renderRows(rows) {
     els.rows.innerHTML = "";
     rows.forEach((row, idx) => {
@@ -597,7 +579,7 @@
   }
 
   function buildRow(row, idx) {
-    const railId = `rail-${idx}`;
+    const railId = row.key === "continue_watching" ? "rail-continue" : `rail-${idx}`;
     const tileStyle = row.tileStyle || "poster";
     const rowKey = row.key || "";
     const isGenreRow = rowKey === "genre_dropdown";
@@ -638,9 +620,9 @@
              const activeTab = section.querySelector(".row-tab.active")?.dataset.tab || "movie";
              const activeId = window.TMDB_STATE?.activeGenres?.[rowKey] || row.activeDropdownId;
              if (row.dropdownType === 'provider') {
-                  window.location.href = `/browse.html?type=${activeTab}&provider=${activeId}`;
+                  window.location.href = `browse.html?type=${activeTab}&provider=${activeId}`;
              } else {
-                  window.location.href = `/browse.html?type=${activeTab}&genre=${activeId}`;
+                  window.location.href = `browse.html?type=${activeTab}&genre=${activeId}`;
              }
         });
         
@@ -720,7 +702,7 @@
               activeTab = "anime";
           }
           
-          let url = `/browse.html?type=${activeTab}`;
+          let url = `browse.html?type=${activeTab}`;
           
           if (rowKey === "action") url += "&genre=28";
           if (rowKey === "comedy") url += "&genre=35";
@@ -771,37 +753,31 @@
     card.dataset.type = type;
     card.dataset.anime = isAnime ? "1" : "0";
     
-    if (item.progressData) {
-       card.dataset.resume = "1";
-       if (item.season && item.episode) {
-          card.dataset.season = item.season;
-          card.dataset.episode = item.episode;
-       }
+    const progress = item.progressData;
+    if (progress) {
+      card.dataset.resume = "1";
+      if (progress.episode) {
+        card.dataset.season = progress.season;
+        card.dataset.episode = progress.episode;
+      }
+      if (progress.malId) card.dataset.malId = progress.malId;
     }
     
     card.title = title;
 
-    let displayTitle = title;
-    if (item.progressData && item.season && item.episode && type === "tv") {
-       displayTitle = `${title} - S${item.season} E${item.episode}`;
-    }
-
-    let progressHtml = '';
-    let removeBtnHtml = '';
-    if (item.progressData && item.progressData.progress) {
-       progressHtml = `<div style="width: 100%; height: 4px; background: rgba(255,255,255,0.2); position: absolute; bottom: 0; left: 0; z-index: 10;"><div style="width: ${item.progressData.progress}%; height: 100%; background: #e50914;"></div></div>`;
-       removeBtnHtml = `<div class="remove-continue" data-key="${item.progressKey}" style="position: absolute; top: 6px; right: 6px; z-index: 20; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); border-radius: 50%; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.2s;">
-         <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-       </div>`;
-    }
+    const displayTitle = progress?.episode ? `${title} · S${progress.season} E${progress.episode}` : title;
+    const status = progress?.status === 'up-next' ? 'Up next' : progress?.status === 'watching' ? 'In progress' : 'Ready to resume';
+    const progressHtml = progress?.progress > 0
+      ? `<span class="continue-progress" style="--progress: ${progress.progress}%" aria-hidden="true"></span>`
+      : '';
 
     const genreText = item.genre_ids ? item.genre_ids.map(id => GENRE_MAP[id]).filter(Boolean).slice(0, 3).join(", ") : "";
     const overview = item.overview || "";
 
     card.innerHTML = `
       <div class="card-img-wrap">
-        ${removeBtnHtml}
-        <img class="card-image" src="${src}" alt="${esc(title)}" loading="lazy" decoding="async" />
+        <img class="card-image" src="${src}" alt="${esc(title)}" loading="lazy" decoding="async" ${progress ? "data-glisse-backdrop" : ""} />
+        ${progress ? `<span class="continue-status liquid-glass-bar" data-glisse-surface>${status}</span>` : ""}
         ${isTop10 ? `<span class="card-rank">${item.rank}</span>` : ""}
         ${progressHtml}
         <div class="card-overlay">
@@ -821,7 +797,19 @@
       </div>
     `;
 
-    return card;
+    if (!progress) return card;
+
+    const tile = document.createElement('article');
+    tile.className = 'continue-card';
+    const dismiss = document.createElement('button');
+    dismiss.type = 'button';
+    dismiss.className = 'remove-continue liquid-glass-circle';
+    dismiss.dataset.key = progress.key;
+    dismiss.setAttribute('data-glisse-surface', '');
+    dismiss.setAttribute('aria-label', 'Remove ' + title + ' from Continue Watching');
+    dismiss.innerHTML = '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>';
+    tile.append(card, dismiss);
+    return tile;
   }
 
   function shouldShowTabs(key) {
@@ -1051,13 +1039,14 @@
   }
 
   // ─── Rails ───
-  function initRails() {
-    $$(".card-rail").forEach(rail => {
-      rail.addEventListener("scroll", () => updateArrows(rail), { passive: true });
-      enableDrag(rail);
-      updateArrows(rail);
-    });
+  function bindRail(rail) {
+    rail.addEventListener("scroll", () => updateArrows(rail), { passive: true });
+    enableDrag(rail);
+    updateArrows(rail);
+  }
 
+  function initRails() {
+    $$(".card-rail").forEach(bindRail);
     window.addEventListener("resize", () => {
       $$(".card-rail").forEach(r => updateArrows(r));
     }, { passive: true });
@@ -1100,7 +1089,7 @@
   function openPlayer(type, id) {
     if (!id) return;
     
-    let url = `/watch.html?type=${type}&id=${id}`;
+    let url = `watch.html?type=${type}&id=${id}`;
     
     // For anime lookup from home page, it uses TMDB search but wait, home page openPlayer doesn't easily know if it's anime unless passed in.
     // However, watch.js handles the TMDB id seamlessly for videasy (it uses tmdb ids for movies and tv, and anilist for anime, which home.js doesn't fetch yet for search).

@@ -1,168 +1,312 @@
-/* ========== BASE LIQUID GLASS VARS ========== */
+/* Shared glass material for navigation, search and playback controls. */
 :root {
-  --lg-bg-color: rgba(255, 255, 255, 0.08);
-  --lg-highlight: rgba(255, 255, 255, 0.25);
-  --lg-text: #ffffff;
-  --lg-hover-glow: rgba(255, 255, 255, 0.4);
+  --glass-tint: rgba(28, 28, 31, 0.48);
+  --glass-tint-raised: rgba(34, 34, 38, 0.72);
+  --glass-frost: blur(12px) saturate(1.24);
+  --glass-rim: inset 0 0 0 1px rgba(255, 255, 255, 0.14),
+    inset 1px 1px 1px rgba(255, 255, 255, 0.2),
+    inset -1px -1px 1px rgba(255, 255, 255, 0.08);
+  --glass-shadow: 0 5px 18px rgba(0, 0, 0, 0.24);
 }
 
-/* ========== GLASS CONTAINER ========== */
 .glass-container {
   position: relative;
   display: flex;
-  font-weight: 600;
-  color: var(--lg-text);
-  background: transparent;
-  border-radius: 2rem;
-  overflow: hidden;
-  box-shadow: 0 6px 6px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 0, 0, 0.1);
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 2.2);
+  color: #fff;
+  border-radius: 28px;
+  box-shadow: var(--glass-shadow);
+  isolation: isolate;
 }
 
-.glass-container--rounded {
-  border-radius: 40px;
+.glass-container--rounded,
+.liquid-glass-bar,
+.liquid-glass-input {
+  border-radius: 999px;
 }
 
-.glass-container--circle {
+.glass-container--circle,
+.liquid-glass-circle {
   border-radius: 50%;
 }
 
-/* ========== GLASS LAYERS ========== */
-.glass-filter {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  /* Fallback — JS engine overrides per browser */
-  backdrop-filter: blur(30px) saturate(1.8) brightness(1.1);
-  -webkit-backdrop-filter: blur(30px) saturate(1.8) brightness(1.1);
-  isolation: isolate;
-  border-radius: inherit;
+.liquid-glass {
+  border-radius: 16px;
 }
 
-.glass-overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: var(--lg-bg-color);
-  border-radius: inherit;
-}
-
+.glass-filter,
+.glass-overlay,
 .glass-specular {
   position: absolute;
   inset: 0;
-  z-index: 2;
   border-radius: inherit;
-  overflow: hidden;
-  box-shadow: inset 1px 1px 0 var(--lg-highlight),
-    inset 0 0 5px var(--lg-highlight);
   pointer-events: none;
 }
 
 .glass-content {
   position: relative;
-  z-index: 3;
   display: flex;
   align-items: center;
   width: 100%;
-}
-
-/* ========== SHORTHAND CLASSES ========== */
-.liquid-glass-bar, .liquid-glass, .liquid-glass-circle {
-  position: relative;
-  background: var(--lg-bg-color);
-  backdrop-filter: blur(30px) saturate(1.8) brightness(1.1);
-  -webkit-backdrop-filter: blur(30px) saturate(1.8) brightness(1.1);
-  box-shadow: inset 1px 1px 0 var(--lg-highlight), inset 0 0 5px var(--lg-highlight), 0 6px 6px rgba(0, 0, 0, 0.2);
-  border: none;
-}
-.liquid-glass-bar { border-radius: 40px; }
-.liquid-glass-circle { border-radius: 50%; }
-.liquid-glass { border-radius: 12px; }
-
-/* ═══════════════════════════════════════════════════
-   SAFARI / WEBKIT — Apple Liquid Glass Refraction
-   Simulates real glass edge distortion with layered
-   pseudo-elements since Safari can't do SVG filters
-   in backdrop-filter.
-   ═══════════════════════════════════════════════════ */
-
-/* Edge refraction glow — simulates light bending at glass edges */
-[data-glass-engine="webkit"] .glass-container::before,
-[data-glass-engine="webkit"] .lg-safari-glass.liquid-glass-bar::before,
-[data-glass-engine="webkit"] .lg-safari-glass.liquid-glass::before,
-[data-glass-engine="webkit"] .lg-safari-glass.liquid-glass-circle::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  z-index: 4;
-  pointer-events: none;
-  /* Authentic Apple TV Glass minimal inset */
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
-/* Pure Apple TV gradient overlay — highly transparent for see-through distortion */
-  background: rgba(0, 0, 0, 0.25); /* Simple dark transparent tint for contrast */
-}
-
-/* Override base elements for pure transparency */
-[data-glass-engine="webkit"] .glass-overlay {
-  background: transparent !important;
-}
-
-[data-glass-engine="webkit"] .glass-specular {
-  display: none !important;
-}
-
-/* Remove extra specular overlay */
-[data-glass-engine="webkit"] .glass-container::after {
-  display: none !important;
-}
-
-/* Very faint minimal borders */
-[data-glass-engine="webkit"] .glass-container,
-[data-glass-engine="webkit"] .liquid-glass-bar,
-[data-glass-engine="webkit"] .liquid-glass,
-[data-glass-engine="webkit"] .liquid-glass-circle {
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-/* ─── Liquid Glass — Search Input Variant ─── */
-.liquid-glass-input {
-  position: relative;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(30px) saturate(1.8) brightness(1.08);
-  -webkit-backdrop-filter: blur(30px) saturate(1.8) brightness(1.08);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-bottom-color: rgba(255, 255, 255, 0.06);
-  box-shadow:
-    0 4px 20px rgba(0, 0, 0, 0.25),
-    inset 0 1px 1px rgba(255, 255, 255, 0.12),
-    inset 0 -1px 2px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  isolation: isolate;
-  color: #fff;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
-
-.liquid-glass-input::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.12) 0%,
-    rgba(255, 255, 255, 0.03) 40%,
-    transparent 100%
-  );
-  pointer-events: none;
   z-index: 1;
 }
 
+.glass-overlay {
+  background: var(--glass-tint);
+}
+
+.glass-specular {
+  box-shadow: var(--glass-rim);
+}
+
+.glass-filter,
+:is(.liquid-glass, .liquid-glass-bar, .liquid-glass-circle, .liquid-glass-input) {
+  -webkit-backdrop-filter: var(--glass-frost);
+  backdrop-filter: var(--glass-lens, var(--glass-frost));
+}
+
+:is(.liquid-glass, .liquid-glass-bar, .liquid-glass-circle, .liquid-glass-input) {
+  background-color: var(--glass-tint);
+  border-color: transparent;
+  box-shadow: var(--glass-rim), var(--glass-shadow);
+  transition: background-color 160ms ease, box-shadow 160ms ease;
+}
+
+:is(button, a, select).liquid-glass-bar:hover,
+button.liquid-glass-circle:hover,
 .liquid-glass-input:focus-within {
-  border-color: rgba(255, 255, 255, 0.25);
-  box-shadow:
-    0 4px 24px rgba(0, 0, 0, 0.3),
-    0 0 0 1px rgba(255, 255, 255, 0.08),
-    inset 0 1px 1px rgba(255, 255, 255, 0.15),
-    inset 0 -1px 2px rgba(0, 0, 0, 0.1);
+  background-color: var(--glass-tint-raised);
+}
+
+:is(.glass-container, .liquid-glass, .liquid-glass-bar, .liquid-glass-circle, .glass-content a):focus-visible,
+.liquid-glass-input:focus-within,
+:is(.liquid-glass, .liquid-glass-bar):focus-within:has(select) {
+  outline: 2px solid #d3ddf0;
+  outline-offset: 2px;
+}
+
+@media (min-width: 981px) {
+  .topbar .topbar-inner {
+    background-color: var(--glass-tint);
+    border-color: transparent;
+    box-shadow: var(--glass-rim), var(--glass-shadow);
+    -webkit-backdrop-filter: var(--glass-frost);
+    backdrop-filter: var(--glass-lens, var(--glass-frost));
+  }
+
+  .topbar.scrolled .topbar-inner {
+    background-color: var(--glass-tint-raised);
+  }
+}
+
+.search-overlay {
+  /* Leave the artwork available to the lens inside the search overlay. */
+  background: rgba(0, 0, 0, 0.62);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  padding-top: clamp(100px, 15vh, 148px);
+}
+
+@media (max-width: 980px) {
+  .search-overlay {
+    padding-top: max(72px, env(safe-area-inset-top));
+  }
+}
+
+.search-bar.liquid-glass-input {
+  min-height: 52px;
+  padding: 8px 16px;
+}
+
+.liquid-glass-input #searchInput {
+  min-width: 0;
+  padding: 0;
+}
+
+.liquid-glass-input #searchInput::placeholder,
+.liquid-glass-input .search-icon {
+  color: #c1c1c9;
+}
+
+.search-filter-menu.liquid-glass {
+  --glass-tint: rgba(24, 24, 27, 0.84);
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 160px;
+  padding: 6px;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 250;
+}
+
+.search-header-right .search-filter-btn,
+.search-header-right .search-close-modal {
+  min-height: 44px;
+}
+
+.search-header-right .search-close-modal {
+  width: 44px;
+}
+
+.filter-group select.liquid-glass-bar:hover,
+.filter-group select.liquid-glass-bar:focus {
+  background-color: var(--glass-tint-raised);
+}
+
+.filter-group select.liquid-glass-bar {
+  border-radius: 999px;
+}
+
+.liquid-glass-bar option {
+  background-color: #202024;
+  color: #fff;
+}
+
+.inline-search-wrapper.liquid-glass-input input,
+.liquid-glass-bar .season-select {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.mobile-dock .glass-content::after {
+  background-color: rgba(255, 255, 255, 0.16);
+  box-shadow: var(--glass-rim);
+}
+
+[data-glisse-surface]:has(> .glisse-surface-layer > .lg-glass) {
+  background-color: transparent;
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  isolation: isolate;
+}
+
+.glisse-surface-layer,
+.glisse-surface-layer > .lg-glass {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.glisse-surface-layer {
+  z-index: -1;
+}
+
+.glisse-surface-layer > .lg-glass {
+  --lg-glass: var(--glisse-tint, rgba(25, 25, 29, 0.56));
+  --lg-glass-bend: 0.56;
+  --lg-glass-dispersion: 0.42;
+  --lg-rim-shine: 0.21;
+  --lg-edge: rgba(255, 255, 255, 0.14);
+  --lg-blur: var(--glisse-frost, 2px);
+}
+
+@media (max-width: 980px) {
+  .mobile-dock-wrapper {
+    --dock-tint: rgba(26, 26, 30, 0.38);
+  }
+
+  .mobile-dock-wrapper :is(.lg-tab-bar-glass, .glisse-dock-search-surface) {
+    --lg-glass: var(--dock-tint);
+    --lg-glass-bend: 0.56;
+    --lg-glass-dispersion: 0.42;
+    --lg-rim-shine: 0.21;
+    --lg-edge: rgba(255, 255, 255, 0.14);
+    --lg-blur: 2px;
+    --lg-drop: transparent;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.22);
+  }
+
+  .dock-backdrop-window {
+    position: absolute;
+    inset: -36px;
+    pointer-events: none;
+    clip-path: url(#dock-backdrop-clip);
+  }
+
+  .dock-backdrop,
+  .dock-backdrop-tile {
+    position: absolute;
+    inset: 0;
+  }
+
+  .dock-backdrop-tile {
+    inset: auto;
+    display: block;
+    max-width: none;
+  }
+
+  .glisse-dock-slot {
+    display: flex;
+    position: relative;
+  }
+
+  .glisse-dock-slot,
+  .dock-search-btn {
+    z-index: 1;
+  }
+
+  .mobile-dock-wrapper:has(.lg-tab-bar) > .mobile-dock {
+    display: none;
+  }
+
+  .glisse-dock-slot .lg-tab-bar[data-icons] {
+    --lg-tab-width: var(--dock-tab-width);
+    --lg-tab-height: var(--dock-tab-height);
+    --lg-tab-inset: var(--dock-inset);
+    --lg-tab-selected: #fff;
+    --lg-selection: rgba(255, 255, 255, 0.17);
+    --lg-lens-grow-x: 18px;
+    --lg-lens-grow-y: 14px;
+  }
+
+  .glisse-dock-slot .lg-tab-icon > svg {
+    width: 23px;
+    height: 23px;
+  }
+
+  .glisse-dock-slot .lg-tab-bar[data-icons] :is(.lg-tab, .lg-tab-copy) {
+    gap: 4px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .dock-search-btn .glass-filter:has(.glisse-dock-search-surface) {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  .dock-search-btn:has(.glisse-dock-search-surface) :is(.glass-overlay, .glass-specular) {
+    display: none;
+  }
+
+  .dock-search-btn:has(.glisse-dock-search-surface) {
+    box-shadow: none;
+  }
+
+  .dock-search-btn .glisse-dock-search-surface {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-dock .glass-content:has(.dock-btn.dock-active)::after {
+    animation: none;
+    transition: none;
+  }
+
+  :is(.liquid-glass, .liquid-glass-bar, .liquid-glass-circle, .liquid-glass-input) {
+    transition: none;
+  }
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  @supports not (-webkit-backdrop-filter: blur(1px)) {
+    :root {
+      --glass-tint: #222226;
+    }
+  }
 }
