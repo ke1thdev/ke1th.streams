@@ -16,10 +16,12 @@
     title: document.getElementById('watchTitle'),
     backBtn: document.getElementById('backBtn'),
     serverSelect: document.getElementById('serverSelect'),
+    serverCaption: document.getElementById('serverCaption'),
     videoFrame: document.getElementById('videoFrame'),
     toast: document.getElementById('toast'),
     nextEpBtn: document.getElementById('nextEpBtn'),
-    autoNextControl: document.getElementById('autoNextControl'),
+    playbackOptions: document.getElementById('playbackOptions'),
+    playbackOptionsPanel: document.getElementById('playbackOptionsPanel'),
     autoNextToggle: document.getElementById('autoNextToggle'),
     markFinishedBtn: document.getElementById('markFinishedBtn'),
     watchStatus: document.getElementById('watchStatus')
@@ -83,12 +85,22 @@
     if (els.nextEpBtn) els.nextEpBtn.addEventListener('click', playNextEpisode);
     if (els.markFinishedBtn) els.markFinishedBtn.addEventListener('click', markFinished);
     if (state.type === 'tv' && els.autoNextToggle) {
-      els.autoNextControl?.classList.remove('hidden');
+      els.playbackOptions.hidden = false;
+      els.playbackOptionsPanel.append(els.markFinishedBtn);
       els.autoNextToggle.checked = state.autoNext;
       els.autoNextToggle.addEventListener('change', () => {
         state.autoNext = els.autoNextToggle.checked;
         savePreference('autoNextEpisode', String(state.autoNext));
         syncEpisodeControls();
+      });
+      els.playbackOptions.addEventListener('keydown', event => {
+        if (event.key !== 'Escape' || !els.playbackOptions.open) return;
+        event.preventDefault();
+        els.playbackOptions.open = false;
+        els.playbackOptions.querySelector('summary').focus();
+      });
+      document.addEventListener('pointerdown', event => {
+        if (!els.playbackOptions.contains(event.target)) els.playbackOptions.open = false;
       });
     }
     setupFullscreenSync();
@@ -245,10 +257,16 @@
   }
 
   function markFinished() {
+    const restoreFocus = document.activeElement === els.markFinishedBtn;
     flushProgress();
     WatchHistory.finish(currentMedia());
     episodePlayback.nearEnd = true;
     updateWatchStatus();
+    els.playbackOptions.open = false;
+    if (restoreFocus) {
+      const target = els.playbackOptions.hidden ? els.serverSelect : els.playbackOptions.querySelector('summary');
+      target.focus();
+    }
     syncEpisodeControls();
   }
 
@@ -295,12 +313,6 @@
   async function fetchDetails() {
     try {
       state.details = state.type === 'tv' ? await TMDB.getTVDetails(state.id) : await TMDB.getMovieDetails(state.id);
-      const artwork = state.details.backdrop_path || state.details.poster_path;
-      const backdrop = document.getElementById('watchToolsBackdrop');
-      if (backdrop && typeof artwork === 'string' && /^\/[\w.-]+$/.test(artwork)) {
-        const base = window.TMDB_CONFIG?.IMAGE_BASE || 'https://image.tmdb.org/t/p/w500';
-        backdrop.style.setProperty('--watch-artwork', `url("${base}${artwork}")`);
-      }
       renderEpisode();
     } catch {
       els.title.textContent = 'ke1th.streams';
@@ -379,6 +391,8 @@
 
     const server = state.activeServer;
     els.header.dataset.server = server;
+    els.serverCaption.textContent = server === servers[0] ? 'Server' : els.serverSelect.selectedOptions[0].text;
+    els.playbackOptions.open = false;
     const animeSource = server === 'videasy' && state.type === 'tv' && state.isAnime && state.malId;
     const src = new URL(buildServerUrl(server, animeSource ? 'anime' : state.type,
       animeSource ? state.malId : state.id, state.season, state.episode));

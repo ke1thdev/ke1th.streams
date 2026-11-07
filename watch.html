@@ -20,9 +20,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="assets/css/watch.css?v=3.4.3&amp;rev=vidstuck2" />
-  <link rel="stylesheet" href="assets/css/liquid-glass.css?v=3.4.3&amp;rev=vidstuck2" />
-  <link rel="stylesheet" href="assets/css/landscape.css?v=3.4.3&amp;rev=vidstuck2" />
+  <link rel="stylesheet" href="assets/css/watch.css?v=3.4.3&amp;rev=watchbar2" />
+  <link rel="stylesheet" href="assets/css/liquid-glass.css?v=3.4.3&amp;rev=watchbar2" />
+  <link rel="stylesheet" href="assets/css/landscape.css?v=3.4.3&amp;rev=watchbar2" />
 </head>
 
 <body>
@@ -34,27 +34,7 @@
         <polyline points="12 19 5 12 12 5"></polyline>
       </svg>
     </button>
-    <div class="watch-title-wrap">
-      <h1 id="watchTitle">Loading...</h1>
-      <span id="watchStatus" class="watch-status hidden" role="status"></span>
-    </div>
-    <div class="server-select-wrap liquid-glass-bar" data-glisse-surface>
-      <select id="serverSelect" class="server-select" aria-label="Playback server">
-        <option value="vidstuck" selected>Default Server</option>
-        <option value="videasy">Server 2</option>
-        <option value="vidsrc">Server 3</option>
-        <option value="rive">Server 4</option>
-        <option value="vidup">Server 5</option>
-        <option value="vixsrc">Server 6</option>
-        <option value="vidnest">Server 7</option>
-        <option value="vidfast">Server 8</option>
-        <option value="peachify">Server 9</option>
-      </select>
-      <svg class="select-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor"
-        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <polyline points="6 9 12 15 18 9"></polyline>
-      </svg>
-    </div>
+    <h1 id="watchTitle">Loading...</h1>
   </header>
 
   <main class="watch-main">
@@ -64,21 +44,47 @@
         webkit-playsinline></iframe>
     </div>
     <div class="watch-tools" aria-label="Playback actions" role="group">
-      <div id="watchToolsBackdrop" aria-hidden="true" data-glisse-backdrop></div>
-      <label id="autoNextControl" class="watch-tool liquid-glass-bar hidden" data-glisse-surface>
-        <input id="autoNextToggle" type="checkbox" checked>
-        <span>Auto-next</span>
-      </label>
-      <button id="markFinishedBtn" class="watch-tool liquid-glass-bar" type="button" data-glisse-surface>
-        Mark finished
-      </button>
-      <button id="nextEpBtn" class="watch-tool watch-tool-next liquid-glass-bar hidden" type="button"
-        aria-label="Next episode" data-glisse-surface>
-        <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true">
-          <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/>
+      <div class="server-select-wrap">
+        <span id="serverCaption" aria-hidden="true">Server</span>
+        <svg class="select-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor"
+          stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="6 9 12 15 18 9"></polyline>
         </svg>
-        <span id="nextEpLabel">Next episode</span>
-      </button>
+        <select id="serverSelect" class="server-select" aria-label="Playback server">
+          <option value="vidstuck" selected>Default Server</option>
+          <option value="videasy">Server 2</option>
+          <option value="vidsrc">Server 3</option>
+          <option value="rive">Server 4</option>
+          <option value="vidup">Server 5</option>
+          <option value="vixsrc">Server 6</option>
+          <option value="vidnest">Server 7</option>
+          <option value="vidfast">Server 8</option>
+          <option value="peachify">Server 9</option>
+        </select>
+      </div>
+      <span id="watchStatus" class="watch-status hidden" role="status"></span>
+      <div class="watch-actions">
+        <button id="markFinishedBtn" class="watch-tool" type="button">Mark finished</button>
+        <button id="nextEpBtn" class="watch-tool watch-tool-next hidden" type="button" aria-label="Next episode">
+          <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true">
+            <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/>
+          </svg>
+          <span id="nextEpLabel">Next episode</span>
+        </button>
+        <details id="playbackOptions" class="watch-options" hidden>
+          <summary class="watch-tool watch-options-toggle" aria-label="Playback options">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+              <circle cx="5" cy="12" r="1.75"/><circle cx="12" cy="12" r="1.75"/><circle cx="19" cy="12" r="1.75"/>
+            </svg>
+          </summary>
+          <div id="playbackOptionsPanel" class="watch-options-panel">
+            <label class="watch-tool">
+              <span>Auto-next</span>
+              <input id="autoNextToggle" type="checkbox" checked>
+            </label>
+          </div>
+        </details>
+      </div>
     </div>
   </main>
 
@@ -117,13 +123,13 @@
       </div>
   </dialog>
 
-  <script src="assets/js/config.js?v=3.4.3&amp;rev=vidstuck2"></script>
-  <script src="assets/js/tmdb.js?v=3.4.3&amp;rev=vidstuck2"></script>
-  <script src="assets/js/landscape.js?v=3.4.3&amp;rev=vidstuck2"></script>
-  <script src="assets/js/liquid-glass.js?v=3.4.3&amp;rev=vidstuck2"></script>
-  <script type="module" src="assets/vendor/mobile-dock.min.js?v=3.4.3&amp;rev=vidstuck2"></script>
-  <script src="assets/js/watch-history.js?v=3.4.3&amp;rev=vidstuck2"></script>
-  <script src="assets/js/watch.js?v=3.4.3&amp;rev=vidstuck2"></script>
+  <script src="assets/js/config.js?v=3.4.3&amp;rev=watchbar2"></script>
+  <script src="assets/js/tmdb.js?v=3.4.3&amp;rev=watchbar2"></script>
+  <script src="assets/js/landscape.js?v=3.4.3&amp;rev=watchbar2"></script>
+  <script src="assets/js/liquid-glass.js?v=3.4.3&amp;rev=watchbar2"></script>
+  <script type="module" src="assets/vendor/mobile-dock.min.js?v=3.4.3&amp;rev=watchbar2"></script>
+  <script src="assets/js/watch-history.js?v=3.4.3&amp;rev=watchbar2"></script>
+  <script src="assets/js/watch.js?v=3.4.3&amp;rev=watchbar2"></script>
 
   <!-- SVG displacement filters are now dynamically generated by liquid-glass.js -->
 </body>

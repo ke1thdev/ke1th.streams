@@ -77,6 +77,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
 });
 
 function showInstallPromotion() {
+  if (document.querySelector('.watch-main')) return;
   if (document.getElementById('pwa-install-banner')) return;
 
   const banner = document.createElement('div');
