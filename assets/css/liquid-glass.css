@@ -2,7 +2,7 @@
 :root {
   --glass-bend: 1;
   --glass-dispersion: 0;
-  --glass-blur: 0px;
+  --glass-blur: 3px;
   --glass-rim-shine: 0.13;
   --glass-tint: rgba(28, 28, 31, 0.48);
   --glass-tint-raised: rgba(34, 34, 38, 0.72);
@@ -286,8 +286,8 @@ button.liquid-glass-circle:hover,
 
   /* Keep WebKit's live backdrop limited to the two rounded dock plates. */
   .glass-economy .mobile-dock-wrapper .glass-filter {
-    -webkit-backdrop-filter: saturate(1.35) brightness(1.08);
-    backdrop-filter: saturate(1.35) brightness(1.08);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.35) brightness(1.08);
+    backdrop-filter: blur(var(--glass-blur)) saturate(1.35) brightness(1.08);
   }
 
   .glass-economy .dock-btn {
