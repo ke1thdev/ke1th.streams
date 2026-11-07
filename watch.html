@@ -8,26 +8,26 @@
   <meta charset="UTF-8" />
   <meta name="viewport"
     content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <title>Watch - ke1th.streams v3.4.1</title>
+  <title>Watch - ke1th.streams v3.4.2</title>
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/imgs/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/imgs/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/imgs/favicon-16x16.png">
-  <link rel="manifest" href="/assets/imgs/site.webmanifest">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/imgs/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/imgs/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/imgs/favicon-16x16.png">
+  <link rel="manifest" href="assets/imgs/site.webmanifest">
   <meta name="theme-color" content="#121212">
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="/assets/css/watch.css?v=3.4.0" />
-  <link rel="stylesheet" href="/assets/css/liquid-glass.css?v=3.4.0" />
-  <link rel="stylesheet" href="/assets/css/landscape.css?v=3.4.0" />
+  <link rel="stylesheet" href="assets/css/watch.css?v=3.4.2" />
+  <link rel="stylesheet" href="assets/css/liquid-glass.css?v=3.4.2" />
+  <link rel="stylesheet" href="assets/css/landscape.css?v=3.4.2" />
 </head>
 
 <body>
   <header class="watch-header">
-    <button id="backBtn" class="back-btn liquid-glass-circle" aria-label="Go Back">
+    <button id="backBtn" class="back-btn liquid-glass-circle" aria-label="Go Back" data-glisse-surface>
       <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
         stroke-linecap="round" stroke-linejoin="round">
         <line x1="19" y1="12" x2="5" y2="12"></line>
@@ -37,12 +37,13 @@
     </button>
     <div class="watch-title-wrap">
       <h1 id="watchTitle">Loading...</h1>
+      <span id="watchStatus" class="watch-status hidden" role="status"></span>
     </div>
     <div class="header-actions">
       <div class="server-selector" id="serverSelector">
         <span class="server-label">Server:</span>
-        <div class="server-select-wrap liquid-glass">
-        <select id="serverSelect" class="server-select">
+        <div class="server-select-wrap liquid-glass-bar" data-glisse-surface>
+        <select id="serverSelect" class="server-select" aria-label="Playback server">
           <option value="videasy" selected>Default Server</option>
           <option value="vidsrc">Server 2</option>
           <option value="rive">Server 3</option>
@@ -69,13 +70,23 @@
     </div>
     <!-- Tap interceptor � catches taps over the iframe to re-show the glass overlay on mobile -->
     <div id="tapInterceptor" class="tap-interceptor"></div>
-    <!-- Floating Next Episode button � appears near end of episode -->
-    <button id="nextEpBtn" class="next-ep-fab liquid-glass-bar hidden" aria-label="Next Episode">
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-        <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/>
-      </svg>
-      <span>Next Episode</span>
-    </button>
+    <div class="watch-tools" aria-label="Playback actions" role="group">
+      <div id="watchToolsBackdrop" aria-hidden="true" data-glisse-backdrop></div>
+      <label id="autoNextControl" class="watch-tool liquid-glass-bar hidden" data-glisse-surface>
+        <input id="autoNextToggle" type="checkbox" checked>
+        <span>Auto-next</span>
+      </label>
+      <button id="markFinishedBtn" class="watch-tool liquid-glass-bar" type="button" data-glisse-surface>
+        Mark finished
+      </button>
+      <button id="nextEpBtn" class="watch-tool watch-tool-next liquid-glass-bar hidden" type="button"
+        aria-label="Next episode" data-glisse-surface>
+        <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true">
+          <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/>
+        </svg>
+        <span id="nextEpLabel">Next episode</span>
+      </button>
+    </div>
   </main>
 
   <div id="toast" class="toast hidden" aria-live="assertive"></div>
@@ -85,7 +96,7 @@
     <div class="disclaimer-backdrop"></div>
     <div class="disclaimer-content">
       <div class="disclaimer-header">
-        <img src="/assets/imgs/android-chrome-192x192.png" alt="logo"
+        <img src="assets/imgs/android-chrome-192x192.png" alt="logo"
           style="width: 28px; height: 28px; margin-right: 6px; border-radius: 4px;" />
         <h2 class="disclaimer-title">Before you start watching</h2>
       </div>
@@ -118,11 +129,13 @@
     </div>
   </div>
 
-  <script src="/assets/js/config.js?v=3.4.0"></script>
-  <script src="/assets/js/tmdb.js?v=3.4.0"></script>
-  <script src="/assets/js/landscape.js?v=3.4.0"></script>
-  <script src="/assets/js/liquid-glass.js?v=3.4.0"></script>
-  <script src="/assets/js/watch.js?v=3.4.0"></script>
+  <script src="assets/js/config.js?v=3.4.2"></script>
+  <script src="assets/js/tmdb.js?v=3.4.2"></script>
+  <script src="assets/js/landscape.js?v=3.4.2"></script>
+  <script src="assets/js/liquid-glass.js?v=3.4.2"></script>
+  <script type="module" src="assets/vendor/mobile-dock.min.js?v=3.4.2"></script>
+  <script src="assets/js/watch-history.js?v=3.4.2"></script>
+  <script src="assets/js/watch.js?v=3.4.2"></script>
 
   <!-- SVG displacement filters are now dynamically generated by liquid-glass.js -->
 </body>

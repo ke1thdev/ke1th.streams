@@ -71,6 +71,19 @@ Experience the platform live at: **[stream.ke1th.dev](https://stream.ke1th.dev/)
 
 ## Setup Instructions
 
+### XAMPP on Windows
+
+1. Keep this project in `C:\xampp\htdocs\STREAMMOVIES`.
+2. Open the XAMPP Control Panel and start **Apache**.
+3. Open [http://localhost/STREAMMOVIES/](http://localhost/STREAMMOVIES/) in your browser.
+
+The site uses static HTML, CSS, and JavaScript. Apache serves the files, while
+the catalog and video players connect to their existing online services.
+
+The mobile dock uses the official Glisse Tab Bar and Glass components.
+The browser-ready bundle is included. If you edit the dock integration,
+run `npm ci` followed by `npm run build:glass` to rebuild it.
+
 To run this project locally:
 
 1. Clone the repository to your machine.

@@ -1,27 +1,31 @@
-const CACHE_NAME = 'ke1th-streams-v3.4.1';
+const CACHE_NAME = 'ke1th-streams-v3.4.2-' + self.registration.scope;
 const APP_SHELL = [
-  '/',
-  '/index.html',
-  '/browse.html',
-  '/livetv.html',
-  '/watch.html',
-  '/media.html',
-  '/offline.html',
-  '/assets/css/home.css',
-  '/assets/css/browse.css',
-  '/assets/css/livetv.css',
-  '/assets/css/watch.css',
-  '/assets/css/media.css',
-  '/assets/css/liquid-glass.css',
-  '/assets/js/config.js',
-  '/assets/js/tmdb.js',
-  '/assets/js/home.js',
-  '/assets/js/browse.js',
-  '/assets/js/livetv.js',
-  '/assets/js/watch.js',
-  '/assets/js/media.js',
-  '/assets/js/search.js',
-  '/assets/js/liquid-glass.js'
+  './',
+  './index.html',
+  './browse.html',
+  './livetv.html',
+  './watch.html',
+  './media.html',
+  './offline.html',
+  './assets/css/home.css?v=3.4.2',
+  './assets/css/browse.css?v=3.4.2',
+  './assets/css/livetv.css?v=3.4.2',
+  './assets/css/watch.css?v=3.4.2',
+  './assets/css/media.css?v=3.4.2',
+  './assets/css/liquid-glass.css?v=3.4.2',
+  './assets/css/landscape.css?v=3.4.2',
+  './assets/js/config.js?v=3.4.2',
+  './assets/js/tmdb.js?v=3.4.2',
+  './assets/js/home.js?v=3.4.2',
+  './assets/js/browse.js?v=3.4.2',
+  './assets/js/livetv.js?v=3.4.2',
+  './assets/js/watch-history.js?v=3.4.2',
+  './assets/js/watch.js?v=3.4.2',
+  './assets/js/media.js?v=3.4.2',
+  './assets/js/search.js?v=3.4.2',
+  './assets/js/liquid-glass.js?v=3.4.2',
+  './assets/js/landscape.js?v=3.4.2',
+  './assets/vendor/mobile-dock.min.js?v=3.4.2'
 ];
 
 self.addEventListener('install', event => {
@@ -37,7 +41,9 @@ self.addEventListener('activate', event => {
     caches.keys().then(cacheNames => {
       return Promise.all(
         cacheNames.map(cacheName => {
-          if (cacheName !== CACHE_NAME) {
+          if (cacheName !== CACHE_NAME && cacheName.startsWith('ke1th-streams-') &&
+            (cacheName.endsWith(self.registration.scope) ||
+              (new URL(self.registration.scope).pathname === '/' && /^ke1th-streams-v\d+\.\d+\.\d+$/.test(cacheName)))) {
             return caches.delete(cacheName);
           }
         })
@@ -76,11 +82,12 @@ self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
   const isNavigate = event.request.mode === 'navigate';
   
-  // Only use stale-while-revalidate for our own domain assets
+  // Refresh page navigations immediately and revalidate assets in the background.
   if (url.origin === self.location.origin) {
     event.respondWith(
       (async function() {
-        let cachedResponse = await caches.match(event.request);
+        const cache = await caches.open(CACHE_NAME);
+        let cachedResponse = await cache.match(event.request);
         
         // If the cached response is tainted with redirections, Safari will crash. Clean it!
         if (cachedResponse && cachedResponse.redirected && isNavigate) {
@@ -99,15 +106,14 @@ self.addEventListener('fetch', event => {
           }
           
           if (responseToCache && responseToCache.status === 200) {
-            const cache = await caches.open(CACHE_NAME);
-            cache.put(event.request, responseToCache.clone());
+            await cache.put(event.request, responseToCache.clone());
           }
           
           return responseToReturn;
         }).catch(async (error) => {
            // Fallback to offline page if network fails and no cache exists
            if (!cachedResponse && isNavigate) {
-              const offlinePage = await caches.match('/offline.html');
+              const offlinePage = await cache.match(new URL('offline.html', self.registration.scope));
               if (offlinePage) return offlinePage;
            }
            throw error;
@@ -116,6 +122,7 @@ self.addEventListener('fetch', event => {
         // Keep the SW alive until the background fetch finishes
         event.waitUntil(networkPromise.catch(() => {}));
         
+        if (isNavigate) return networkPromise.catch(() => cachedResponse || Response.error());
         return cachedResponse || networkPromise;
       })()
     );
