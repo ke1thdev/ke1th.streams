@@ -5,6 +5,8 @@ import { mountDockBackdrop } from './dock-backdrop.js';
 import { glassPlateStyle, mountGlisseSurfaces } from './glisse-surfaces.js';
 
 const mobile = matchMedia('(max-width: 980px)');
+const nativeRefraction = /Chrom(?:e|ium)\//.test(navigator.userAgent);
+const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 
 function svgIcon(source) {
   return createElement('svg', {
@@ -26,16 +28,26 @@ function DockTabBar({ handoff, ...props }) {
   return createElement(TabBar, props);
 }
 
-function DockSearchGlass({ button }) {
+function DockSurface({ control }) {
   useLayoutEffect(() => {
-    button.setAttribute('data-glisse-search-ready', '');
-    return () => button.removeAttribute('data-glisse-search-ready');
-  }, [button]);
+    control.setAttribute('data-glisse-dock-ready', '');
+    return () => control.removeAttribute('data-glisse-dock-ready');
+  }, [control]);
   return createElement(Glass, {
-    className: 'glisse-dock-search-surface',
+    className: 'glisse-dock-surface',
     'data-theme': 'dark',
     'aria-hidden': true,
     style: glassPlateStyle
+  });
+}
+
+function mountRestingGlass(wrapper, nav, searchButton) {
+  const controls = [nav, searchButton].filter(Boolean);
+  const roots = controls.map(control => createRoot(control.querySelector('.glass-filter')));
+  mountDockBackdrop(wrapper, nav, ready => {
+    controls.forEach((control, index) => {
+      roots[index].render(ready ? createElement(DockSurface, { control }) : null);
+    });
   });
 }
 
@@ -55,13 +67,22 @@ function mountDock() {
   const activeIndex = links.findIndex(link => link.classList.contains('dock-active'));
   const home = activeIndex === 0;
   const anime = activeIndex === 1 && new URLSearchParams(location.search).get('type') === 'anime';
+  const searchButton = wrapper.querySelector('.dock-search-btn');
+
+  if (!nativeRefraction) {
+    const selected = anime ? 2 : activeIndex;
+    links.forEach((link, index) => {
+      link.classList.toggle('dock-active', index === selected);
+      if (index === selected) link.setAttribute('aria-current', 'page');
+    });
+    if (!reducedMotion.matches) mountRestingGlass(wrapper, fallback, searchButton);
+    return;
+  }
+
   const slot = document.createElement('div');
   slot.className = 'glisse-dock-slot';
   slot.style.display = 'none';
   wrapper.prepend(slot);
-
-  // Match Glisse's live-backdrop check so both dock lenses use the same path.
-  if (!/Chrom(?:e|ium)\//.test(navigator.userAgent)) mountDockBackdrop(wrapper, slot);
 
   createRoot(slot).render(createElement(DockTabBar, {
     handoff() {
@@ -93,10 +114,9 @@ function mountDock() {
     }
   }));
 
-  const searchButton = wrapper.querySelector('.dock-search-btn');
   const searchSurface = searchButton?.querySelector('.glass-filter');
   if (searchSurface) {
-    createRoot(searchSurface).render(createElement(DockSearchGlass, { button: searchButton }));
+    createRoot(searchSurface).render(createElement(DockSurface, { control: searchButton }));
   }
 }
 
@@ -106,6 +126,7 @@ function enhanceMobileDock() {
   mountDock();
 }
 
+if (!nativeRefraction) document.documentElement.classList.add('glass-economy');
 mobile.addEventListener('change', enhanceMobileDock);
 enhanceMobileDock();
-mountGlisseSurfaces();
+if (nativeRefraction) mountGlisseSurfaces();

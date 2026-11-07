@@ -1,8 +1,6 @@
 :root {
   --bg-color: #121212;
-  --text-color: #ffffff;
   --accent-color: #e50914;
-  --header-height: 60px;
   color-scheme: dark;
 }
 
@@ -13,143 +11,140 @@
 }
 
 html {
-  background-color: #000;
-  color-scheme: dark;
+  background: #000;
 }
 
 body {
-  font-family: 'Inter', sans-serif;
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  overflow: hidden; /* No scroll on watch page ideally */
   display: flex;
   flex-direction: column;
   height: 100vh;
   height: 100dvh;
-  width: 100vw;
+  overflow: hidden;
+  color: #fff;
+  background: var(--bg-color);
+  font-family: 'Inter', system-ui, sans-serif;
 }
 
-/* Header */
+.hidden,
+[hidden] {
+  display: none !important;
+}
+
 .watch-header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: auto;
-  padding: 16px 24px;
-  display: flex;
+  flex: none;
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) auto;
   align-items: center;
-  justify-content: space-between;
-  background: transparent;
-  border-bottom: none;
-  z-index: 500;
-  pointer-events: none; /* Let clicks pass through the header container */
-  transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-              transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: opacity, transform;
-}
-
-/* Auto-hide state (global) */
-.watch-header.glass-hidden {
-  opacity: 0;
-  transform: translateY(-20px);
-  pointer-events: none;
-}
-
-/* Re-enable pointer events for the interactive elements */
-.watch-header .back-btn,
-.watch-header .server-select-wrap {
-  pointer-events: auto;
+  gap: 8px;
+  padding: 8px 14px;
+  padding-top: max(8px, env(safe-area-inset-top));
+  padding-right: max(14px, env(safe-area-inset-right));
+  padding-left: max(14px, env(safe-area-inset-left));
 }
 
 .back-btn {
-  /* Inherits from .liquid-glass-circle */
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #fff;
-  cursor: pointer;
-  padding: 0;
+  display: grid;
   width: 44px;
   height: 44px;
-  min-width: 44px;
-  justify-content: center;
-  transition: all 0.2s;
-}
-
-.back-btn:active {
-  transform: scale(0.9);
-  background: rgba(229, 9, 20, 0.45);
-  box-shadow:
-    0 2px 16px rgba(229, 9, 20, 0.25),
-    inset 0 1px 1px rgba(255, 255, 255, 0.15);
-}
-
-.back-btn svg {
-  width: 22px;
-  height: 22px;
-  position: relative;
-  z-index: 2;
-}
-
-.back-text {
-  display: none;
+  place-items: center;
+  color: inherit;
+  cursor: pointer;
 }
 
 .watch-title-wrap {
-  flex: 1;
+  min-width: 0;
   text-align: center;
-  padding: 0 16px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 #watchTitle {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: #fff;
-  margin: 0;
-  white-space: nowrap;
   overflow: hidden;
+  font-size: 1rem;
+  font-weight: 700;
   text-overflow: ellipsis;
-  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8),
-               0 0 24px rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
 }
 
-.header-actions {
+.watch-status {
+  display: block;
+  margin-top: 3px;
+  color: #d1d1d6;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.server-select-wrap {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 12px;
-  pointer-events: auto;
 }
 
-/* Compact playback controls below the embedded player. */
+.server-select {
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  padding: 0 32px 0 13px;
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
+  color: inherit;
+  font: 600 0.82rem 'Inter', system-ui, sans-serif;
+  cursor: pointer;
+}
+
+.server-select option {
+  background: #1e1e1e;
+  color: #fff;
+}
+
+.select-chevron {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
 .watch-main {
   display: flex;
+  flex: 1;
   flex-direction: column;
+  min-height: 0;
+  background: #000;
 }
 
-.watch-main .player-wrapper {
+.player-wrapper {
   position: relative;
-  flex: 1 1 auto;
+  flex: 1;
   min-height: 0;
-  height: auto;
   overflow: hidden;
+}
+
+#videoFrame {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #000;
 }
 
 .watch-tools {
   position: relative;
-  z-index: 501;
+  flex: none;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   gap: 6px;
-  padding: 7px max(8px, env(safe-area-inset-right)) max(7px, env(safe-area-inset-bottom))
-    max(8px, env(safe-area-inset-left));
-  background: #101013;
+  padding: 7px 8px;
+  padding-right: max(8px, env(safe-area-inset-right));
+  padding-bottom: max(7px, env(safe-area-inset-bottom));
+  padding-left: max(8px, env(safe-area-inset-left));
   overflow: hidden;
+  background: #101013;
 }
 
 #watchToolsBackdrop {
@@ -166,12 +161,12 @@ body {
   align-items: center;
   justify-content: center;
   gap: 5px;
-  padding: 0 11px;
   min-height: 44px;
+  padding: 0 11px;
+  border: 0;
   color: #fff;
   font: 600 0.76rem/1 'Inter', system-ui, sans-serif;
   white-space: nowrap;
-  border: 0;
   cursor: pointer;
   --glisse-tint: rgba(26, 26, 30, 0.54);
 }
@@ -182,32 +177,136 @@ body {
 }
 
 .watch-tool input {
-  margin: 0;
   width: 14px;
   height: 14px;
-  accent-color: #e50914;
+  accent-color: var(--accent-color);
 }
 
-.watch-tool:focus-within {
+.watch-tool:focus-within,
+.server-select:focus-visible {
   outline: 2px solid #d3ddf0;
   outline-offset: 2px;
 }
 
-.watch-status {
-  display: block;
-  margin-top: 3px;
-  color: #d1d1d6;
-  font-size: 0.7rem;
-  font-weight: 600;
-}
-
-.watch-tool.hidden,
-.watch-status.hidden {
-  display: none;
-}
-
 .watch-tools:not(:has(.watch-tool:not(.hidden))) {
   display: none;
+}
+
+.toast {
+  position: fixed;
+  z-index: 3;
+  right: 12px;
+  bottom: 70px;
+  bottom: calc(70px + env(safe-area-inset-bottom));
+  left: 12px;
+  width: fit-content;
+  max-width: calc(100% - 24px);
+  margin-inline: auto;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: #252528;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+.disclaimer-modal {
+  position: fixed;
+  z-index: 4;
+  inset: 0;
+  width: calc(100% - 32px);
+  max-width: 440px;
+  max-height: calc(100vh - 32px);
+  max-height: calc(100dvh - 32px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+  margin: auto;
+  overflow: auto;
+  overscroll-behavior: contain;
+  border: 1px solid #333337;
+  border-radius: 18px;
+  background: #1c1c1e;
+  color: inherit;
+}
+
+.disclaimer-modal:not([open]) {
+  display: none;
+}
+
+.disclaimer-modal::backdrop {
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.disclaimer-header,
+.disclaimer-footer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 20px;
+  background: #232325;
+}
+
+.disclaimer-header img {
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+}
+
+.disclaimer-title {
+  font-size: 1.05rem;
+}
+
+.disclaimer-body {
+  padding: 16px 20px;
+}
+
+.disclaimer-notice {
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.disclaimer-footer {
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.disclaimer-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #d2d2d5;
+  font-size: 0.8rem;
+}
+
+.disclaimer-checkbox input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--accent-color);
+}
+
+.disclaimer-btn {
+  min-height: 44px;
+  padding: 0 13px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--accent-color);
+  color: #fff;
+  font: 650 0.85rem 'Inter', system-ui, sans-serif;
+  cursor: pointer;
+}
+
+@media (max-width: 480px) {
+  #watchTitle {
+    font-size: 0.86rem;
+  }
+
+  .server-select {
+    font-size: 1rem;
+  }
+
+  .disclaimer-header,
+  .disclaimer-body,
+  .disclaimer-footer {
+    padding: 12px 14px;
+  }
 }
 
 @media (max-width: 360px) {
@@ -218,155 +317,4 @@ body {
   .watch-tool {
     padding-inline: 8px;
   }
-}
-
-@media (max-width: 600px) {
-  .watch-header {
-    padding: 0 12px;
-  }
-  .back-text {
-    display: none;
-  }
-  #watchTitle {
-    font-size: 1rem;
-  }
-  .server-label {
-    display: none;
-  }
-}
-
-/* ═══════════════════════════════════════════════
-   Floating Glass Overlay — Liquid Glass
-   ═══════════════════════════════════════════════ */
-
-/* Tap interceptor — catches taps on top of the iframe to re-show the overlay */
-.tap-interceptor {
-  display: block;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 499;
-  background: transparent;
-  pointer-events: none;
-}
-
-.tap-interceptor.active {
-  pointer-events: auto;
-}
-
-@media (max-width: 768px) {
-  body {
-    display: block;
-  }
-
-  /* Remove the solid header — make it transparent with no background */
-  .watch-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: auto;
-    padding: 12px 14px;
-    padding-top: max(12px, env(safe-area-inset-top));
-    background: none;
-    border-bottom: none;
-    z-index: 500;
-  }
-
-  /* Full viewport player on mobile */
-  .watch-main {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    height: 100dvh;
-  }
-
-  .player-wrapper {
-    width: 100%;
-    height: 100%;
-  }
-
-  /* Hide the old floating back button on mobile — it's now in the overlay */
-  .floating-back-btn {
-    display: none;
-  }
-
-  /* ── Liquid Glass Back Button — uses .liquid-glass-circle from liquid-glass.css ── */
-  .back-btn {
-    padding: 0;
-    width: 42px;
-    height: 42px;
-    min-width: 42px;
-    min-height: 42px;
-    justify-content: center;
-    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-  }
-
-  .back-btn:active {
-    transform: scale(0.9);
-    background: rgba(229, 9, 20, 0.45);
-    box-shadow:
-      0 2px 16px rgba(229, 9, 20, 0.25),
-      inset 0 1px 1px rgba(255, 255, 255, 0.15);
-  }
-
-  .back-btn svg {
-    width: 20px;
-    height: 20px;
-    position: relative;
-    z-index: 2;
-  }
-
-  .back-text {
-    display: none;
-  }
-
-  /* ── Floating Title — no background, just text ── */
-  .watch-title-wrap {
-    padding: 0 10px;
-    flex: 1;
-    min-width: 0;
-  }
-
-  #watchTitle {
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 0.3px;
-    color: #fff;
-    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8),
-                 0 0 24px rgba(0, 0, 0, 0.5);
-  }
-
-  /* ── Liquid Glass Server Select — uses .liquid-glass from liquid-glass.css ── */
-  .server-label {
-    display: none;
-  }
-
-  .server-selector {
-    gap: 0;
-  }
-
-  .server-select-wrap {
-    position: relative;
-    border-radius: 22px;
-  }
-
-  .server-select {
-    background: transparent;
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-    border: none;
-    border-radius: 22px;
-    padding: 8px 30px 8px 14px;
-    font-size: 0.78rem;
-    font-weight: 600;
-    box-shadow: none;
-    position: relative;
-    z-index: 2;
-  }
-
 }

@@ -4,7 +4,8 @@
   const config = window.TMDB_CONFIG || {};
   const TMDB_IMG = config.IMAGE_BASE || "https://image.tmdb.org/t/p/w500";
   const TMDB_BACKDROP = config.BACKDROP_BASE || "https://image.tmdb.org/t/p/original";
-  const needsMarkedArtwork = !/Chrom(?:e|ium)\//.test(navigator.userAgent);
+  const useBackgroundTrailer = !matchMedia("(prefers-reduced-motion: reduce)").matches &&
+    (/Chrom(?:e|ium)\//.test(navigator.userAgent) || !matchMedia("(pointer: coarse)").matches);
   const FALLBACK_POSTER = `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(
     `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 450"><rect width="300" height="450" fill="#1a1a1a"/><text x="50%" y="50%" fill="#555" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="14">No Image</text></svg>`
   )}`;
@@ -97,7 +98,6 @@
     "up-next": "Up next"
   };
 
-  if (needsMarkedArtwork) els.heroBackdrop.setAttribute("data-glisse-backdrop", "");
   init();
 
   async function init() {
@@ -381,10 +381,11 @@
   }
 
   function renderHeroTrailer() {
-    if (!state.trailerKey) {
+    if (!state.trailerKey || !useBackgroundTrailer) {
       els.hero.classList.remove("has-trailer");
       els.heroVideoWrap.classList.add("hidden");
-      els.heroTrailerBg.src = "";
+      els.heroTrailerBg.removeAttribute("src");
+      els.muteBtn.classList.add("hidden");
       state.heroLoadedKey = null;
       els.heroTitleWrap?.classList.remove("hidden");
       return;
@@ -495,7 +496,7 @@
         <a class="episode-card" href="${esc(playerUrl({ episode: num }))}" data-ep="${num}"
           aria-label="Play episode ${num}, ${esc(title)}" aria-describedby="episode-state-${num}">
           <div class="ep-thumb-wrap">
-            ${still ? `<img class="ep-thumb"${needsMarkedArtwork ? " data-glisse-backdrop" : ""} src="${esc(still)}" alt="" loading="lazy" />` : ""}
+            ${still ? `<img class="ep-thumb" src="${esc(still)}" alt="" loading="lazy" />` : ""}
             <span class="ep-number" aria-hidden="true">E${String(num).padStart(2, "0")}</span>
             <div class="ep-play-overlay" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg>

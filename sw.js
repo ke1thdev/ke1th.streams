@@ -1,5 +1,5 @@
 const APP_VERSION = '3.4.3';
-const ASSET_REVISION = 'ios1';
+const ASSET_REVISION = 'ios2';
 const CACHE_NAME = `ke1th-streams-v${APP_VERSION}-${ASSET_REVISION}-${self.registration.scope}`;
 const APP_SHELL = [
   './',
@@ -30,16 +30,18 @@ const APP_SHELL = [
   './assets/vendor/mobile-dock.min.js'
 ];
 
-self.addEventListener('install', event => {
-  const requests = APP_SHELL.map(path => {
-    const url = new URL(path, self.registration.scope);
-    if (/\.(?:css|js)$/.test(url.pathname)) {
-      url.searchParams.set('v', APP_VERSION);
-      url.searchParams.set('rev', ASSET_REVISION);
-    }
-    return new Request(url, { cache: 'reload' });
-  });
+const APP_SHELL_URLS = APP_SHELL.map(path => {
+  const url = new URL(path, self.registration.scope);
+  if (/\.(?:css|js)$/.test(url.pathname)) {
+    url.searchParams.set('v', APP_VERSION);
+    url.searchParams.set('rev', ASSET_REVISION);
+  }
+  return url;
+});
+const VERSIONED_ASSETS = new Set(APP_SHELL_URLS.filter(url => url.search).map(url => url.href));
 
+self.addEventListener('install', event => {
+  const requests = APP_SHELL_URLS.map(url => new Request(url, { cache: 'reload' }));
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => cache.addAll(requests))
@@ -93,13 +95,11 @@ self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
   const isNavigate = event.request.mode === 'navigate';
   
-  // Revalidate app code and documents before using a cached response so a
-  // navigation can pick up the new layout even when the app version is unchanged.
   if (url.origin === self.location.origin) {
     const refresh = isNavigate || /\.(?:css|js|html)$/.test(url.pathname);
     const cache = caches.open(CACHE_NAME).catch(() => null);
     const readCached = async request => (await cache)?.match(request).catch(() => undefined);
-    const network = fetch(event.request, refresh ? { cache: 'no-cache' } : undefined).then(async response => {
+    const fetchAndCache = () => fetch(event.request, refresh ? { cache: 'no-cache' } : undefined).then(async response => {
       const result = isNavigate && response.redirected ? await cleanResponse(response) : response;
       if (result.status === 200) {
         // A storage failure must not turn a successful request into an offline page.
@@ -108,6 +108,17 @@ self.addEventListener('fetch', event => {
       return result;
     });
 
+    // The current release was fetched during installation with HTTP caching
+    // bypassed. Only fetch these exact asset URLs again on a cache miss.
+    if (!isNavigate && VERSIONED_ASSETS.has(url.href)) {
+      event.respondWith(readCached(event.request)
+        .then(cached => cached || fetchAndCache())
+        .catch(() => Response.error()));
+      return;
+    }
+
+    // Documents and assets from other revisions still revalidate online.
+    const network = fetchAndCache();
     if (refresh) {
       event.respondWith(network.catch(async () => {
         const cached = await readCached(event.request);

@@ -4,19 +4,25 @@ const contentSelector = [
   '.end-message', '.site-footer'
 ].join(', ');
 const svgNS = 'http://www.w3.org/2000/svg';
+const idleDelay = 200;
+const snapshotProperties = (
+  'display position top right bottom left box-sizing width height min-width min-height max-width max-height ' +
+  'margin padding flex flex-direction flex-wrap justify-content align-items align-self gap grid-template-columns ' +
+  'grid-template-rows grid-column grid-row order z-index transform transform-origin overflow-x overflow-y ' +
+  'opacity visibility color background background-size background-position background-repeat border border-radius ' +
+  'box-shadow font-family font-size font-weight font-style line-height letter-spacing text-align text-decoration ' +
+  'text-transform text-shadow text-overflow white-space word-break overflow-wrap -webkit-line-clamp ' +
+  '-webkit-box-orient object-fit object-position fill stroke stroke-width'
+).split(' ');
 
 function overlaps(a, b) {
   return a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
 }
 
 function copyStyle(source, target) {
-  const declarations = [];
-  for (let index = 0; index < source.length; index++) {
-    const property = source.item(index);
-    if (/^(--|(?:-webkit-)?(?:animation|transition))/.test(property) || property === 'content') continue;
-    declarations.push(property + ':' + source.getPropertyValue(property));
-  }
-  target.style.cssText = declarations.join(';');
+  target.style.cssText = snapshotProperties.map(property =>
+    property + ':' + source.getPropertyValue(property)
+  ).join(';');
 }
 
 function snapshot(source, style = getComputedStyle(source)) {
@@ -69,10 +75,11 @@ function clippingAncestors(source) {
 // WebKit cannot displace a live CSS backdrop. Copy only the in-flow blocks
 // that overlap this strip, including their text and overlays, into the scene
 // that Glisse displaces. The filtered surface stays the size of the dock.
-export function mountDockBackdrop(wrapper, slot) {
+export function mountDockBackdrop(wrapper, nav, setGlassReady) {
   const windowLayer = document.createElement('div');
   windowLayer.className = 'dock-backdrop-window';
   windowLayer.setAttribute('aria-hidden', 'true');
+  windowLayer.style.visibility = 'hidden';
   windowLayer.inert = true;
   const scene = document.createElement('div');
   scene.className = 'dock-backdrop';
@@ -94,9 +101,22 @@ export function mountDockBackdrop(wrapper, slot) {
   const candidates = new Set();
   const tiles = new Map();
   const dirty = new Set();
-  let frame = 0;
+  let timer;
+  let glassReady = false;
+  let touching = false;
+  function showBackdrop(ready) {
+    if (ready === glassReady) return;
+    glassReady = ready;
+    windowLayer.style.visibility = ready ? 'visible' : 'hidden';
+    setGlassReady(ready);
+  }
   const requestPaint = () => {
-    if (!frame) frame = requestAnimationFrame(paint);
+    clearTimeout(timer);
+    if (!touching && !document.hidden) timer = setTimeout(paint, idleDelay);
+  };
+  const pauseBackdrop = () => {
+    showBackdrop(false);
+    requestPaint();
   };
   const intersection = new IntersectionObserver(entries => {
     for (const entry of entries) {
@@ -108,9 +128,12 @@ export function mountDockBackdrop(wrapper, slot) {
 
   function fitClip() {
     const bounds = windowLayer.getBoundingClientRect();
-    if (!bounds.width) return;
+    if (!bounds.width) {
+      showBackdrop(false);
+      return;
+    }
 
-    const surfaces = wrapper.querySelectorAll('.lg-tab-bar, .dock-search-btn');
+    const surfaces = wrapper.querySelectorAll('.mobile-dock, .dock-search-btn');
     surfaces.forEach((surface, index) => {
       const box = surface.getBoundingClientRect();
       const outline = outlines[index];
@@ -121,13 +144,12 @@ export function mountDockBackdrop(wrapper, slot) {
       outline.setAttribute('rx', box.height / 2);
     });
     for (const source of tiles.keys()) dirty.add(source);
-    requestPaint();
+    pauseBackdrop();
   }
 
   function paint() {
-    frame = 0;
     const bounds = windowLayer.getBoundingClientRect();
-    if (!bounds.width) return;
+    if (!bounds.width || touching || document.hidden) return;
     const visible = new Set();
     const sources = [];
     for (const source of candidates) {
@@ -192,6 +214,7 @@ export function mountDockBackdrop(wrapper, slot) {
       tiles.delete(source);
       dirty.delete(source);
     }
+    showBackdrop(visible.size > 0);
   }
 
   function observeContent(node, method) {
@@ -222,7 +245,7 @@ export function mountDockBackdrop(wrapper, slot) {
     mutations.observe(content, {
       subtree: true, childList: true, characterData: true, attributeFilter: ['class', 'style', 'src']
     });
-    for (const name of ['load', 'pointerover', 'pointerout', 'input', 'change']) {
+    for (const name of ['load', 'input', 'change']) {
       content.addEventListener(name, event => {
         invalidate(event.target);
         requestPaint();
@@ -232,7 +255,20 @@ export function mountDockBackdrop(wrapper, slot) {
 
   const resize = new ResizeObserver(fitClip);
   resize.observe(wrapper);
-  resize.observe(slot);
-  window.addEventListener('scroll', requestPaint, { capture: true, passive: true });
-  window.visualViewport?.addEventListener('resize', requestPaint);
+  resize.observe(nav);
+  window.addEventListener('touchstart', event => {
+    if (wrapper.contains(event.target)) return;
+    touching = true;
+    pauseBackdrop();
+  }, { passive: true });
+  const endTouch = event => {
+    if (event.touches.length) return;
+    touching = false;
+    requestPaint();
+  };
+  window.addEventListener('touchend', endTouch, { passive: true });
+  window.addEventListener('touchcancel', endTouch, { passive: true });
+  window.addEventListener('scroll', pauseBackdrop, { capture: true, passive: true });
+  window.visualViewport?.addEventListener('resize', pauseBackdrop);
+  document.addEventListener('visibilitychange', pauseBackdrop);
 }

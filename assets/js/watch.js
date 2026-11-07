@@ -13,12 +13,10 @@
 
   const els = {
     title: document.getElementById('watchTitle'),
-    header: document.querySelector('.watch-header'),
     backBtn: document.getElementById('backBtn'),
     serverSelect: document.getElementById('serverSelect'),
     videoFrame: document.getElementById('videoFrame'),
     toast: document.getElementById('toast'),
-    tapInterceptor: document.getElementById('tapInterceptor'),
     nextEpBtn: document.getElementById('nextEpBtn'),
     autoNextControl: document.getElementById('autoNextControl'),
     autoNextToggle: document.getElementById('autoNextToggle'),
@@ -70,9 +68,13 @@
       return;
     }
 
+    initDisclaimer(startPlayback);
+  }
+
+  function startPlayback() {
     // Listen for fullscreen changes so orientation locks when user goes fullscreen
     // via the iframe player's own fullscreen button
-    LandscapeForcer.init();
+    window.LandscapeForcer?.init();
 
     els.serverSelect.value = state.activeServer;
     els.serverSelect.addEventListener('change', handleServerChange);
@@ -88,8 +90,6 @@
         syncEpisodeControls();
       });
     }
-    setupFloatingBackBtn();
-    setupGlassOverlay();
     setupFullscreenSync();
     
     window.addEventListener('message', handlePlayerMessage);
@@ -103,7 +103,6 @@
     updateWatchStatus();
     fetchDetails();
     loadPlayer();
-    initDisclaimer();
   }
 
   // ─── Immersive Mode Cleanup ───
@@ -115,138 +114,6 @@
       if (document.fullscreenElement) document.exitFullscreen?.();
       else if (document.webkitFullscreenElement) document.webkitExitFullscreen?.();
     } catch (e) {}
-  }
-
-  function setupFloatingBackBtn() {
-    if (!els.floatingBackBtn) return;
-    els.floatingBackBtn.addEventListener('click', function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      handleBack();
-    });
-  }
-
-  // ─── Floating Glass Overlay (Global) ───
-  // Auto-hides the header after 3 seconds, re-appears on any screen tap/move.
-  // Uses a transparent tap-interceptor div that sits over the iframe
-  // because clicks inside an iframe don't bubble to the parent document.
-  function setupGlassOverlay() {
-    if (!els.header || !els.tapInterceptor) return;
-
-    let hideTimer = null;
-
-    function showOverlay() {
-      els.header.classList.remove('glass-hidden');
-      if (!els.videoFrame.classList.contains('zoomed-fill')) {
-          els.tapInterceptor.classList.remove('active');
-      }
-      resetHideTimer();
-    }
-
-    function hideOverlay() {
-      els.header.classList.add('glass-hidden');
-      els.tapInterceptor.classList.add('active');
-    }
-
-    function resetHideTimer() {
-      clearTimeout(hideTimer);
-      hideTimer = setTimeout(hideOverlay, 3000);
-    }
-
-    // Start the initial auto-hide timer
-    resetHideTimer();
-
-    // Interaction on the interceptor → show overlay, double-tap zoom, pinch-zoom
-    let lastTap = 0;
-    let initialPinchDist = 0;
-
-    const toggleZoom = function() {
-        els.videoFrame.classList.toggle('zoomed-fill');
-        if (els.videoFrame.classList.contains('zoomed-fill')) {
-            els.tapInterceptor.classList.add('active');
-        } else if (!els.header.classList.contains('glass-hidden')) {
-            els.tapInterceptor.classList.remove('active');
-        } else {
-            els.tapInterceptor.classList.add('active');
-        }
-    };
-
-    const handleTouchStart = function (e) {
-      if (e.touches.length === 2) {
-          if (e.cancelable) e.preventDefault();
-          initialPinchDist = Math.hypot(
-              e.touches[0].pageX - e.touches[1].pageX,
-              e.touches[0].pageY - e.touches[1].pageY
-          );
-          return;
-      }
-    };
-
-    const handleTouchMove = function(e) {
-      if (e.touches.length === 2 && initialPinchDist > 0) {
-          if (e.cancelable) e.preventDefault();
-          const currentDist = Math.hypot(
-              e.touches[0].pageX - e.touches[1].pageX,
-              e.touches[0].pageY - e.touches[1].pageY
-          );
-          if (currentDist > initialPinchDist + 40) {
-              if (!els.videoFrame.classList.contains('zoomed-fill')) toggleZoom();
-          } else if (currentDist < initialPinchDist - 40) {
-              if (els.videoFrame.classList.contains('zoomed-fill')) toggleZoom();
-          }
-      }
-    };
-
-    const handleTouchEnd = function(e) {
-       if (!e.touches || e.touches.length < 2) {
-           initialPinchDist = 0;
-       }
-    };
-
-    els.tapInterceptor.addEventListener('dblclick', function(e) {
-       e.preventDefault();
-       toggleZoom();
-    });
-
-    els.tapInterceptor.addEventListener('click', function(e) {
-      e.preventDefault();
-      const currentTime = new Date().getTime();
-      const tapLength = currentTime - lastTap;
-      
-      if (tapLength < 350 && tapLength > 0) {
-          toggleZoom();
-          lastTap = 0;
-      } else {
-          showOverlay();
-          lastTap = currentTime;
-      }
-    });
-    
-    els.tapInterceptor.addEventListener('touchstart', handleTouchStart, { passive: false });
-    els.tapInterceptor.addEventListener('touchmove', handleTouchMove, { passive: false });
-    els.tapInterceptor.addEventListener('touchend', handleTouchEnd);
-    
-    // Mouse movement also triggers it on desktop
-    els.tapInterceptor.addEventListener('mousemove', function (e) {
-      showOverlay();
-    });
-
-    // Interaction on header controls → reset the timer
-    els.header.addEventListener('click', function (e) {
-      resetHideTimer();
-    });
-    
-    els.header.addEventListener('touchstart', function (e) {
-      resetHideTimer();
-    }, { passive: true });
-    
-    els.header.addEventListener('mousemove', function (e) {
-      resetHideTimer();
-    });
-
-    els.serverSelect.addEventListener('change', function () {
-      resetHideTimer();
-    });
   }
 
   // ─── Videasy Fullscreen Sync Fix ───
@@ -429,7 +296,7 @@
       const artwork = state.details.backdrop_path || state.details.poster_path;
       const backdrop = document.getElementById('watchToolsBackdrop');
       if (backdrop && typeof artwork === 'string' && /^\/[\w.-]+$/.test(artwork)) {
-        const base = window.TMDB_CONFIG?.BACKDROP_BASE || 'https://image.tmdb.org/t/p/original';
+        const base = window.TMDB_CONFIG?.IMAGE_BASE || 'https://image.tmdb.org/t/p/w500';
         backdrop.style.setProperty('--watch-artwork', `url("${base}${artwork}")`);
       }
       renderEpisode();
@@ -521,6 +388,7 @@
     // A fresh browsing context prevents late messages from the previous episode
     // (including on the same provider) from being attributed to this one.
     const frame = els.videoFrame.cloneNode(false);
+    frame.hidden = false;
     frame.src = src.href;
     els.videoFrame.replaceWith(frame);
     els.videoFrame = frame;
@@ -528,23 +396,15 @@
     const origins = new Set([src.origin]);
     if (server === 'vidfast') origins.add('https://vidfast.vc');
     const fallback = servers[servers.indexOf(server) + 1];
-    const controller = new AbortController();
-    let networkTimeout;
-    let messageTimeout;
     let pingInterval;
 
     function stopChecks() {
-      clearTimeout(networkTimeout);
-      clearTimeout(messageTimeout);
       clearInterval(pingInterval);
     }
 
     const player = {
       origins,
-      cleanup() {
-        stopChecks();
-        controller.abort();
-      },
+      cleanup: stopChecks,
       observe(message) {
         const data = message.data;
         if (message.event === 'error' || data?.event === 'error' || message.name === 'error' || message.status === 'error') {
@@ -557,7 +417,6 @@
           || ['ready', 'video_loaded'].includes(message.event) || hasTiming(message)
           || hasTiming(data) || (server === 'vidfast' && message.status !== undefined)) {
           stopChecks();
-          controller.abort();
         }
       }
     };
@@ -572,28 +431,15 @@
       loadPlayer(autoplay);
     }
 
-    if (!fallback) return;
-    let checkingNetwork = true;
-    networkTimeout = setTimeout(() => {
-      if (checkingNetwork && !controller.signal.aborted) triggerFallback('network_timeout');
-    }, 3000);
-    fetch(src.origin, { mode: 'no-cors', signal: controller.signal })
-      .catch(() => {
-        if (!controller.signal.aborted) triggerFallback('network_error');
-      })
-      .finally(() => {
-        checkingNetwork = false;
-        clearTimeout(networkTimeout);
-      });
-
-    messageTimeout = setTimeout(() => {
-      clearInterval(pingInterval);
-      if (server === 'rive') return; // Its player message API is unverified.
-      if (server !== 'vixsrc' || frame.contentWindow?.length === 0) triggerFallback('timeout_no_message');
-    }, 6500);
-
+    // Some embeds never send a readiness message. Switch automatically only
+    // for an explicit provider error, so a slow connection can finish loading.
     if (server === 'vidfast') {
+      let remaining = 6;
       pingInterval = setInterval(() => {
+        if (document.hidden || remaining-- <= 0) {
+          stopChecks();
+          return;
+        }
         for (const origin of origins) frame.contentWindow?.postMessage({ command: 'getStatus' }, origin);
       }, 1000);
     }
@@ -775,24 +621,35 @@
     showToast._t = setTimeout(() => els.toast.classList.add("hidden"), 3000);
   }
 
-  function initDisclaimer() {
+  function initDisclaimer(onAccept) {
     const modal = document.getElementById('disclaimerModal');
     const dontShow = document.getElementById('disclaimerDontShow');
     const okBtn = document.getElementById('disclaimerOk');
 
     if (readPreference('hideDisclaimer') === '1') {
-      modal.classList.add('hidden');
+      onAccept();
       return;
     }
 
-    modal.classList.remove('hidden');
+    const nativeDialog = typeof modal.showModal === 'function';
+    if (nativeDialog) {
+      modal.showModal();
+      modal.addEventListener('cancel', event => {
+        event.preventDefault();
+        handleBack();
+      });
+    } else {
+      modal.setAttribute('open', '');
+    }
 
     okBtn.addEventListener('click', function() {
       if (dontShow.checked) {
         savePreference('hideDisclaimer', '1');
       }
-      modal.classList.add('hidden');
-    });
+      if (nativeDialog) modal.close();
+      else modal.removeAttribute('open');
+      onAccept();
+    }, { once: true });
   }
 
   if (document.readyState === "loading") {
