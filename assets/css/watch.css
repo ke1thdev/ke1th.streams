@@ -72,6 +72,19 @@ body {
   font-weight: 600;
 }
 
+.watch-header[data-server="vidstuck"] {
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.watch-header[data-server="vidstuck"] :is(.back-btn, #watchTitle) {
+  display: none;
+}
+
+.watch-header[data-server="vidstuck"] .watch-status {
+  margin-top: 0;
+  text-align: start;
+}
+
 .server-select-wrap {
   position: relative;
   display: flex;

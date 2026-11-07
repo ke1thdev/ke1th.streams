@@ -12,6 +12,7 @@
   const servers = ['vidstuck', 'videasy', 'vidsrc', 'rive', 'vidup', 'vixsrc', 'vidnest', 'vidfast', 'peachify'];
 
   const els = {
+    header: document.querySelector('.watch-header'),
     title: document.getElementById('watchTitle'),
     backBtn: document.getElementById('backBtn'),
     serverSelect: document.getElementById('serverSelect'),
@@ -377,6 +378,7 @@
     }
 
     const server = state.activeServer;
+    els.header.dataset.server = server;
     const animeSource = server === 'videasy' && state.type === 'tv' && state.isAnime && state.malId;
     const src = new URL(buildServerUrl(server, animeSource ? 'anime' : state.type,
       animeSource ? state.malId : state.id, state.season, state.episode));
