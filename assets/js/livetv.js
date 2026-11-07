@@ -160,6 +160,34 @@
 
   const categoryFilter = document.getElementById('categoryFilter');
 
+  function getChannelLogo(channel) {
+    // This retired image returns an Imgur placeholder with a successful HTTP status.
+    return channel.logo === 'https://i.imgur.com/b9UaL8G.png' ? null : channel.logo;
+  }
+
+  function setChannelLogo(well, channel) {
+    const fallback = () => {
+      const label = document.createElement('span');
+      label.className = 'channel-logo-fallback';
+      label.textContent = channel.name;
+      well.replaceChildren(label);
+    };
+
+    const logoUrl = getChannelLogo(channel);
+    if (!logoUrl) {
+      fallback();
+      return;
+    }
+
+    const logo = document.createElement('img');
+    logo.className = 'channel-logo';
+    logo.alt = '';
+    logo.loading = 'lazy';
+    logo.addEventListener('error', fallback, { once: true });
+    logo.src = logoUrl;
+    well.appendChild(logo);
+  }
+
   const PH_CHANNELS = [
     'A2Z', 'GMA 7', 'GMA Life TV', 'GMA Pinoy TV', 'Kapamilya Channel', 
     'TV5', 'IBC 13', 'PTV', 'TVN Movies (Tagalog)', 'Solar', 'PIE', 'One PH', 'GTV', 'Cinemax', 'HBO'
@@ -215,10 +243,6 @@
       const card = document.createElement('div');
       card.className = 'channel-card';
       
-      const encodedName = encodeURIComponent(ch.name);
-      const fallbackLogo = `https://ui-avatars.com/api/?name=${encodedName}&background=random&color=fff&size=256&font-size=0.33&bold=true`;
-      const logoUrl = ch.logo || fallbackLogo;
-      
       const url = ch.url || ch.streamUrl;
       const isIosBlocked = ch.drm || (url && url.includes('prox-production'));
       
@@ -233,14 +257,13 @@
       }
 
       card.innerHTML = `
-        <div class="channel-logo-wrap" style="background: #BDBDBD;">
-          <img class="channel-logo" src="${logoUrl}" alt="${ch.name}" loading="lazy" onerror="if(this.src!=='${fallbackLogo}')this.src='${fallbackLogo}';">
-        </div>
+        <div class="channel-logo-wrap" aria-hidden="true"></div>
         <div class="channel-info">
           <div class="channel-name" style="display: flex; align-items: center; justify-content: center;">${ch.name}${iosIndicator}</div>
           <div class="channel-group">${ch.group}</div>
         </div>
       `;
+      setChannelLogo(card.querySelector('.channel-logo-wrap'), ch);
       
       card.addEventListener('click', () => {
         playChannel(ch);
@@ -277,8 +300,9 @@
     playerTitle.textContent = channel.name;
     document.querySelector('.livetv-player-section').style.display = 'block';
     
-    if (channel.logo) {
-      playerLogo.src = channel.logo;
+    const logoUrl = getChannelLogo(channel);
+    if (logoUrl) {
+      playerLogo.src = logoUrl;
       playerLogo.style.display = 'block';
     } else {
       playerLogo.style.display = 'none';

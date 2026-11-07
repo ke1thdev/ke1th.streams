@@ -1,4 +1,6 @@
-const CACHE_NAME = 'ke1th-streams-v3.4.2-' + self.registration.scope;
+const APP_VERSION = '3.4.3';
+const ASSET_REVISION = 'ios1';
+const CACHE_NAME = `ke1th-streams-v${APP_VERSION}-${ASSET_REVISION}-${self.registration.scope}`;
 const APP_SHELL = [
   './',
   './index.html',
@@ -7,31 +9,40 @@ const APP_SHELL = [
   './watch.html',
   './media.html',
   './offline.html',
-  './assets/css/home.css?v=3.4.2',
-  './assets/css/browse.css?v=3.4.2',
-  './assets/css/livetv.css?v=3.4.2',
-  './assets/css/watch.css?v=3.4.2',
-  './assets/css/media.css?v=3.4.2',
-  './assets/css/liquid-glass.css?v=3.4.2',
-  './assets/css/landscape.css?v=3.4.2',
-  './assets/js/config.js?v=3.4.2',
-  './assets/js/tmdb.js?v=3.4.2',
-  './assets/js/home.js?v=3.4.2',
-  './assets/js/browse.js?v=3.4.2',
-  './assets/js/livetv.js?v=3.4.2',
-  './assets/js/watch-history.js?v=3.4.2',
-  './assets/js/watch.js?v=3.4.2',
-  './assets/js/media.js?v=3.4.2',
-  './assets/js/search.js?v=3.4.2',
-  './assets/js/liquid-glass.js?v=3.4.2',
-  './assets/js/landscape.js?v=3.4.2',
-  './assets/vendor/mobile-dock.min.js?v=3.4.2'
+  './assets/css/home.css',
+  './assets/css/browse.css',
+  './assets/css/livetv.css',
+  './assets/css/watch.css',
+  './assets/css/media.css',
+  './assets/css/liquid-glass.css',
+  './assets/css/landscape.css',
+  './assets/js/config.js',
+  './assets/js/tmdb.js',
+  './assets/js/home.js',
+  './assets/js/browse.js',
+  './assets/js/livetv.js',
+  './assets/js/watch-history.js',
+  './assets/js/watch.js',
+  './assets/js/media.js',
+  './assets/js/search.js',
+  './assets/js/liquid-glass.js',
+  './assets/js/landscape.js',
+  './assets/vendor/mobile-dock.min.js'
 ];
 
 self.addEventListener('install', event => {
+  const requests = APP_SHELL.map(path => {
+    const url = new URL(path, self.registration.scope);
+    if (/\.(?:css|js)$/.test(url.pathname)) {
+      url.searchParams.set('v', APP_VERSION);
+      url.searchParams.set('rev', ASSET_REVISION);
+    }
+    return new Request(url, { cache: 'reload' });
+  });
+
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(APP_SHELL))
+      .then(cache => cache.addAll(requests))
       .then(() => self.skipWaiting())
   );
 });
@@ -82,50 +93,35 @@ self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
   const isNavigate = event.request.mode === 'navigate';
   
-  // Refresh page navigations immediately and revalidate assets in the background.
+  // Revalidate app code and documents before using a cached response so a
+  // navigation can pick up the new layout even when the app version is unchanged.
   if (url.origin === self.location.origin) {
-    event.respondWith(
-      (async function() {
-        const cache = await caches.open(CACHE_NAME);
-        let cachedResponse = await cache.match(event.request);
-        
-        // If the cached response is tainted with redirections, Safari will crash. Clean it!
-        if (cachedResponse && cachedResponse.redirected && isNavigate) {
-           cachedResponse = await cleanResponse(cachedResponse);
+    const refresh = isNavigate || /\.(?:css|js|html)$/.test(url.pathname);
+    const cache = caches.open(CACHE_NAME).catch(() => null);
+    const readCached = async request => (await cache)?.match(request).catch(() => undefined);
+    const network = fetch(event.request, refresh ? { cache: 'no-cache' } : undefined).then(async response => {
+      const result = isNavigate && response.redirected ? await cleanResponse(response) : response;
+      if (result.status === 200) {
+        // A storage failure must not turn a successful request into an offline page.
+        await (await cache)?.put(event.request, result.clone()).catch(() => {});
+      }
+      return result;
+    });
+
+    if (refresh) {
+      event.respondWith(network.catch(async () => {
+        const cached = await readCached(event.request);
+        if (cached) return isNavigate && cached.redirected ? cleanResponse(cached) : cached;
+        if (isNavigate) {
+          const offlinePage = await readCached(new URL('offline.html', self.registration.scope));
+          if (offlinePage) return offlinePage;
         }
-        
-        // Fetch fresh version in the background
-        const networkPromise = fetch(event.request).then(async networkResponse => {
-          let responseToCache = networkResponse;
-          let responseToReturn = networkResponse;
-          
-          // Clean the network response before caching and returning if it's redirected
-          if (networkResponse && networkResponse.redirected && isNavigate) {
-             responseToCache = await cleanResponse(networkResponse);
-             responseToReturn = responseToCache.clone();
-          }
-          
-          if (responseToCache && responseToCache.status === 200) {
-            await cache.put(event.request, responseToCache.clone());
-          }
-          
-          return responseToReturn;
-        }).catch(async (error) => {
-           // Fallback to offline page if network fails and no cache exists
-           if (!cachedResponse && isNavigate) {
-              const offlinePage = await cache.match(new URL('offline.html', self.registration.scope));
-              if (offlinePage) return offlinePage;
-           }
-           throw error;
-        });
-        
-        // Keep the SW alive until the background fetch finishes
-        event.waitUntil(networkPromise.catch(() => {}));
-        
-        if (isNavigate) return networkPromise.catch(() => cachedResponse || Response.error());
-        return cachedResponse || networkPromise;
-      })()
-    );
+        return Response.error();
+      }));
+    } else {
+      event.respondWith(readCached(event.request).then(cached => cached || network));
+      event.waitUntil(network.catch(() => {}));
+    }
     return;
   }
 

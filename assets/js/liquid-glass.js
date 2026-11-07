@@ -57,7 +57,9 @@
     const surface = element.querySelector(':scope > .glass-filter') || element;
     const width = surface.offsetWidth;
     const height = surface.offsetHeight;
-    const radius = Math.min(parseFloat(getComputedStyle(surface).borderTopLeftRadius) || 0, width / 2, height / 2);
+    const style = getComputedStyle(surface);
+    const radius = Math.min(parseFloat(style.borderTopLeftRadius) || 0, width / 2, height / 2);
+    const bend = Number(style.getPropertyValue('--glass-bend') || 1);
     const previous = filters.get(element);
 
     if (previous?.width === width && previous.height === height && previous.radius === radius) return;
@@ -78,13 +80,13 @@
     });
     filter.append(
       svgElement('feImage', { href, x: 0, y: 0, width, height, result: 'lens' }),
-      svgElement('feDisplacementMap', { in: 'SourceGraphic', in2: 'lens', scale: 28, xChannelSelector: 'R', yChannelSelector: 'G' })
+      svgElement('feDisplacementMap', { in: 'SourceGraphic', in2: 'lens', scale: bend * Math.min(width, height), xChannelSelector: 'R', yChannelSelector: 'G' })
     );
     const defs = svgElement('defs', {});
     defs.append(filter);
     svg.append(defs);
     document.body.append(svg);
-    surface.style.setProperty('--glass-lens', 'blur(3px) url(#' + id + ') saturate(1.25)');
+    surface.style.setProperty('--glass-lens', 'blur(var(--glass-blur)) url(#' + id + ') saturate(1.24)');
     filters.set(element, { svg, width, height, radius });
   }
 

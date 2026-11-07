@@ -1,10 +1,14 @@
 /* Shared glass material for navigation, search and playback controls. */
 :root {
+  --glass-bend: 1;
+  --glass-dispersion: 0;
+  --glass-blur: 0px;
+  --glass-rim-shine: 0.13;
   --glass-tint: rgba(28, 28, 31, 0.48);
   --glass-tint-raised: rgba(34, 34, 38, 0.72);
-  --glass-frost: blur(12px) saturate(1.24);
+  --glass-frost: blur(var(--glass-blur)) saturate(1.24);
   --glass-rim: inset 0 0 0 1px rgba(255, 255, 255, 0.14),
-    inset 1px 1px 1px rgba(255, 255, 255, 0.2),
+    inset 1px 1px 1px rgba(255, 255, 255, var(--glass-rim-shine)),
     inset -1px -1px 1px rgba(255, 255, 255, 0.08);
   --glass-shadow: 0 5px 18px rgba(0, 0, 0, 0.24);
 }
@@ -173,7 +177,7 @@ button.liquid-glass-circle:hover,
   box-shadow: var(--glass-rim);
 }
 
-[data-glisse-surface]:has(> .glisse-surface-layer > .lg-glass) {
+[data-glisse-ready] {
   background-color: transparent;
   box-shadow: none;
   -webkit-backdrop-filter: none;
@@ -191,15 +195,20 @@ button.liquid-glass-circle:hover,
 
 .glisse-surface-layer {
   z-index: -1;
+  overflow: hidden;
 }
 
 .glisse-surface-layer > .lg-glass {
   --lg-glass: var(--glisse-tint, rgba(25, 25, 29, 0.56));
-  --lg-glass-bend: 0.56;
-  --lg-glass-dispersion: 0.42;
-  --lg-rim-shine: 0.21;
+}
+
+.glisse-surface-layer > .lg-glass,
+.mobile-dock-wrapper :is(.lg-tab-bar-glass, .glisse-dock-search-surface) {
+  --lg-glass-bend: var(--glass-bend);
+  --lg-glass-dispersion: var(--glass-dispersion);
+  --lg-rim-shine: var(--glass-rim-shine);
+  --lg-blur: var(--glass-blur);
   --lg-edge: rgba(255, 255, 255, 0.14);
-  --lg-blur: var(--glisse-frost, 2px);
 }
 
 @media (max-width: 980px) {
@@ -209,11 +218,6 @@ button.liquid-glass-circle:hover,
 
   .mobile-dock-wrapper :is(.lg-tab-bar-glass, .glisse-dock-search-surface) {
     --lg-glass: var(--dock-tint);
-    --lg-glass-bend: 0.56;
-    --lg-glass-dispersion: 0.42;
-    --lg-rim-shine: 0.21;
-    --lg-edge: rgba(255, 255, 255, 0.14);
-    --lg-blur: 2px;
     --lg-drop: transparent;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.22);
   }
@@ -222,6 +226,7 @@ button.liquid-glass-circle:hover,
     position: absolute;
     inset: -36px;
     pointer-events: none;
+    -webkit-clip-path: url(#dock-backdrop-clip);
     clip-path: url(#dock-backdrop-clip);
   }
 
@@ -247,14 +252,13 @@ button.liquid-glass-circle:hover,
     z-index: 1;
   }
 
-  .mobile-dock-wrapper:has(.lg-tab-bar) > .mobile-dock {
-    display: none;
+  .mobile-dock[hidden] {
+    display: none !important;
   }
 
   .glisse-dock-slot .lg-tab-bar[data-icons] {
-    --lg-tab-width: var(--dock-tab-width);
-    --lg-tab-height: var(--dock-tab-height);
-    --lg-tab-inset: var(--dock-inset);
+    --lg-tab-bend: var(--glass-bend);
+    --lg-tab-dispersion: var(--glass-dispersion);
     --lg-tab-selected: #fff;
     --lg-selection: rgba(255, 255, 255, 0.17);
     --lg-lens-grow-x: 18px;
@@ -272,16 +276,16 @@ button.liquid-glass-circle:hover,
     font-weight: 600;
   }
 
-  .dock-search-btn .glass-filter:has(.glisse-dock-search-surface) {
+  .dock-search-btn[data-glisse-search-ready] .glass-filter {
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
   }
 
-  .dock-search-btn:has(.glisse-dock-search-surface) :is(.glass-overlay, .glass-specular) {
+  .dock-search-btn[data-glisse-search-ready] :is(.glass-overlay, .glass-specular) {
     display: none;
   }
 
-  .dock-search-btn:has(.glisse-dock-search-surface) {
+  .dock-search-btn[data-glisse-search-ready] {
     box-shadow: none;
   }
 
@@ -303,7 +307,7 @@ button.liquid-glass-circle:hover,
   }
 }
 
-@supports not (backdrop-filter: blur(1px)) {
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   @supports not (-webkit-backdrop-filter: blur(1px)) {
     :root {
       --glass-tint: #222226;
