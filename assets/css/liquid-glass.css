@@ -226,26 +226,6 @@ button.liquid-glass-circle:hover,
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.22);
   }
 
-  .dock-backdrop-window {
-    position: absolute;
-    inset: -36px;
-    pointer-events: none;
-    -webkit-clip-path: url(#dock-backdrop-clip);
-    clip-path: url(#dock-backdrop-clip);
-  }
-
-  .dock-backdrop,
-  .dock-backdrop-tile {
-    position: absolute;
-    inset: 0;
-  }
-
-  .dock-backdrop-tile {
-    inset: auto;
-    display: block;
-    max-width: none;
-  }
-
   .glisse-dock-slot {
     display: flex;
     position: relative;
@@ -302,6 +282,12 @@ button.liquid-glass-circle:hover,
 
   .glass-economy .mobile-dock-wrapper {
     --glass-tint: var(--dock-tint);
+  }
+
+  /* Keep WebKit's live backdrop limited to the two rounded dock plates. */
+  .glass-economy .mobile-dock-wrapper .glass-filter {
+    -webkit-backdrop-filter: saturate(1.35) brightness(1.08);
+    backdrop-filter: saturate(1.35) brightness(1.08);
   }
 
   .glass-economy .dock-btn {
