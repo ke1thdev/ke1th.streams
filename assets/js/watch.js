@@ -9,7 +9,7 @@
   const requestedMalId = urlParams.get('malId');
   const malId = /^\d+$/.test(requestedMalId || '') ? requestedMalId : null;
   const isAnime = requestedType === 'anime' || urlParams.get('anime') === '1';
-  const servers = ['videasy', 'vidsrc', 'rive', 'vidup', 'vixsrc', 'vidnest', 'vidfast', 'peachify'];
+  const servers = ['vidstuck', 'videasy', 'vidsrc', 'rive', 'vidup', 'vixsrc', 'vidnest', 'vidfast', 'peachify'];
 
   const els = {
     title: document.getElementById('watchTitle'),
@@ -32,7 +32,7 @@
     episode,
     malId,
     isAnime,
-    activeServer: servers.includes(preferredServer) ? preferredServer : 'videasy',
+    activeServer: servers.includes(preferredServer) ? preferredServer : servers[0],
     autoNext: readPreference('autoNextEpisode') !== 'false',
     nextEpisodeInfo: null
   };
@@ -186,7 +186,8 @@
 
     const payload = message.data && typeof message.data === 'object' ? message.data : message;
     const timing = payload.data && typeof payload.data === 'object' ? payload.data : payload;
-    const eventName = String(payload.event || message.event || payload.name || message.name || message.type || '')
+    const messageType = ['movie', 'tv', 'anime'].includes(message.type) ? '' : message.type;
+    const eventName = String(payload.event || message.event || payload.name || message.name || messageType || '')
       .toLowerCase().replace(/[_-]/g, '');
     const currentTime = Number.isFinite(timing.currentTime) ? timing.currentTime : timing.timestamp;
     const duration = timing.duration;
@@ -451,6 +452,7 @@
   }
 
   function buildServerUrl(server, type, id, season, episode) {
+    if (server === 'vidstuck') return buildVidstuckUrl(type, id, season, episode);
     if (server === 'vidsrc') return buildVidsrcWikiUrl(type, id, season, episode);
     if (server === 'rive') return buildRiveUrl(type, id, season, episode);
     if (server === 'vidup') return buildVidUpUrl(type, id, season, episode);
@@ -459,6 +461,20 @@
     if (server === 'vidfast') return buildVidfastUrl(type, id, season, episode);
     if (server === 'vidnest') return buildVidnestUrl(type, id, season, episode);
     return buildVideasyUrl(type, id, season, episode);
+  }
+
+  function buildVidstuckUrl(type, id, season, episode) {
+    const url = new URL(`/embed/${type}/${id}`, 'https://vidstuck.cc');
+    url.searchParams.set('color', 'e50914');
+    if (type === 'tv') {
+      url.pathname += `/${season}/${episode}`;
+      url.searchParams.set('nextEpisode', 'false');
+      url.searchParams.set('episodeSelector', 'false');
+      url.searchParams.set('autoplayNextEpisode', 'false');
+    }
+    const progress = resumeAt();
+    if (progress) url.searchParams.set('progress', progress);
+    return url.href;
   }
 
   function buildRiveUrl(type, id, season, episode) {
