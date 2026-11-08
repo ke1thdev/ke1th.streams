@@ -27,7 +27,6 @@
     watchStatus: document.getElementById('watchStatus')
   };
 
-  const preferredServer = readPreference('preferredServer');
   const state = {
     type,
     id,
@@ -35,7 +34,7 @@
     episode,
     malId,
     isAnime,
-    activeServer: servers.includes(preferredServer) ? preferredServer : servers[0],
+    activeServer: servers[0],
     autoNext: readPreference('autoNextEpisode') !== 'false',
     nextEpisodeInfo: null
   };
@@ -106,7 +105,15 @@
       flushProgress();
     });
     window.addEventListener('pageshow', event => {
-      if (event.persisted) revealDrawerArrow();
+      if (!event.persisted) return;
+
+      // History restoration can reuse a watch page and its previous server.
+      if (state.activeServer !== servers[0]) {
+        state.activeServer = servers[0];
+        els.serverSelect.value = state.activeServer;
+        loadPlayer();
+      }
+      revealDrawerArrow();
     });
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) {
@@ -351,7 +358,6 @@
     if (!servers.includes(e.target.value)) return;
     flushProgress();
     state.activeServer = e.target.value;
-    savePreference('preferredServer', state.activeServer);
     loadPlayer();
     showToast(`Switched to ${els.serverSelect.options[els.serverSelect.selectedIndex].text}`);
   }
