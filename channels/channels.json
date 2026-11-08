@@ -36,14 +36,11 @@
     "streamUrl": "https://streams2.sofast.tv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/d5543c06-5122-49a7-9662-32187f48aa2c/manifest.m3u8"
   },
   {
-    "name": "Cartoon Network",
+    "name": "Cartoon Network Asia",
     "type": "TV",
     "logo": "https://upload.wikimedia.org/wikipedia/commons/8/80/Cartoon_Network_2010_logo.svg",
     "category": "Kids & Cartoons",
-    "streamUrl": "https://blue-voice-4f1f.czg3i9ixp6ywxh2mw61dxdwf.workers.dev/?url=https%3A%2F%2Fqp-pldt-live-bpk-01-prod.akamaized.net%2Fbpk-tv%2Fcartoonnetworkhd%2Fdefault%2Findex.mpd&ua=Dalvik%2F2.1.0+%28Linux%3B+U%3B+Android+12%3B+Pixel+6+Build%2FSD1A.210817.036%29",
-    "drm": {
-      "a2d1f552ff9541558b3296b5a932136b": "cdd48fa884dc0c3a3f85aeebca13d444"
-    }
+    "streamUrl": "https://cdn4.skygo.mn/live/disk1/Cartoon_Network/HLSv3-FTA/Cartoon_Network.m3u8"
   },
   {
     "name": "Cartoon Network / Adult Swim (US)",
@@ -51,6 +48,13 @@
     "logo": "https://hipfonts.com/wp-content/uploads/2022/02/adult-swim-logo.jpg",
     "category": "Kids & Cartoons",
     "streamUrl": "https://cn-proxy.ke1th.dev/USA_CARTOON_NETWORK/index.m3u8"
+  },
+  {
+    "name": "Cartoonito",
+    "type": "TV",
+    "logo": "",
+    "category": "Kids & Cartoons",
+    "streamUrl": "https://cdn4.skygo.mn/live/disk1/Boomerang/HLSv3-FTA/Boomerang.m3u8"
   },
   {
     "name": "Crunchyroll",

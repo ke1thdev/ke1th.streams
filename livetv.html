@@ -23,32 +23,25 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
     rel="stylesheet" />
 
-  <link rel="stylesheet" href="assets/css/home.css?v=3.4.3&amp;rev=watchdefault1" />
-  <link rel="stylesheet" href="assets/css/livetv.css?v=3.4.3&amp;rev=watchdefault1" />
-  <link rel="stylesheet" href="assets/css/liquid-glass.css?v=3.4.3&amp;rev=watchdefault1" />
-  <!-- Plyr Custom Video Player CSS -->
-  <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
-  <link rel="stylesheet" href="assets/css/landscape.css?v=3.4.3&amp;rev=watchdefault1" />
+  <link rel="stylesheet" href="assets/css/home.css?v=3.4.3&amp;rev=livetvguide3" />
+  <link rel="stylesheet" href="assets/css/livetv.css?v=3.4.3&amp;rev=livetvguide3" />
+  <link rel="stylesheet" href="assets/css/liquid-glass.css?v=3.4.3&amp;rev=livetvguide3" />
+  <link rel="stylesheet" href="assets/css/landscape.css?v=3.4.3&amp;rev=livetvguide3" />
 </head>
 
 <body>
-  <header class="livetv-standalone-header">
-    <button id="backBtn" class="back-btn liquid-glass-circle" aria-label="Go Back" onclick="window.location.href='index.html'">
-      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
-        stroke-linecap="round" stroke-linejoin="round">
-        <line x1="19" y1="12" x2="5" y2="12"></line>
-        <polyline points="12 19 5 12 12 5"></polyline>
-      </svg>
-      <span class="back-text">Back</span>
-    </button>
-    <div class="watch-title-wrap">
-      <h1 id="watchTitle">Live TV</h1>
-    </div>
-    <div class="header-actions">
-      <a class="header-brand" href="./" aria-label="ke1th.streams home">
-        <img class="header-brand-logo" src="assets/imgs/android-chrome-192x192.png" alt="logo" />
-        <span class="header-brand-name">ke1th.<span>streams</span></span>
+  <header class="livetv-header">
+    <div class="livetv-frame livetv-header-inner">
+      <a class="livetv-brand" href="./" aria-label="ke1th.streams home">
+        <img src="assets/imgs/android-chrome-192x192.png" width="28" height="28" alt="">
+        <span>ke1th.<span>streams</span></span>
       </a>
+      <nav class="livetv-nav" aria-label="Primary navigation">
+        <a href="./">Home</a>
+        <a href="browse.html">Browse</a>
+        <a href="browse.html?type=anime">Anime</a>
+        <a href="livetv.html" aria-current="page">Live TV</a>
+      </nav>
     </div>
   </header>
 
@@ -108,68 +101,61 @@
       </div>
     </section>
 
-  <main>
-    <section class="livetv-player-section" style="display: none;">
-      <div class="player-container">
-        <div class="player-header">
-          <img id="inlinePlayerLogo" class="player-channel-logo" src="" alt="Channel Logo" style="display: none;" />
-          <h2 class="player-title" id="inlinePlayerTitle">Select a channel</h2>
-        </div>
-        <div id="videoContainer" data-shaka-player-container style="max-width:100%; width:100%; height:100%;" class="video-container">
-          <video id="liveVideoPlayer" data-landscape-init="true" data-shaka-player playsinline
-            style="width: 100%; height: 100%; max-height: 100%; outline: none; background: #000; object-fit: contain;"></video>
-          <iframe id="liveIframePlayer" class="hidden"
-            style="width: 100%; height: 100%; border: none; position: absolute; top: 0; left: 0;"
-            allow="autoplay; fullscreen"></iframe>
-        </div>
-        <div class="player-actions">
-          <button id="shareBtn" class="action-btn share-btn liquid-glass-bar">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="18" cy="5" r="3"></circle>
-              <circle cx="6" cy="12" r="3"></circle>
-              <circle cx="18" cy="19" r="3"></circle>
-              <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-              <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+  <main class="livetv-frame livetv-main">
+    <div class="livetv-page-heading">
+      <h1>Live TV</h1>
+      <p id="channelCount" role="status">Loading channels…</p>
+    </div>
+
+    <div class="livetv-workspace" id="liveTvWorkspace">
+      <section class="livetv-player-section" id="liveTvPlayerSection" aria-labelledby="inlinePlayerTitle" hidden>
+        <div class="livetv-player-header">
+          <div id="inlinePlayerLogo" class="channel-logo-wrap" aria-hidden="true"></div>
+          <div class="livetv-player-identity">
+            <h2 id="inlinePlayerTitle" tabindex="-1"></h2>
+            <p id="liveTvPlayerStatus" role="status"></p>
+          </div>
+          <button id="shareBtn" class="livetv-icon-btn" type="button" aria-label="Share channel" title="Share channel">
+            <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 15V3m-4 4 4-4 4 4M6 12H4v8h16v-8h-2"/>
             </svg>
-            Share
+          </button>
+          <button id="closeLiveTvPlayer" class="livetv-icon-btn" type="button" aria-label="Close player" title="Close player">
+            <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8"
+              stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
           </button>
         </div>
-      </div>
-    </section>
-
-    <section class="livetv-section">
-      <div class="livetv-section-header livetv-grid-header">
-        <h3 class="other-channels-title">Live Channels</h3>
-        <div class="header-controls">
-          <div class="inline-search-wrapper liquid-glass-input">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="search-icon">
-              <circle cx="11" cy="11" r="8"></circle>
-              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
-            <input type="search" id="liveTvSearchInput" aria-label="Search channels" placeholder="Search channels..." autocomplete="off" />
-          </div>
-          <select id="categoryFilter" class="category-filter liquid-glass-bar" aria-label="Channel category">
-            <option value="All">All Categories</option>
-          </select>
+        <div id="videoContainer" class="livetv-video" data-shaka-player-container>
+          <video id="liveVideoPlayer" data-shaka-player playsinline aria-label="Live TV player"></video>
         </div>
-      </div>
-      <div id="livetvGrid" class="livetv-grid">
-        <!-- Skeleton placeholders will be cleared by JS when channels load -->
-        <div class="skeleton-card"><div class="skeleton-logo"></div><div class="skeleton-info"><div class="skeleton-title"></div><div class="skeleton-subtitle"></div></div></div>
-        <div class="skeleton-card"><div class="skeleton-logo"></div><div class="skeleton-info"><div class="skeleton-title"></div><div class="skeleton-subtitle"></div></div></div>
-        <div class="skeleton-card"><div class="skeleton-logo"></div><div class="skeleton-info"><div class="skeleton-title"></div><div class="skeleton-subtitle"></div></div></div>
-        <div class="skeleton-card"><div class="skeleton-logo"></div><div class="skeleton-info"><div class="skeleton-title"></div><div class="skeleton-subtitle"></div></div></div>
-        <div class="skeleton-card"><div class="skeleton-logo"></div><div class="skeleton-info"><div class="skeleton-title"></div><div class="skeleton-subtitle"></div></div></div>
-        <div class="skeleton-card"><div class="skeleton-logo"></div><div class="skeleton-info"><div class="skeleton-title"></div><div class="skeleton-subtitle"></div></div></div>
-        <div class="skeleton-card"><div class="skeleton-logo"></div><div class="skeleton-info"><div class="skeleton-title"></div><div class="skeleton-subtitle"></div></div></div>
-        <div class="skeleton-card"><div class="skeleton-logo"></div><div class="skeleton-info"><div class="skeleton-title"></div><div class="skeleton-subtitle"></div></div></div>
-        <div class="skeleton-card"><div class="skeleton-logo"></div><div class="skeleton-info"><div class="skeleton-title"></div><div class="skeleton-subtitle"></div></div></div>
-        <div class="skeleton-card"><div class="skeleton-logo"></div><div class="skeleton-info"><div class="skeleton-title"></div><div class="skeleton-subtitle"></div></div></div>
-        <div class="skeleton-card"><div class="skeleton-logo"></div><div class="skeleton-info"><div class="skeleton-title"></div><div class="skeleton-subtitle"></div></div></div>
-        <div class="skeleton-card"><div class="skeleton-logo"></div><div class="skeleton-info"><div class="skeleton-title"></div><div class="skeleton-subtitle"></div></div></div>
-      </div>
-      <div id="scrollSentinel" style="height: 1px; width: 100%; margin-top: 20px;"></div>
-    </section>
+        <p id="playerToast" class="livetv-player-toast" role="status" hidden></p>
+      </section>
+
+      <section class="livetv-guide" aria-label="Channel guide">
+        <div class="livetv-guide-toolbar">
+          <label class="livetv-search">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"
+              stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg>
+            <input type="search" id="liveTvSearchInput" aria-label="Search channels" placeholder="Search channels"
+              autocomplete="off" disabled>
+          </label>
+          <div class="livetv-category">
+            <select id="categoryFilter" aria-label="Channel category" disabled>
+              <option value="All">All categories</option>
+            </select>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </div>
+        </div>
+        <div id="livetvGrid" class="livetv-grid" aria-busy="true"></div>
+        <div id="liveTvGuideState" class="livetv-guide-state">
+          <p id="liveTvGuideMessage">Loading the channel guide…</p>
+          <button id="liveTvGuideAction" class="livetv-text-btn" type="button" hidden></button>
+        </div>
+        <button id="moreLiveTvChannels" class="livetv-text-btn livetv-load-more" type="button" hidden>Show more channels</button>
+      </section>
+    </div>
   </main>
 
   <footer class="site-footer" style="margin-top: auto;">
@@ -218,7 +204,7 @@
           </svg>
           <span>Anime</span>
         </a>
-        <a href="livetv.html" class="dock-btn dock-active" aria-label="Live TV">
+        <a href="livetv.html" class="dock-btn dock-active" aria-label="Live TV" aria-current="page">
           <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect>
             <polyline points="17 2 12 7 7 2"></polyline>
@@ -282,13 +268,13 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mux.js/7.0.3/mux.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/shaka-player@4.7.11/dist/shaka-player.ui.js"></script>
 
-  <script src="assets/js/config.js?v=3.4.3&amp;rev=watchdefault1"></script>
-  <script src="assets/js/tmdb.js?v=3.4.3&amp;rev=watchdefault1"></script>
-  <script src="assets/js/search.js?v=3.4.3&amp;rev=watchdefault1"></script>
-  <script src="assets/js/liquid-glass.js?v=3.4.3&amp;rev=watchdefault1"></script>
-  <script type="module" src="assets/vendor/mobile-dock.min.js?v=3.4.3&amp;rev=watchdefault1"></script>
-  <script src="assets/js/landscape.js?v=3.4.3&amp;rev=watchdefault1"></script>
-  <script src="assets/js/livetv.js?v=3.4.3&amp;rev=watchdefault1"></script>
+  <script src="assets/js/config.js?v=3.4.3&amp;rev=livetvguide3"></script>
+  <script src="assets/js/tmdb.js?v=3.4.3&amp;rev=livetvguide3"></script>
+  <script src="assets/js/search.js?v=3.4.3&amp;rev=livetvguide3"></script>
+  <script src="assets/js/liquid-glass.js?v=3.4.3&amp;rev=livetvguide3"></script>
+  <script type="module" src="assets/vendor/mobile-dock.min.js?v=3.4.3&amp;rev=livetvguide3"></script>
+  <script src="assets/js/landscape.js?v=3.4.3&amp;rev=livetvguide3"></script>
+  <script src="assets/js/livetv.js?v=3.4.3&amp;rev=livetvguide3"></script>
   
   <!-- SVG displacement filters are now dynamically generated by liquid-glass.js -->
   <script>
@@ -307,12 +293,7 @@
       // Check if iOS device
       const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
       
-      // If we only want to show it on iOS, we can uncomment this:
-      // if (!isIOS) {
-      //   modal.classList.add('hidden');
-      //   return;
-      // }
-      // But showing it to everyone helps them understand the new icon they see!
+      if (!isIOS) return;
 
       modal.classList.remove('hidden');
 

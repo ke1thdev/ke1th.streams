@@ -1,469 +1,445 @@
-:root {
-  --plyr-color-main: #e50914;
+.livetv-frame {
+  width: min(100%, 88rem);
+  margin-inline: auto;
+  padding-inline: max(clamp(12px, 3vw, 36px), env(safe-area-inset-left))
+    max(clamp(12px, 3vw, 36px), env(safe-area-inset-right));
+}
+
+.livetv-header {
+  padding-top: env(safe-area-inset-top);
+  background: var(--bg);
+  border-bottom: 1px solid #242424;
+}
+
+.livetv-header-inner {
+  display: flex;
+  min-height: 56px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.livetv-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  color: var(--text-bright);
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: -.035em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.livetv-brand img {
+  object-fit: contain;
+}
+
+.livetv-brand span span {
+  color: var(--brand);
+}
+
+.livetv-nav {
+  display: flex;
+  gap: 4px;
+}
+
+.livetv-nav a {
+  display: grid;
+  min-height: 44px;
+  place-items: center;
+  padding-inline: 12px;
+  border-radius: 8px;
+  color: var(--text-muted);
+  font-size: .875rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.livetv-nav a[aria-current="page"] {
+  color: var(--text-bright);
+  background: var(--bg-card);
+}
+
+.livetv-main {
+  --guide-surface: #171717;
+  --guide-raised: #242424;
+  --guide-border: #303030;
+  --guide-muted: #aaa;
+  color-scheme: dark;
+  padding-block: clamp(16px, 3vw, 28px) 24px;
+}
+
+.livetv-main [hidden] {
+  display: none !important;
+}
+
+.livetv-page-heading {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin-bottom: 12px;
+}
+
+.livetv-page-heading h1 {
+  color: var(--text-bright);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 750;
+  line-height: 1.15;
+  letter-spacing: -.04em;
+}
+
+#channelCount {
+  color: var(--guide-muted);
+  font-size: .8125rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.livetv-workspace {
+  display: grid;
+  gap: 14px;
+  align-items: start;
+}
+
+.livetv-guide,
+.livetv-player-section {
+  min-width: 0;
+}
+
+.livetv-guide-toolbar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(10.5rem, 32%);
+  gap: 8px;
+  max-width: 34rem;
+  margin-bottom: 10px;
+}
+
+.livetv-search,
+.livetv-category {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  border: 1px solid var(--guide-border);
+  border-radius: 8px;
+  background: var(--guide-surface);
+}
+
+.livetv-search svg,
+.livetv-category svg {
+  position: absolute;
+  color: var(--guide-muted);
+  pointer-events: none;
+}
+
+.livetv-search svg {
+  left: 10px;
+}
+
+.livetv-category svg {
+  right: 10px;
+}
+
+#liveTvSearchInput,
+#categoryFilter {
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--text-bright);
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+#liveTvSearchInput {
+  padding: 0 8px 0 35px;
+}
+
+#liveTvSearchInput::placeholder {
+  color: var(--guide-muted);
+}
+
+#categoryFilter {
+  -webkit-appearance: none;
+  appearance: none;
+  padding: 0 28px 0 10px;
+  font-weight: 550;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+#categoryFilter option {
+  background: var(--guide-surface);
+  color: var(--text-bright);
 }
 
 .livetv-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 16px;
-  padding: 16px 48px;
-  max-width: 1920px;
-  margin: 0 auto;
-}
-
-@media (max-width: 768px) {
-  .livetv-grid {
-    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-    padding: 16px;
-    gap: 12px;
-  }
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr));
+  gap: 6px;
 }
 
 .channel-card {
-  background: var(--bg-card);
-  border-radius: var(--radius);
-  overflow: hidden;
+  display: grid;
+  grid-template-columns: 54px minmax(0, 1fr) 16px;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 59px;
+  padding: 7px 9px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: var(--guide-surface);
+  color: var(--text-bright);
+  font: inherit;
+  text-align: start;
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-  display: flex;
-  flex-direction: column;
-  border: 1px solid var(--border);
 }
 
-.channel-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-  border-color: rgba(255,255,255,0.2);
+.channel-card[aria-pressed="true"] {
+  border-color: var(--guide-border);
+  border-inline-start: 2px solid var(--brand);
+  padding-inline-start: 8px;
+  background: var(--guide-raised);
 }
 
 .channel-logo-wrap {
-  --logo-inset: clamp(10px, 2.4vw, 16px);
-  position: relative;
+  display: grid;
   width: 100%;
-  aspect-ratio: 16 / 9;
-  flex: none;
-  background: #bdbdbd;
+  height: 37px;
+  place-items: center;
   overflow: hidden;
+  border-radius: 5px;
+  background: #272727;
 }
 
 .channel-logo {
-  position: absolute;
-  inset: var(--logo-inset);
-  width: calc(100% - 2 * var(--logo-inset));
-  height: calc(100% - 2 * var(--logo-inset));
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  padding: 4px;
+  background: #d7d5d2;
   object-fit: contain;
 }
 
 .channel-logo-fallback {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  padding: var(--logo-inset);
-  background: #232326;
-  color: #fff;
-  font-size: clamp(0.9rem, 3.5vw, 1.25rem);
-  font-weight: 700;
-  text-align: center;
+  color: #e5e5e5;
+  font-size: .75rem;
+  font-weight: 750;
+  letter-spacing: .03em;
 }
 
 .channel-info {
-  padding: 12px;
-  text-align: center;
+  display: grid;
+  gap: 2px;
+  min-width: 0;
 }
 
 .channel-name {
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: var(--text-bright);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  font-size: .875rem;
+  font-weight: 650;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
 }
 
 .channel-group {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  margin-top: 4px;
+  color: var(--guide-muted);
+  font-size: .75rem;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
 }
 
-/* Standalone Header */
-.livetv-standalone-header {
-  position: sticky;
-  top: 0;
-  left: 0;
-  right: 0;
-  padding: 16px 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: rgba(18, 18, 18, 0.7);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  z-index: 500;
-  margin-bottom: 20px;
+.channel-chevron {
+  color: var(--guide-muted);
 }
 
-.livetv-standalone-header .back-btn {
-  display: flex;
+.channel-card[aria-pressed="true"] .channel-chevron {
+  color: var(--text-bright);
+}
+
+.livetv-guide-state {
+  display: grid;
+  min-height: 96px;
+  justify-items: start;
+  align-content: center;
+  gap: 4px;
+  padding: 12px;
+  border: 1px solid #242424;
+  border-radius: 8px;
+  color: var(--guide-muted);
+  font-size: .875rem;
+}
+
+.livetv-icon-btn,
+.livetv-text-btn {
+  display: inline-flex;
+  min-height: 44px;
   align-items: center;
   justify-content: center;
-  color: #fff;
-  cursor: pointer;
-  padding: 0;
-  width: 44px;
-  height: 44px;
-  min-width: 44px;
-  transition: all 0.2s;
-  border: none;
-}
-
-.livetv-standalone-header .back-btn:active {
-  transform: scale(0.9);
-}
-
-.livetv-standalone-header .back-btn svg {
-  width: 22px;
-  height: 22px;
-  position: relative;
-  z-index: 2;
-}
-
-.livetv-standalone-header .back-text {
-  display: none;
-}
-
-.livetv-standalone-header .watch-title-wrap {
-  flex: 1;
-  text-align: center;
-  padding: 0 16px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.livetv-standalone-header #watchTitle {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: #fff;
-  margin: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8);
-}
-
-.livetv-standalone-header .header-actions {
-  width: auto;
-  display: flex;
-  align-items: center;
-}
-
-.header-brand {
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-}
-
-.header-brand-logo {
-  width: 28px;
-  height: 28px;
-  margin-right: 6px;
-  border-radius: 4px;
-}
-
-.header-brand-name {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: #fff;
-}
-
-.header-brand-name span {
-  color: #e50914;
-}
-
-@media (max-width: 768px) {
-  .livetv-standalone-header {
-    padding: 12px 14px;
-    padding-top: max(12px, env(safe-area-inset-top));
-    margin-bottom: 12px;
-  }
-
-  .livetv-standalone-header .back-btn {
-    width: 42px;
-    height: 42px;
-    min-width: 42px;
-  }
-  
-  .livetv-standalone-header .back-btn svg {
-    width: 20px;
-    height: 20px;
-  }
-
-  .livetv-standalone-header #watchTitle {
-    font-size: 1rem;
-  }
-
-  .header-brand-logo {
-    width: 24px;
-    height: 24px;
-    margin-right: 4px;
-  }
-
-  .header-brand-name {
-    font-size: 0.95rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .header-brand-name {
-    font-size: 0.85rem;
-  }
-  .header-brand-logo {
-    width: 22px;
-    height: 22px;
-  }
-}
-
-/* Hide the old top-toolbar close button on mobile portrait because LandscapeForcer adds a floating glass one */
-@media (max-width: 768px) and (orientation: portrait) {
-  .player-toolbar {
-    display: none !important;
-  }
-}
-
-/* Inline Player Section Styles */
-.livetv-player-section {
-  max-width: 1200px;
-  margin: 0 auto 20px;
-  padding: 0 16px;
-}
-.player-container {
-  background: #151515;
-  border-radius: 12px;
-  padding: 16px;
-  border: 1px solid rgba(255,255,255,0.05);
-}
-.player-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
-}
-.player-channel-logo {
-  width: 40px;
-  height: 40px;
-  object-fit: contain;
-  border-radius: 4px;
-  background: #111;
-  padding: 4px;
-}
-.player-title {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #fff;
-}
-.player-actions {
-  display: flex;
-  justify-content: flex-start;
-  margin-top: 12px;
-}
-.share-btn {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #fff;
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-.share-btn:hover {
-  background: rgba(255, 255, 255, 0.2);
-}
-
-/* Category Filter & Other Channels Header */
-.other-channels-title {
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: #fff;
-  margin: 0;
-}
-.category-filter {
-  width: 100%;
-  min-width: 0;
-  min-height: 44px;
-  padding: 8px 36px 8px 16px;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.05) url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e") no-repeat right 12px center;
-  background-size: 16px;
-  color: #fff;
-  font-size: 1rem;
-  font-weight: 600;
-  outline: none;
-  cursor: pointer;
-  appearance: none;
-  -webkit-appearance: none;
-  text-overflow: ellipsis;
-  transition: all 0.2s;
-}
-.category-filter:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-.category-filter option {
-  background: #1e1e1e;
-  color: #fff;
-}
-
-/* Shaka Player Custom UI Overrides */
-.shaka-video-container {
+  border: 0;
   border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-  font-family: inherit;
-}
-.shaka-controls-container * {
-  /* Ensure Shaka UI uses the theme font and colors */
-  --shaka-color-text: var(--text-bright);
-  --shaka-color-background: rgba(0, 0, 0, 0.7);
-  --shaka-color-primary: #e50914;
-}
-.shaka-volume-bar-container, .shaka-seek-bar-container {
+  background: var(--guide-raised);
+  color: var(--text-bright);
+  font: 600 .8125rem 'Inter', system-ui, sans-serif;
   cursor: pointer;
 }
 
-/* Live TV Redesign Styles */
-.livetv-grid-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 24px;
-  max-width: 1920px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0 48px;
-  flex-wrap: wrap;
-  gap: 16px;
+.livetv-text-btn {
+  padding-inline: 12px;
 }
 
-.livetv-grid-header .other-channels-title {
-  margin: 0;
-  font-size: 1.5rem;
+.livetv-load-more {
+  margin-top: 8px;
 }
 
-.header-controls {
+.livetv-icon-btn {
+  width: 44px;
+  background: transparent;
+}
+
+.livetv-player-section {
+  padding: 6px;
+  border: 1px solid #282828;
+  border-radius: 10px;
+  background: var(--guide-surface);
+}
+
+.livetv-player-header {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 10.5rem);
-  gap: 12px;
-  flex: 1 1 340px;
-  min-width: 0;
-  max-width: 500px;
+  grid-template-columns: 45px minmax(0, 1fr) repeat(2, 44px);
   align-items: center;
+  gap: 5px;
+  padding: 0 0 6px 4px;
 }
 
-.inline-search-wrapper {
-  position: relative;
+.livetv-player-header .channel-logo-wrap {
+  height: 32px;
+}
+
+.livetv-player-identity {
   min-width: 0;
-  border-radius: 999px;
-  overflow: hidden;
+  padding-inline: 3px;
 }
 
-.inline-search-wrapper .search-icon {
-  position: absolute;
-  left: 14px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #888;
-  pointer-events: none;
+#inlinePlayerTitle {
+  color: var(--text-bright);
+  font-size: clamp(.9375rem, 2vw, 1.125rem);
+  font-weight: 650;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
 }
 
-#liveTvSearchInput {
+#liveTvPlayerStatus,
+.livetv-player-toast {
+  color: var(--guide-muted);
+  font-size: .75rem;
+  line-height: 1.35;
+}
+
+#liveTvPlayerStatus[data-state="live"]::before {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-inline-end: 5px;
+  border-radius: 50%;
+  background: var(--brand);
+  vertical-align: .1em;
+  content: "";
+}
+
+.livetv-player-toast {
+  padding: 8px 4px 2px;
+}
+
+#videoContainer.livetv-video {
+  position: relative;
   display: block;
   width: 100%;
-  min-width: 0;
-  min-height: 44px;
-  margin: 0;
-  background: transparent;
-  border: 0;
-  border-radius: inherit;
-  padding: 8px 14px 8px 40px;
-  color: #fff;
-  font-size: 1rem;
-  outline: none;
-  appearance: none;
-  -webkit-appearance: none;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 6px;
+  background: #000;
+}
+
+#liveVideoPlayer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.livetv-frame :focus-visible {
+  outline: 2px solid #eee;
+  outline-offset: -2px;
+}
+
+@media (hover: hover) {
+  .channel-card:hover,
+  .livetv-nav a:hover,
+  .livetv-icon-btn:hover {
+    background: var(--guide-raised, #242424);
+  }
 }
 
 @media (max-width: 768px) {
-  .livetv-grid-header {
-    padding: 0 16px;
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .header-controls {
-    flex: none;
-    max-width: 100%;
+  .livetv-nav {
+    display: none;
   }
 }
 
-@media (max-width: 400px) {
-  .header-controls {
+@media (max-width: 360px) {
+  .livetv-guide-toolbar {
     grid-template-columns: minmax(0, 1fr);
-    gap: 8px;
   }
 }
 
-/* Skeleton Loading */
-@keyframes shimmer-live {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+@media (min-width: 1000px) {
+  .livetv-workspace.is-tuned {
+    grid-template-columns: minmax(0, 1fr) clamp(19rem, 31vw, 24rem);
+    gap: 16px;
+  }
+
+  .is-tuned .livetv-player-section {
+    position: sticky;
+    top: 12px;
+  }
 }
 
-.skeleton-card {
-  background: var(--bg-card);
-  border-radius: var(--radius);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  border: 1px solid var(--border);
-}
+@media (min-width: 500px) and (max-width: 999px) and (max-height: 480px) and (orientation: landscape) {
+  .livetv-header-inner {
+    min-height: 44px;
+  }
 
-.skeleton-logo {
-  width: 100%;
-  aspect-ratio: 16/9;
-  background: linear-gradient(90deg, #1a1a1a 25%, #2a2a2a 50%, #1a1a1a 75%);
-  background-size: 200% 100%;
-  animation: shimmer-live 1.5s infinite;
-}
+  .livetv-main {
+    padding-block-start: 10px;
+  }
 
-.skeleton-info {
-  padding: 12px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-}
+  .livetv-page-heading {
+    margin-bottom: 8px;
+  }
 
-.skeleton-title {
-  width: 60%;
-  height: 16px;
-  background: linear-gradient(90deg, #1a1a1a 25%, #2a2a2a 50%, #1a1a1a 75%);
-  background-size: 200% 100%;
-  animation: shimmer-live 1.5s infinite;
-  border-radius: 4px;
-}
+  .livetv-workspace.is-tuned {
+    grid-template-columns: minmax(0, 1fr) minmax(12rem, 39%);
+    gap: 10px;
+  }
 
-.skeleton-subtitle {
-  width: 40%;
-  height: 12px;
-  background: linear-gradient(90deg, #1a1a1a 25%, #2a2a2a 50%, #1a1a1a 75%);
-  background-size: 200% 100%;
-  animation: shimmer-live 1.5s infinite;
-  border-radius: 4px;
+  .is-tuned .livetv-guide-toolbar {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  #videoContainer.livetv-video:not(:fullscreen) {
+    max-height: max(96px, calc(100dvh - 160px - env(safe-area-inset-top) - env(safe-area-inset-bottom)));
+  }
+
+  body:has(.livetv-workspace.is-tuned) > .mobile-dock-wrapper {
+    display: none;
+  }
 }
