@@ -12,16 +12,16 @@
   const servers = ['vidstuck', 'videasy', 'vidsrc', 'rive', 'vidup', 'vixsrc', 'vidnest', 'vidfast', 'peachify'];
 
   const els = {
-    header: document.querySelector('.watch-header'),
+    drawer: document.getElementById('playbackDrawer'),
+    openDrawerBtn: document.getElementById('openPlaybackDrawer'),
+    closeDrawerBtn: document.getElementById('closePlaybackDrawer'),
     title: document.getElementById('watchTitle'),
     backBtn: document.getElementById('backBtn'),
     serverSelect: document.getElementById('serverSelect'),
-    serverCaption: document.getElementById('serverCaption'),
     videoFrame: document.getElementById('videoFrame'),
     toast: document.getElementById('toast'),
     nextEpBtn: document.getElementById('nextEpBtn'),
-    playbackOptions: document.getElementById('playbackOptions'),
-    playbackOptionsPanel: document.getElementById('playbackOptionsPanel'),
+    autoNextRow: document.getElementById('autoNextRow'),
     autoNextToggle: document.getElementById('autoNextToggle'),
     markFinishedBtn: document.getElementById('markFinishedBtn'),
     watchStatus: document.getElementById('watchStatus')
@@ -44,6 +44,7 @@
   let episodePlayback = { ended: false, nearEnd: false, queued: false };
   let progressSample = null;
   let progressTimer = null;
+  let drawerArrowTimer = null;
 
   function readPreference(key) {
     try {
@@ -82,40 +83,96 @@
     els.serverSelect.value = state.activeServer;
     els.serverSelect.addEventListener('change', handleServerChange);
     els.backBtn.addEventListener('click', handleBack);
-    if (els.nextEpBtn) els.nextEpBtn.addEventListener('click', playNextEpisode);
-    if (els.markFinishedBtn) els.markFinishedBtn.addEventListener('click', markFinished);
-    if (state.type === 'tv' && els.autoNextToggle) {
-      els.playbackOptions.hidden = false;
-      els.playbackOptionsPanel.append(els.markFinishedBtn);
+    els.nextEpBtn.addEventListener('click', () => {
+      closePlaybackDrawer();
+      playNextEpisode();
+    });
+    els.markFinishedBtn.addEventListener('click', markFinished);
+    if (state.type === 'tv') {
+      els.autoNextRow.hidden = false;
       els.autoNextToggle.checked = state.autoNext;
       els.autoNextToggle.addEventListener('change', () => {
         state.autoNext = els.autoNextToggle.checked;
         savePreference('autoNextEpisode', String(state.autoNext));
         syncEpisodeControls();
       });
-      els.playbackOptions.addEventListener('keydown', event => {
-        if (event.key !== 'Escape' || !els.playbackOptions.open) return;
-        event.preventDefault();
-        els.playbackOptions.open = false;
-        els.playbackOptions.querySelector('summary').focus();
-      });
-      document.addEventListener('pointerdown', event => {
-        if (!els.playbackOptions.contains(event.target)) els.playbackOptions.open = false;
-      });
     }
+    setupPlaybackDrawer();
     setupFullscreenSync();
     
     window.addEventListener('message', handlePlayerMessage);
-    window.addEventListener('pagehide', flushProgress);
+    window.addEventListener('pagehide', () => {
+      clearTimeout(drawerArrowTimer);
+      flushProgress();
+    });
+    window.addEventListener('pageshow', event => {
+      if (event.persisted) revealDrawerArrow();
+    });
     document.addEventListener('visibilitychange', () => {
-      if (document.hidden) flushProgress();
-      else syncEpisodeControls();
+      if (document.hidden) {
+        clearTimeout(drawerArrowTimer);
+        flushProgress();
+      } else {
+        revealDrawerArrow();
+        syncEpisodeControls();
+      }
     });
 
     WatchHistory.start(currentMedia());
     updateWatchStatus();
     fetchDetails();
     loadPlayer();
+  }
+
+  function setupPlaybackDrawer() {
+    els.openDrawerBtn.hidden = false;
+    els.openDrawerBtn.addEventListener('pointerenter', revealDrawerArrow);
+    els.openDrawerBtn.addEventListener('click', () => {
+      if (els.drawer.hasAttribute('open')) return;
+      clearTimeout(drawerArrowTimer);
+      els.openDrawerBtn.setAttribute('aria-expanded', 'true');
+      if (typeof els.drawer.showModal === 'function') {
+        els.drawer.showModal();
+      } else {
+        els.drawer.setAttribute('open', '');
+        els.closeDrawerBtn.focus({ preventScroll: true });
+      }
+    });
+    els.closeDrawerBtn.addEventListener('click', closePlaybackDrawer);
+    els.drawer.addEventListener('cancel', event => {
+      event.preventDefault();
+      closePlaybackDrawer();
+    });
+    if (typeof els.drawer.showModal !== 'function') {
+      els.drawer.addEventListener('keydown', event => {
+        if (event.key === 'Escape') closePlaybackDrawer();
+      });
+    }
+    els.drawer.addEventListener('click', event => {
+      if (event.target !== els.drawer) return;
+      const { left, right, top, bottom } = els.drawer.getBoundingClientRect();
+      if (event.clientX < left || event.clientX > right || event.clientY < top || event.clientY > bottom) {
+        closePlaybackDrawer();
+      }
+    });
+    revealDrawerArrow();
+  }
+
+  function revealDrawerArrow() {
+    if (els.drawer.hasAttribute('open') || document.hidden || document.fullscreenElement || document.webkitFullscreenElement) return;
+    clearTimeout(drawerArrowTimer);
+    els.openDrawerBtn.classList.remove('is-idle');
+    // Leave the edge target available after fading so it can still be tapped over an embed.
+    drawerArrowTimer = setTimeout(() => els.openDrawerBtn.classList.add('is-idle'), 5000);
+  }
+
+  function closePlaybackDrawer() {
+    if (!els.drawer.hasAttribute('open')) return;
+    if (typeof els.drawer.close === 'function') els.drawer.close();
+    else els.drawer.removeAttribute('open');
+    els.openDrawerBtn.setAttribute('aria-expanded', 'false');
+    els.openDrawerBtn.focus({ preventScroll: true });
+    revealDrawerArrow();
   }
 
   // ─── Immersive Mode Cleanup ───
@@ -137,6 +194,8 @@
   function setupFullscreenSync() {
     function onFullscreenExit() {
       const fsElement = document.fullscreenElement || document.webkitFullscreenElement;
+      if (fsElement) clearTimeout(drawerArrowTimer);
+      else revealDrawerArrow();
       
       if (!fsElement && els.videoFrame && els.videoFrame.contentWindow) {
         // Browser has EXITED fullscreen — tell the iframe player
@@ -253,20 +312,17 @@
       els.watchStatus.classList.toggle('hidden', !label);
       els.watchStatus.dataset.status = status || '';
     }
-    els.markFinishedBtn?.classList.toggle('hidden', status === 'finished');
+    if (status === 'finished' && document.activeElement === els.markFinishedBtn) {
+      els.closeDrawerBtn.focus({ preventScroll: true });
+    }
+    els.markFinishedBtn.classList.toggle('hidden', status === 'finished');
   }
 
   function markFinished() {
-    const restoreFocus = document.activeElement === els.markFinishedBtn;
     flushProgress();
     WatchHistory.finish(currentMedia());
     episodePlayback.nearEnd = true;
     updateWatchStatus();
-    els.playbackOptions.open = false;
-    if (restoreFocus) {
-      const target = els.playbackOptions.hidden ? els.serverSelect : els.playbackOptions.querySelector('summary');
-      target.focus();
-    }
     syncEpisodeControls();
   }
 
@@ -390,9 +446,7 @@
     }
 
     const server = state.activeServer;
-    els.header.dataset.server = server;
-    els.serverCaption.textContent = server === servers[0] ? 'Server' : els.serverSelect.selectedOptions[0].text;
-    els.playbackOptions.open = false;
+    els.drawer.dataset.server = server;
     const animeSource = server === 'videasy' && state.type === 'tv' && state.isAnime && state.malId;
     const src = new URL(buildServerUrl(server, animeSource ? 'anime' : state.type,
       animeSource ? state.malId : state.id, state.season, state.episode));
