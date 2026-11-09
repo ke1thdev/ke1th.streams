@@ -1,5 +1,5 @@
 const APP_VERSION = '3.4.3';
-const ASSET_REVISION = 'livetvguide3';
+const ASSET_REVISION = 'vidstuckatlas1';
 const CACHE_NAME = `ke1th-streams-v${APP_VERSION}-${ASSET_REVISION}-${self.registration.scope}`;
 const APP_SHELL = [
   './',

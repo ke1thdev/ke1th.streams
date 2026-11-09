@@ -541,6 +541,7 @@
 
   function buildVidstuckUrl(type, id, season, episode) {
     const url = new URL(`/embed/${type}/${id}`, 'https://vidstuck.cc');
+    url.searchParams.set('server', 'atlas');
     url.searchParams.set('color', 'e50914');
     if (type === 'tv') {
       url.pathname += `/${season}/${episode}`;
