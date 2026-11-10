@@ -358,7 +358,7 @@
   padding: 8px 4px 2px;
 }
 
-#videoContainer.livetv-video {
+.livetv-video {
   position: relative;
   display: block;
   width: 100%;
@@ -374,6 +374,18 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
+}
+
+#liveYouTubeContainer {
+  min-height: 200px;
+}
+
+#liveYouTubeContainer iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
 }
 
 .livetv-frame :focus-visible {

@@ -4,6 +4,7 @@
   const grid = document.getElementById('livetvGrid');
   const videoPlayer = document.getElementById('liveVideoPlayer');
   const videoContainer = document.getElementById('videoContainer');
+  const youtubeContainer = document.getElementById('liveYouTubeContainer');
   const playerTitle = document.getElementById('inlinePlayerTitle');
   const playerLogo = document.getElementById('inlinePlayerLogo');
   const playerSection = document.getElementById('liveTvPlayerSection');
@@ -23,6 +24,10 @@
   const channelCards = new Map();
   let tuneRequest = 0;
   let toastTimer;
+  let youtubeApiPromise;
+  let youtubeSession = null;
+  let nativeRequest = null;
+  let nativeStartupTimer;
 
   // Toast Notification System
   function showToast(message) {
@@ -124,7 +129,8 @@
             ? 'https://upload.wikimedia.org/wikipedia/commons/8/80/Cartoon_Network_2010_logo.svg'
             : ch.logo,
           url: ch.streamUrl || ch.url,
-          drm: ch.drm
+          drm: ch.drm,
+          youtubeLiveEndpoint: ch.youtubeLiveEndpoint
         };
       }).filter(channel => typeof channel.url === 'string' && channel.url.trim());
 
@@ -259,6 +265,7 @@
   });
 
   function setPlayerStatus(state, message) {
+    if (state !== 'loading') clearTimeout(nativeStartupTimer);
     playerStatus.dataset.state = state;
     playerStatus.textContent = message;
   }
@@ -271,6 +278,8 @@
   }
 
   function stopNativePlayback() {
+    clearTimeout(nativeStartupTimer);
+    nativeRequest = null;
     videoPlayer.pause();
     if (!shakaInstance && videoPlayer.hasAttribute('src')) {
       videoPlayer.removeAttribute('src');
@@ -278,8 +287,138 @@
     }
   }
 
+  function showNativeError(channel, request, message = 'Stream unavailable') {
+    if (request !== tuneRequest) return;
+    setPlayerStatus('error', message);
+    if (!channel.youtubeLiveEndpoint) return;
+
+    tuneRequest++;
+    videoContainer.hidden = true;
+    stopNativePlayback();
+    shakaInstance?.unload(false).catch(() => {});
+  }
+
+  function stopYouTube() {
+    const session = youtubeSession;
+    youtubeSession = null;
+    clearTimeout(session?.readyTimer);
+    session?.player?.destroy();
+    youtubeContainer.replaceChildren();
+    youtubeContainer.hidden = true;
+  }
+
+  async function findLiveYouTube(endpoint) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 2500);
+    try {
+      const response = await fetch(endpoint, { signal: controller.signal, cache: 'no-store' });
+      if (!response.ok) return null;
+      const result = await response.json();
+      return result?.status === 'live' && typeof result.videoId === 'string' && /^[\w-]{11}$/.test(result.videoId)
+        ? result.videoId : null;
+    } catch {
+      return null;
+    } finally {
+      clearTimeout(timeout);
+    }
+  }
+
+  function loadYouTubeApi() {
+    if (window.YT?.Player) return Promise.resolve(window.YT);
+    if (!youtubeApiPromise) {
+      youtubeApiPromise = new Promise(resolve => {
+        const script = document.createElement('script');
+        const timeout = setTimeout(() => finish(null), 5000);
+        function finish(api) {
+          clearTimeout(timeout);
+          delete window.onYouTubeIframeAPIReady;
+          script.onerror = null;
+          if (!api) script.remove();
+          resolve(api);
+        }
+        window.onYouTubeIframeAPIReady = () => finish(window.YT?.Player ? window.YT : null);
+        script.src = 'https://www.youtube.com/iframe_api';
+        script.onerror = () => finish(null);
+        document.head.appendChild(script);
+      }).then(api => {
+        if (!api) youtubeApiPromise = null;
+        return api;
+      });
+    }
+    return youtubeApiPromise;
+  }
+
+  function mountYouTube(api, videoId, channel, request) {
+    const iframe = document.createElement('iframe');
+    iframe.title = `${channel.name} on YouTube Live`;
+    iframe.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+    iframe.allowFullscreen = true;
+    iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+    const url = new URL(`https://www.youtube.com/embed/${videoId}`);
+    url.search = new URLSearchParams({ enablejsapi: '1', playsinline: '1', origin: location.origin });
+    iframe.src = url.href;
+
+    const session = { player: null, readyTimer: null };
+    youtubeSession = session;
+    const isCurrent = () => request === tuneRequest && youtubeSession === session;
+    const fallback = () => {
+      if (isCurrent()) playNativeChannel(channel, request);
+    };
+    session.readyTimer = setTimeout(fallback, 8000);
+    setPlayerStatus('loading', 'Loading YouTube Live…');
+    youtubeContainer.replaceChildren(iframe);
+
+    try {
+      session.player = new api.Player(iframe, { events: {
+        onReady(event) {
+          if (!isCurrent()) return;
+          clearTimeout(session.readyTimer);
+          setPlayerStatus('ready', 'YouTube Live · Press play');
+          event.target.playVideo();
+        },
+        onAutoplayBlocked() {
+          if (isCurrent()) setPlayerStatus('ready', 'YouTube Live · Press play');
+        },
+        onError: fallback,
+        onStateChange(event) {
+          if (!isCurrent()) return;
+          if (event.data === api.PlayerState.PLAYING) setPlayerStatus('live', 'Live on YouTube');
+          if (event.data === api.PlayerState.PAUSED) setPlayerStatus('paused', 'Paused · YouTube Live');
+          if (event.data === api.PlayerState.ENDED) {
+            stopYouTube();
+            playPreferredSource(channel, request, videoId);
+          }
+        }
+      } });
+    } catch {
+      fallback();
+    }
+  }
+
+  async function playPreferredSource(channel, request, endedVideoId = null) {
+    if (channel.youtubeLiveEndpoint) {
+      videoContainer.hidden = true;
+      youtubeContainer.hidden = false;
+      setPlayerStatus('loading', 'Checking YouTube Live…');
+      const videoId = await findLiveYouTube(channel.youtubeLiveEndpoint);
+      if (request !== tuneRequest) return;
+
+      if (videoId && videoId !== endedVideoId) {
+        const api = await loadYouTubeApi();
+        if (request !== tuneRequest) return;
+        if (api) {
+          shakaInstance?.unload(false).catch(() => {});
+          mountYouTube(api, videoId, channel, request);
+          return;
+        }
+      }
+    }
+    return playNativeChannel(channel, request);
+  }
+
   async function playChannel(channel, scroll = true) {
     const request = ++tuneRequest;
+    stopYouTube();
     channelCards.get(activeChannel)?.setAttribute('aria-pressed', 'false');
     activeChannel = channel;
     channelCards.get(channel)?.setAttribute('aria-pressed', 'true');
@@ -308,6 +447,17 @@
       return;
     }
 
+    return playPreferredSource(channel, request);
+  }
+
+  async function playNativeChannel(channel, request) {
+    stopYouTube();
+    videoContainer.hidden = false;
+    setPlayerStatus('loading', 'Connecting to stream…');
+    if (channel.youtubeLiveEndpoint) {
+      nativeStartupTimer = setTimeout(() => showNativeError(channel, request), 9000);
+    }
+    const url = channel.url;
     if (!shakaInstance) initShakaUI();
 
     if (shakaInstance) {
@@ -316,11 +466,15 @@
       } catch(e) {}
     }
     if (request !== tuneRequest) return;
+    nativeRequest = request;
 
     const startVideo = () => {
-      videoPlayer.play().catch(() => {
-        if (request === tuneRequest && playerStatus.dataset.state === 'loading') {
+      videoPlayer.play().catch(error => {
+        if (request !== tuneRequest || playerStatus.dataset.state !== 'loading') return;
+        if (!channel.youtubeLiveEndpoint || error.name === 'NotAllowedError') {
           setPlayerStatus('ready', 'Press play to start');
+        } else {
+          showNativeError(channel, request);
         }
       });
     };
@@ -409,12 +563,13 @@
         }
 
         try {
-          await shakaInstance.load(url);
+          const mimeType = channel.youtubeLiveEndpoint && url.includes('.mpd') ? 'application/dash+xml' : undefined;
+          await shakaInstance.load(url, null, mimeType);
           if (request === tuneRequest) startVideo();
         } catch (e) {
           if (request !== tuneRequest) return;
           console.error('Error loading stream:', e);
-          setPlayerStatus('error', 'Stream unavailable');
+          showNativeError(channel, request);
         }
       } else if (url.endsWith('.mp4') || videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
         // Fallback for iOS/Safari native HLS playback
@@ -431,7 +586,7 @@
         videoPlayer.src = nativeUrl;
         startVideo();
       } else {
-        setPlayerStatus('error', 'This browser can’t play the stream');
+        showNativeError(channel, request, 'This browser can’t play the stream');
       }
     } else {
       videoPlayer.src = url;
@@ -440,13 +595,13 @@
   }
 
   videoPlayer.addEventListener('playing', () => {
-    if (activeChannel && !videoContainer.hidden) setPlayerStatus('live', 'Live');
+    if (nativeRequest === tuneRequest) setPlayerStatus('live', 'Live');
   });
   videoPlayer.addEventListener('pause', () => {
-    if (playerStatus.dataset.state === 'live') setPlayerStatus('paused', 'Paused');
+    if (nativeRequest === tuneRequest && playerStatus.dataset.state === 'live') setPlayerStatus('paused', 'Paused');
   });
   videoPlayer.addEventListener('error', () => {
-    if (activeChannel && !videoContainer.hidden) setPlayerStatus('error', 'Stream unavailable');
+    if (nativeRequest === tuneRequest) showNativeError(activeChannel, nativeRequest);
   });
 
   document.getElementById('closeLiveTvPlayer').addEventListener('click', () => {
@@ -454,6 +609,7 @@
     const card = channelCards.get(activeChannel);
     card?.setAttribute('aria-pressed', 'false');
     activeChannel = null;
+    stopYouTube();
     stopNativePlayback();
     shakaInstance?.unload().catch(() => {});
     playerSection.hidden = true;
