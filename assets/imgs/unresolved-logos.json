@@ -1,0 +1,226 @@
+[
+  {
+    "name": "GIA TV",
+    "reason": "Community channel identity not verified against a public official brand source; shares source with 3rsSinePinoy."
+  },
+  {
+    "name": "Cartoon Classics",
+    "reason": "Generic public-domain cartoon FAST name; no exact official source/channel logo verified."
+  },
+  {
+    "name": "Cartoon Classics 2",
+    "reason": "Second similarly named rebroadcast stream; no verified official independent channel logo."
+  },
+  {
+    "name": "Discovery Kids",
+    "reason": "No exact logo verified from public broadcaster/distributor references; left blank rather than use a guessed brand."
+  },
+  {
+    "name": "Fx Cartoon",
+    "reason": "Catalog says Fx Cartoon but stream is Toonix-branded; no authoritative evidence that these identities share a logo."
+  },
+  {
+    "name": "Kiddo+",
+    "reason": "Exact SOFAST feed brand not verified; same-name child-development sites are unrelated."
+  },
+  {
+    "name": "Kids TV",
+    "reason": "Generic station name and cloud stream host do not uniquely identify a broadcaster; no exact official logo verified."
+  },
+  {
+    "name": "Nickjr",
+    "reason": "Exact official Nick Jr. RGB logo found in Paramount mediahub, but public image download returned HTTP 403 and dedicated page requires authentication."
+  },
+  {
+    "name": "Persiana Junior",
+    "reason": "Official Persiana website could not be reached and exact Junior subchannel asset was not verified."
+  },
+  {
+    "name": "3rsSinePinoy",
+    "reason": "Supplied source duplicates GIA TV; no exact public official logo verified."
+  },
+  {
+    "name": "Films TV",
+    "reason": "Generic Films TV title with third-party playout host; no exact official brand logo verified."
+  },
+  {
+    "name": "Grand Cinema",
+    "reason": "Official source page confirms exact channel and stream but publishes no logo. Unrelated cinema-company logos were not used."
+  },
+  {
+    "name": "Jupiter TV",
+    "reason": "Sofast portfolio mentions Jupiter TV, but no verified exact channel image found on current official website."
+  },
+  {
+    "name": "Movie Box Ph",
+    "reason": "Small rebroadcast channel name on third-party playout; no exact official logo verified."
+  },
+  {
+    "name": "Movie Favorites by Lifetime",
+    "reason": "HTTP 403"
+  },
+  {
+    "name": "Popflix (720p)",
+    "reason": "Existing artwork was inaccessible, incorrect, or could not be verified; initials retained."
+  },
+  {
+    "name": "Sci-Fi World",
+    "reason": "Generic genre name on Sofast stream; no exact official channel image verified."
+  },
+  {
+    "name": "Sine Plus",
+    "reason": "No exact logo verified from public broadcaster/distributor references; left blank rather than use a guessed brand."
+  },
+  {
+    "name": "Telemundo Accion",
+    "reason": "Exact FAST channel exists, but no downloadable official Acción subchannel logo verified; generic Telemundo logo intentionally not substituted."
+  },
+  {
+    "name": "Newsmax N1",
+    "reason": "N1 feed branding could not be confirmed; did not substitute Newsmax2 or an unrelated N1 network."
+  },
+  {
+    "name": "Alien Nation",
+    "reason": "Existing artwork was inaccessible, incorrect, or could not be verified; initials retained."
+  },
+  {
+    "name": "Blossom Tv",
+    "reason": "Generic name and Amagi playout identifier do not establish exact channel brand identity."
+  },
+  {
+    "name": "Colour Blind",
+    "reason": "No exact logo verified from public broadcaster/distributor references; left blank rather than use a guessed brand."
+  },
+  {
+    "name": "Edgy TV",
+    "reason": "Sofast historical portfolio mentions Edgy Urban; no proof that catalog Edgy TV has the same logo."
+  },
+  {
+    "name": "Fx1",
+    "reason": "No exact logo verified from public broadcaster/distributor references; left blank rather than use a guessed brand."
+  },
+  {
+    "name": "Highlights TV",
+    "reason": "Local rebroadcast worker does not establish an authoritative station brand asset."
+  },
+  {
+    "name": "Hype TV by DTMMBS",
+    "reason": "No exact logo verified from public broadcaster/distributor references; left blank rather than use a guessed brand."
+  },
+  {
+    "name": "Ktv2",
+    "reason": "Kuwait Ministry of Information site verified, but exact KTV 2 subchannel logo not located; ministry emblem intentionally not substituted."
+  },
+  {
+    "name": "LIT Creationz",
+    "reason": "No exact logo verified from public broadcaster/distributor references; left blank rather than use a guessed brand."
+  },
+  {
+    "name": "Mama Benz TV",
+    "reason": "No exact logo verified from public broadcaster/distributor references; left blank rather than use a guessed brand."
+  },
+  {
+    "name": "Robot Wars by Mech+",
+    "reason": "No exact logo verified from public broadcaster/distributor references; left blank rather than use a guessed brand."
+  },
+  {
+    "name": "Televiza",
+    "reason": "Catalog misspelling plus Televisa host does not establish which Televisa-branded channel this represents."
+  },
+  {
+    "name": "Tinovelas Europa",
+    "reason": "Catalog title and shared Televisa stream do not prove exact TLNovelas regional identity; no logo substituted."
+  },
+  {
+    "name": "American Crimes",
+    "reason": "Private/generic FAST channel title; no exact official logo verified."
+  },
+  {
+    "name": "EXHBT TV",
+    "reason": "No exact logo verified from public broadcaster/distributor references; left blank rather than use a guessed brand."
+  },
+  {
+    "name": "History2",
+    "reason": "Current supplied FAST endpoint does not establish regional brand variant. No exact official asset confirmed."
+  },
+  {
+    "name": "KTK DIGITAL",
+    "reason": "Generic local rebroadcast title; no exact official broadcaster logo verified."
+  },
+  {
+    "name": "Master Chef",
+    "reason": "Banijay confirms MasterChef brand; exact FAST channel identity/variant not established from catalog source."
+  },
+  {
+    "name": "Real Disaster Channel",
+    "reason": "Previously indexed Xumo ID 99951262 now supplies Mayday Air Disaster branding. Official Glewed page confirms Real Disaster but clean logo unavailable; avoid incorrect replacement."
+  },
+  {
+    "name": "Chrono TV",
+    "reason": "No exact logo verified from public broadcaster/distributor references; left blank rather than use a guessed brand."
+  },
+  {
+    "name": "Home Plus",
+    "reason": "Exact WNS broadcaster page is a bare player without verified logo; no unrelated Home Plus brand substituted."
+  },
+  {
+    "name": "Nitro TV",
+    "reason": "Exact SOFAST feed brand not verified; unrelated RTL Nitro logo was not used."
+  },
+  {
+    "name": "Racer International",
+    "reason": "Official RACER confirms International FAST service; direct site asset retrieval blocked (429) and specific International logo not verified."
+  },
+  {
+    "name": "SPEED SPORTS",
+    "reason": "SPEED SPORT 1 official icon was inspected, but catalog SPEED SPORTS and Frequency stream do not conclusively establish that exact station identity; leave blank."
+  },
+  {
+    "name": "Blues TV",
+    "reason": "Generic music station name; no authoritative matching stream/channel logo verified."
+  },
+  {
+    "name": "Dream TV PH",
+    "reason": "No exact logo verified from public broadcaster/distributor references; left blank rather than use a guessed brand."
+  },
+  {
+    "name": "Good Life",
+    "reason": "Generic name may refer to several unrelated networks; exact stream ownership and matching logo were not verified."
+  },
+  {
+    "name": "Hope Tv",
+    "reason": "BECdn source does not prove regional Hope Channel feed; no generic Hope logo substituted."
+  },
+  {
+    "name": "Mindanow Network TV",
+    "reason": "No exact official station logo verified for this local rebroadcast channel."
+  },
+  {
+    "name": "RomKom K Drama",
+    "reason": "Exact FAST brand not verified; did not use unrelated K-drama channel logos."
+  },
+  {
+    "name": "Star TV Philippines",
+    "reason": "Generic local station title; no authoritative matching logo verified."
+  },
+  {
+    "name": "Angry Bird",
+    "reason": "Existing artwork was inaccessible, incorrect, or could not be verified; initials retained."
+  },
+  {
+    "name": "Meta Film TV",
+    "reason": "Exact WNS broadcaster page is a bare player without verified logo; no unrelated film company logo substituted."
+  },
+  {
+    "name": "RCM",
+    "reason": "Catalog name RCM points to a Lightning International Rialto feed. Intended identity is ambiguous; no unrelated RCM logo used."
+  },
+  {
+    "name": "Yahoo! Finance",
+    "reason": "Official Yahoo Finance page could not be retrieved and no current direct official logo asset verified."
+  },
+  {
+    "name": "4K Travel",
+    "reason": "No exact logo verified from public broadcaster/distributor references; left blank rather than use a guessed brand."
+  }
+]

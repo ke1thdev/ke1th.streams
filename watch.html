@@ -8,89 +8,104 @@
   <meta charset="UTF-8" />
   <meta name="viewport"
     content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <title>Watch - ke1th.streams v3.4.1</title>
+  <title>Watch - ke1th.streams v3.4.3</title>
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/imgs/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/imgs/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/imgs/favicon-16x16.png">
-  <link rel="manifest" href="/assets/imgs/site.webmanifest">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/imgs/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/imgs/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/imgs/favicon-16x16.png">
+  <link rel="manifest" href="assets/imgs/site.webmanifest">
   <meta name="theme-color" content="#121212">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-    rel="stylesheet" />
-  <link rel="stylesheet" href="/assets/css/watch.css?v=3.4.0" />
-  <link rel="stylesheet" href="/assets/css/liquid-glass.css?v=3.4.0" />
-  <link rel="stylesheet" href="/assets/css/landscape.css?v=3.4.0" />
+  <link rel="stylesheet" href="assets/css/fonts.css?v=3.4.3&amp;rev=metvtoons1">
+  <link rel="stylesheet" href="assets/css/watch.css?v=3.4.3&amp;rev=metvtoons1" />
+  <link rel="stylesheet" href="assets/css/liquid-glass.css?v=3.4.3&amp;rev=metvtoons1" />
+  <link rel="stylesheet" href="assets/css/landscape.css?v=3.4.3&amp;rev=metvtoons1" />
 </head>
 
 <body>
-  <header class="watch-header">
-    <button id="backBtn" class="back-btn liquid-glass-circle" aria-label="Go Back">
-      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
-        stroke-linecap="round" stroke-linejoin="round">
-        <line x1="19" y1="12" x2="5" y2="12"></line>
-        <polyline points="12 19 5 12 12 5"></polyline>
-      </svg>
-      <span class="back-text">Back</span>
-    </button>
-    <div class="watch-title-wrap">
-      <h1 id="watchTitle">Loading...</h1>
-    </div>
-    <div class="header-actions">
-      <div class="server-selector" id="serverSelector">
-        <span class="server-label">Server:</span>
-        <div class="server-select-wrap liquid-glass">
-        <select id="serverSelect" class="server-select">
-          <option value="videasy" selected>Default Server</option>
-          <option value="vidsrc">Server 2</option>
-          <option value="rive">Server 3</option>
-          <option value="vidup">Server 4</option>
-          <option value="vixsrc">Server 5</option>
-          <option value="vidnest">Server 6</option>
-          <option value="vidfast">Server 7</option>
-          <option value="peachify">Server 8</option>
-        </select>
-        <svg class="select-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor"
-          stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="6 9 12 15 18 9"></polyline>
-        </svg>
-      </div>
-    </div>
-    </div>
-  </header>
-
   <main class="watch-main">
     <div class="player-wrapper">
       <iframe id="videoFrame" title="Video Player" allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
-        allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" playsinline
+        allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" playsinline hidden
         webkit-playsinline></iframe>
     </div>
-    <!-- Tap interceptor � catches taps over the iframe to re-show the glass overlay on mobile -->
-    <div id="tapInterceptor" class="tap-interceptor"></div>
-    <!-- Floating Next Episode button � appears near end of episode -->
-    <button id="nextEpBtn" class="next-ep-fab liquid-glass-bar hidden" aria-label="Next Episode">
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-        <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/>
-      </svg>
-      <span>Next Episode</span>
-    </button>
   </main>
+
+  <button id="openPlaybackDrawer" class="watch-edge" type="button" aria-label="Open playback controls"
+    aria-controls="playbackDrawer" aria-expanded="false" hidden>
+    <span class="watch-edge-tab" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round"><path d="m14 6-6 6 6 6"/></svg>
+    </span>
+  </button>
+
+  <dialog id="playbackDrawer" class="watch-drawer" aria-labelledby="playbackDrawerTitle">
+    <header class="watch-drawer-header">
+      <div>
+        <h1 id="playbackDrawerTitle">Playback controls</h1>
+        <p id="watchTitle" class="watch-provider-context"></p>
+      </div>
+      <button id="closePlaybackDrawer" class="watch-tool watch-drawer-close" type="button"
+        aria-label="Close playback controls" autofocus>
+        <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+      </button>
+    </header>
+    <div class="watch-drawer-content">
+      <div class="watch-drawer-meta">
+        <label for="serverSelect">Playback server</label>
+        <span id="watchStatus" class="watch-status hidden" role="status"></span>
+      </div>
+      <div class="server-select-wrap">
+        <svg class="select-chevron" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+          stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="m6 9 6 6 6-6"/>
+        </svg>
+        <select id="serverSelect" class="server-select">
+          <option value="vidstuck" selected>Default Server</option>
+          <option value="videasy">Server 2</option>
+          <option value="vidsrc">Server 3</option>
+          <option value="rive">Server 4</option>
+          <option value="vidup">Server 5</option>
+          <option value="vixsrc">Server 6</option>
+          <option value="vidnest">Server 7</option>
+          <option value="vidfast">Server 8</option>
+          <option value="peachify">Server 9</option>
+        </select>
+      </div>
+      <div class="watch-actions">
+        <button id="nextEpBtn" class="watch-tool watch-tool-next hidden" type="button" aria-label="Next episode">
+          <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true">
+            <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/>
+          </svg>
+          <span id="nextEpLabel">Next episode</span>
+        </button>
+        <label id="autoNextRow" class="watch-tool watch-auto-next" hidden>
+          <span>Auto-next episode</span>
+          <input id="autoNextToggle" type="checkbox" role="switch" checked>
+        </label>
+        <button id="markFinishedBtn" class="watch-tool" type="button">
+          <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>
+          Mark finished
+        </button>
+        <button id="backBtn" class="watch-tool watch-provider-context" type="button">
+          <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m7 7-7-7 7-7"/></svg>
+          Back to details
+        </button>
+      </div>
+    </div>
+  </dialog>
 
   <div id="toast" class="toast hidden" aria-live="assertive"></div>
 
-  <!-- Disclaimer Modal -->
-  <div id="disclaimerModal" class="disclaimer-modal hidden">
-    <div class="disclaimer-backdrop"></div>
-    <div class="disclaimer-content">
+  <dialog id="disclaimerModal" class="disclaimer-modal" aria-labelledby="disclaimerTitle">
       <div class="disclaimer-header">
-        <img src="/assets/imgs/android-chrome-192x192.png" alt="logo"
-          style="width: 28px; height: 28px; margin-right: 6px; border-radius: 4px;" />
-        <h2 class="disclaimer-title">Before you start watching</h2>
+        <img src="assets/imgs/android-chrome-192x192.png" alt="" />
+        <h2 id="disclaimerTitle" class="disclaimer-title">Before you start watching</h2>
       </div>
       <div class="disclaimer-body">
-        <p class="disclaimer-notice" style="margin-bottom: 8px;"><strong>ke1th.<span
+        <p class="disclaimer-notice"><strong>ke1th.<span
               style="color: #e50914;">streams</span></strong> itself is completely ad-free! However, the video players might
           redirect you to an ad page or open a pop-up when you click the Play button.<br><br>The good news is that you can easily block these using an ad blocker for a clean experience!
         </p>
@@ -115,14 +130,16 @@
         </label>
         <button id="disclaimerOk" class="disclaimer-btn" type="button">Got it, let's watch</button>
       </div>
-    </div>
-  </div>
+  </dialog>
 
-  <script src="/assets/js/config.js?v=3.4.0"></script>
-  <script src="/assets/js/tmdb.js?v=3.4.0"></script>
-  <script src="/assets/js/landscape.js?v=3.4.0"></script>
-  <script src="/assets/js/liquid-glass.js?v=3.4.0"></script>
-  <script src="/assets/js/watch.js?v=3.4.0"></script>
+  <script src="assets/js/image-manifest.js?v=3.4.3&amp;rev=metvtoons1"></script>
+  <script src="assets/js/config.js?v=3.4.3&amp;rev=metvtoons1"></script>
+  <script src="assets/js/tmdb.js?v=3.4.3&amp;rev=metvtoons1"></script>
+  <script src="assets/js/landscape.js?v=3.4.3&amp;rev=metvtoons1"></script>
+  <script src="assets/js/liquid-glass.js?v=3.4.3&amp;rev=metvtoons1"></script>
+  <script type="module" src="assets/vendor/mobile-dock.min.js?v=3.4.3&amp;rev=metvtoons1"></script>
+  <script src="assets/js/watch-history.js?v=3.4.3&amp;rev=metvtoons1"></script>
+  <script src="assets/js/watch.js?v=3.4.3&amp;rev=metvtoons1"></script>
 
   <!-- SVG displacement filters are now dynamically generated by liquid-glass.js -->
 </body>

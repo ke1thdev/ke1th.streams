@@ -2,7 +2,7 @@
   "use strict";
 
   const config = window.TMDB_CONFIG || {};
-  const TMDB_IMG = config.IMAGE_BASE || "https://image.tmdb.org/t/p/w500";
+  const TMDB_IMG = path => window.SiteImages.tmdb(path, 'w500');
   const FALLBACK_POSTER = 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(
     '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 450"><rect width="300" height="450" fill="#1a1a1a"/><text x="50%" y="50%" fill="#555" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="14">No Image</text></svg>'
   );
@@ -83,19 +83,20 @@
     if (els.genreFilter) els.genreFilter.value = state.genre;
 
     updateHeader();
-    await loadInitialData();
 
     // Fix active nav states for anime
     if (state.type === 'anime') {
       const activeNavs = document.querySelectorAll(".nav-active, .dock-active");
       activeNavs.forEach(el => el.classList.remove("nav-active", "dock-active"));
       
-      const animeNavs = document.querySelectorAll('a[href="/browse.html?type=anime"]');
+      const animeNavs = document.querySelectorAll('a[href="browse.html?type=anime"]');
       animeNavs.forEach(el => {
         if (el.classList.contains("nav-link")) el.classList.add("nav-active");
         if (el.classList.contains("dock-btn")) el.classList.add("dock-active");
       });
     }
+
+    await loadInitialData();
   }
 
   function bindEvents() {
@@ -398,7 +399,7 @@
     const type = item.mediaType;
     const isAnime = item.isAnime === true;
     const img = item.poster_path || item.backdrop_path;
-    const src = img ? TMDB_IMG + img : FALLBACK_POSTER;
+    const src = img ? TMDB_IMG(img) : FALLBACK_POSTER;
     const year = (item.release_date || item.first_air_date || "").slice(0, 4);
     const rating = Number(item.vote_average || 0).toFixed(1);
     const typeLabel = isAnime ? "Anime" : (type === "tv" ? "TV" : "Movie");

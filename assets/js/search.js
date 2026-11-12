@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let searchFilter = "all";
   let searchDebounce = null;
-  const FALLBACK_POSTER = "/assets/imgs/poster-placeholder.png"; // verify path if needed
+  const FALLBACK_POSTER = "assets/imgs/android-chrome-192x192.png";
 
   const esc = (str) => {
     const div = document.createElement("div");
@@ -191,7 +191,7 @@ document.addEventListener("DOMContentLoaded", () => {
   async function doSearch(query) {
     try {
       let results = [];
-      const TMDB_IMG = "https://image.tmdb.org/t/p/w200";
+      const TMDB_IMG = path => window.SiteImages.tmdb(path, 'w200');
 
       resultsEl.innerHTML = `<div class="spinner" style="margin: 40px auto;"></div>`;
 
@@ -252,7 +252,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const title = item.title || item.name || "Untitled";
         const year = (item.release_date || item.first_air_date || "").slice(0, 4);
         const type = item.media_type === "tv" ? "TV Show" : "Movie";
-        const poster = item.poster_path ? `${TMDB_IMG}${item.poster_path}` : FALLBACK_POSTER;
+        const poster = item.poster_path ? TMDB_IMG(item.poster_path) : FALLBACK_POSTER;
         const rating = Number(item.vote_average || 0).toFixed(1);
         const overview = item.overview || "No description available.";
 

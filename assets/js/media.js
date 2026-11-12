@@ -2,8 +2,10 @@
   "use strict";
 
   const config = window.TMDB_CONFIG || {};
-  const TMDB_IMG = config.IMAGE_BASE || "https://image.tmdb.org/t/p/w500";
-  const TMDB_BACKDROP = config.BACKDROP_BASE || "https://image.tmdb.org/t/p/original";
+  const TMDB_IMG = path => window.SiteImages.tmdb(path, 'w500');
+  const TMDB_BACKDROP = path => window.SiteImages.tmdb(path, 'w1280');
+  const useBackgroundTrailer = !matchMedia("(prefers-reduced-motion: reduce)").matches &&
+    (/Chrom(?:e|ium)\//.test(navigator.userAgent) || !matchMedia("(pointer: coarse)").matches);
   const FALLBACK_POSTER = `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(
     `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 450"><rect width="300" height="450" fill="#1a1a1a"/><text x="50%" y="50%" fill="#555" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="14">No Image</text></svg>`
   )}`;
@@ -41,11 +43,17 @@
     }
   }
 
+  if (type === "anime") {
+    type = "tv";
+    isAnimeMode = true;
+  }
+
   const $ = (sel, ctx = document) => ctx.querySelector(sel);
   const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
 
   const els = {
     hero: $("#mediaHero"),
+    heroBackdrop: $("#mediaBackdrop"),
     heroVideoWrap: $("#heroVideoWrap"),
     heroTrailerBg: $("#heroTrailerBg"),
     heroTitle: $("#heroTitle"),
@@ -55,9 +63,11 @@
     heroOverview: $("#heroOverview"),
     heroActions: $(".hero-actions"),
     playBtn: $("#playBtn"),
+    playLabel: $("#playLabel"),
     episodesBtn: $("#episodesBtn"),
     similarBtn: $("#similarBtn"),
     watchLaterBtn: $("#watchLaterBtn"),
+    watchLaterLabel: $("#watchLaterLabel"),
     shareBtn: $("#shareBtn"),
     thumbsUpBtn: $("#thumbsUpBtn"),
     thumbsDownBtn: $("#thumbsDownBtn"),
@@ -78,9 +88,14 @@
     heroMuted: true,
     heroLoadedKey: null,
     currentSeason: 1,
-    descTimer: null,
-    isAnimeMode: false,
-    animeMalId: null
+    descTimer: null
+  };
+
+  const watchLabels = {
+    started: "Started",
+    watching: "In progress",
+    finished: "Finished",
+    "up-next": "Up next"
   };
 
   init();
@@ -139,20 +154,17 @@
 
     // Play button
     els.playBtn.addEventListener("click", () => {
-      const lastPlayed = getLastPlayedEpisode();
-      if (lastPlayed) {
-        openPlayer({ season: lastPlayed.season, episode: lastPlayed.episode });
-      } else {
-        openPlayer();
-      }
+      const resume = window.WatchHistory?.getResume(type, id);
+      window.location.href = playerUrl(resume || {});
     });
+    window.addEventListener("pageshow", refreshWatchPresentation);
+    window.addEventListener("storage", refreshWatchPresentation);
 
     // Episodes button
     els.episodesBtn.addEventListener("click", () => {
-      els.episodesBlock.classList.toggle("hidden");
-      if (!els.episodesBlock.classList.contains("hidden")) {
-        els.episodesBlock.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
+      els.episodesBlock.classList.remove("hidden");
+      const behavior = matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+      els.episodesBlock.scrollIntoView({ behavior, block: "start" });
     });
 
     // Similar button
@@ -301,14 +313,14 @@
 
     const backdrop = details.backdrop_path || details.poster_path;
     if (backdrop) {
-      els.hero.style.backgroundImage = `url("${TMDB_BACKDROP}${backdrop}")`;
+      els.heroBackdrop.style.backgroundImage = `url("${TMDB_BACKDROP(backdrop)}")`;
     }
 
     // Title logo or text
     const logos = details.images?.logos || [];
     const logo = logos.find(l => l.iso_639_1 === "en") || logos[0];
     if (logo?.file_path) {
-      els.heroTitleLogo.src = TMDB_IMG + logo.file_path;
+      els.heroTitleLogo.src = TMDB_IMG(logo.file_path);
       els.heroTitleLogo.alt = title + " Logo";
       els.heroTitleLogo.classList.remove("hidden");
       els.heroTitle.classList.add("hidden");
@@ -333,7 +345,11 @@
       meta.push(`<span class="sep"></span>`);
       meta.push(`<span>${esc(g)}</span>`);
     });
+    if (type === "movie") {
+      meta.push('<span id="movieWatchState" class="watch-state liquid-glass-bar" data-glisse-surface hidden><span class="watch-state-label"></span></span>');
+    }
     els.heroMeta.innerHTML = meta.join("");
+    refreshWatchPresentation();
     els.heroOverview.textContent = details.overview || "No description available.";
 
     // TV-specific
@@ -352,7 +368,7 @@
     if (metaDesc && details.overview) metaDesc.content = details.overview;
     
     const metaImg = document.querySelector('meta[property="og:image"]');
-    if (metaImg && backdrop) metaImg.content = `${TMDB_BACKDROP}${backdrop}`;
+    if (metaImg && backdrop) metaImg.content = TMDB_BACKDROP(backdrop);
     
     const twitterTitle = document.querySelector('meta[name="twitter:title"]');
     if (twitterTitle) twitterTitle.content = `${title} - ke1th.streams`;
@@ -361,14 +377,15 @@
     if (twitterDesc && details.overview) twitterDesc.content = details.overview;
     
     const twitterImg = document.querySelector('meta[name="twitter:image"]');
-    if (twitterImg && backdrop) twitterImg.content = `${TMDB_BACKDROP}${backdrop}`;
+    if (twitterImg && backdrop) twitterImg.content = TMDB_BACKDROP(backdrop);
   }
 
   function renderHeroTrailer() {
-    if (!state.trailerKey) {
+    if (!state.trailerKey || !useBackgroundTrailer) {
       els.hero.classList.remove("has-trailer");
       els.heroVideoWrap.classList.add("hidden");
-      els.heroTrailerBg.src = "";
+      els.heroTrailerBg.removeAttribute("src");
+      els.muteBtn.classList.add("hidden");
       state.heroLoadedKey = null;
       els.heroTitleWrap?.classList.remove("hidden");
       return;
@@ -428,8 +445,10 @@
     });
 
     if (els.seasonSelect.options.length > 0) {
-      const hasSeasonOne = seasons.some(s => Number(s.season_number) === 1);
-      state.currentSeason = hasSeasonOne ? 1 : Number(els.seasonSelect.options[0].value);
+      const resumeSeason = Number(window.WatchHistory?.getResume(type, id)?.season || 1);
+      state.currentSeason = seasons.some(s => Number(s.season_number) === resumeSeason)
+        ? resumeSeason
+        : Number(els.seasonSelect.options[0].value);
       els.seasonSelect.value = state.currentSeason;
     }
 
@@ -438,14 +457,7 @@
       loadSeason(state.currentSeason);
     });
 
-    els.episodeSearch.addEventListener("input", () => {
-      const q = els.episodeSearch.value.trim().toLowerCase();
-      $$(".episode-card", els.episodesList).forEach(card => {
-        const title = (card.dataset.title || "").toLowerCase();
-        const overview = (card.dataset.overview || "").toLowerCase();
-        card.style.display = (!q || title.includes(q) || overview.includes(q)) ? "" : "none";
-      });
-    });
+    els.episodeSearch.addEventListener("input", filterEpisodes);
 
     els.episodesBlock.classList.remove("hidden");
     loadSeason(state.currentSeason);
@@ -457,9 +469,11 @@
 
     try {
       const data = await TMDB.getTVSeasonDetails(id, seasonNum);
-      const episodes = data.episodes || [];
+      if (state.currentSeason !== seasonNum) return;
+      const episodes = (data.episodes || []).filter(ep => Number(ep?.episode_number) > 0);
       renderEpisodes(episodes);
     } catch (err) {
+      if (state.currentSeason !== seasonNum) return;
       console.error(err);
       els.episodesList.innerHTML = '<p class="empty-msg">Failed to load episodes.</p>';
     }
@@ -472,38 +486,46 @@
     }
 
     els.episodesList.innerHTML = episodes.map(ep => {
-      const num = ep.episode_number || 0;
+      const num = Number(ep.episode_number);
       const title = ep.name || `Episode ${num}`;
       const overview = ep.overview || "No description available.";
-      const still = ep.still_path ? `${TMDB_BACKDROP}${ep.still_path}` : "";
+      const still = ep.still_path ? TMDB_BACKDROP(ep.still_path) : "";
       const runtime = ep.runtime ? `${ep.runtime}m` : "";
 
       return `
-        <div class="episode-card" data-ep="${num}" data-title="${esc(title)}" data-overview="${esc(overview)}">
+        <a class="episode-card" href="${esc(playerUrl({ episode: num }))}" data-ep="${num}"
+          aria-label="Play episode ${num}, ${esc(title)}" aria-describedby="episode-state-${num}">
           <div class="ep-thumb-wrap">
-            ${still ? `<img class="ep-thumb" src="${still}" alt="Episode ${num}" loading="lazy" />` : `<div class="ep-thumb"></div>`}
-            <span class="ep-number">E${String(num).padStart(2, "0")}</span>
-            <div class="ep-play-overlay">
-              <svg viewBox="0 0 24 24" width="32" height="32" fill="white"><path d="M8 5v14l11-7z"></path></svg>
+            ${still ? `<img class="ep-thumb" src="${esc(still)}" alt="" loading="lazy" />` : ""}
+            <span class="ep-number" aria-hidden="true">E${String(num).padStart(2, "0")}</span>
+            <div class="ep-play-overlay" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg>
             </div>
+            <span id="episode-state-${num}" class="watch-state episode-watch-state liquid-glass-bar" data-glisse-surface hidden>
+              <span class="watch-state-label"></span>
+            </span>
+            <span class="ep-progress" aria-hidden="true" hidden></span>
           </div>
           <div class="ep-info">
-            <p class="ep-title">${esc(title)}</p>
-            <p class="ep-overview">${esc(overview)}</p>
-            ${runtime ? `<p class="ep-runtime">${runtime}</p>` : ""}
+            <span class="ep-title">${esc(title)}</span>
+            <span class="ep-overview">${esc(overview)}</span>
+            ${runtime ? `<span class="ep-runtime">${esc(runtime)}</span>` : ""}
           </div>
-        </div>
+        </a>
       `;
     }).join("");
 
-    // Episode click
-    $$(".episode-card", els.episodesList).forEach(card => {
-      card.addEventListener("click", () => {
-        const epNum = Number(card.dataset.ep);
-        if (!epNum) return;
-        openPlayer({ episode: epNum });
-      });
-    });
+    refreshWatchPresentation();
+    filterEpisodes();
+  }
+
+  function filterEpisodes() {
+    const query = els.episodeSearch.value.trim().toLowerCase();
+    for (const card of $$(".episode-card", els.episodesList)) {
+      const title = $(".ep-title", card).textContent.toLowerCase();
+      const overview = $(".ep-overview", card).textContent.toLowerCase();
+      card.hidden = Boolean(query && !title.includes(query) && !overview.includes(query) && card.dataset.ep !== query);
+    }
   }
 
   // ─── Actors ───
@@ -518,7 +540,7 @@
     els.actorsGrid.innerHTML = cast.map(actor => {
       const name = actor.name || "Unknown";
       const role = actor.character || "Actor";
-      const img = actor.profile_path ? `${TMDB_IMG}${actor.profile_path}` : FALLBACK_POSTER;
+      const img = actor.profile_path ? TMDB_IMG(actor.profile_path) : FALLBACK_POSTER;
 
       return `
         <div class="actor-card">
@@ -580,7 +602,7 @@
       const rating = Number(item.vote_average || 0).toFixed(1);
       const mediaType = item.mediaType === "tv" ? "tv" : "movie";
       const img = item.backdrop_path || item.poster_path;
-      const src = img ? `${TMDB_BACKDROP}${img}` : FALLBACK_POSTER;
+      const src = img ? TMDB_BACKDROP(img) : FALLBACK_POSTER;
 
       return `
         <button class="recommend-card" type="button" data-id="${item.id}" data-type="${mediaType}">
@@ -593,45 +615,62 @@
   }
 
   // ─── Player ───
-  function getLastPlayedEpisode() {
-    if (type !== 'tv') return null;
-    try {
-      const progressData = JSON.parse(localStorage.getItem('watchProgress') || '{}');
-      let latestEp = null;
-      
-      for (const [key, data] of Object.entries(progressData)) {
-        if (key.startsWith(`tv_${id}_`)) {
-          const parts = key.split('_');
-          if (parts.length >= 4) {
-             const s = parseInt(parts[2], 10);
-             const e = parseInt(parts[3], 10);
-             if (!latestEp || s > latestEp.season || (s === latestEp.season && e > latestEp.episode)) {
-               latestEp = { season: s, episode: e };
-             }
-          }
-        }
+  function refreshWatchPresentation() {
+    const history = window.WatchHistory;
+    if (!history || !id) return;
+    const resume = history.getResume(type, id);
+    const movie = type === "movie" ? history.get({ type, id }) : null;
+    let playLabel = "Play";
+    if (resume) {
+      if (type === "tv") {
+        const action = resume.status === "up-next" ? "Play" : "Resume";
+        playLabel = `${action} S${resume.season} E${resume.episode}`;
+      } else {
+        playLabel = "Resume";
       }
-      return latestEp;
-    } catch(err) {
-      return null;
+    } else if (movie?.status === "finished") {
+      playLabel = "Watch again";
+    }
+    els.playLabel.textContent = playLabel;
+
+    const movieBadge = $("#movieWatchState");
+    if (movieBadge) updateWatchBadge(movieBadge, movie);
+
+    for (const card of $$(".episode-card", els.episodesList)) {
+      const record = history.get({ type, id, season: state.currentSeason, episode: Number(card.dataset.ep) });
+      updateWatchBadge($(".episode-watch-state", card), record);
+      const progress = Math.min(100, Math.max(0, Number(record?.progress) || 0));
+      const bar = $(".ep-progress", card);
+      bar.hidden = record?.status !== "watching" || progress === 0;
+      bar.style.setProperty("--episode-progress", progress + "%");
     }
   }
 
-  function openPlayer(options = {}) {
+  function updateWatchBadge(badge, record) {
+    const label = watchLabels[record?.status] || "";
+    badge.hidden = !label;
+    badge.dataset.status = record?.status || "";
+    const labelEl = $(".watch-state-label", badge);
+    if (labelEl.textContent !== label) labelEl.textContent = label;
+  }
+
+  function playerUrl(options = {}) {
     const episode = Number(options.episode || 1);
-    const season = Number(options.season || state.currentSeason || 1);
+    const season = Number(options.season ?? state.currentSeason);
     
-    let url = `/watch.html?type=${type}&id=${id}`;
+    let url = `watch.html?type=${type}&id=${id}`;
     if (type === 'tv') {
       url += `&season=${season}&episode=${episode}`;
     }
     
     // Anime fallback parameters
-    if (state.isAnimeMode && state.animeMalId > 0) {
-      url += `&anime=1&malId=${state.animeMalId}`;
+    if (isAnimeMode || options.isAnime) {
+      url += "&anime=1";
+      const malId = Number(options.malId) || animeMalId;
+      if (malId > 0) url += `&malId=${malId}`;
     }
 
-    window.location.href = url;
+    return url;
   }
 
 
@@ -673,10 +712,10 @@
     
     const inList = list.some(item => String(item.id) === String(id) && item.mediaType === type);
     if (inList) {
-      els.watchLaterBtn.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> In Watch Later';
+      els.watchLaterLabel.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> In Watch Later';
       els.watchLaterBtn.classList.add('active');
     } else {
-      els.watchLaterBtn.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg> Watch Later';
+      els.watchLaterLabel.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg> Watch Later';
       els.watchLaterBtn.classList.remove('active');
     }
   }

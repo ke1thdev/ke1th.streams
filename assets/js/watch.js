@@ -1,56 +1,185 @@
 (async function() {
   const urlParams = new URLSearchParams(window.location.search);
-  const type = urlParams.get('type');
+  const requestedType = urlParams.get('type');
+  const type = requestedType === 'anime' ? 'tv' : requestedType;
   const id = urlParams.get('id');
-  const season = urlParams.get('season') || 1;
-  const episode = urlParams.get('episode') || 1;
-  const malId = urlParams.get('malId');
-  const isAnime = urlParams.get('anime') === '1';
+  const requestedSeason = Number.parseInt(urlParams.get('season'), 10);
+  const season = Number.isInteger(requestedSeason) && requestedSeason >= 0 ? requestedSeason : 1;
+  const episode = Math.max(1, Number.parseInt(urlParams.get('episode') ?? '1', 10) || 1);
+  const requestedMalId = urlParams.get('malId');
+  const malId = /^\d+$/.test(requestedMalId || '') ? requestedMalId : null;
+  const isAnime = requestedType === 'anime' || urlParams.get('anime') === '1';
+  const servers = ['vidstuck', 'videasy', 'vidsrc', 'rive', 'vidup', 'vixsrc', 'vidnest', 'vidfast', 'peachify'];
 
   const els = {
+    drawer: document.getElementById('playbackDrawer'),
+    openDrawerBtn: document.getElementById('openPlaybackDrawer'),
+    closeDrawerBtn: document.getElementById('closePlaybackDrawer'),
     title: document.getElementById('watchTitle'),
-    header: document.querySelector('.watch-header'),
     backBtn: document.getElementById('backBtn'),
     serverSelect: document.getElementById('serverSelect'),
     videoFrame: document.getElementById('videoFrame'),
     toast: document.getElementById('toast'),
-    tapInterceptor: document.getElementById('tapInterceptor'),
-    nextEpBtn: document.getElementById('nextEpBtn')
+    nextEpBtn: document.getElementById('nextEpBtn'),
+    autoNextRow: document.getElementById('autoNextRow'),
+    autoNextToggle: document.getElementById('autoNextToggle'),
+    markFinishedBtn: document.getElementById('markFinishedBtn'),
+    watchStatus: document.getElementById('watchStatus')
   };
 
-  let state = {
+  const state = {
     type,
     id,
     season,
     episode,
     malId,
     isAnime,
-    activeServer: localStorage.getItem('preferredServer') || 'videasy'
+    activeServer: servers[0],
+    autoNext: readPreference('autoNextEpisode') !== 'false',
+    nextEpisodeInfo: null
   };
 
+  let activePlayer = null;
+  let episodePlayback = { ended: false, nearEnd: false, queued: false };
+  let progressSample = null;
+  let progressTimer = null;
+  let drawerArrowTimer = null;
+
+  function readPreference(key) {
+    try {
+      return localStorage.getItem(key);
+    } catch {
+      return null;
+    }
+  }
+
+  function savePreference(key, value) {
+    try {
+      localStorage.setItem(key, value);
+    } catch {
+      // The player still works when the browser blocks storage.
+    }
+  }
+
+  function currentMedia() {
+    return { type: state.type, id: state.id, season: state.season, episode: state.episode, isAnime: state.isAnime, malId: state.malId };
+  }
+
   function init() {
-    if (!state.type || !state.id) {
-      window.location.href = '/';
+    if (!['movie', 'tv'].includes(state.type) || !/^\d+$/.test(state.id || '') || Number(state.id) < 1) {
+      window.location.href = './';
       return;
     }
 
+    initDisclaimer(startPlayback);
+  }
+
+  function startPlayback() {
     // Listen for fullscreen changes so orientation locks when user goes fullscreen
     // via the iframe player's own fullscreen button
-    LandscapeForcer.init();
+    window.LandscapeForcer?.init();
 
     els.serverSelect.value = state.activeServer;
     els.serverSelect.addEventListener('change', handleServerChange);
     els.backBtn.addEventListener('click', handleBack);
-    if (els.nextEpBtn) els.nextEpBtn.addEventListener('click', playNextEpisode);
-    setupFloatingBackBtn();
-    setupGlassOverlay();
+    els.nextEpBtn.addEventListener('click', () => {
+      closePlaybackDrawer();
+      playNextEpisode();
+    });
+    els.markFinishedBtn.addEventListener('click', markFinished);
+    if (state.type === 'tv') {
+      els.autoNextRow.hidden = false;
+      els.autoNextToggle.checked = state.autoNext;
+      els.autoNextToggle.addEventListener('change', () => {
+        state.autoNext = els.autoNextToggle.checked;
+        savePreference('autoNextEpisode', String(state.autoNext));
+        syncEpisodeControls();
+      });
+    }
+    setupPlaybackDrawer();
     setupFullscreenSync();
     
     window.addEventListener('message', handlePlayerMessage);
+    window.addEventListener('pagehide', () => {
+      clearTimeout(drawerArrowTimer);
+      flushProgress();
+    });
+    window.addEventListener('pageshow', event => {
+      if (!event.persisted) return;
 
+      // History restoration can reuse a watch page and its previous server.
+      if (state.activeServer !== servers[0]) {
+        state.activeServer = servers[0];
+        els.serverSelect.value = state.activeServer;
+        loadPlayer();
+      }
+      revealDrawerArrow();
+    });
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        clearTimeout(drawerArrowTimer);
+        flushProgress();
+      } else {
+        revealDrawerArrow();
+        syncEpisodeControls();
+      }
+    });
+
+    WatchHistory.start(currentMedia());
+    updateWatchStatus();
     fetchDetails();
     loadPlayer();
-    initDisclaimer();
+  }
+
+  function setupPlaybackDrawer() {
+    els.openDrawerBtn.hidden = false;
+    els.openDrawerBtn.addEventListener('pointerenter', revealDrawerArrow);
+    els.openDrawerBtn.addEventListener('click', () => {
+      if (els.drawer.hasAttribute('open')) return;
+      clearTimeout(drawerArrowTimer);
+      els.openDrawerBtn.setAttribute('aria-expanded', 'true');
+      if (typeof els.drawer.showModal === 'function') {
+        els.drawer.showModal();
+      } else {
+        els.drawer.setAttribute('open', '');
+        els.closeDrawerBtn.focus({ preventScroll: true });
+      }
+    });
+    els.closeDrawerBtn.addEventListener('click', closePlaybackDrawer);
+    els.drawer.addEventListener('cancel', event => {
+      event.preventDefault();
+      closePlaybackDrawer();
+    });
+    if (typeof els.drawer.showModal !== 'function') {
+      els.drawer.addEventListener('keydown', event => {
+        if (event.key === 'Escape') closePlaybackDrawer();
+      });
+    }
+    els.drawer.addEventListener('click', event => {
+      if (event.target !== els.drawer) return;
+      const { left, right, top, bottom } = els.drawer.getBoundingClientRect();
+      if (event.clientX < left || event.clientX > right || event.clientY < top || event.clientY > bottom) {
+        closePlaybackDrawer();
+      }
+    });
+    revealDrawerArrow();
+  }
+
+  function revealDrawerArrow() {
+    if (els.drawer.hasAttribute('open') || document.hidden || document.fullscreenElement || document.webkitFullscreenElement) return;
+    clearTimeout(drawerArrowTimer);
+    els.openDrawerBtn.classList.remove('is-idle');
+    // Leave the edge target available after fading so it can still be tapped over an embed.
+    drawerArrowTimer = setTimeout(() => els.openDrawerBtn.classList.add('is-idle'), 5000);
+  }
+
+  function closePlaybackDrawer() {
+    if (!els.drawer.hasAttribute('open')) return;
+    if (typeof els.drawer.close === 'function') els.drawer.close();
+    else els.drawer.removeAttribute('open');
+    els.openDrawerBtn.setAttribute('aria-expanded', 'false');
+    els.openDrawerBtn.focus({ preventScroll: true });
+    revealDrawerArrow();
   }
 
   // ─── Immersive Mode Cleanup ───
@@ -64,138 +193,6 @@
     } catch (e) {}
   }
 
-  function setupFloatingBackBtn() {
-    if (!els.floatingBackBtn) return;
-    els.floatingBackBtn.addEventListener('click', function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      handleBack();
-    });
-  }
-
-  // ─── Floating Glass Overlay (Global) ───
-  // Auto-hides the header after 3 seconds, re-appears on any screen tap/move.
-  // Uses a transparent tap-interceptor div that sits over the iframe
-  // because clicks inside an iframe don't bubble to the parent document.
-  function setupGlassOverlay() {
-    if (!els.header || !els.tapInterceptor) return;
-
-    let hideTimer = null;
-
-    function showOverlay() {
-      els.header.classList.remove('glass-hidden');
-      if (!els.videoFrame.classList.contains('zoomed-fill')) {
-          els.tapInterceptor.classList.remove('active');
-      }
-      resetHideTimer();
-    }
-
-    function hideOverlay() {
-      els.header.classList.add('glass-hidden');
-      els.tapInterceptor.classList.add('active');
-    }
-
-    function resetHideTimer() {
-      clearTimeout(hideTimer);
-      hideTimer = setTimeout(hideOverlay, 3000);
-    }
-
-    // Start the initial auto-hide timer
-    resetHideTimer();
-
-    // Interaction on the interceptor → show overlay, double-tap zoom, pinch-zoom
-    let lastTap = 0;
-    let initialPinchDist = 0;
-
-    const toggleZoom = function() {
-        els.videoFrame.classList.toggle('zoomed-fill');
-        if (els.videoFrame.classList.contains('zoomed-fill')) {
-            els.tapInterceptor.classList.add('active');
-        } else if (!els.header.classList.contains('glass-hidden')) {
-            els.tapInterceptor.classList.remove('active');
-        } else {
-            els.tapInterceptor.classList.add('active');
-        }
-    };
-
-    const handleTouchStart = function (e) {
-      if (e.touches.length === 2) {
-          if (e.cancelable) e.preventDefault();
-          initialPinchDist = Math.hypot(
-              e.touches[0].pageX - e.touches[1].pageX,
-              e.touches[0].pageY - e.touches[1].pageY
-          );
-          return;
-      }
-    };
-
-    const handleTouchMove = function(e) {
-      if (e.touches.length === 2 && initialPinchDist > 0) {
-          if (e.cancelable) e.preventDefault();
-          const currentDist = Math.hypot(
-              e.touches[0].pageX - e.touches[1].pageX,
-              e.touches[0].pageY - e.touches[1].pageY
-          );
-          if (currentDist > initialPinchDist + 40) {
-              if (!els.videoFrame.classList.contains('zoomed-fill')) toggleZoom();
-          } else if (currentDist < initialPinchDist - 40) {
-              if (els.videoFrame.classList.contains('zoomed-fill')) toggleZoom();
-          }
-      }
-    };
-
-    const handleTouchEnd = function(e) {
-       if (!e.touches || e.touches.length < 2) {
-           initialPinchDist = 0;
-       }
-    };
-
-    els.tapInterceptor.addEventListener('dblclick', function(e) {
-       e.preventDefault();
-       toggleZoom();
-    });
-
-    els.tapInterceptor.addEventListener('click', function(e) {
-      e.preventDefault();
-      const currentTime = new Date().getTime();
-      const tapLength = currentTime - lastTap;
-      
-      if (tapLength < 350 && tapLength > 0) {
-          toggleZoom();
-          lastTap = 0;
-      } else {
-          showOverlay();
-          lastTap = currentTime;
-      }
-    });
-    
-    els.tapInterceptor.addEventListener('touchstart', handleTouchStart, { passive: false });
-    els.tapInterceptor.addEventListener('touchmove', handleTouchMove, { passive: false });
-    els.tapInterceptor.addEventListener('touchend', handleTouchEnd);
-    
-    // Mouse movement also triggers it on desktop
-    els.tapInterceptor.addEventListener('mousemove', function (e) {
-      showOverlay();
-    });
-
-    // Interaction on header controls → reset the timer
-    els.header.addEventListener('click', function (e) {
-      resetHideTimer();
-    });
-    
-    els.header.addEventListener('touchstart', function (e) {
-      resetHideTimer();
-    }, { passive: true });
-    
-    els.header.addEventListener('mousemove', function (e) {
-      resetHideTimer();
-    });
-
-    els.serverSelect.addEventListener('change', function () {
-      resetHideTimer();
-    });
-  }
-
   // ─── Videasy Fullscreen Sync Fix ───
   // Detects when browser exits fullscreen (e.g. pressing ESC or swipe-down)
   // and notifies the Videasy iframe so its internal fullscreen icon resets.
@@ -204,6 +201,8 @@
   function setupFullscreenSync() {
     function onFullscreenExit() {
       const fsElement = document.fullscreenElement || document.webkitFullscreenElement;
+      if (fsElement) clearTimeout(drawerArrowTimer);
+      else revealDrawerArrow();
       
       if (!fsElement && els.videoFrame && els.videoFrame.contentWindow) {
         // Browser has EXITED fullscreen — tell the iframe player
@@ -246,78 +245,127 @@
     document.addEventListener('webkitfullscreenchange', onFullscreenExit);
   }
 
-  function handlePlayerMessage(event) {
+  function parsePlayerMessage(event) {
+    if (event.source !== els.videoFrame.contentWindow || !activePlayer?.origins.has(event.origin)) return null;
+    if (typeof event.data !== 'string') return event.data;
     try {
-      let data = event.data;
-      if (typeof data === 'string') {
-        try {
-          data = JSON.parse(data);
-        } catch (e) {
-          return;
-        }
-      }
-      
-      if (!data || typeof data !== 'object') return;
-
-      // Handle MEDIA_DATA event for persistent progress tracking
-      if (data.type === 'MEDIA_DATA' && data.data) {
-        localStorage.setItem('peachifyProgress', JSON.stringify(data.data));
-        localStorage.setItem('vidNestProgress', JSON.stringify(data.data));
-        localStorage.setItem('vidUpProgress', JSON.stringify(data.data));
-      }
-
-      // Unwrap payload if nested
-      let evData = data;
-      if (data.type === "PLAYER_EVENT" && data.data) {
-        evData = data.data;
-      }
-
-      // Parse current time and duration from either Videasy or Vidnest format
-      const cTime = typeof evData.timestamp === 'number' ? evData.timestamp : evData.currentTime;
-      const dur = evData.duration;
-
-      if (typeof cTime === 'number' && typeof dur === 'number' && dur > 0) {
-         const progressData = JSON.parse(localStorage.getItem('watchProgress') || '{}');
-         const isAnimeKey = state.isAnime || state.type === 'anime';
-         const key = `${state.type}_${state.id}${state.type === 'tv' || isAnimeKey ? `_${state.season}_${state.episode}` : ''}`;
-         
-         if (cTime > 0) {
-           const progRatio = typeof evData.progress === 'number' ? evData.progress : Math.round((cTime / dur) * 100);
-
-
-           progressData[key] = {
-             currentTime: cTime,
-             duration: dur,
-             progress: progRatio,
-             lastUpdated: Date.now()
-           };
-           localStorage.setItem('watchProgress', JSON.stringify(progressData));
-
-           // Show Next Episode FAB when really near the end (97%+)
-           if (progRatio >= 97 && state.hasNextEpisode && els.nextEpBtn) {
-               els.nextEpBtn.classList.add('visible');
-           } else if (progRatio < 97 && els.nextEpBtn) {
-               els.nextEpBtn.classList.remove('visible');
-           }
-
-
-         }
-      }
-    } catch (e) {
-      console.error("Error handling player message:", e);
+      return JSON.parse(event.data);
+    } catch {
+      return event.data.toLowerCase() === 'ready' ? { event: 'ready' } : null;
     }
   }
 
+  function handlePlayerMessage(event) {
+    const message = parsePlayerMessage(event);
+    if (!message || typeof message !== 'object') return;
+
+    const player = activePlayer;
+    player.observe(message);
+    if (player !== activePlayer || message.type === 'MEDIA_DATA') return;
+
+    const payload = message.data && typeof message.data === 'object' ? message.data : message;
+    const timing = payload.data && typeof payload.data === 'object' ? payload.data : payload;
+    const messageType = ['movie', 'tv', 'anime'].includes(message.type) ? '' : message.type;
+    const eventName = String(payload.event || message.event || payload.name || message.name || messageType || '')
+      .toLowerCase().replace(/[_-]/g, '');
+    const currentTime = Number.isFinite(timing.currentTime) ? timing.currentTime : timing.timestamp;
+    const duration = timing.duration;
+    const hasTiming = Number.isFinite(currentTime) && Number.isFinite(duration)
+      && currentTime > 0 && duration > 0 && currentTime <= duration + 1;
+    const ended = ['ended', 'videoended', 'playbackended', 'playbackend'].includes(eventName);
+    const atEnd = hasTiming && duration - currentTime <= 0.25
+      && ['', 'playerevent', 'timeupdate', 'progress'].includes(eventName);
+
+    if (ended || atEnd) {
+      if (episodePlayback.ended) return;
+      flushProgress();
+      episodePlayback.ended = true;
+      episodePlayback.nearEnd = true;
+      WatchHistory.finish(currentMedia(), hasTiming ? { currentTime, duration } : undefined);
+      updateWatchStatus();
+      syncEpisodeControls();
+      return;
+    }
+
+    if (!hasTiming || episodePlayback.ended) return;
+
+    const progress = Math.min(100, (currentTime / duration) * 100);
+    progressSample = { currentTime, duration, progress };
+    const nearEnd = progress >= 95;
+    const crossedThreshold = nearEnd !== episodePlayback.nearEnd;
+    if (crossedThreshold || ['pause', 'seeked'].includes(eventName)) {
+      flushProgress();
+    } else if (progressTimer === null) {
+      progressTimer = setTimeout(flushProgress, 1000);
+    }
+    episodePlayback.nearEnd = nearEnd;
+    if (crossedThreshold) syncEpisodeControls();
+  }
+
+  function flushProgress() {
+    clearTimeout(progressTimer);
+    progressTimer = null;
+    if (!progressSample) return;
+    WatchHistory.update(currentMedia(), progressSample);
+    progressSample = null;
+    updateWatchStatus();
+  }
+
+  function updateWatchStatus() {
+    const status = WatchHistory.get(currentMedia())?.status;
+    if (els.watchStatus) {
+      const label = status === 'finished' ? 'Finished' : status === 'watching' ? 'In progress' : '';
+      if (els.watchStatus.textContent !== label) els.watchStatus.textContent = label;
+      els.watchStatus.classList.toggle('hidden', !label);
+      els.watchStatus.dataset.status = status || '';
+    }
+    if (status === 'finished' && document.activeElement === els.markFinishedBtn) {
+      els.closeDrawerBtn.focus({ preventScroll: true });
+    }
+    els.markFinishedBtn.classList.toggle('hidden', status === 'finished');
+  }
+
+  function markFinished() {
+    flushProgress();
+    WatchHistory.finish(currentMedia());
+    episodePlayback.nearEnd = true;
+    updateWatchStatus();
+    syncEpisodeControls();
+  }
+
+  function syncEpisodeControls() {
+    const next = state.nextEpisodeInfo;
+    if (els.nextEpBtn) {
+      els.nextEpBtn.classList.toggle('hidden', !next);
+      els.nextEpBtn.classList.toggle('visible', Boolean(next));
+      els.nextEpBtn.toggleAttribute('data-near-end', episodePlayback.nearEnd);
+      if (next) {
+        els.nextEpBtn.setAttribute('aria-label', `Next episode: Season ${next.season}, Episode ${next.episode}`);
+        const label = els.nextEpBtn.querySelector('#nextEpLabel');
+        if (label) label.textContent = `Next · E${next.episode}`;
+      }
+    }
+
+    if (!next) return;
+    if (episodePlayback.nearEnd && !episodePlayback.queued) {
+      WatchHistory.queue({ ...currentMedia(), ...next });
+      episodePlayback.queued = true;
+    }
+    if (episodePlayback.ended && state.autoNext && !document.hidden) playNextEpisode();
+  }
+
   function handleServerChange(e) {
+    if (!servers.includes(e.target.value)) return;
+    flushProgress();
     state.activeServer = e.target.value;
-    localStorage.setItem('preferredServer', state.activeServer);
     loadPlayer();
     showToast(`Switched to ${els.serverSelect.options[els.serverSelect.selectedIndex].text}`);
   }
 
   function handleBack() {
+    flushProgress();
     exitImmersiveMode();
-    let url = `/media.html?type=${state.type}&id=${state.id}`;
+    let url = `media.html?type=${state.type}&id=${state.id}`;
     if (state.isAnime && state.malId) {
       url += `&anime=1&malId=${state.malId}`;
     }
@@ -326,230 +374,161 @@
 
   async function fetchDetails() {
     try {
-      let data;
-      let hasNext = false;
-      state.nextEpisodeInfo = null;
-
-      if (state.type === 'tv') {
-        data = await TMDB.getTVDetails(state.id);
-        els.title.textContent = `${data.name} - S${state.season} E${state.episode}`;
-
-        if (state.isAnime) {
-           if (Number(state.episode) < data.number_of_episodes) {
-               hasNext = true;
-               state.nextEpisodeInfo = { season: 1, episode: Number(state.episode) + 1 };
-           }
-        } else {
-           const seasonData = data.seasons?.find(s => s.season_number === Number(state.season));
-           if (seasonData) {
-               if (Number(state.episode) < seasonData.episode_count) {
-                   hasNext = true;
-                   state.nextEpisodeInfo = { season: state.season, episode: Number(state.episode) + 1 };
-               } else {
-                   const nextSeason = data.seasons.find(s => s.season_number === Number(state.season) + 1);
-                   if (nextSeason && nextSeason.episode_count > 0) {
-                       hasNext = true;
-                       state.nextEpisodeInfo = { season: Number(state.season) + 1, episode: 1 };
-                   }
-               }
-           }
-        }
-      } else {
-        data = await TMDB.getMovieDetails(state.id);
-        els.title.textContent = data.title || data.name;
-      }
-      
-      state.hasNextEpisode = hasNext;
-      if (els.nextEpBtn) {
-        // Remove hidden so it exists in DOM, but don't add 'visible' yet
-        // The FAB will animate in when progress >= 90%
-        if (hasNext) {
-          els.nextEpBtn.classList.remove('hidden');
-          els.nextEpBtn.classList.remove('visible');
-        } else {
-          els.nextEpBtn.classList.add('hidden');
-          els.nextEpBtn.classList.remove('visible');
-        }
-      }
-
-    } catch (err) {
-      els.title.innerHTML = `ke1th.<span style="color: #e50914;">streams</span>`;
-      if (els.nextEpBtn) {
-        els.nextEpBtn.classList.add('hidden');
-        els.nextEpBtn.classList.remove('visible');
-      }
+      state.details = state.type === 'tv' ? await TMDB.getTVDetails(state.id) : await TMDB.getMovieDetails(state.id);
+      renderEpisode();
+    } catch {
+      els.title.textContent = 'ke1th.streams';
     }
+  }
+
+  function renderEpisode() {
+    const details = state.details;
+    if (!details) return;
+
+    if (state.type === 'tv') {
+      els.title.textContent = `${details.name} · S${state.season} E${state.episode}`;
+      state.nextEpisodeInfo = findNextEpisode(details);
+    } else {
+      els.title.textContent = details.title || details.name;
+    }
+    syncEpisodeControls();
+  }
+
+  function findNextEpisode(details) {
+    const upcoming = details.next_episode_to_air;
+    const today = new Date().toISOString().slice(0, 10);
+    const available = next => !upcoming || !upcoming.air_date || upcoming.air_date <= today
+      || next.season !== upcoming.season_number || next.episode !== upcoming.episode_number;
+
+    if (state.isAnime && state.season === 1) {
+      const next = { season: 1, episode: state.episode + 1 };
+      return next.episode <= details.number_of_episodes && available(next) ? next : null;
+    }
+
+    const seasons = details.seasons || [];
+    const seasonDetails = seasons.find(item => item.season_number === state.season);
+    if (!seasonDetails) return null;
+    if (state.episode < seasonDetails.episode_count) {
+      const next = { season: state.season, episode: state.episode + 1 };
+      return available(next) ? next : null;
+    }
+
+    const following = seasons.filter(item => item.season_number > state.season && item.episode_count > 0
+      && (!item.air_date || item.air_date <= today)).sort((a, b) => a.season_number - b.season_number)[0];
+    if (!following) return null;
+    const next = { season: following.season_number, episode: 1 };
+    return available(next) ? next : null;
   }
 
   function playNextEpisode() {
-      if (!state.hasNextEpisode || !state.nextEpisodeInfo) return;
-      if (els.nextEpBtn) els.nextEpBtn.classList.remove('visible');
-      state.season = state.nextEpisodeInfo.season;
-      state.episode = state.nextEpisodeInfo.episode;
-      const url = new URL(window.location);
-      if (!state.isAnime) {
-          url.searchParams.set('season', state.season);
-      }
-      url.searchParams.set('episode', state.episode);
-      window.history.replaceState({}, '', url);
-      fetchDetails();
-      loadPlayer();
-      showToast("Playing next episode...");
+    const next = state.nextEpisodeInfo;
+    if (!next) return;
+
+    flushProgress();
+    if (!episodePlayback.queued) WatchHistory.queue({ ...currentMedia(), ...next });
+    state.nextEpisodeInfo = null;
+    state.season = next.season;
+    state.episode = next.episode;
+    episodePlayback = { ended: false, nearEnd: false, queued: false };
+
+    const url = new URL(window.location);
+    url.searchParams.set('season', state.season);
+    url.searchParams.set('episode', state.episode);
+    window.history.replaceState({}, '', url);
+    renderEpisode();
+    updateWatchStatus();
+    loadPlayer(true);
+    showToast(`Opening S${state.season} E${state.episode}…`);
   }
 
-  function loadPlayer() {
-    let playbackType = state.type;
-    let playbackId = state.id;
+  function loadPlayer(autoplay = false) {
+    activePlayer?.cleanup();
 
-    // Bad mappings override for specific shows on vidnest
-    const overrideIds = [76479];
-    if (playbackType === "tv" && overrideIds.includes(Number(playbackId)) && state.activeServer === "vidnest") {
-      state.activeServer = "videasy";
-      els.serverSelect.value = "videasy";
-      showToast("Switched to fallback source due to known mapping issues.");
+    // Avoid the known VidNest mapping issue for this show.
+    if (state.type === 'tv' && Number(state.id) === 76479 && state.activeServer === 'vidnest') {
+      state.activeServer = 'videasy';
+      els.serverSelect.value = state.activeServer;
+      showToast('Switched to fallback source due to known mapping issues.');
     }
 
-    // Anime handling
-    if (state.activeServer === "videasy" && state.isAnime && state.malId) {
-      playbackType = "anime";
-      playbackId = state.malId;
+    const server = state.activeServer;
+    els.drawer.dataset.server = server;
+    const animeSource = server === 'videasy' && state.type === 'tv' && state.isAnime && state.malId;
+    const src = new URL(buildServerUrl(server, animeSource ? 'anime' : state.type,
+      animeSource ? state.malId : state.id, state.season, state.episode));
+    if (autoplay) {
+      // Keep provider-side episode navigation off. The app owns the episode and history.
+      if (src.searchParams.has('autoPlay')) src.searchParams.set('autoPlay', 'true');
+      if (src.searchParams.has('autoplay')) src.searchParams.set('autoplay', '1');
     }
 
-    const src = buildServerUrl(state.activeServer, playbackType, playbackId, state.season, state.episode);
-    els.videoFrame.src = src;
+    // A fresh browsing context prevents late messages from the previous episode
+    // (including on the same provider) from being attributed to this one.
+    const frame = els.videoFrame.cloneNode(false);
+    frame.hidden = false;
+    frame.src = src.href;
+    els.videoFrame.replaceWith(frame);
+    els.videoFrame = frame;
 
-    // Cascade Fallback logic
-    let fallbackTarget = null;
-    let fallbackName = "";
+    const origins = new Set([src.origin]);
+    if (server === 'vidfast') origins.add('https://vidfast.vc');
+    const fallback = servers[servers.indexOf(server) + 1];
+    let pingInterval;
 
-    if (state.activeServer === "videasy") {
-      fallbackTarget = "vidsrc";
-      fallbackName = "Server 2";
-    } else if (state.activeServer === "vidsrc") {
-      fallbackTarget = "rive";
-      fallbackName = "Server 3";
-    } else if (state.activeServer === "rive") {
-      fallbackTarget = "vidup";
-      fallbackName = "Server 4";
-    } else if (state.activeServer === "vidup") {
-      fallbackTarget = "vixsrc";
-      fallbackName = "Server 5";
-    } else if (state.activeServer === "vixsrc") {
-      fallbackTarget = "vidnest";
-      fallbackName = "Server 6";
-    } else if (state.activeServer === "vidnest") {
-      fallbackTarget = "vidfast";
-      fallbackName = "Server 7";
-    } else if (state.activeServer === "vidfast") {
-      fallbackTarget = "peachify";
-      fallbackName = "Server 8";
+    function stopChecks() {
+      clearInterval(pingInterval);
     }
 
-    if (fallbackTarget) {
-      let fallbackTriggered = false;
-      const triggerFallback = (reason) => {
-        // Prevent double trigger or triggering if user manually switched already
-        if (fallbackTriggered || state.activeServer === fallbackTarget || els.serverSelect.value !== state.activeServer) return;
-        fallbackTriggered = true;
-        console.warn(`${state.activeServer} fallback triggered: ${reason}`);
-        state.activeServer = fallbackTarget;
-        els.serverSelect.value = fallbackTarget;
-        showToast(`Server unavailable. Switched to ${fallbackName}.`);
-        loadPlayer();
-      };
-
-      const serverOrigin = new URL(src).origin;
-      const controller = new AbortController();
-      const networkTimeoutId = setTimeout(() => controller.abort(), 3000);
-      
-      fetch(serverOrigin, { mode: 'no-cors', signal: controller.signal })
-        .then(() => clearTimeout(networkTimeoutId))
-        .catch(() => triggerFallback('network_error'));
-
-      let messageListener;
-      let pingInterval;
-      
-      const messageTimeoutId = setTimeout(() => {
-        window.removeEventListener('message', messageListener);
-        if (pingInterval) clearInterval(pingInterval);
-        
-        if (state.activeServer === 'rive') {
-          // Bypass timeout fallback for Rive as postMessage support is unverified
-        } else if (state.activeServer === 'vixsrc') {
-          // Intelligent 404 detection for Vixsrc: Vixsrc injects a sub-iframe if a movie is found.
-          // If after 8 seconds there are 0 sub-frames, it means no source was found.
-          try {
-            if (els.videoFrame && els.videoFrame.contentWindow) {
-              if (els.videoFrame.contentWindow.length === 0) {
-                triggerFallback('vixsrc_no_sources_found');
-              }
-            }
-          } catch (e) {
-            // Fallback if cross-origin policy behaves unexpectedly
-          }
-        } else {
-          triggerFallback('timeout_no_message');
-        }
-      }, 6500); // 6.5 seconds wait for internal scraping
-
-      // Actively ask Vidfast for its status since it might not send events if autoplay is blocked
-      if (state.activeServer === 'vidfast') {
-        pingInterval = setInterval(() => {
-          if (els.videoFrame && els.videoFrame.contentWindow) {
-            els.videoFrame.contentWindow.postMessage({ command: 'getStatus' }, '*');
-          }
-        }, 1000);
-      }
-
-      const currentServerForListener = state.activeServer;
-
-      messageListener = (event) => {
-        if (state.activeServer !== currentServerForListener) {
-            window.removeEventListener('message', messageListener);
-            return;
-        }
-
-        let evtData = event.data;
-        if (typeof evtData === 'string') {
-          try { evtData = JSON.parse(evtData); } catch(e) {}
-        }
-        
-        let isValidEvent = false;
-        let isErrorEvent = false;
-
-        if (evtData && typeof evtData === 'object') {
-          if (evtData.type === 'PLAYER_EVENT' || evtData.type === 'MEDIA_DATA') isValidEvent = true;
-          if (evtData.event === 'ready' || evtData.event === 'video_loaded') isValidEvent = true;
-          if (typeof evtData.duration !== 'undefined' && typeof evtData.currentTime !== 'undefined') isValidEvent = true;
-          
-          if (state.activeServer === 'vidfast' && evtData.status !== undefined) isValidEvent = true;
-
-          // Catch delayed player errors (e.g. video segments 404ing after player loads)
-          if (evtData.event === 'error' || (evtData.data && evtData.data.event === 'error') || evtData.name === 'error' || evtData.status === 'error') {
-            isErrorEvent = true;
-          }
-        } else if (typeof evtData === 'string' && evtData.toLowerCase() === 'ready') {
-          isValidEvent = true;
-        }
-        
-        if (isErrorEvent) {
+    const player = {
+      origins,
+      cleanup: stopChecks,
+      observe(message) {
+        const data = message.data;
+        if (message.event === 'error' || data?.event === 'error' || message.name === 'error' || message.status === 'error') {
           triggerFallback('player_error');
-          window.removeEventListener('message', messageListener);
           return;
         }
-
-        if (isValidEvent) {
-          clearTimeout(messageTimeoutId);
-          if (pingInterval) clearInterval(pingInterval);
-          // We intentionally do NOT remove the message listener here.
-          // We keep it alive to catch delayed player errors that occur after initialization.
+        const hasTiming = payload => payload && Number.isFinite(payload.duration)
+          && (Number.isFinite(payload.currentTime) || Number.isFinite(payload.timestamp));
+        if (['PLAYER_EVENT', 'MEDIA_DATA'].includes(message.type)
+          || ['ready', 'video_loaded'].includes(message.event) || hasTiming(message)
+          || hasTiming(data) || (server === 'vidfast' && message.status !== undefined)) {
+          stopChecks();
         }
-      };
-      window.addEventListener('message', messageListener);
+      }
+    };
+    activePlayer = player;
+
+    function triggerFallback(reason) {
+      if (activePlayer !== player || !fallback) return;
+      console.warn(`${server} fallback triggered: ${reason}`);
+      state.activeServer = fallback;
+      els.serverSelect.value = fallback;
+      showToast(`Server unavailable. Switched to ${els.serverSelect.selectedOptions[0]?.text || 'the next server'}.`);
+      loadPlayer(autoplay);
     }
+
+    // Some embeds never send a readiness message. Switch automatically only
+    // for an explicit provider error, so a slow connection can finish loading.
+    if (server === 'vidfast') {
+      let remaining = 6;
+      pingInterval = setInterval(() => {
+        if (document.hidden || remaining-- <= 0) {
+          stopChecks();
+          return;
+        }
+        for (const origin of origins) frame.contentWindow?.postMessage({ command: 'getStatus' }, origin);
+      }, 1000);
+    }
+  }
+
+  function resumeAt() {
+    const saved = WatchHistory.get(currentMedia());
+    return saved && saved.status !== 'finished' ? Math.floor(saved.currentTime || 0) : 0;
   }
 
   function buildServerUrl(server, type, id, season, episode) {
+    if (server === 'vidstuck') return buildVidstuckUrl(type, id, season, episode);
     if (server === 'vidsrc') return buildVidsrcWikiUrl(type, id, season, episode);
     if (server === 'rive') return buildRiveUrl(type, id, season, episode);
     if (server === 'vidup') return buildVidUpUrl(type, id, season, episode);
@@ -558,6 +537,21 @@
     if (server === 'vidfast') return buildVidfastUrl(type, id, season, episode);
     if (server === 'vidnest') return buildVidnestUrl(type, id, season, episode);
     return buildVideasyUrl(type, id, season, episode);
+  }
+
+  function buildVidstuckUrl(type, id, season, episode) {
+    const url = new URL(`/embed/${type}/${id}`, 'https://vidstuck.cc');
+    url.searchParams.set('server', 'atlas');
+    url.searchParams.set('color', 'e50914');
+    if (type === 'tv') {
+      url.pathname += `/${season}/${episode}`;
+      url.searchParams.set('nextEpisode', 'false');
+      url.searchParams.set('episodeSelector', 'false');
+      url.searchParams.set('autoplayNextEpisode', 'false');
+    }
+    const progress = resumeAt();
+    if (progress) url.searchParams.set('progress', progress);
+    return url.href;
   }
 
   function buildRiveUrl(type, id, season, episode) {
@@ -572,15 +566,7 @@
   }
 
   function buildVidUpUrl(type, id, season, episode) {
-    let progressParam = null;
-    try {
-      const progressData = JSON.parse(localStorage.getItem('watchProgress') || '{}');
-      const isAnimeKey = type === 'anime';
-      const key = `${type}_${id}${type === 'tv' || isAnimeKey ? `_${season}_${episode}` : ''}`;
-      if (progressData[key] && progressData[key].currentTime) {
-        progressParam = Math.floor(progressData[key].currentTime);
-      }
-    } catch (err) {}
+    const progressParam = resumeAt();
 
     const searchParams = new URLSearchParams();
     searchParams.set('theme', 'E50914');
@@ -605,15 +591,7 @@
   }
 
   function buildPeachifyUrl(type, id, season, episode) {
-    let progressParam = null;
-    try {
-      const progressData = JSON.parse(localStorage.getItem('watchProgress') || '{}');
-      const isAnimeKey = type === 'anime';
-      const key = `${type}_${id}${type === 'tv' || isAnimeKey ? `_${season}_${episode}` : ''}`;
-      if (progressData[key] && progressData[key].currentTime) {
-        progressParam = Math.floor(progressData[key].currentTime);
-      }
-    } catch (err) {}
+    const progressParam = resumeAt();
 
     const searchParams = new URLSearchParams();
     searchParams.set('accent', 'E50914');
@@ -636,15 +614,7 @@
   }
 
   function buildVixsrcUrl(type, id, season, episode) {
-    let progressParam = null;
-    try {
-      const progressData = JSON.parse(localStorage.getItem('watchProgress') || '{}');
-      const isAnimeKey = type === 'anime';
-      const key = `${type}_${id}${type === 'tv' || isAnimeKey ? `_${season}_${episode}` : ''}`;
-      if (progressData[key] && progressData[key].currentTime) {
-        progressParam = Math.floor(progressData[key].currentTime);
-      }
-    } catch (err) {}
+    const progressParam = resumeAt();
 
     const searchParams = new URLSearchParams();
     searchParams.set('primaryColor', 'e50914');
@@ -664,15 +634,7 @@
   }
 
   function buildVidfastUrl(type, id, season, episode) {
-    let progressParam = null;
-    try {
-      const progressData = JSON.parse(localStorage.getItem('watchProgress') || '{}');
-      const isAnimeKey = type === 'anime';
-      const key = `${type}_${id}${type === 'tv' || isAnimeKey ? `_${season}_${episode}` : ''}`;
-      if (progressData[key] && progressData[key].currentTime) {
-        progressParam = Math.floor(progressData[key].currentTime);
-      }
-    } catch (err) {}
+    const progressParam = resumeAt();
 
     const searchParams = new URLSearchParams();
     searchParams.set('theme', 'e50914');
@@ -696,20 +658,14 @@
   }
 
   function buildVidnestUrl(type, id, season, episode) {
-    let progressParam = null;
-    try {
-      const progressData = JSON.parse(localStorage.getItem('watchProgress') || '{}');
-      const isAnimeKey = type === 'anime';
-      const key = `${type}_${id}${type === 'tv' || isAnimeKey ? `_${season}_${episode}` : ''}`;
-      if (progressData[key] && progressData[key].currentTime) {
-        progressParam = Math.floor(progressData[key].currentTime);
-      }
-    } catch (err) {}
+    const progressParam = resumeAt();
 
     const searchParams = new URLSearchParams();
 
     if (type === "tv" || type === "anime") {
       if (progressParam) searchParams.set('progress', progressParam);
+      searchParams.set('prevepisode', 'false');
+      searchParams.set('nextepisode', 'false');
       return `https://vidnest.fun/tv/${id}/${season}/${episode}?${searchParams.toString()}`;
     }
     if (type === "movie") {
@@ -734,15 +690,8 @@
   }
 
   function buildVideasyUrl(type, id, season, episode) {
-    let progressParam = "";
-    try {
-      const progressData = JSON.parse(localStorage.getItem('watchProgress') || '{}');
-      const isAnimeKey = type === 'anime';
-      const key = `${type}_${id}${type === 'tv' || isAnimeKey ? `_${season}_${episode}` : ''}`;
-      if (progressData[key] && progressData[key].currentTime) {
-        progressParam = `&progress=${Math.floor(progressData[key].currentTime)}`;
-      }
-    } catch (err) {}
+    const resume = resumeAt();
+    const progressParam = resume ? `&progress=${resume}` : "";
 
     const params = `?color=e50914&nextEpisode=false&autoplayNextEpisode=false&episodeSelector=false&overlay=true&autoplay=0&autoPlay=false&playsinline=1&playsInline=true&provider=yoru&server=yoru&sv=yoru&source=yoru${progressParam}`;
 
@@ -765,24 +714,35 @@
     showToast._t = setTimeout(() => els.toast.classList.add("hidden"), 3000);
   }
 
-  function initDisclaimer() {
+  function initDisclaimer(onAccept) {
     const modal = document.getElementById('disclaimerModal');
     const dontShow = document.getElementById('disclaimerDontShow');
     const okBtn = document.getElementById('disclaimerOk');
 
-    if (localStorage.getItem('hideDisclaimer') === '1') {
-      modal.classList.add('hidden');
+    if (readPreference('hideDisclaimer') === '1') {
+      onAccept();
       return;
     }
 
-    modal.classList.remove('hidden');
+    const nativeDialog = typeof modal.showModal === 'function';
+    if (nativeDialog) {
+      modal.showModal();
+      modal.addEventListener('cancel', event => {
+        event.preventDefault();
+        handleBack();
+      });
+    } else {
+      modal.setAttribute('open', '');
+    }
 
     okBtn.addEventListener('click', function() {
       if (dontShow.checked) {
-        localStorage.setItem('hideDisclaimer', '1');
+        savePreference('hideDisclaimer', '1');
       }
-      modal.classList.add('hidden');
-    });
+      if (nativeDialog) modal.close();
+      else modal.removeAttribute('open');
+      onAccept();
+    }, { once: true });
   }
 
   if (document.readyState === "loading") {

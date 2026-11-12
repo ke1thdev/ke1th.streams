@@ -1,0 +1,15 @@
+{
+  "name": "streammovies",
+  "version": "3.4.3",
+  "private": true,
+  "scripts": {
+    "cache:artwork": "node scripts/cache-artwork.mjs",
+    "build:glass": "esbuild assets/js/mobile-dock.js --bundle --minify --format=esm --target=es2020 --legal-comments=inline --outfile=assets/vendor/mobile-dock.min.js"
+  },
+  "devDependencies": {
+    "glisse": "0.5.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "esbuild": "0.25.12"
+  }
+}

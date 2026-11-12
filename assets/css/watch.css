@@ -1,8 +1,6 @@
 :root {
-  --bg-color: #121212;
-  --text-color: #ffffff;
+  --bg-color: #000;
   --accent-color: #e50914;
-  --header-height: 60px;
   color-scheme: dark;
 }
 
@@ -13,536 +11,419 @@
 }
 
 html {
-  background-color: #000;
-  color-scheme: dark;
+  background: #000;
 }
 
 body {
-  font-family: 'Inter', sans-serif;
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  overflow: hidden; /* No scroll on watch page ideally */
   display: flex;
   flex-direction: column;
   height: 100vh;
   height: 100dvh;
-  width: 100vw;
-}
-
-/* Header */
-.watch-header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: auto;
-  padding: 16px 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: transparent;
-  border-bottom: none;
-  z-index: 500;
-  pointer-events: none; /* Let clicks pass through the header container */
-  transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-              transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: opacity, transform;
-}
-
-/* Auto-hide state (global) */
-.watch-header.glass-hidden {
-  opacity: 0;
-  transform: translateY(-20px);
-  pointer-events: none;
-}
-
-/* Re-enable pointer events for the interactive elements */
-.watch-header .back-btn,
-.watch-header .server-select-wrap {
-  pointer-events: auto;
-}
-
-.back-btn {
-  /* Inherits from .liquid-glass-circle */
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #fff;
-  cursor: pointer;
-  padding: 0;
-  width: 44px;
-  height: 44px;
-  min-width: 44px;
-  justify-content: center;
-  transition: all 0.2s;
-}
-
-.back-btn:active {
-  transform: scale(0.9);
-  background: rgba(229, 9, 20, 0.45);
-  box-shadow:
-    0 2px 16px rgba(229, 9, 20, 0.25),
-    inset 0 1px 1px rgba(255, 255, 255, 0.15);
-}
-
-.back-btn svg {
-  width: 22px;
-  height: 22px;
-  position: relative;
-  z-index: 2;
-}
-
-.back-text {
-  display: none;
-}
-
-.watch-title-wrap {
-  flex: 1;
-  text-align: center;
-  padding: 0 16px;
-  white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-#watchTitle {
-  font-size: 1.1rem;
-  font-weight: 700;
   color: #fff;
-  margin: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8),
-               0 0 24px rgba(0, 0, 0, 0.5);
+  background: var(--bg-color);
+  font-family: 'Inter', system-ui, sans-serif;
 }
 
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  pointer-events: auto;
-}
-
-/* ─── Floating Next Episode FAB ─── */
-.next-ep-fab {
-  position: absolute;
-  bottom: 64px;
-  right: 16px;
-  z-index: 500;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 18px 10px 14px;
-  color: #fff;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  cursor: pointer;
-  opacity: 0;
-  transform: translateY(20px) scale(0.9);
-  pointer-events: none;
-  transition: opacity 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
-              transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
-              background 0.2s, transform 0.15s, box-shadow 0.2s;
-}
-
-.next-ep-fab.visible {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  pointer-events: auto;
-}
-
-.next-ep-fab:active {
-  transform: scale(0.95);
-  background: rgba(229, 9, 20, 0.45);
-  box-shadow:
-    0 2px 16px rgba(229, 9, 20, 0.25),
-    inset 0 1px 1px rgba(255, 255, 255, 0.15);
-}
-
-.next-ep-fab.hidden {
+.hidden,
+[hidden] {
   display: none !important;
 }
 
-.next-ep-fab svg {
-  flex-shrink: 0;
-}
-
-.server-selector {
+.watch-main {
   display: flex;
-  align-items: center;
-  gap: 8px;
+  flex: 1;
+  min-height: 0;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+    env(safe-area-inset-bottom) env(safe-area-inset-left);
+  background: #000;
 }
 
-.server-label {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #aaa;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+.player-wrapper {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+#videoFrame {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #000;
+}
+
+.watch-edge {
+  position: fixed;
+  z-index: 2;
+  inset: 50% env(safe-area-inset-right) auto auto;
+  display: grid;
+  width: 44px;
+  height: 48px;
+  place-items: center end;
+  transform: translateY(-50%);
+  border: 0;
+  border-radius: 14px 0 0 14px;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+
+.watch-edge-tab {
+  display: grid;
+  width: 30px;
+  height: 42px;
+  place-items: center;
+  border-radius: 12px 0 0 12px;
+  background: linear-gradient(145deg, #333338ed, #18181beb);
+  box-shadow: inset 0 1px #ffffff24, 0 3px 14px #0006;
+  pointer-events: none;
+}
+
+.watch-edge.is-idle:not(:focus-visible) .watch-edge-tab,
+.watch-edge[aria-expanded="true"] .watch-edge-tab {
+  opacity: 0;
+}
+
+.watch-drawer {
+  position: fixed;
+  z-index: 4;
+  inset: env(safe-area-inset-top) max(10px, env(safe-area-inset-right))
+    env(safe-area-inset-bottom) auto;
+  display: flex;
+  flex-direction: column;
+  width: 18.5rem;
+  height: fit-content;
+  max-width: calc(100% - max(10px, env(safe-area-inset-left)) - max(10px, env(safe-area-inset-right)));
+  max-height: calc(100vh - 20px);
+  max-height: calc(100dvh - 20px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+  margin: auto 0;
+  overflow: hidden;
+  border: 1px solid #ffffff18;
+  border-radius: 18px;
+  background: linear-gradient(155deg, #222225, #161618 75%);
+  color: #f7f7f8;
+  box-shadow: 0 12px 38px #0007;
+}
+
+.watch-drawer:not([open]) {
+  display: none;
+}
+
+.watch-drawer::backdrop {
+  background: #0005;
+}
+
+.watch-drawer-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 44px;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 8px 6px 14px;
+}
+
+#playbackDrawerTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+#watchTitle {
+  margin-top: 3px;
+  overflow: hidden;
+  color: #bcbcc3;
+  font-size: 0.75rem;
+  line-height: 1.25;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#watchTitle:empty,
+.watch-drawer[data-server="vidstuck"] .watch-provider-context {
+  display: none;
+}
+
+.watch-drawer-content {
+  min-height: 0;
+  padding: 6px 14px 12px;
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+
+.watch-drawer-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 6px;
+  color: #c2c2c8;
+  font-size: 0.75rem;
+  font-weight: 550;
+}
+
+.watch-status::before {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-inline-end: 5px;
+  border-radius: 50%;
+  background: #bcbcc3;
+  vertical-align: 0.1em;
+  content: "";
+}
+
+.watch-status[data-status="finished"] {
+  color: #98d8ae;
+}
+
+.watch-status[data-status="finished"]::before {
+  background: currentColor;
 }
 
 .server-select-wrap {
   position: relative;
-  display: flex;
-  align-items: center;
-  border-radius: 22px;
 }
 
 .server-select {
+  -webkit-appearance: none;
   appearance: none;
-  background: transparent;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  border: none;
-  border-radius: 22px;
-  color: #fff;
-  padding: 8px 36px 8px 16px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  font-family: inherit;
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  padding: 0 34px 0 12px;
+  border: 0;
+  border-radius: 9px;
+  background: #ffffff0e;
+  color: inherit;
+  font: 550 1rem 'Inter', system-ui, sans-serif;
   cursor: pointer;
-  outline: none;
-  box-shadow: none;
-  position: relative;
-  z-index: 2;
-  transition: all 0.2s ease;
-}
-
-.server-select:hover {
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.server-select:focus {
-  border-color: var(--accent-color);
-  box-shadow: 0 0 0 2px rgba(229, 9, 20, 0.2);
 }
 
 .server-select option {
-  background: #1e1e1e;
+  background: #232326;
   color: #fff;
 }
 
 .select-chevron {
   position: absolute;
-  right: 10px;
+  inset: 50% 12px auto auto;
+  transform: translateY(-50%);
+  color: #bcbcc3;
   pointer-events: none;
-  color: #fff;
-  opacity: 0.7;
 }
 
-/* Main */
-.watch-main {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  height: 100dvh;
-  background: #000;
+.watch-actions {
+  display: grid;
+  gap: 2px;
+  margin-top: 7px;
 }
 
-.player-wrapper {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+.watch-tool {
   display: flex;
   align-items: center;
+  gap: 9px;
+  min-height: 44px;
+  padding: 0 11px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: inherit;
+  font: 550 0.875rem 'Inter', system-ui, sans-serif;
+  text-align: start;
+  cursor: pointer;
+}
+
+.watch-tool svg {
+  flex: none;
+}
+
+.watch-drawer-close {
   justify-content: center;
+  padding: 0;
+  color: #c2c2c8;
 }
 
-#videoFrame {
-  width: 100%;
-  height: 100%;
-  border: none;
-  background: #000;
-  color-scheme: dark;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  transform-origin: center center;
+.watch-tool-next {
+  justify-content: center;
+  background: #a12431;
+  color: #fff;
+  font-weight: 650;
 }
 
-#videoFrame.zoomed-fill {
-  transform: scale(1.24);
-  pointer-events: none;
+.watch-auto-next {
+  justify-content: space-between;
 }
 
-/* The floating back button is removed since we use the header back-btn now */
-.floating-back-btn {
-  display: none !important;
+.watch-auto-next input {
+  -webkit-appearance: none;
+  appearance: none;
+  flex: none;
+  width: 34px;
+  height: 20px;
+  border-radius: 999px;
+  background: #4a4a50 radial-gradient(circle, #fff 6px, transparent 7px) left center / 20px 20px no-repeat;
+  cursor: pointer;
 }
 
-.floating-back-btn svg {
-  pointer-events: none;
+.watch-auto-next input:checked {
+  background-color: #a12431;
+  background-position: right center;
 }
 
-/* Toast */
+.watch-edge:focus-visible,
+.watch-tool:focus-visible,
+.server-select:focus-visible,
+.watch-auto-next:focus-within {
+  outline: 2px solid #d3ddf0;
+  outline-offset: -2px;
+}
+
+.watch-auto-next input:focus-visible {
+  outline: none;
+}
+
+@media (hover: hover) {
+  .watch-tool:not(.watch-tool-next):hover,
+  .server-select:hover {
+    background: #ffffff14;
+  }
+
+  .watch-tool-next:hover {
+    background: #b12a38;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .watch-edge-tab {
+    transition: opacity 180ms ease-out;
+  }
+
+  .watch-drawer[open] {
+    animation: watch-drawer-in 160ms ease-out;
+  }
+
+  @keyframes watch-drawer-in {
+    from { opacity: 0; transform: translateX(8px); }
+  }
+}
+
+@media (forced-colors: active) {
+  .watch-auto-next input {
+    -webkit-appearance: auto;
+    appearance: auto;
+    width: 18px;
+    height: 18px;
+  }
+}
+
 .toast {
   position: fixed;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(229, 9, 20, 0.95);
-  color: #fff;
-  padding: 12px 24px;
-  border-radius: 30px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  z-index: 1000;
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 3;
+  right: 12px;
+  bottom: 14px;
+  bottom: calc(14px + env(safe-area-inset-bottom));
+  left: 12px;
+  width: fit-content;
+  max-width: calc(100% - 24px);
+  margin-inline: auto;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: #252528;
+  text-align: center;
+  font-size: 0.85rem;
 }
 
-.toast.hidden {
-  opacity: 0;
-  pointer-events: none;
-  transform: translateX(-50%) translateY(20px);
-}
-
-/* Disclaimer Modal */
 .disclaimer-modal {
   position: fixed;
+  z-index: 4;
   inset: 0;
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
+  width: calc(100% - 32px);
+  max-width: 440px;
+  max-height: calc(100vh - 32px);
+  max-height: calc(100dvh - 32px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+  margin: auto;
+  overflow: auto;
+  overscroll-behavior: contain;
+  border: 1px solid #333337;
+  border-radius: 18px;
+  background: #1c1c1e;
+  color: inherit;
 }
-.disclaimer-modal.hidden {
+
+.disclaimer-modal:not([open]) {
   display: none;
 }
-.disclaimer-backdrop {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(4px);
+
+.disclaimer-modal::backdrop {
+  background: rgba(0, 0, 0, 0.9);
 }
-.disclaimer-content {
-  position: relative;
-  background: #1c1c1e;
-  width: 100%;
-  max-width: 440px;
-  border-radius: 16px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-  border: 1px solid rgba(255,255,255,0.05);
-  overflow: hidden;
-  animation: modalPopIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-@keyframes modalPopIn {
-  0% { transform: scale(0.95); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
-}
-.disclaimer-header {
-  display: flex;
-  align-items: center;
-  padding: 20px 24px 16px;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
-  background: rgba(255,255,255,0.02);
-}
-.disclaimer-title {
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: #fff;
-  margin: 0;
-}
-.disclaimer-body {
-  padding: 24px;
-}
-.disclaimer-notice {
-  font-size: 0.95rem;
-  color: #ececec;
-  line-height: 1.5;
-  margin: 0;
-}
+
+.disclaimer-header,
 .disclaimer-footer {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 16px 24px;
-  background: rgba(0,0,0,0.2);
-  border-top: 1px solid rgba(255,255,255,0.05);
+  gap: 10px;
+  padding: 16px 20px;
+  background: #232325;
 }
+
+.disclaimer-header img {
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+}
+
+.disclaimer-title {
+  font-size: 1.05rem;
+}
+
+.disclaimer-body {
+  padding: 16px 20px;
+}
+
+.disclaimer-notice {
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.disclaimer-footer {
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
 .disclaimer-checkbox {
   display: flex;
   align-items: center;
   gap: 8px;
-  cursor: pointer;
-  font-size: 0.85rem;
-  color: #999;
+  color: #d2d2d5;
+  font-size: 0.8rem;
 }
+
 .disclaimer-checkbox input {
-  cursor: pointer;
   width: 16px;
   height: 16px;
   accent-color: var(--accent-color);
 }
+
 .disclaimer-btn {
+  min-height: 44px;
+  padding: 0 13px;
+  border: 0;
+  border-radius: 10px;
   background: var(--accent-color);
   color: #fff;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
-  font-weight: 600;
-  font-size: 0.95rem;
+  font: 650 0.85rem 'Inter', system-ui, sans-serif;
   cursor: pointer;
-  transition: background 0.2s;
-}
-.disclaimer-btn:hover {
-  background: #f40612;
 }
 
-/* Mobile Adjustments */
-@media (max-width: 600px) {
-  .watch-header {
-    padding: 0 12px;
-  }
-  .back-text {
-    display: none;
-  }
-  #watchTitle {
-    font-size: 1rem;
-  }
-  .server-label {
-    display: none;
-  }
-}
-
-/* ═══════════════════════════════════════════════
-   Floating Glass Overlay — Liquid Glass
-   ═══════════════════════════════════════════════ */
-
-/* Tap interceptor — catches taps on top of the iframe to re-show the overlay */
-.tap-interceptor {
-  display: block;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 499;
-  background: transparent;
-  pointer-events: none;
-}
-
-.tap-interceptor.active {
-  pointer-events: auto;
-}
-
-@media (max-width: 768px) {
-  body {
-    display: block;
-  }
-
-  /* Remove the solid header — make it transparent with no background */
-  .watch-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: auto;
+@media (max-width: 480px) {
+  .disclaimer-header,
+  .disclaimer-body,
+  .disclaimer-footer {
     padding: 12px 14px;
-    padding-top: max(12px, env(safe-area-inset-top));
-    background: none;
-    border-bottom: none;
-    z-index: 500;
   }
-
-  /* Full viewport player on mobile */
-  .watch-main {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    height: 100dvh;
-  }
-
-  .player-wrapper {
-    width: 100%;
-    height: 100%;
-  }
-
-  /* Hide the old floating back button on mobile — it's now in the overlay */
-  .floating-back-btn {
-    display: none;
-  }
-
-  /* ── Liquid Glass Back Button — uses .liquid-glass-circle from liquid-glass.css ── */
-  .back-btn {
-    padding: 0;
-    width: 42px;
-    height: 42px;
-    min-width: 42px;
-    min-height: 42px;
-    justify-content: center;
-    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-  }
-
-  .back-btn:active {
-    transform: scale(0.9);
-    background: rgba(229, 9, 20, 0.45);
-    box-shadow:
-      0 2px 16px rgba(229, 9, 20, 0.25),
-      inset 0 1px 1px rgba(255, 255, 255, 0.15);
-  }
-
-  .back-btn svg {
-    width: 20px;
-    height: 20px;
-    position: relative;
-    z-index: 2;
-  }
-
-  .back-text {
-    display: none;
-  }
-
-  /* ── Floating Title — no background, just text ── */
-  .watch-title-wrap {
-    padding: 0 10px;
-    flex: 1;
-    min-width: 0;
-  }
-
-  #watchTitle {
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 0.3px;
-    color: #fff;
-    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8),
-                 0 0 24px rgba(0, 0, 0, 0.5);
-  }
-
-  /* ── Liquid Glass Server Select — uses .liquid-glass from liquid-glass.css ── */
-  .server-label {
-    display: none;
-  }
-
-  .server-selector {
-    gap: 0;
-  }
-
-  .server-select-wrap {
-    position: relative;
-    border-radius: 22px;
-  }
-
-  .server-select {
-    background: transparent;
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-    border: none;
-    border-radius: 22px;
-    padding: 8px 30px 8px 14px;
-    font-size: 0.78rem;
-    font-weight: 600;
-    box-shadow: none;
-    position: relative;
-    z-index: 2;
-  }
-
 }

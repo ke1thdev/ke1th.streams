@@ -1,321 +1,563 @@
 (() => {
+  const catalogRevision = document.currentScript?.src ? new URL(document.currentScript.src).search : '';
   const initLiveTV = () => {
-  const M3U_URL = 'https://iptv-org.github.io/iptv/countries/ph.m3u';
   const grid = document.getElementById('livetvGrid');
   const videoPlayer = document.getElementById('liveVideoPlayer');
-  const iframePlayer = document.getElementById('liveIframePlayer');
+  const videoContainer = document.getElementById('videoContainer');
+  const youtubeContainer = document.getElementById('liveYouTubeContainer');
+  const radioContainer = document.getElementById('liveRadioContainer');
+  const radioPlayer = document.getElementById('liveRadioPlayer');
+  const radioLogo = document.getElementById('inlineRadioLogo');
   const playerTitle = document.getElementById('inlinePlayerTitle');
   const playerLogo = document.getElementById('inlinePlayerLogo');
-  
-  let hlsInstance = null;
-  let dashInstance = null;
-  let shakaInstance = null;
-  let allChannels = [];
+  const playerSection = document.getElementById('liveTvPlayerSection');
+  const playerStatus = document.getElementById('liveTvPlayerStatus');
+  const workspace = document.getElementById('liveTvWorkspace');
+  const categoryFilter = document.getElementById('categoryFilter');
+  const searchInput = document.getElementById('liveTvSearchInput');
+  const channelCount = document.getElementById('channelCount');
+  const guideState = document.getElementById('liveTvGuideState');
+  const guideMessage = document.getElementById('liveTvGuideMessage');
+  const guideAction = document.getElementById('liveTvGuideAction');
+  const moreChannels = document.getElementById('moreLiveTvChannels');
+  const guideTitle = document.querySelector('.livetv-page-heading h1');
 
+  let shakaInstance = null;
+  let shakaReady = null;
+  let allChannels = [];
+  let activeChannel = null;
+  const channelCards = new Map();
+  let tuneRequest = 0;
+  let toastTimer;
+  let youtubeApiPromise;
+  let youtubeSession = null;
+  let nativeRequest = null;
+  let nativeStartupTimer;
+  let radioRequest = null;
 
   // Toast Notification System
   function showToast(message) {
-    const existing = document.getElementById('playerToast');
-    if (existing) existing.remove();
-    const toast = document.createElement('div');
-    toast.id = 'playerToast';
+    const toast = document.getElementById('playerToast');
     toast.textContent = message;
-    toast.style.cssText = 'position: absolute; top: 20px; left: 50%; transform: translateX(-50%); background: rgba(229, 9, 20, 0.9); color: white; padding: 10px 20px; border-radius: 8px; z-index: 10000; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.5); pointer-events: none;';
-    
-    // Append to video container
-    const container = document.querySelector('.video-container');
-    if (container) {
-      container.appendChild(toast);
-      setTimeout(() => { if (toast.parentNode) toast.remove(); }, 4000);
-    }
+    toast.hidden = false;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { toast.hidden = true; }, 4000);
   }
 
-  function hexToBase64Url(hexStr) {
-    if (!hexStr) return '';
-    let hexArray = hexStr.match(/[0-9a-fA-F]{2}/g).map(byte => parseInt(byte, 16));
-    let base64 = btoa(String.fromCharCode.apply(null, hexArray));
-    return base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-  }
-
-    // Initialize Shaka UI once
+  // Initialize only after a channel is selected, with media setup deferred to load().
   let ui = null;
   function initShakaUI() {
-    if (!shakaInstance && typeof shaka !== 'undefined') {
+    if (!shakaReady && typeof shaka !== 'undefined') {
       shaka.polyfill.installAll();
       if (!shaka.Player.isBrowserSupported()) {
         showToast('Your browser does not support this stream.');
         return;
       }
 
-      // If Shaka UI auto-setup ran on the video element, grab its player instance
-      if (videoPlayer['ui']) {
-        ui = videoPlayer['ui'];
-        shakaInstance = ui.getControls().getPlayer();
-      } else {
-        // Fallback manual setup
+      shakaReady = (async () => {
         shakaInstance = new shaka.Player();
-        shakaInstance.attach(videoPlayer);
-        const videoContainer = document.getElementById('videoContainer');
+        await shakaInstance.attach(videoPlayer, false);
         ui = new shaka.ui.Overlay(shakaInstance, videoContainer, videoPlayer);
-      }
-      
-      const config = {
-        controlPanelElements: ['play_pause', 'time_and_duration', 'spacer', 'mute', 'volume', 'quality', 'fullscreen'],
-        addSeekBar: true,
-      };
-      ui.configure(config);
-      
-      const playerConfig = {
-        manifest: {
-          dash: { 
-            ignoreMinBufferTime: true,
-            ignoreSuggestedPresentationDelay: true,
-            clockSyncUri: 'https://time.akamai.com/?iso'
-          },
-          hls: { 
-            ignoreTextStreamFailures: true,
-            ignoreManifestProgramDateTime: true
-          }
-        },
-        streaming: {
-          lowLatencyMode: true,
-          inaccurateManifestTolerance: 5,
-          rebufferingGoal: 2,
-          bufferingGoal: 10,
-        }
-      };
-      shakaInstance.configure(playerConfig);
+        const config = {
+          controlPanelElements: ['play_pause', 'time_and_duration', 'spacer', 'mute', 'volume', 'quality', 'fullscreen'],
+          addSeekBar: true,
+        };
+        ui.configure(config);
 
-      shakaInstance.addEventListener('error', (event) => {
-        console.error('Shaka Error:', event.detail);
+        const playerConfig = {
+          manifest: {
+            dash: {
+              ignoreMinBufferTime: true,
+              ignoreSuggestedPresentationDelay: true,
+              clockSyncUri: 'https://time.akamai.com/?iso'
+            },
+            hls: {
+              ignoreTextStreamFailures: true,
+              ignoreManifestProgramDateTime: true
+            }
+          },
+          streaming: {
+            lowLatencyMode: true,
+            inaccurateManifestTolerance: 5,
+            rebufferingGoal: 2,
+            bufferingGoal: 10,
+          }
+        };
+        shakaInstance.configure(playerConfig);
+
+        shakaInstance.addEventListener('error', event => {
+          console.error('Shaka Error:', event.detail);
+        });
+      })().catch(async error => {
+        await ui?.destroy().catch(() => {});
+        await shakaInstance?.destroy().catch(() => {});
+        ui = null;
+        shakaInstance = null;
+        shakaReady = null;
+        throw error;
       });
     }
+    return shakaReady;
+  }
+
+  const PH_CHANNELS = [
+    'A2Z', 'GMA 7', 'GMA Life TV', 'GMA Pinoy TV', 'Kapamilya Channel', 'TV5', 'IBC 13', 'PTV',
+    'TVN Movies (Tagalog)', 'Solar', 'PIE', 'One PH', 'GTV', 'Cinemax', 'HBO'
+  ].map(name => name.toLowerCase());
+  const BATCH_SIZE = 30;
+  let filteredChannels = [];
+  let visibleCount = 0;
+
+  function setGuideState(message, action = '') {
+    guideState.hidden = !message;
+    guideMessage.textContent = message;
+    guideAction.textContent = action;
+    guideAction.hidden = !action;
   }
 
   async function fetchChannels() {
+    grid.setAttribute('aria-busy', 'true');
+    channelCount.textContent = 'Loading channels…';
+    setGuideState('Loading the channel guide…');
+
     try {
-      const response = await fetch('/channels/channels.json');
-      if (!response.ok) throw new Error('Network response was not ok');
+      const response = await fetch('channels/channels.json' + catalogRevision);
+      if (!response.ok) throw new Error('Channel guide request failed.');
       const data = await response.json();
-      
+
       allChannels = data.map(ch => {
-        let name = ch.name;
-        let logo = ch.logo;
-
-        // Dynamic Cartoon Network / Adult Swim check (US servers vs PHT)
-        if (name === "Cartoon Network / Adult Swim (US)") {
-          const phtHour = (new Date().getUTCHours() + 8) % 24;
-          // Adult Swim is 6:00 AM to 7:00 PM PHT
-          if (phtHour >= 6 && phtHour < 19) {
-            name = "Adult Swim";
-            logo = "https://en.wikipedia.org/wiki/Special:FilePath/Adult_Swim_2003_logo.svg";
-          } else {
-            // Cartoon Network is 7:00 PM to 6:00 AM PHT
-            name = "Cartoon Network";
-            logo = "https://en.wikipedia.org/wiki/Special:FilePath/Cartoon_Network_2010_logo.svg";
-          }
-        }
-
         return {
-          name: name,
-          group: ch.category || 'General',
-          logo: logo,
-          url: ch.streamUrl,
-          drm: ch.drm
+          name: ch.name,
+          shareName: ch.name,
+          group: ch.category || ch.group || 'General',
+          logo: ch.logo,
+          logoBackground: ch.logoBackground,
+          url: ch.streamUrl || ch.url,
+          type: ch.type || 'TV',
+          genre: ch.genre || ch.radioGenre || '',
+          aliases: Array.isArray(ch.aliases) ? ch.aliases : [],
+          drm: ch.drm,
+          youtubeLiveEndpoint: ch.youtubeLiveEndpoint
         };
-      });
-      
-      populateCategories(allChannels);
-      renderChannels(allChannels);
-      
-      // Auto-play channel from URL if present
-      const urlParams = new URLSearchParams(window.location.search);
-      const targetChannelName = urlParams.get('ch');
-      if (targetChannelName) {
-        const targetChannel = allChannels.find(c => c.name.toLowerCase() === targetChannelName.toLowerCase());
-        if (targetChannel) {
-          playChannel(targetChannel, true);
-        }
+      }).filter(channel => typeof channel.url === 'string' && channel.url.trim());
+
+      allChannels.sort((a, b) => Number(isPhChannel(b.name)) - Number(isPhChannel(a.name)) || a.name.localeCompare(b.name));
+      const categoryOrder = ['News', 'Entertainment', 'Movies', 'Kids & Cartoons',
+        'Anime', 'Sports', 'Music', 'Radio', 'Documentary', 'Lifestyle & Travel', 'Faith & Worship',
+        'Education', 'Korean & Drama', 'General'];
+      const categories = Array.from(new Set(allChannels.map(channel => channel.group)))
+        .sort((a, b) => (categoryOrder.indexOf(a) < 0 ? 99 : categoryOrder.indexOf(a))
+          - (categoryOrder.indexOf(b) < 0 ? 99 : categoryOrder.indexOf(b)) || a.localeCompare(b));
+      for (const category of categories) categoryFilter.add(new Option(category, category));
+      categoryFilter.disabled = false;
+      searchInput.disabled = false;
+
+      const sharedName = new URLSearchParams(location.search).get('ch')?.toLowerCase();
+      if (!sharedName) {
+        filterChannels();
+        return;
       }
-    } catch (err) {
-      console.error('Error fetching channels:', err);
-      grid.innerHTML = '<p style="color: var(--text); padding: 20px;">Failed to load channels. Please try again later.</p>';
+      const previousNames = {
+        'cartoon network': 'cartoon network asia',
+        'adult swim': 'cartoon network / adult swim (us)'
+      };
+      const targetName = Object.hasOwn(previousNames, sharedName) ? previousNames[sharedName] : sharedName;
+      const channel = allChannels.find(item =>
+        item.shareName.toLowerCase() === targetName || item.name.toLowerCase() === targetName
+        || item.aliases.some(alias => alias.toLowerCase() === targetName));
+      if (channel && channel.type === 'Radio') categoryFilter.value = channel.group;
+      filterChannels();
+      if (channel) playChannel(channel, false);
+    } catch (error) {
+      console.error('Error fetching channels:', error);
+      channelCount.textContent = 'Guide unavailable';
+      setGuideState('The channel guide could not load.', 'Try again');
+    } finally {
+      grid.setAttribute('aria-busy', 'false');
     }
   }
 
-  function populateCategories(channels) {
-    const filter = document.getElementById('categoryFilter');
-    if (!filter) return;
-    const categories = [];
-    const seen = new Set();
-    channels.forEach(ch => { if (!seen.has(ch.group)) { seen.add(ch.group); categories.push(ch.group); } });
-    const sortedCategories = categories;
-    sortedCategories.forEach(cat => {
-      const option = document.createElement('option');
-      option.value = cat;
-      option.textContent = cat;
-      filter.appendChild(option);
-    });
-  }
+  function setChannelLogo(well, channel, lazy = true) {
+    const fallback = () => {
+      const label = document.createElement('span');
+      label.className = 'channel-logo-fallback';
+      const words = (channel.name.match(/[\p{L}\p{N}]+/gu) || []).filter(word => !/^\d+$/.test(word));
+      label.textContent = (words.length > 1
+        ? words.slice(0, 3).map(word => word[0]).join('')
+        : (words[0] || 'TV').slice(0, 3)).toUpperCase();
+      well.replaceChildren(label);
+    };
 
-  const categoryFilter = document.getElementById('categoryFilter');
-
-  const PH_CHANNELS = [
-    'A2Z', 'GMA 7', 'GMA Life TV', 'GMA Pinoy TV', 'Kapamilya Channel', 
-    'TV5', 'IBC 13', 'PTV', 'TVN Movies (Tagalog)', 'Solar', 'PIE', 'One PH', 'GTV', 'Cinemax', 'HBO'
-  ];
-
-  let filteredChannelsList = [];
-  let visibleCount = 0;
-  const BATCH_SIZE = 30;
-
-  function isPhChannel(name) {
-    const lowerName = name.toLowerCase();
-    return PH_CHANNELS.some(ph => lowerName.includes(ph.toLowerCase()) || ph.toLowerCase().includes(lowerName));
-  }
-
-  function sortChannels(channels) {
-    return channels.sort((a, b) => {
-      const isAPh = isPhChannel(a.name);
-      const isBPh = isPhChannel(b.name);
-      if (isAPh && !isBPh) return -1;
-      if (!isAPh && isBPh) return 1;
-      return a.name.localeCompare(b.name);
-    });
-  }
-
-  function filterChannels() {
-    const categoryFilter = document.getElementById('categoryFilter');
-    const searchInput = document.getElementById('liveTvSearchInput');
-    const selectedCategory = categoryFilter ? categoryFilter.value : 'All';
-    const query = searchInput ? searchInput.value.toLowerCase() : '';
-
-    const filtered = allChannels.filter(ch => {
-      const matchesCategory = selectedCategory === 'All' || ch.group === selectedCategory;
-      const matchesSearch = ch.name.toLowerCase().includes(query);
-      return matchesCategory && matchesSearch;
-    });
-
-    filteredChannelsList = sortChannels(filtered);
-    visibleCount = 0;
-    grid.innerHTML = '';
-    renderBatch();
-  }
-
-  if (categoryFilter) categoryFilter.addEventListener('change', filterChannels);
-  
-  const searchInput = document.getElementById('liveTvSearchInput');
-  if (searchInput) searchInput.addEventListener('input', filterChannels);
-
-  function renderBatch() {
-    const nextBatch = filteredChannelsList.slice(visibleCount, visibleCount + BATCH_SIZE);
-    if (nextBatch.length === 0) return;
-
-    nextBatch.forEach(ch => {
-      const card = document.createElement('div');
-      card.className = 'channel-card';
-      
-      const encodedName = encodeURIComponent(ch.name);
-      const fallbackLogo = `https://ui-avatars.com/api/?name=${encodedName}&background=random&color=fff&size=256&font-size=0.33&bold=true`;
-      const logoUrl = ch.logo || fallbackLogo;
-      
-      const url = ch.url || ch.streamUrl;
-      const isIosBlocked = ch.drm || (url && url.includes('prox-production'));
-      
-      let iosIndicator = '';
-      if (isIosBlocked) {
-        iosIndicator = `
-          <span title="Not supported on iOS" style="display: inline-flex; align-items: center; justify-content: center; margin-left: 6px; vertical-align: middle; color: var(--text-muted); position: relative;">
-            <svg viewBox="0 0 384 512" width="12" height="12" fill="currentColor"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.3 48.6-.7 90.4-82.5 102.7-119.3-65.2-30.7-61.7-90-62-91.3zM85.3 18.2c24.2-29.2 55.9-49.1 82.2-46.7-.4 31.5-12.8 61.2-35.1 85.5-22.3 24.3-54.8 43.1-84.7 39.7 1.8-31 13.4-58.8 37.6-78.5z"/></svg>
-            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#e50914" stroke-width="3" style="position: absolute;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-          </span>
-        `;
-      }
-
-      card.innerHTML = `
-        <div class="channel-logo-wrap" style="background: #BDBDBD;">
-          <img class="channel-logo" src="${logoUrl}" alt="${ch.name}" loading="lazy" onerror="if(this.src!=='${fallbackLogo}')this.src='${fallbackLogo}';">
-        </div>
-        <div class="channel-info">
-          <div class="channel-name" style="display: flex; align-items: center; justify-content: center;">${ch.name}${iosIndicator}</div>
-          <div class="channel-group">${ch.group}</div>
-        </div>
-      `;
-      
-      card.addEventListener('click', () => {
-        playChannel(ch);
-      });
-      
-      grid.appendChild(card);
-    });
-
-    visibleCount += nextBatch.length;
-  }
-
-  function renderChannels(channels) {
-    // This function is kept for compatibility with the initial load sequence
-    filteredChannelsList = sortChannels(channels);
-    visibleCount = 0;
-    grid.innerHTML = '';
-    renderBatch();
-    
-    // Setup intersection observer for infinite scroll
-    const sentinel = document.getElementById('scrollSentinel');
-    if (sentinel) {
-      const observer = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting) {
-          renderBatch();
-        }
-      }, { rootMargin: '200px' });
-      observer.observe(sentinel);
-    }
-  }
-
-  async function playChannel(channel, scroll = true) {
-    if (!channel) return;
-    
-    playerTitle.textContent = channel.name;
-    document.querySelector('.livetv-player-section').style.display = 'block';
-    
-    if (channel.logo) {
-      playerLogo.src = channel.logo;
-      playerLogo.style.display = 'block';
-    } else {
-      playerLogo.style.display = 'none';
-    }
-    
-    if (scroll) {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    const newUrl = new URL(window.location.href);
-    newUrl.searchParams.set('ch', channel.name);
-    window.history.replaceState({}, '', newUrl);
-
-    videoPlayer.src = '';
-    iframePlayer.src = '';
-    videoPlayer.classList.add('hidden');
-    iframePlayer.classList.add('hidden');
-
-    const url = channel.url || channel.streamUrl;
-    
-    if (url.startsWith('youtube:')) {
-      const channelId = url.split(':')[1];
-      window.open(`https://www.youtube.com/channel/${channelId}/live`, '_blank');
+    if (!channel.logo) {
+      fallback();
       return;
     }
 
-    if (!shakaInstance) initShakaUI();
+    const logo = document.createElement('img');
+    logo.className = 'channel-logo';
+    logo.classList.toggle('channel-logo-dark', channel.logoBackground === 'dark');
+    logo.alt = '';
+    logo.loading = lazy ? 'lazy' : 'eager';
+    logo.decoding = 'async';
+    logo.addEventListener('error', () => {
+      if (logo.parentNode === well) fallback();
+    }, { once: true });
+    logo.src = channel.logo;
+    well.replaceChildren(logo);
+  }
+
+  function isPhChannel(name) {
+    const lowerName = name.toLowerCase();
+    return PH_CHANNELS.some(ph => lowerName.includes(ph) || ph.includes(lowerName));
+  }
+
+  function filterChannels() {
+    const category = categoryFilter.value;
+    const query = searchInput.value.trim().toLowerCase();
+    filteredChannels = allChannels.filter(channel => (category === 'All' || channel.group === category)
+      && [channel.name, channel.group, channel.genre, ...channel.aliases].some(value => value.toLowerCase().includes(query)));
+    const count = filteredChannels.length;
+    const radios = filteredChannels.filter(channel => channel.type === 'Radio').length;
+    const television = count - radios;
+    channelCount.textContent = [television && `${television} TV`, radios && `${radios} radio`]
+      .filter(Boolean).join(' · ') || '0 results';
+    guideTitle.textContent = category === 'Radio' ? 'Radio' : 'Live TV';
+    setGuideState(count ? '' : 'No channels match these filters.', count ? '' : 'Clear filters');
+    visibleCount = 0;
+    channelCards.clear();
+    grid.replaceChildren();
+    renderBatch();
+    batchObserver?.unobserve(moreChannels);
+    if (!moreChannels.hidden) batchObserver?.observe(moreChannels);
+  }
+
+  function renderBatch() {
+    const batch = filteredChannels.slice(visibleCount, visibleCount + BATCH_SIZE);
+    const rows = document.createDocumentFragment();
+
+    for (const channel of batch) {
+      const card = document.createElement('button');
+      card.type = 'button';
+      card.className = 'channel-card';
+      card.setAttribute('aria-pressed', String(channel === activeChannel));
+      card.innerHTML = `
+        <span class="channel-logo-wrap" aria-hidden="true"></span>
+        <span class="channel-info"><span class="channel-name"></span><span class="channel-group"></span></span>
+        <svg class="channel-chevron" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+          stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+      `;
+      card.querySelector('.channel-name').textContent = channel.name;
+      const limited = channel.drm || channel.url.includes('prox-production');
+      card.querySelector('.channel-group').textContent = [channel.group, channel.genre,
+        limited ? 'iOS limited' : ''].filter(Boolean).join(' · ');
+      setChannelLogo(card.querySelector('.channel-logo-wrap'), channel);
+      card.addEventListener('click', () => playChannel(channel));
+      channelCards.set(channel, card);
+      rows.appendChild(card);
+    }
+
+    grid.appendChild(rows);
+    visibleCount += batch.length;
+    moreChannels.hidden = visibleCount >= filteredChannels.length;
+    if (moreChannels.hidden) batchObserver?.unobserve(moreChannels);
+  }
+
+  const batchObserver = typeof IntersectionObserver === 'function'
+    ? new IntersectionObserver(entries => {
+      if (entries.some(entry => entry.isIntersecting) && !moreChannels.hidden) renderBatch();
+    }, { rootMargin: '150px' })
+    : null;
+
+  categoryFilter.addEventListener('change', filterChannels);
+  searchInput.addEventListener('input', filterChannels);
+  moreChannels.addEventListener('click', event => {
+    const firstNewIndex = visibleCount;
+    renderBatch();
+    if (event.detail === 0) grid.children[firstNewIndex]?.focus();
+  });
+  guideAction.addEventListener('click', () => {
+    if (searchInput.disabled) {
+      fetchChannels();
+    } else {
+      categoryFilter.value = 'All';
+      searchInput.value = '';
+      searchInput.focus();
+      filterChannels();
+    }
+  });
+
+  function setPlayerStatus(state, message) {
+    if (state !== 'loading') clearTimeout(nativeStartupTimer);
+    playerStatus.dataset.state = state;
+    playerStatus.textContent = message;
+  }
+
+  function updateChannelLink(channel) {
+    const url = new URL(location.href);
+    if (channel) url.searchParams.set('ch', channel.shareName);
+    else url.searchParams.delete('ch');
+    history.replaceState(history.state, '', url);
+  }
+
+  function stopNativePlayback() {
+    clearTimeout(nativeStartupTimer);
+    nativeRequest = null;
+    videoPlayer.pause();
+    if (!shakaInstance && videoPlayer.hasAttribute('src')) {
+      videoPlayer.removeAttribute('src');
+      videoPlayer.load();
+    }
+  }
+
+  function showNativeError(channel, request, message = 'Stream unavailable') {
+    if (request !== tuneRequest) return;
+    setPlayerStatus('error', message);
+    if (!channel.youtubeLiveEndpoint) return;
+
+    tuneRequest++;
+    videoContainer.hidden = true;
+    stopNativePlayback();
+    shakaInstance?.unload(false).catch(() => {});
+  }
+
+  function stopYouTube() {
+    const session = youtubeSession;
+    youtubeSession = null;
+    clearTimeout(session?.readyTimer);
+    session?.player?.destroy();
+    youtubeContainer.replaceChildren();
+    youtubeContainer.hidden = true;
+  }
+
+  function stopRadio() {
+    radioRequest = null;
+    radioPlayer.pause();
+    if (radioPlayer.hasAttribute('src')) {
+      radioPlayer.removeAttribute('src');
+      radioPlayer.load();
+    }
+    radioContainer.hidden = true;
+  }
+
+  function playRadio(channel, request) {
+    radioContainer.hidden = false;
+    radioRequest = request;
+    radioPlayer.setAttribute('aria-label', `${channel.name} live radio`);
+    setChannelLogo(radioLogo, channel, false);
+    setPlayerStatus('loading', 'Connecting to radio…');
+    nativeStartupTimer = setTimeout(() => {
+      if (radioRequest === tuneRequest) setPlayerStatus('error', 'Station unavailable');
+    }, 15000);
+    radioPlayer.src = channel.url;
+    radioPlayer.play().catch(error => {
+      if (radioRequest !== request || request !== tuneRequest) return;
+      setPlayerStatus(error.name === 'NotAllowedError' ? 'ready' : 'error',
+        error.name === 'NotAllowedError' ? 'Press play to listen' : 'Station unavailable');
+    });
+  }
+
+  radioPlayer.addEventListener('playing', () => {
+    if (radioRequest === tuneRequest) setPlayerStatus('live', 'Live radio');
+  });
+  radioPlayer.addEventListener('canplay', () => {
+    if (radioRequest === tuneRequest && radioPlayer.paused) setPlayerStatus('ready', 'Press play to listen');
+  });
+  radioPlayer.addEventListener('pause', () => {
+    if (radioRequest === tuneRequest && playerStatus.dataset.state === 'live') setPlayerStatus('paused', 'Paused radio');
+  });
+  radioPlayer.addEventListener('error', () => {
+    if (radioRequest === tuneRequest) setPlayerStatus('error', 'Station unavailable');
+  });
+
+  async function findLiveYouTube(endpoint) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 2500);
+    try {
+      const response = await fetch(endpoint, { signal: controller.signal, cache: 'no-store' });
+      if (!response.ok) return null;
+      const result = await response.json();
+      return result?.status === 'live' && typeof result.videoId === 'string' && /^[\w-]{11}$/.test(result.videoId)
+        ? result.videoId : null;
+    } catch {
+      return null;
+    } finally {
+      clearTimeout(timeout);
+    }
+  }
+
+  function loadYouTubeApi() {
+    if (window.YT?.Player) return Promise.resolve(window.YT);
+    if (!youtubeApiPromise) {
+      youtubeApiPromise = new Promise(resolve => {
+        const script = document.createElement('script');
+        const timeout = setTimeout(() => finish(null), 5000);
+        function finish(api) {
+          clearTimeout(timeout);
+          delete window.onYouTubeIframeAPIReady;
+          script.onerror = null;
+          if (!api) script.remove();
+          resolve(api);
+        }
+        window.onYouTubeIframeAPIReady = () => finish(window.YT?.Player ? window.YT : null);
+        script.src = 'https://www.youtube.com/iframe_api';
+        script.onerror = () => finish(null);
+        document.head.appendChild(script);
+      }).then(api => {
+        if (!api) youtubeApiPromise = null;
+        return api;
+      });
+    }
+    return youtubeApiPromise;
+  }
+
+  function mountYouTube(api, videoId, channel, request) {
+    const iframe = document.createElement('iframe');
+    iframe.title = `${channel.name} on YouTube Live`;
+    iframe.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+    iframe.allowFullscreen = true;
+    iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+    const url = new URL(`https://www.youtube.com/embed/${videoId}`);
+    url.search = new URLSearchParams({ enablejsapi: '1', playsinline: '1', origin: location.origin });
+    iframe.src = url.href;
+
+    const session = { player: null, readyTimer: null };
+    youtubeSession = session;
+    const isCurrent = () => request === tuneRequest && youtubeSession === session;
+    const fallback = () => {
+      if (isCurrent()) playNativeChannel(channel, request);
+    };
+    session.readyTimer = setTimeout(fallback, 8000);
+    setPlayerStatus('loading', 'Loading YouTube Live…');
+    youtubeContainer.replaceChildren(iframe);
+
+    try {
+      session.player = new api.Player(iframe, { events: {
+        onReady(event) {
+          if (!isCurrent()) return;
+          clearTimeout(session.readyTimer);
+          setPlayerStatus('ready', 'YouTube Live · Press play');
+          event.target.playVideo();
+        },
+        onAutoplayBlocked() {
+          if (isCurrent()) setPlayerStatus('ready', 'YouTube Live · Press play');
+        },
+        onError: fallback,
+        onStateChange(event) {
+          if (!isCurrent()) return;
+          if (event.data === api.PlayerState.PLAYING) setPlayerStatus('live', 'Live on YouTube');
+          if (event.data === api.PlayerState.PAUSED) setPlayerStatus('paused', 'Paused · YouTube Live');
+          if (event.data === api.PlayerState.ENDED) {
+            stopYouTube();
+            playPreferredSource(channel, request, videoId);
+          }
+        }
+      } });
+    } catch {
+      fallback();
+    }
+  }
+
+  async function playPreferredSource(channel, request, endedVideoId = null) {
+    if (channel.youtubeLiveEndpoint) {
+      videoContainer.hidden = true;
+      youtubeContainer.hidden = false;
+      setPlayerStatus('loading', 'Checking YouTube Live…');
+      const videoId = await findLiveYouTube(channel.youtubeLiveEndpoint);
+      if (request !== tuneRequest) return;
+
+      if (videoId && videoId !== endedVideoId) {
+        const api = await loadYouTubeApi();
+        if (request !== tuneRequest) return;
+        if (api) {
+          shakaInstance?.unload(false).catch(() => {});
+          mountYouTube(api, videoId, channel, request);
+          return;
+        }
+      }
+    }
+    return playNativeChannel(channel, request);
+  }
+
+  async function playChannel(channel, scroll = true) {
+    const request = ++tuneRequest;
+    stopRadio();
+    stopYouTube();
+    channelCards.get(activeChannel)?.setAttribute('aria-pressed', 'false');
+    activeChannel = channel;
+    channelCards.get(channel)?.setAttribute('aria-pressed', 'true');
+
+    playerTitle.textContent = channel.name;
+    setChannelLogo(playerLogo, channel, false);
+    playerSection.hidden = false;
+    workspace.classList.add('is-tuned');
+    updateChannelLink(channel);
+    if (scroll) {
+      playerTitle.focus({ preventScroll: true });
+      window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    }
+
+    const url = channel.url;
+    const onYouTube = url.startsWith('youtube:');
+    const onRadio = channel.type === 'Radio';
+    videoContainer.hidden = onYouTube || onRadio;
+    setPlayerStatus('loading', 'Connecting to stream…');
+    stopNativePlayback();
+
+    if (onRadio) {
+      shakaInstance?.unload(false).catch(() => {});
+      playRadio(channel, request);
+      return;
+    }
+
+    if (onYouTube) {
+      shakaInstance?.unload(false).catch(() => {});
+      setPlayerStatus('external', 'Opens on YouTube');
+      const channelId = url.split(':')[1];
+      window.open(`https://www.youtube.com/channel/${channelId}/live`, '_blank', 'noopener');
+      return;
+    }
+
+    return playPreferredSource(channel, request);
+  }
+
+  async function playNativeChannel(channel, request) {
+    stopYouTube();
+    videoContainer.hidden = false;
+    setPlayerStatus('loading', 'Connecting to stream…');
+    if (channel.youtubeLiveEndpoint) {
+      nativeStartupTimer = setTimeout(() => showNativeError(channel, request), 9000);
+    }
+    const url = channel.url;
+    try {
+      await initShakaUI();
+    } catch (error) {
+      console.error('Player initialization failed:', error);
+      showNativeError(channel, request);
+      return;
+    }
+    if (request !== tuneRequest) return;
 
     if (shakaInstance) {
       try {
-        await shakaInstance.unload();
+        await shakaInstance.unload(false);
       } catch(e) {}
     }
+    if (request !== tuneRequest) return;
+    nativeRequest = request;
+
+    const startVideo = () => {
+      videoPlayer.play().catch(error => {
+        if (request !== tuneRequest || playerStatus.dataset.state !== 'loading') return;
+        if (!channel.youtubeLiveEndpoint || error.name === 'NotAllowedError') {
+          setPlayerStatus('ready', 'Press play to start');
+        } else {
+          showNativeError(channel, request);
+        }
+      });
+    };
+    videoPlayer.controls = !shakaInstance;
 
     if (url.includes('.mpd') || url.includes('.m3u8') || url.endsWith('.mp4')) {
-      videoPlayer.classList.remove('hidden');
-
       if (shakaInstance) {
         // Configure DRM if present
         const shakaConfig = {
@@ -339,6 +581,7 @@
         const activeProxy = proxyPatterns.find(p => url.includes(p.match));
         
         shakaInstance.getNetworkingEngine().clearAllRequestFilters();
+        shakaInstance.getNetworkingEngine().clearAllResponseFilters();
 
         if (activeProxy) {
           const proxyUA = 'Dalvik/2.1.0';
@@ -397,13 +640,15 @@
         }
 
         try {
-          await shakaInstance.load(url);
-          videoPlayer.play().catch(e => console.log('Autoplay blocked', e));
+          const mimeType = channel.youtubeLiveEndpoint && url.includes('.mpd') ? 'application/dash+xml' : undefined;
+          await shakaInstance.load(url, null, mimeType);
+          if (request === tuneRequest) startVideo();
         } catch (e) {
+          if (request !== tuneRequest) return;
           console.error('Error loading stream:', e);
-          showToast('Failed to load this live stream.');
+          showNativeError(channel, request);
         }
-      } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
+      } else if (url.endsWith('.mp4') || videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
         // Fallback for iOS/Safari native HLS playback
         let nativeUrl = url;
         
@@ -416,14 +661,40 @@
         }
 
         videoPlayer.src = nativeUrl;
-        videoPlayer.play().catch(e => console.log('Autoplay blocked', e));
+        startVideo();
+      } else {
+        showNativeError(channel, request, 'This browser can’t play the stream');
       }
     } else {
-      videoPlayer.classList.remove('hidden');
       videoPlayer.src = url;
-      videoPlayer.play().catch(e => console.log('Autoplay blocked', e));
+      startVideo();
     }
   }
+
+  videoPlayer.addEventListener('playing', () => {
+    if (nativeRequest === tuneRequest) setPlayerStatus('live', 'Live');
+  });
+  videoPlayer.addEventListener('pause', () => {
+    if (nativeRequest === tuneRequest && playerStatus.dataset.state === 'live') setPlayerStatus('paused', 'Paused');
+  });
+  videoPlayer.addEventListener('error', () => {
+    if (nativeRequest === tuneRequest) showNativeError(activeChannel, nativeRequest);
+  });
+
+  document.getElementById('closeLiveTvPlayer').addEventListener('click', () => {
+    tuneRequest++;
+    const card = channelCards.get(activeChannel);
+    card?.setAttribute('aria-pressed', 'false');
+    activeChannel = null;
+    stopRadio();
+    stopYouTube();
+    stopNativePlayback();
+    shakaInstance?.unload(false).catch(() => {});
+    playerSection.hidden = true;
+    workspace.classList.remove('is-tuned');
+    updateChannelLink(null);
+    (card || searchInput).focus();
+  });
 
   const shareBtn = document.getElementById('shareBtn');
   if (shareBtn) {
@@ -433,6 +704,10 @@
           title: `Watching ${playerTitle.textContent} on Live TV`,
           url: window.location.href
         }).catch(console.error);
+      } else if (navigator.clipboard) {
+        navigator.clipboard.writeText(window.location.href)
+          .then(() => showToast('Channel link copied.'))
+          .catch(() => showToast('Could not copy the channel link.'));
       } else {
         showToast('Sharing is not supported on this browser.');
       }

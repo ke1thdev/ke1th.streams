@@ -1,33 +1,61 @@
-const CACHE_NAME = 'ke1th-streams-v3.4.1';
+const APP_VERSION = '3.4.3';
+const ASSET_REVISION = 'metvtoons1';
+const CACHE_NAME = `ke1th-streams-v${APP_VERSION}-${ASSET_REVISION}-${self.registration.scope}`;
 const APP_SHELL = [
-  '/',
-  '/index.html',
-  '/browse.html',
-  '/livetv.html',
-  '/watch.html',
-  '/media.html',
-  '/offline.html',
-  '/assets/css/home.css',
-  '/assets/css/browse.css',
-  '/assets/css/livetv.css',
-  '/assets/css/watch.css',
-  '/assets/css/media.css',
-  '/assets/css/liquid-glass.css',
-  '/assets/js/config.js',
-  '/assets/js/tmdb.js',
-  '/assets/js/home.js',
-  '/assets/js/browse.js',
-  '/assets/js/livetv.js',
-  '/assets/js/watch.js',
-  '/assets/js/media.js',
-  '/assets/js/search.js',
-  '/assets/js/liquid-glass.js'
+  './',
+  './index.html',
+  './browse.html',
+  './livetv.html',
+  './watch.html',
+  './media.html',
+  './offline.html',
+  './assets/imgs/radio/radyo-natin.png',
+  './assets/imgs/radio/spirit-fm-masbate.png',
+  './assets/imgs/radio/mor-radio.png',
+  './assets/css/home.css',
+  './assets/css/fonts.css',
+  './assets/css/browse.css',
+  './assets/css/livetv.css',
+  './assets/css/watch.css',
+  './assets/css/media.css',
+  './assets/css/liquid-glass.css',
+  './assets/css/landscape.css',
+  './assets/js/config.js',
+  './assets/js/image-manifest.js',
+  './assets/js/tmdb.js',
+  './assets/js/home.js',
+  './assets/js/browse.js',
+  './assets/js/livetv.js',
+  './assets/js/watch-history.js',
+  './assets/js/watch.js',
+  './assets/js/media.js',
+  './assets/js/search.js',
+  './assets/js/liquid-glass.js',
+  './assets/js/landscape.js',
+  './assets/vendor/mobile-dock.min.js',
+  './assets/vendor/shaka/controls.css',
+  './assets/vendor/shaka/shaka-player.ui.js',
+  './assets/vendor/shaka/mux.min.js',
+  './assets/fonts/inter-6.woff2',
+  './assets/fonts/roboto-regular.ttf',
+  './assets/fonts/material-icons-round.otf'
 ];
 
+const APP_SHELL_URLS = APP_SHELL.map(path => {
+  const url = new URL(path, self.registration.scope);
+  if (/\.(?:css|js)$/.test(url.pathname)) {
+    url.searchParams.set('v', APP_VERSION);
+    url.searchParams.set('rev', ASSET_REVISION);
+  }
+  return url;
+});
+const VERSIONED_ASSETS = new Set(APP_SHELL_URLS.filter(url => url.search).map(url => url.href));
+
 self.addEventListener('install', event => {
+  const requests = APP_SHELL_URLS.map(url => new Request(url, { cache: 'reload' }));
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(APP_SHELL))
+      .then(cache => cache.addAll(requests))
       .then(() => self.skipWaiting())
   );
 });
@@ -37,7 +65,9 @@ self.addEventListener('activate', event => {
     caches.keys().then(cacheNames => {
       return Promise.all(
         cacheNames.map(cacheName => {
-          if (cacheName !== CACHE_NAME) {
+          if (cacheName !== CACHE_NAME && cacheName.startsWith('ke1th-streams-') &&
+            (cacheName.endsWith(self.registration.scope) ||
+              (new URL(self.registration.scope).pathname === '/' && /^ke1th-streams-v\d+\.\d+\.\d+$/.test(cacheName)))) {
             return caches.delete(cacheName);
           }
         })
@@ -76,49 +106,51 @@ self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
   const isNavigate = event.request.mode === 'navigate';
   
-  // Only use stale-while-revalidate for our own domain assets
   if (url.origin === self.location.origin) {
-    event.respondWith(
-      (async function() {
-        let cachedResponse = await caches.match(event.request);
-        
-        // If the cached response is tainted with redirections, Safari will crash. Clean it!
-        if (cachedResponse && cachedResponse.redirected && isNavigate) {
-           cachedResponse = await cleanResponse(cachedResponse);
+    const refresh = isNavigate || /\.(?:css|js|html)$/.test(url.pathname);
+    const cache = caches.open(CACHE_NAME).catch(() => null);
+    const readCached = async request => (await cache)?.match(request).catch(() => undefined);
+    const fetchAndCache = () => fetch(event.request, refresh ? { cache: 'no-cache' } : undefined).then(async response => {
+      const result = isNavigate && response.redirected ? await cleanResponse(response) : response;
+      if (result.status === 200) {
+        // A storage failure must not turn a successful request into an offline page.
+        await (await cache)?.put(event.request, result.clone()).catch(() => {});
+      }
+      return result;
+    });
+
+    // The current release was fetched during installation with HTTP caching
+    // bypassed. Only fetch these exact asset URLs again on a cache miss.
+    if (!isNavigate && VERSIONED_ASSETS.has(url.href)) {
+      event.respondWith(readCached(event.request)
+        .then(cached => cached || fetchAndCache())
+        .catch(() => Response.error()));
+      return;
+    }
+
+    // Bundled images/fonts and cached artwork have immutable names. A cache hit
+    // must not start another download while the user scrolls through the catalog.
+    if (/\/assets\/(?:imgs|fonts)\//.test(url.pathname) || /\/api\/images\/?$/.test(url.pathname)) {
+      event.respondWith(readCached(event.request).then(cached => cached || fetchAndCache()).catch(() => Response.error()));
+      return;
+    }
+
+    // Documents and assets from other revisions still revalidate online.
+    const network = fetchAndCache();
+    if (refresh) {
+      event.respondWith(network.catch(async () => {
+        const cached = await readCached(event.request);
+        if (cached) return isNavigate && cached.redirected ? cleanResponse(cached) : cached;
+        if (isNavigate) {
+          const offlinePage = await readCached(new URL('offline.html', self.registration.scope));
+          if (offlinePage) return offlinePage;
         }
-        
-        // Fetch fresh version in the background
-        const networkPromise = fetch(event.request).then(async networkResponse => {
-          let responseToCache = networkResponse;
-          let responseToReturn = networkResponse;
-          
-          // Clean the network response before caching and returning if it's redirected
-          if (networkResponse && networkResponse.redirected && isNavigate) {
-             responseToCache = await cleanResponse(networkResponse);
-             responseToReturn = responseToCache.clone();
-          }
-          
-          if (responseToCache && responseToCache.status === 200) {
-            const cache = await caches.open(CACHE_NAME);
-            cache.put(event.request, responseToCache.clone());
-          }
-          
-          return responseToReturn;
-        }).catch(async (error) => {
-           // Fallback to offline page if network fails and no cache exists
-           if (!cachedResponse && isNavigate) {
-              const offlinePage = await caches.match('/offline.html');
-              if (offlinePage) return offlinePage;
-           }
-           throw error;
-        });
-        
-        // Keep the SW alive until the background fetch finishes
-        event.waitUntil(networkPromise.catch(() => {}));
-        
-        return cachedResponse || networkPromise;
-      })()
-    );
+        return Response.error();
+      }));
+    } else {
+      event.respondWith(readCached(event.request).then(cached => cached || network));
+      event.waitUntil(network.catch(() => {}));
+    }
     return;
   }
 

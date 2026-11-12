@@ -7,9 +7,8 @@
 
   <br><br>
 
-  <img src="https://komarev.com/ghpvc/?username=ke1th-streams&label=Views&color=e50914&style=flat-square" alt="Profile Views" />
-  <img src="https://img.shields.io/badge/Security-Privacy%20First-success?style=flat-square" alt="Privacy First" />
-  <img src="https://img.shields.io/badge/UI-Glassmorphism-blue?style=flat-square" alt="Glassmorphism UI" />
+  <img src="./assets/imgs/badges/privacy-first.svg" alt="Privacy First" />
+  <img src="./assets/imgs/badges/glass-ui.svg" alt="Glassmorphism UI" />
   
   <br><br>
   
@@ -20,9 +19,11 @@
 
 ## Overview
 
+Logos, UI images, fonts, and bundled catalog artwork are local. See [local image storage and cache setup](assets/imgs/README.md) for XAMPP and Cloudflare Pages deployment details.
+
 **ke1th.streams** is a modern, highly responsive streaming UI inspired by premium platforms like Netflix and Disney+. It features a multi-server streaming player, dynamic content discovery via the TMDB API, and a polished aesthetic focused strictly on user experience.
 
-**Safe & Secure By Design:** No files are stored on my servers—all media is linked securely from third-party sources. I do not collect personally identifiable information (PII). All user preferences (like "Watch Later" lists and "Watch Progress") are securely stored locally on your own device.
+Playback is provided by third-party players. UI images, verified channel logos, and bundled catalog artwork are stored in this project. User preferences (like "Watch Later" lists and "Watch Progress") are stored locally on your own device.
 
 ---
 
@@ -70,6 +71,38 @@ Experience the platform live at: **[stream.ke1th.dev](https://stream.ke1th.dev/)
 ---
 
 ## Setup Instructions
+
+### XAMPP on Windows
+
+1. Keep this project in `C:\xampp\htdocs\STREAMMOVIES`.
+2. Open the XAMPP Control Panel and start **Apache**.
+3. Open [http://localhost/STREAMMOVIES/](http://localhost/STREAMMOVIES/) in your browser.
+
+The site uses static HTML, CSS, and JavaScript. Apache serves the files, while
+the catalog and video players connect to their existing online services.
+
+Live TV channels are listed in `channels/channels.json`. Compatible HLS sources
+load directly. The added BX-TV channels that need browser-compatible delivery
+use BX-TV's public HTTPS relay, including its rewritten child playlists and
+segments. Their availability depends on those third-party services.
+
+The guide also separates Radio, Anime, Faith & Worship, and Lifestyle & Travel.
+Radio uses an audio player with station artwork. Closing or changing a selection
+stops the previous audio or video. The desktop and mobile channel lists
+scroll independently while a player is open.
+
+The `tzujtv.json` import keeps existing sources, merges duplicate names/URLs,
+and adds TV/radio sources that pass playlist and media-sample checks. Individual
+on-demand movie records from that import are excluded from the live guide.
+
+Zeno radio entries keep the original station URL so the browser can obtain a
+fresh signed redirect when connecting. Do not save the temporary Surfernetwork
+URL containing `zt=` as the permanent source. Radio checks use a normal browser
+User-Agent; the abbreviated `Mozilla/5.0` identifier can produce a false 401.
+
+The mobile dock uses the official Glisse Tab Bar and Glass components.
+The browser-ready bundle is included. If you edit the dock integration,
+run `npm ci` followed by `npm run build:glass` to rebuild it.
 
 To run this project locally:
 
@@ -128,7 +161,7 @@ export default {
 
 ## Legal Disclaimer
 
-**ke1th.streams** does not host, store, or upload any files on its servers. The application acts strictly as an indexing UI, linking to media hosted on external, third-party services over which I have no control. 
+**ke1th.streams** links to video playback hosted by third-party services. Site images, fonts, and cached artwork are stored with the application.
 
 <br>
 

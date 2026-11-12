@@ -819,6 +819,53 @@ body::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
   width: var(--landscape-w);
 }
 
+.continue-card {
+  position: relative;
+  flex: 0 0 var(--landscape-w);
+  min-width: 0;
+  scroll-snap-align: start;
+}
+
+.continue-card .card:hover {
+  transform: none;
+  z-index: auto;
+}
+
+.continue-status,
+.continue-card .remove-continue {
+  position: absolute;
+  top: 7px;
+  z-index: 2;
+  color: #fff;
+  --glisse-tint: rgba(12, 12, 16, 0.66);
+}
+
+.continue-status {
+  left: 7px;
+  padding: 5px 9px;
+  font-size: 0.72rem;
+  font-weight: 650;
+}
+
+.continue-card .remove-continue {
+  right: 7px;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 0;
+  cursor: pointer;
+}
+
+.continue-progress {
+  position: absolute;
+  inset: auto 8px 6px;
+  height: 3px;
+  z-index: 2;
+  border-radius: 999px;
+  background: linear-gradient(to right, #ed252f var(--progress), rgba(255,255,255,.3) var(--progress));
+}
+
 .card-img-wrap {
   position: relative;
 }
@@ -2016,104 +2063,71 @@ body::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
 
 
   .mobile-dock-wrapper {
+    --dock-height: clamp(58px, 16vw, 66px);
+    --dock-inset: 5px;
+    --dock-tab-height: calc(var(--dock-height) - 2 * var(--dock-inset));
+    --dock-gap: 8px;
+    --dock-tab-width: clamp(44px, calc((100vw - var(--dock-height) - var(--dock-gap) - 2 * var(--dock-inset) - 32px) / 4), 76px);
     position: fixed;
-    bottom: max(8px, env(safe-area-inset-bottom));
+    bottom: max(10px, env(safe-area-inset-bottom));
     left: 50%;
     transform: translateX(-50%);
     z-index: 90;
     display: flex;
     align-items: center;
-    gap: 8px;
-    width: auto;
+    gap: var(--dock-gap);
   }
 
   .mobile-dock {
-    /* Liquid glass visual properties come from .liquid-glass-bar class */
-    border-radius: 40px;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    padding: 0 8px;
-    height: 60px;
-    box-sizing: border-box;
-    transition: all 0.3s ease;
-    position: relative;
-    z-index: 1;
+    padding: var(--dock-inset);
   }
 
-  /* The sliding active background pill */
   .mobile-dock .glass-content::after {
     content: '';
     position: absolute;
-    left: 8px;
-    top: 6px;
-    bottom: 6px;
-    width: 56px;
-    border-radius: 20px;
-    background-color: rgba(255, 255, 255, 0.15);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    inset: 0 auto 0 0;
+    width: var(--dock-tab-width);
+    border-radius: 999px;
     z-index: -1;
-    transition: transform 400ms cubic-bezier(1, 0, 0.4, 1), background-color 400ms cubic-bezier(1, 0, 0.4, 1);
+    pointer-events: none;
+    opacity: 0;
   }
 
-  /* Positioning and sliding animation based on active index */
-  /* Index 1 */
-  .mobile-dock .glass-content:has(.dock-btn:nth-child(1).dock-active)::after {
-    transform: translateX(0);
-    transform-origin: right;
-    animation: dockScaleToggle1 440ms ease;
-  }
-  /* Index 2 (gap=4px -> 56+4=60px shift) */
-  .mobile-dock .glass-content:has(.dock-btn:nth-child(2).dock-active)::after {
-    transform: translateX(60px);
-    animation: dockScaleToggle2 440ms ease;
-  }
-  /* Index 3 (60+60=120px shift) */
-  .mobile-dock .glass-content:has(.dock-btn:nth-child(3).dock-active)::after {
-    transform: translateX(120px);
-    animation: dockScaleToggle3 440ms ease;
-  }
-  /* Index 4 (120+60=180px shift) */
-  .mobile-dock .glass-content:has(.dock-btn:nth-child(4).dock-active)::after {
-    transform: translateX(180px);
-    transform-origin: left;
-    animation: dockScaleToggle4 440ms ease;
+  .mobile-dock .glass-content:has(.dock-active)::after {
+    opacity: 1;
+    transform: translateX(calc(var(--active-tab, 0) * var(--dock-tab-width)));
   }
 
-  /* Squeeze animations */
-  @keyframes dockScaleToggle1 { 0% { transform: translateX(0) scaleX(1); } 50% { transform: translateX(0) scaleX(1.15); } 100% { transform: translateX(0) scaleX(1); } }
-  @keyframes dockScaleToggle2 { 0% { transform: translateX(60px) scaleX(1); } 50% { transform: translateX(60px) scaleX(1.15); } 100% { transform: translateX(60px) scaleX(1); } }
-  @keyframes dockScaleToggle3 { 0% { transform: translateX(120px) scaleX(1); } 50% { transform: translateX(120px) scaleX(1.15); } 100% { transform: translateX(120px) scaleX(1); } }
-  @keyframes dockScaleToggle4 { 0% { transform: translateX(180px) scaleX(1); } 50% { transform: translateX(180px) scaleX(1.15); } 100% { transform: translateX(180px) scaleX(1); } }
+  .mobile-dock .glass-content:has(.dock-btn:nth-child(2).dock-active) { --active-tab: 1; }
+  .mobile-dock .glass-content:has(.dock-btn:nth-child(3).dock-active) { --active-tab: 2; }
+  .mobile-dock .glass-content:has(.dock-btn:nth-child(4).dock-active) { --active-tab: 3; }
 
   .dock-search-btn {
-    /* Liquid glass visual properties come from .liquid-glass-circle class */
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text);
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    z-index: 1;
-    padding: 0;
-    box-sizing: border-box;
+    display: grid;
+    place-items: center;
+    width: var(--dock-height);
+    height: var(--dock-height);
     flex-shrink: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    -webkit-appearance: none;
+    appearance: none;
+    color: var(--text-bright);
+    cursor: pointer;
+    transition: transform 160ms ease;
   }
-  
+
   .dock-search-btn svg {
-    width: 22px;
-    height: 22px;
+    width: 25px;
+    height: 25px;
     stroke-width: 2.2;
     position: relative;
     z-index: 2;
   }
 
-  .dock-search-btn:active {
-    transform: scale(0.92);
+  .dock-search-btn:active svg {
+    transform: scale(0.9);
   }
 
   .dock-btn {
@@ -2130,9 +2144,10 @@ body::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
     font-weight: 600;
     cursor: pointer;
     padding: 0;
-    width: 56px;
-    min-width: 56px;
-    height: 48px;
+    width: var(--dock-tab-width);
+    min-width: 44px;
+    height: var(--dock-tab-height);
+    text-decoration: none;
     border-radius: 20px;
     transition: color 0.3s ease, transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
     box-shadow: none !important;
@@ -2159,7 +2174,7 @@ body::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
   }
 
   .dock-btn span {
-    font-size: 0.55rem;
+    font-size: 0.625rem;
     letter-spacing: 0.02em;
   }
 }

@@ -1,0 +1,3989 @@
+{
+  "generatedAt": "2026-11-12T15:45:29.091Z",
+  "existing": [
+    {
+      "sourceUrl": "https://zeno.fm/_ipx/_/https://images.zeno.fm/_ZvbPylo7NBu72rPDnUvyCInPbTGGCj7iO57KrUOGW4/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvYWd4emZucGxibTh0YzNSaGRITnlNZ3NTQ2tGMWRHaERiR2xsYm5RWWdJQ0E2THlrOEFvTUN4SU9VM1JoZEdsdmJsQnliMlpwYkdVWWdJQ0FnSXY2aGdvTW9nRUVlbVZ1YncvaW1hZ2UvP3U9MTU3NDE2NjQxNTAwMA.webp",
+      "names": [
+        "102.7 Star FM Manila"
+      ],
+      "localPath": "assets/imgs/channels/102-7-star-fm-manila-702165b6fc.webp",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "702165b6fc8e0c77c4d80ff9ea491ccf46830e49da081503c3943364db5f4583",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://zeno.fm/_ipx/_/https://images.zeno.fm/-Y6IS9jaU9PriXP_3E3JHF4c-256Ob8Pl-9D5q48VjE/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvMjI5Y2YzNmYtZDJlMi00ZGRlLWJhMTMtZDUwYWMyOGM2NjMwL2ltYWdlLz91PTE3Mzk4NjUxMjIwMDA.webp",
+      "names": [
+        "106.3 Energy FM Naga"
+      ],
+      "localPath": "assets/imgs/channels/106-3-energy-fm-naga-e40f78ab17.webp",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "e40f78ab17ef51f5f01a0cef03144945416006a21ec21cb7cf5c59d23efa87a3",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://provider-static.plex.tv/epg/images/thumbnails/24hrfreemovies_artwork_vertical.jpg",
+      "names": [
+        "24 Hour Free Movies"
+      ],
+      "localPath": "assets/imgs/channels/24-hour-free-movies-90d8615f8e.webp",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "90d8615f8e5f31aeba4f002fbea65913ebeee9dc66e682d3056f5fec86b9fa66"
+    },
+    {
+      "sourceUrl": "https://i.imgur.com/b4rjf8nl.png",
+      "names": [
+        "3rsMovieBoxPh"
+      ],
+      "localPath": "assets/imgs/channels/3rsmovieboxph-c5c5443b8a.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "c5c5443b8a77bd542d62e09563447b941d2298f5afde603f59bfcc2eea0ccbf7",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/en/3/32/Love_Radio_2021_logo.png?Love_Radio1184620647",
+      "names": [
+        "90.7 Love Radio"
+      ],
+      "localPath": null,
+      "status": "failed",
+      "reason": "HTTP 429"
+    },
+    {
+      "sourceUrl": "https://images.pluto.tv/channels/6452c814939a590008567a3b/colorLogoSVG_1756971210545.svg",
+      "names": [
+        "90's Kids"
+      ],
+      "localPath": "assets/imgs/channels/90-s-kids-6fa65fe591.svg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "6fa65fe591d11d226d3f374ad8d361251728e58ea4276505a3e0313680a59a1e",
+      "identityReview": {
+        "method": "source filename/channel provenance checked; SVG active content rejected if present",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://images.pluto.tv/channels/6452c77ed3fdde00080eb3a8/colorLogoSVG.svg",
+      "names": [
+        "90s Kids TV 2"
+      ],
+      "localPath": "assets/imgs/channels/90s-kids-tv-2-afc62c05a3.svg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "afc62c05a3131365b5bfeab3bd8f4557bf6ab50a8011d50867f145ecb3d07d00",
+      "identityReview": {
+        "method": "source filename/channel provenance checked; SVG active content rejected if present",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://zeno.fm/_ipx/_/https://images.zeno.fm/Ev1_yutQykKjO56VRPMAd2sEQlmrQC9EVrP9p-0rGLo/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvYWd4emZucGxibTh0YzNSaGRITnlNZ3NTQ2tGMWRHaERiR2xsYm5RWWdJQ0k3b1NRbEFrTUN4SU9VM1JoZEdsdmJsQnliMlpwYkdVWWdJQ0k5dkRNNmdvTW9nRUVlbVZ1YncvaW1hZ2UvP3U9MTc0NDgyMzQxMjAwMA.webp",
+      "names": [
+        "91.5 Win Radio Manila"
+      ],
+      "localPath": "assets/imgs/channels/91-5-win-radio-manila-99fd9ead68.webp",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "99fd9ead689e408c12bab98a4b61f929819857f57b9c1f0fcc3f2d5e676256e4",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://rx931.com/images/logo-main.png",
+      "names": [
+        "93.1 MONSTER RX"
+      ],
+      "localPath": "assets/imgs/channels/93-1-monster-rx-3f610326d3.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "3f610326d370dcd37bf77b4978d64c278fadfc21e22247c921f5cd83fafb4c5b",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://zeno.fm/_ipx/_/https://images.zeno.fm/XG-MObHM6PEtkzagDXocTb6RTP9-7aVgC3rLPtQpTp0/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvYzFmNWUxNTgtM2VmOS00MTYzLWE1NWItOTZhMjU2MjIzYmE5L2ltYWdlLz91PTE3MjgzNDg4NTkwMDA.webp",
+      "names": [
+        "94.7 Energy FM Cebu"
+      ],
+      "localPath": "assets/imgs/channels/94-7-energy-fm-cebu-b0af4c0ecc.webp",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "b0af4c0ecc81497123805c864a96fa9f51e86657362d45d8c61c4f07bce86332"
+    },
+    {
+      "sourceUrl": "https://zeno.fm/_ipx/_/https://images.zeno.fm/ZYMRqpgfV09UKg4XATVZf1ImvzXxiPAKCo92PKwI8nI/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvYWd4emZucGxibTh0YzNSaGRITnlNZ3NTQ2tGMWRHaERiR2xsYm5RWWdJQ0E2THlrOEFvTUN4SU9VM1JoZEdsdmJsQnliMlpwYkdVWWdJQ0FnUE9Ya3drTW9nRUVlbVZ1YncvaW1hZ2UvP3U9MTU3NDE2NjMyOTAwMA.webp",
+      "names": [
+        "95.5 Star FM Cebu"
+      ],
+      "localPath": "assets/imgs/channels/95-5-star-fm-cebu-5041947173.webp",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "5041947173fd8c1f078c730ddfe3d38deccb0b170c3b64cc01ad15cec1caf82b",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/en/1/13/New_modernized_logo_of_96.3_Easy_Rock_-_Vectorized_via_InkScape.svg",
+      "names": [
+        "96.3 Easy Rock"
+      ],
+      "localPath": null,
+      "status": "failed",
+      "reason": "HTTP 429"
+    },
+    {
+      "sourceUrl": "https://zeno.fm/_ipx/_/https://images.zeno.fm/eFhUa81egn4S-LfIn_oz9LRPKn-_wW6SkdeojkrsMVc/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvNjA0YmI0YWYtY2NmNi00N2JkLTgxOWUtN2QxYWNjZDE1ZTA1L2ltYWdlLz91PTE3NzAwNDI0ODEwMDA.webp",
+      "names": [
+        "97.1 Barangay LS"
+      ],
+      "localPath": "assets/imgs/channels/97-1-barangay-ls-32e0364b76.webp",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "32e0364b765c3a0c9d45a68054a6a1588e4af5d1c64c40c0ac54c76b97a9dd2c",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://i.imgur.com/pRwyOMP.png",
+      "names": [
+        "A2Z"
+      ],
+      "localPath": "assets/imgs/channels/a2z-121046ace7.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "121046ace7335f8b09ade1f42c097679c6ab4942df907ee35165ee9ef6d75284",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://www.abante.com.ph/wp-content/uploads/2023/09/dwar_radio.webp",
+      "names": [
+        "Abante Radyo"
+      ],
+      "localPath": "assets/imgs/channels/abante-radyo-b8b4488c1d.webp",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "b8b4488c1dd15cf2d5f5446136bb11d2b7d6aa6dd99f40a1039796ad9d2ccf6c",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://static.wixstatic.com/media/87eafa_cbc7786c484941c585ed9d7afe64c8e1~mv2.png/v1/fill/w_854,h_480,fp_0.50_0.50/87eafa_cbc7786c484941c585ed9d7afe64c8e1~mv2.png",
+      "names": [
+        "Action Hollywood Movies HD"
+      ],
+      "localPath": "assets/imgs/channels/action-hollywood-movies-hd-56f22097b8.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "56f22097b8d06b8a11c2a936de28c77c539cadf4986a38f06694470302b4c3c7",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://logodix.com/logo/1992247.jpg",
+      "names": [
+        "AFV"
+      ],
+      "localPath": "assets/imgs/channels/afv-09a95e3789.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "09a95e37897cab3c890b041884e21510333a2a0b91194b94df8a4a6dea4d4751",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://cdn.creativefabrica.com/2023/05/31/Alien-Nation-SVG-Print-Alien-UFO-logo-Graphics-70778983.jpg",
+      "names": [
+        "Alien Nation"
+      ],
+      "localPath": "assets/imgs/channels/alien-nation-12ab376bf7.jpg",
+      "status": "review-needed",
+      "reason": "Stock-art source: channel identity must be verified; Existing artwork flagged for identity review; may be generic artwork or fan art",
+      "sha256": "12ab376bf73f74377d7350bb90ca9b94feb220318fbb35822eda1fbfdcfd78ff",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Unsuitable: generic stock UFO artwork; no evidence of this channel identity"
+      }
+    },
+    {
+      "sourceUrl": "https://static-us-east-2-fastly-a.www.philo.com/images/channel_logos/ALLWED/large_dark.png?auto=webp&ver=1",
+      "names": [
+        "All Weddings We TV"
+      ],
+      "localPath": "assets/imgs/channels/all-weddings-we-tv-7c1494d64f.webp",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "7c1494d64f5e5b28bd4a2fb5b4140590ed13e8bd511e936c65c686001f0f35ba",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://static-us-east-2-fastly-a.www.philo.com/images/channel_logos/AMCRSH/large_dark.png?auto=webp&ver=1",
+      "names": [
+        "AMC Thrillers"
+      ],
+      "localPath": "assets/imgs/channels/amc-thrillers-239b36e467.webp",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "239b36e4674290530150a6d97f3c89662906583e9d18284ea13a2503e8823e12",
+      "identityReview": {
+        "method": "visual review",
+        "result": "AMC parent logo only; Thrillers subchannel label absent"
+      }
+    },
+    {
+      "sourceUrl": "https://static.wikia.nocookie.net/logopedia/images/e/e0/NBC_American_Crimes.svg/revision/latest/scale-to-width-down/250?cb=20240904000846",
+      "names": [
+        "American Crimes"
+      ],
+      "localPath": null,
+      "status": "failed",
+      "reason": "HTTP 403"
+    },
+    {
+      "sourceUrl": "https://vectorified.com/image/american-ninja-warrior-logo-vector-14.png",
+      "names": [
+        "American Ninja Warrior"
+      ],
+      "localPath": "assets/imgs/channels/american-ninja-warrior-1dc7fd1aac.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "1dc7fd1aac0cea7bb6e2cf33d3bf0164fe6856a51662bcac1f7cd0bd700e2300",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/2077a187-7b99-4db1-b092-ca4f7f1fc316/djtshgh-1379ba2a-2b3d-4a89-925a-71a269e77d0a.png/v1/fill/w_1280,h_721/cartoon_network_s_angry_birds_toons_logo__wm_au__by_danieltubeisback_djtshgh-fullview.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NzIxIiwicGF0aCI6Ii9mLzIwNzdhMTg3LTdiOTktNGRiMS1iMDkyLWNhNGY3ZjFmYzMxNi9kanRzaGdoLTEzNzliYTJhLTJiM2QtNGE4OS05MjVhLTcxYTI2OWU3N2QwYS5wbmciLCJ3aWR0aCI6Ijw9MTI4MCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.7RTsDIlH6eSUgR1wFJ_DO-koxXKub04U7aWEiFZ3j94",
+      "names": [
+        "Angry Bird"
+      ],
+      "localPath": "assets/imgs/channels/angry-bird-6d1636ab1b.png",
+      "status": "review-needed",
+      "reason": "Existing artwork flagged for identity review; may be generic artwork or fan art",
+      "sha256": "6d1636ab1b4efef5e1f4a81cdf1676c6c70041810cad20bbbb8d4cb211f03e5c",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Unverified: fan-style Cartoon Network / Angry Birds Toons artwork; do not automatically retain"
+      }
+    },
+    {
+      "sourceUrl": "https://storage.googleapis.com/cdn.vcgamers.com/news/wp-content/uploads/2024/05/Ani-One-Asia.webp",
+      "names": [
+        "Ani-One"
+      ],
+      "localPath": "assets/imgs/channels/ani-one-983054a7e7.webp",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "983054a7e750acf9f10f071d18dd4d9267adeb8a6a185379c12c3bcdc0d38aaf"
+    },
+    {
+      "sourceUrl": "https://api.discovery.com/v1/images/5bc91c366b66d1494068339e?aspectRatio=1x1&width=192&key=3020a40c2356a645b4b4",
+      "names": [
+        "Animal Planet"
+      ],
+      "localPath": "assets/imgs/channels/animal-planet-9f32135f25.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "9f32135f256b08b2bf83fdfb33be748333cae4d30b3e5d8c0926068f11498f6a",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://vectorseek.com/wp-content/uploads/2023/05/Animal-Planet-2019-Logo-Vector-600x600.jpg",
+      "names": [
+        "Animal Planet"
+      ],
+      "localPath": "assets/imgs/channels/animal-planet-048c9f96d3.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "048c9f96d3b084257bfb00f70e187bd0219c6da071fa3810ff8b80f0cd687592"
+    },
+    {
+      "sourceUrl": "https://i.imgur.com/rN5c88Q.png",
+      "names": [
+        "ANIMAX"
+      ],
+      "localPath": null,
+      "status": "rejected",
+      "reason": "Known retired/unavailable image placeholder",
+      "sha256": "9b5936f4006146e4e1e9025b474c02863c0b5614132ad40db4b925a10e8bfbb9"
+    },
+    {
+      "sourceUrl": "https://i.imgur.com/v0BlxCa.png",
+      "names": [
+        "Anime x HIDIVE"
+      ],
+      "localPath": "assets/imgs/channels/anime-x-hidive-16f64e9c0c.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "16f64e9c0c008dc2f4fcf17a6a6823e7304a607c726ab1537220952594995655",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://static.wikia.nocookie.net/logopedia/images/3/34/Anime_x_HIDIVE_(White).png/revision/latest?cb=20251205045808",
+      "names": [
+        "Anime X Hidive",
+        "Anime X HiDive2"
+      ],
+      "localPath": null,
+      "status": "failed",
+      "reason": "HTTP 403"
+    },
+    {
+      "sourceUrl": "https://images.seeklogo.com/logo-png/42/1/aniplus-logo-png_seeklogo-428978.png",
+      "names": [
+        "AniPlus"
+      ],
+      "localPath": "assets/imgs/channels/aniplus-59dc7726b7.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "59dc7726b740b2d5ca12dca368a5a705080148e1543da6778038b02b89435a53"
+    },
+    {
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Aniplus_logo.svg/960px-Aniplus_logo.svg.png",
+      "names": [
+        "Aniplus Asia"
+      ],
+      "localPath": "assets/imgs/channels/aniplus-asia-8a1a972e69.webp",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "8a1a972e697ee24bf7a722ee686f410aec9877264b0a24a5f4ff8f79bf373e81",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://tse1.mm.bing.net/th/id/OIP.PB_0V_n4O4Yp2meHNuCGDwHaHa?pid=Api&h=220&P=0",
+      "names": [
+        "Antiques Road Trip"
+      ],
+      "localPath": "assets/imgs/channels/antiques-road-trip-c5d700a369.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "c5d700a36933968dc4dbbec19a4087ff1a9b585cddfbb25e7669d9892fe84c19",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://logowiki.net/wp-content/uploads/imgp/Arirang-Logo-1-9664.png",
+      "names": [
+        "Arirang",
+        "Arirang Korea"
+      ],
+      "localPath": null,
+      "status": "failed",
+      "reason": "HTTP 403"
+    },
+    {
+      "sourceUrl": "https://i0.wp.com/lushiglobal.com/wp-content/uploads/2020/01/Newspaper-Logo-Astro-Awani.png?w=900&ssl=1",
+      "names": [
+        "Astro Awani"
+      ],
+      "localPath": "assets/imgs/channels/astro-awani-c82ac399c8.webp",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "c82ac399c8c9f650997df53aa70caa572457b2fda94832a67dac0677888a8f53",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://tse1.mm.bing.net/th/id/OIP.rSq_MfMvkmyVU30Vdtg-1AHaHa?pid=Api&h=220&P=0",
+      "names": [
+        "AVA Family"
+      ],
+      "localPath": "assets/imgs/channels/ava-family-8b79cc1bd8.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "8b79cc1bd8bc960c40edf93d597c33e1c5827a77c3c263e23b1d94180962f07f",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://tse1.mm.bing.net/th/id/OIP.5D0NiVN4LlXjuFbqsKbkTQAAAA?pid=Api&h=220&P=0",
+      "names": [
+        "AVA Series"
+      ],
+      "localPath": "assets/imgs/channels/ava-series-32370d9846.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "32370d9846585fffdf09fe4f6602c15736d891920dd26974b39a0399c5b0ee1f",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://images.pluto.tv/channels/656df599c0fc8800089c75ab/colorLogoSVG.svg",
+      "names": [
+        "Avatar"
+      ],
+      "localPath": "assets/imgs/channels/avatar-608cd509b8.svg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "608cd509b89504eaa793c465971a35dd240a9a1c709c80384187fad2165e655b",
+      "identityReview": {
+        "method": "source filename/channel provenance checked; SVG active content rejected if present",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/2e317a1c-f1ce-4a5f-90db-d88cc01db2d0/djhzagl-63312e6a-3fb3-44df-bbfb-3b7eafb7ee8d.png/v1/fill/w_1280,h_1898,q_80,strp/avatar_3_fire_and_ash_teaser_logo_poster_2025_by_mrandrew7w7_djhzagl-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTg5OCIsInBhdGgiOiJcL2ZcLzJlMzE3YTFjLWYxY2UtNGE1Zi05MGRiLWQ4OGNjMDFkYjJkMFwvZGpoemFnbC02MzMxMmU2YS0zZmIzLTQ0ZGYtYmJmYi0zYjdlYWZiN2VlOGQucG5nIiwid2lkdGgiOiI8PTEyODAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.9VIDGuXOp8pKBs7V-vS6YDkwTldUMQ3YcQKtNCVJTqk",
+      "names": [
+        "Avatar: Fire and Ash (2025)"
+      ],
+      "localPath": "assets/imgs/channels/avatar-fire-and-ash-2025-1f70584af0.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "1f70584af08466224b0648b1fc6b7adc2eb0c829526db479825b0d340ae7fe4c"
+    },
+    {
+      "sourceUrl": "https://tse4.mm.bing.net/th/id/OIP.kZwVrjAGRhuziLhTGn8_JwHaEL?pid=Api&h=220&P=0",
+      "names": [
+        "AWE Plus"
+      ],
+      "localPath": "assets/imgs/channels/awe-plus-e3c4c9683e.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "e3c4c9683eb76e0893ccee097643972e29b496429e14e63fb3741571c2ea9ed8",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://tvazteca.brightspotcdn.com/6b/68/81ba31064811b3aaddf9f576682f/ainternacional-color.png",
+      "names": [
+        "Azteca International"
+      ],
+      "localPath": "assets/imgs/channels/azteca-international-bfc9440fcb.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "bfc9440fcbf07c8f5758a052efbf75d0d5e4f2eda667c3506a0d094d22958694",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://play-lh.googleusercontent.com/N7Kf5CZB5yFGddAZxmtjylZuG9ECPJFm1y_sdV7Gx_WrawDP-k-9mpFY_hRL4E3IXPo",
+      "names": [
+        "Baby Shark TV",
+        "Baby Shark TV (720p)"
+      ],
+      "localPath": "assets/imgs/channels/baby-shark-tv-eb06c3c15f.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "eb06c3c15fd932d8166307aea0a6cd567257577b8f35f79017116e57b08ddac7",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://tse1.mm.bing.net/th/id/OIP.0Tli1puSkO6sj789h80HmwHaFj?pid=Api&h=220&P=0",
+      "names": [
+        "BBC Earth"
+      ],
+      "localPath": "assets/imgs/channels/bbc-earth-964a89526c.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "964a89526c903eff30f10eedfa64346eb0374ea7bacf2e91c62aa19a4e4f2c63",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://m.media-amazon.com/images/I/81geqCyt9KL.png",
+      "names": [
+        "BBC Impossible"
+      ],
+      "localPath": "assets/imgs/channels/bbc-impossible-7834409a8a.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "7834409a8abcfd015339996ae75f5b45e0582e92588c345c5a1b94764c1fdab5",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://tse3.mm.bing.net/th/id/OIP.gYub6jvJ2mNsHv46pgEvkAHaE5?pid=Api&h=220&P=0",
+      "names": [
+        "BBC Top Gear"
+      ],
+      "localPath": "assets/imgs/channels/bbc-top-gear-7bd66a78e5.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "7bd66a78e58e358b44948e30cf4b95da88f82b7b961d813aaea2fb0347beeff5",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://tse3.mm.bing.net/th/id/OIP.wkiTX11xPMfvl2DW6LUCEAHaFj?pid=Api&h=220&P=0",
+      "names": [
+        "BBC World News"
+      ],
+      "localPath": "assets/imgs/channels/bbc-world-news-21172b8fd3.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "21172b8fd3fb0b535085a9ed37a4faeeb67ed65a90734a7d697642edafaf4226",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://images.pluto.tv/channels/6486e8984cfc2c0008b6844e/colorLogoSVG.svg",
+      "names": [
+        "Beavis and Butt-Head"
+      ],
+      "localPath": "assets/imgs/channels/beavis-and-butt-head-40b7e9ea7b.svg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "40b7e9ea7bb0ed4b56ae727e366d71b1d082bda3adf848cecd83b024dd33a2dd",
+      "identityReview": {
+        "method": "source filename/channel provenance checked; SVG active content rejected if present",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://tse1.mm.bing.net/th/id/OIP.ob-M2GXzrQzDibjpQHhmxgHaFj?pid=Api&h=220&P=0",
+      "names": [
+        "Bein Sports Xtra"
+      ],
+      "localPath": "assets/imgs/channels/bein-sports-xtra-d7b2444eb0.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "d7b2444eb01c060d8d6ad7c576d9453dd86d76c38c6b75bd7a1f088e09afa36c",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://tse3.mm.bing.net/th/id/OIP.2btxOHsk5DcqPIljOPzgUwHaEK?pid=Api&h=220&P=0",
+      "names": [
+        "Billiard TV"
+      ],
+      "localPath": "assets/imgs/channels/billiard-tv-5f772f5bfc.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "5f772f5bfc79f6abdde5a232ae0ae60a3539df34da221b76415820fcf4099654",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://en.wikipedia.org/wiki/Special:FilePath/BilyonaryoNewsChannel_Logo_-_Black_(2024).png",
+      "names": [
+        "Bilyonaryo News Channel"
+      ],
+      "localPath": "assets/imgs/channels/bilyonaryo-news-channel-4c8a510f96.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "4c8a510f9663ffd398676ea9870f69c62877738bc102a5f5c39c093e76ff4062",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://www.lyngsat.com/logo/tv/bb/bilyonaryo-news-channel-ph.png",
+      "names": [
+        "Bilyonaryo News Channel"
+      ],
+      "localPath": "assets/imgs/channels/bilyonaryo-news-channel-7d4357f94b.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "7d4357f94b7f5a0aa0395948250aef7fb321ef3d8f049d46205f4c96ded1d8a3"
+    },
+    {
+      "sourceUrl": "https://static.wikia.nocookie.net/tv-philippines/images/0/0e/Blast_TV_logo.png/revision/latest?cb=20240924121921",
+      "names": [
+        "Blast Movie"
+      ],
+      "localPath": null,
+      "status": "failed",
+      "reason": "HTTP 403"
+    },
+    {
+      "sourceUrl": "https://i.imgur.com/3KXnFQK.png",
+      "names": [
+        "Blast Movie"
+      ],
+      "localPath": null,
+      "status": "rejected",
+      "reason": "Known retired/unavailable image placeholder",
+      "sha256": "9b5936f4006146e4e1e9025b474c02863c0b5614132ad40db4b925a10e8bfbb9"
+    },
+    {
+      "sourceUrl": "https://i.ibb.co/G3sSvQmD/unnamed-2.png",
+      "names": [
+        "Blast Movies"
+      ],
+      "localPath": "assets/imgs/channels/blast-movies-219df33719.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "219df337193b277d3eb3fdc74bc089ef075278519e53c713352fa90543d2592a",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://iyadtv.pages.dev/images/cartoon_channel_ph_47.png",
+      "names": [
+        "Cartoon Channel PH"
+      ],
+      "localPath": "assets/imgs/channels/cartoon-channel-ph-30df3b80cf.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "30df3b80cfcc73e1d26b22e4c11a611c687589443fe00770126c4b2433e105e2",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://static.wikia.nocookie.net/logopedia/images/2/2c/Cartoon_Classics.svg/revision/latest?cb=20230929014751",
+      "names": [
+        "Cartoon Classics",
+        "Cartoon Classics 2"
+      ],
+      "localPath": null,
+      "status": "failed",
+      "reason": "HTTP 403"
+    },
+    {
+      "sourceUrl": "https://static.wikia.nocookie.net/logopedia/images/2/2c/Cartoon_Classics.svg/revision/latest/scale-to-width-down/300?cb=20230929014751",
+      "names": [
+        "Cartoon Classics"
+      ],
+      "localPath": null,
+      "status": "failed",
+      "reason": "HTTP 403"
+    },
+    {
+      "sourceUrl": "https://hipfonts.com/wp-content/uploads/2022/02/adult-swim-logo.jpg",
+      "names": [
+        "Cartoon Network / Adult Swim (US)",
+        "[adult swim]"
+      ],
+      "localPath": "assets/imgs/channels/cartoon-network-adult-swim-us-5c8938fc33.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "5c8938fc33e6a4fb48eebfaf3f7753400bcdab8ac16fe9b13e97d37447b3de7a",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/8/80/Cartoon_Network_2010_logo.svg",
+      "names": [
+        "Cartoon Network Asia"
+      ],
+      "localPath": "assets/imgs/channels/cartoon-network-asia-7ebd60a2cf.svg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "7ebd60a2cf53e3b976b1452b4b60bf6f3b3fc3e726048fb38c33351d8733407d",
+      "identityReview": {
+        "method": "source filename/channel provenance checked; SVG active content rejected if present",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://tse2.mm.bing.net/th/id/OIP.hd-eA4QkTWmKMMvaHxXEZgHaHa?pid=Api&h=220&P=0",
+      "names": [
+        "Catholic Network"
+      ],
+      "localPath": null,
+      "status": "failed",
+      "reason": "HTTP 404"
+    },
+    {
+      "sourceUrl": "https://tse3.mm.bing.net/th/id/OIP.i7GvYQzJJtQMiKYBBxMPgQHaE1?pid=Api&h=220&P=0",
+      "names": [
+        "CBS News"
+      ],
+      "localPath": "assets/imgs/channels/cbs-news-1becf75e65.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "1becf75e65cf675093622c7ff1ad4b50d4cff9fa854c60adc7c499dcc250c1e5",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/84/fe/30/84fe3021-8e9f-2d7d-073b-9de0321e39ce/AppIcon-0-0-1x_U007epad-0-1-0-sRGB-0-85-220.png/1200x630wa.png",
+      "names": [
+        "CGTN News",
+        "CGTN DOCUMENTARY"
+      ],
+      "localPath": "assets/imgs/channels/cgtn-news-4e9c6b5400.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "4e9c6b54008541cd43634c3905573b5ab3dc08641dbdfa1d7ce401ac71c7d9eb",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://www.coolstreaming.us/img/ch/image28348710201.jpg",
+      "names": [
+        "CH 13 Israel"
+      ],
+      "localPath": "assets/imgs/channels/ch-13-israel-a55d5f9231.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "a55d5f9231c519f523c83ed701cdaa0cf5b22fcf66d4e8045e866c7bd473e3be",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://tse1.mm.bing.net/th/id/OIP.ALvg_kpYwp1WPBkzjB-EJAHaHa?pid=Api&h=220&P=0",
+      "names": [
+        "Channel News Asia"
+      ],
+      "localPath": "assets/imgs/channels/channel-news-asia-ccee8ac881.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "ccee8ac881034d7d81919279a0bb8c776bfa3d65edf939c65c3531a60fc70f1a",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://en.wikipedia.org/wiki/Special:FilePath/Charge!_Logo_2020.svg",
+      "names": [
+        "Charge"
+      ],
+      "localPath": null,
+      "status": "rejected",
+      "reason": "Tiny placeholder or tracker image",
+      "sha256": "79df864252b0e99407c4ed926193d96ac95f44845d11717305c5de7cf43ff5f5"
+    },
+    {
+      "sourceUrl": "https://s.pngkit.com/png/small/357-3578647_cinema-one-logo-cinema-one-logo-png.png",
+      "names": [
+        "Cinema One Global"
+      ],
+      "localPath": "assets/imgs/channels/cinema-one-global-be0affd6ab.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "be0affd6ab8bb88b49118e551292754fd89345bccc53394e66c9e64f843a6706"
+    },
+    {
+      "sourceUrl": "https://static.wikia.nocookie.net/russel/images/9/94/Cinema_One_Logo_2020.png",
+      "names": [
+        "CinemaOne"
+      ],
+      "localPath": null,
+      "status": "failed",
+      "reason": "HTTP 403"
+    },
+    {
+      "sourceUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFgovJL0c5CV8hntZiJ9YiHRF2kbssZQVCAQ&s",
+      "names": [
+        "Cinemax"
+      ],
+      "localPath": "assets/imgs/channels/cinemax-a3d3db3453.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "a3d3db34536c648bed59849031e6db8ce42ce533862d6cfc013763d73ffb237e",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://i.imgur.com/gA3qj2n.png",
+      "names": [
+        "Cinemo Global"
+      ],
+      "localPath": null,
+      "status": "rejected",
+      "reason": "Known retired/unavailable image placeholder",
+      "sha256": "9b5936f4006146e4e1e9025b474c02863c0b5614132ad40db4b925a10e8bfbb9"
+    },
+    {
+      "sourceUrl": "https://ottepg8.comclark.com:8443/iptvepg/images/markurl/mark_1723219276891.png",
+      "names": [
+        "Cinemo! Global"
+      ],
+      "localPath": "assets/imgs/channels/cinemo-global-841cf14747.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "841cf14747a2bc0b1ecd4abab84727f3a05eb06644ee2df4cb1dae8c4cac527a",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://www.marketbeat.com/logos/cna-financial-co-logo.png?v=20240215143558",
+      "names": [
+        "CNA"
+      ],
+      "localPath": "assets/imgs/channels/cna-ab0d6a9910.webp",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "ab0d6a99106d86d05960d60928d17f8ef389a4ae67586c8dec87f4179cc2b617",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://tse2.mm.bing.net/th/id/OIP.hxk8F1WCZKbRhBH6paopnAHaFZ?pid=Api&h=220&P=0",
+      "names": [
+        "CNBC TV 18"
+      ],
+      "localPath": "assets/imgs/channels/cnbc-tv-18-186c687df6.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "186c687df6f09e2fe586c236f70091462ce92b5c561c7c25557f4bf54c0d21e3"
+    },
+    {
+      "sourceUrl": "https://pluspng.com/img-png/cnn-logo-png-cnn-logos-brands-and-logotypes-4390x4390.png",
+      "names": [
+        "CNN",
+        "CNN HD"
+      ],
+      "localPath": "assets/imgs/channels/cnn-cc4734aaf2.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "cc4734aaf2703a68970f1e30cd4acaab8cfaaadee82dd2cf718d4d943f193fc3",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://image.tmdb.org/t/p/w600_and_h900_face/8L1IKxEfrFHmo2Zg0qjL9yAMnbP.jpg",
+      "names": [
+        "Crime 101 (2026)"
+      ],
+      "localPath": "assets/imgs/channels/crime-101-2026-08eb4dceee.webp",
+      "status": "review-needed",
+      "reason": "Poster/artwork reference, not a verified channel logo",
+      "sha256": "08eb4dceeeccafeaf40509950b97d87c5e50b5a4b66ff6856ae9e6576a43fb24"
+    },
+    {
+      "sourceUrl": "https://images-cdn3.welcomesoftware.com/assets/crime+360.jpg/Zz05YjgzM2IwMDlkMzAxMWVmYmYzNGJhZGI5NDNiNTQzZQ==?width=768&height=430",
+      "names": [
+        "Crime 360"
+      ],
+      "localPath": "assets/imgs/channels/crime-360-e3af8cb247.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "e3af8cb2472f1ce4c5f6f426f9cbc8758b7027b0da07f530989329286f17232e",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://logos-marcas.com/wp-content/uploads/2021/03/Crunchyroll-Simbolo.png",
+      "names": [
+        "Crunchyroll"
+      ],
+      "localPath": null,
+      "status": "failed",
+      "reason": "HTTP 403"
+    },
+    {
+      "sourceUrl": "https://tse3.mm.bing.net/th/id/OIP.eICvWAMAXAPBC-FFDlkNfQHaD3?pid=Api&h=220&P=0",
+      "names": [
+        "DAILY WIRE"
+      ],
+      "localPath": "assets/imgs/channels/daily-wire-c3f87dfd99.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "c3f87dfd9905f4d09941d6a816289e5a14957f5ab5719a0f39d21f1546bcab57",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://tse2.mm.bing.net/th/id/OIP.u_Q5FpJ6RV9lQVdWCMRMZQHaHa?pid=Api&P=0&h=220",
+      "names": [
+        "David (2025)"
+      ],
+      "localPath": "assets/imgs/channels/david-2025-7b913448d8.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "7b913448d862f2f031d010cfe3a7edf9839986513076c557534ca4ab5248ae32"
+    },
+    {
+      "sourceUrl": "https://www.planetecsat.com/wp-content/uploads/2024/02/logo-DAZN-Combat.png",
+      "names": [
+        "DAZN Combat"
+      ],
+      "localPath": "assets/imgs/channels/dazn-combat-0b331d0422.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "0b331d042232eb4cacba4022314fcf22836437ad6f7961bab6feb833b06dda37",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://assets.goal.com/images/v3/blt077eff519e5ab803/DAZN-Logo.jpg?auto=webp&format=pjpg&width=3840&quality=60",
+      "names": [
+        "DAZN Ringside"
+      ],
+      "localPath": "assets/imgs/channels/dazn-ringside-e5483c8292.webp",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "e5483c82926bd69528672a918261e2aa3db4e7d88967bbf7a1146bd3ef380822",
+      "identityReview": {
+        "method": "visual review",
+        "result": "DAZN parent logo only; Ringside subchannel label absent"
+      }
+    },
+    {
+      "sourceUrl": "https://i.imgur.com/j4OVP7y.jpeg",
+      "names": [
+        "Deal or No Deal"
+      ],
+      "localPath": "assets/imgs/channels/deal-or-no-deal-cd2a30fe6e.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "cd2a30fe6e77d00de778d47082e005127c4b517024b69f3b0716e2b69a85eb8c",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://tse3.mm.bing.net/th/id/OIP.0bAMZAj_NwH9Pg0qYgRYQQHaEQ?pid=Api&h=220&P=0",
+      "names": [
+        "Declassified"
+      ],
+      "localPath": "assets/imgs/channels/declassified-40c6a4e8be.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "40c6a4e8bec25ec7cb2f1176a2a829302a4ff153c27cd797698954bf01b5e22d",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://lrmonline.com/wp-content/uploads/2025/05/Demon-Slayer-Infinity-Castle-Square-Thumbnail.jpg",
+      "names": [
+        "Demon Slayer: Kimetsu no Yaiba Infinity Castle (2025)"
+      ],
+      "localPath": "assets/imgs/channels/demon-slayer-kimetsu-no-yaiba-infinity-castle-2025-f9ec4d4f54.jpg",
+      "status": "review-needed",
+      "reason": "Poster/artwork reference, not a verified channel logo",
+      "sha256": "f9ec4d4f545481db027982197879942ed045d6b09fb2050699344a9886033045"
+    },
+    {
+      "sourceUrl": "https://static.wikitide.net/avidwiki/thumb/b/be/Discovery_01.jpg/402px-Discovery_01.jpg",
+      "names": [
+        "Discover Film"
+      ],
+      "localPath": "assets/imgs/channels/discover-film-4ebeb7aa22.webp",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "4ebeb7aa22c63c102f07a0aaa8e6a6f8d91afda62f93be30ccff389952e737b4"
+    },
+    {
+      "sourceUrl": "https://cdn.shopify.com/s/files/1/0558/6413/1764/files/Discovery_Channel_Logo_Design_History_Evolution_2.jpg?v=1694070082",
+      "names": [
+        "Discovery Channel SD"
+      ],
+      "localPath": null,
+      "status": "failed",
+      "reason": "HTTP 403"
+    },
+    {
+      "sourceUrl": "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/eef93b81-b587-483c-a748-9745913f9219/dglo29x-d8ced47b-f36c-4e21-b4f7-b50df1cd01e9.png/v1/fill/w_955,h_836/disney_channel_my_concept_for_new_logo_2_by_kh111111_dglo29x-pre.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTExOSIsInBhdGgiOiJcL2ZcL2VlZjkzYjgxLWI1ODctNDgzYy1hNzQ4LTk3NDU5MTNmOTIxOVwvZGdsbzI5eC1kOGNlZDQ3Yi1mMzZjLTRlMjEtYjRmNy1iNTBkZjFjZDAxZTkucG5nIiwid2lkdGgiOiI8PTEyNzgifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.gOX0b8qqaMbYLbwGYuUsRPxGc8owawSigeqQ0ebdl_w",
+      "names": [
+        "Disney Channel"
+      ],
+      "localPath": "assets/imgs/channels/disney-channel-11bed91a90.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "11bed91a9076911741c599bd30f5bb9c2fa4a7b1e2e65bde079caf4aa354a0cb"
+    },
+    {
+      "sourceUrl": "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/3a9e9425-78dc-4ba0-8cf0-74c8eb23f673/dhiz5f7-24d48289-65a3-42e2-91e1-ce03fd872060.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzNhOWU5NDI1LTc4ZGMtNGJhMC04Y2YwLTc0YzhlYjIzZjY3M1wvZGhpejVmNy0yNGQ0ODI4OS02NWEzLTQyZTItOTFlMS1jZTAzZmQ4NzIwNjAucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.uwIQACD8Am2JqUtDmndKy76AIOfLt6-mAoHCY8JeN9o",
+      "names": [
+        "Disney Jr."
+      ],
+      "localPath": "assets/imgs/channels/disney-jr-968c3d425a.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "968c3d425a1d159d2ef9fb214d6985c98d428bfc07e84bd702a228b0e2b79555"
+    },
+    {
+      "sourceUrl": "https://www.rawechoes.com/wp-content/uploads/2023/01/BBC-DONT-TELL-THE-BRIDE-LOGO.png",
+      "names": [
+        "Dont Tell The Bride"
+      ],
+      "localPath": "assets/imgs/channels/dont-tell-the-bride-5707775a08.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "5707775a089ded6eab81f2c9684d7a5cbd225c397b516c94f15334f616517394",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://static.mytuner.mobi/media/tvos_radios/380/dreamstar-teleradio.f004004e.png",
+      "names": [
+        "Dreamstar Teleradio Nationwide"
+      ],
+      "localPath": "assets/imgs/channels/dreamstar-teleradio-nationwide-edb6796410.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "edb6796410cb6f0a72e620f7d663bd48d909b1936455c8eed334b7ad4d68c790",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://i.imgur.com/bzTr9Y2.png",
+      "names": [
+        "Dreamworks HD",
+        "Dreamworks Tagalog"
+      ],
+      "localPath": "assets/imgs/channels/dreamworks-hd-72c133933a.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "72c133933a946830c9a4ab66311069cefc60d3276d79e4d2e7db3fb9ae0306b0",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://tse4.mm.bing.net/th/id/OIP.rvbciyNPlvI3gE7JgpJ-dAHaHa?pid=Api&h=220&P=0",
+      "names": [
+        "DW News"
+      ],
+      "localPath": "assets/imgs/channels/dw-news-13f12f01a4.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "13f12f01a4bb2073be8b3eb05f52df7eeddafb6e9a7a1a4c23174038814e32a4",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://static.wikia.nocookie.net/russel/images/0/0d/DZMM_TeleRadyo_Logo_2025.png/revision/latest/scale-to-width-down/1200?cb=20250619152431",
+      "names": [
+        "DZMM Teleradyo"
+      ],
+      "localPath": null,
+      "status": "failed",
+      "reason": "HTTP 403"
+    },
+    {
+      "sourceUrl": "https://tse3.mm.bing.net/th/id/OIP.ZLze8zPgSnwVzAK-vNqQeAHaD4?pid=Api&h=220&P=0",
+      "names": [
+        "Electric Now"
+      ],
+      "localPath": "assets/imgs/channels/electric-now-bb1db74903.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "bb1db74903ea7d85cebba96b97a2c7127531c27d2ba9e2f1632d9132c5af69e8"
+    },
+    {
+      "sourceUrl": "https://tse1.mm.bing.net/th/id/OIP.G70kNeZzKIq7wek4iRqOnAHaEK?pid=Api&h=220&P=0",
+      "names": [
+        "Eurosport 1",
+        "Eurosport 2"
+      ],
+      "localPath": "assets/imgs/channels/eurosport-1-9aeafa9b04.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "9aeafa9b046bf553767f022264e974a2ecdc227a36afa812f32d653274c0b054"
+    },
+    {
+      "sourceUrl": "https://play-lh.googleusercontent.com/3716tvZCgzpIt-X1giV8jKwCdC8zwOI4eMUfO_ETWzNX6eGKIi2RiUK9a_fr6BCzjw",
+      "names": [
+        "EWTN Asia-Pacific",
+        "EWTN Europe",
+        "Ewtn USA"
+      ],
+      "localPath": "assets/imgs/channels/ewtn-asia-pacific-ae09b4bc66.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "ae09b4bc66d6d9908e0d342e227e0e9516295ce90e47be0c2d09a07b19725282",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://tse1.mm.bing.net/th/id/OIP.QYxBTBNwg0kMz7wStbO0fQHaEK?pid=Api&h=220&P=0",
+      "names": [
+        "F1 TV (1)",
+        "F1 TV (2)"
+      ],
+      "localPath": "assets/imgs/channels/f1-tv-1-d88b01300e.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "d88b01300ebc45e7fcf1b1604df302e9262813ad50218cac3ca1464a5d148d61"
+    },
+    {
+      "sourceUrl": "https://www.themoviedb.org/t/p/w600_and_h900_face/1eY8O7fIGcmwetNqvwnnkQB0LYK.jpg",
+      "names": [
+        "Facing the Giants (2006)"
+      ],
+      "localPath": "assets/imgs/channels/facing-the-giants-2006-535f75793c.webp",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "535f75793c7f539c8636d759482108a2d46d0b248b3dcc5c2e0c7382d5178bbc"
+    },
+    {
+      "sourceUrl": "https://m.media-amazon.com/images/M/MV5BMjQyNzU5MTExMF5BMl5BanBnXkFtZTgwMTkwODA2NjE@._V1_.jpg",
+      "names": [
+        "Fail Army"
+      ],
+      "localPath": "assets/imgs/channels/fail-army-79db29feb2.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "79db29feb24e492804d3e62142511a84a2dab3aecf99408d1dcc7c362ff8cac7",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://images.seeklogo.com/logo-png/53/1/fifa-logo-png_seeklogo-537674.png",
+      "names": [
+        "FIFA+",
+        "FIFA+ (720p)"
+      ],
+      "localPath": "assets/imgs/channels/fifa-6e628b7838.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "6e628b7838201c530ed6421c13590276211bdd2f8f8a95234cd0c1d549c651d3",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://tse1.mm.bing.net/th/id/OIP.Ah19bBjnmRcxS-cEenjljgHaEu?pid=Api&h=220&P=0",
+      "names": [
+        "Fight+"
+      ],
+      "localPath": "assets/imgs/channels/fight-1b2767677f.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "1b2767677fc29c02a6822e97eadde0134cbb0ad4bdb877b5fdee3c6589db734e",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://i.imgur.com/3wqeGXM.png",
+      "names": [
+        "FilmRise Anime"
+      ],
+      "localPath": "assets/imgs/channels/filmrise-anime-47fb14e97d.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "47fb14e97d1d2699a3cb7dc8567d65f77da7c06483ffb8620534345e5bf39ece",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://zeno.fm/_ipx/_/https://images.zeno.fm/DSamCoS2ae3svnuek0UpEU2SatLtUM08ztxnlMoOkAY/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvYWd4emZucGxibTh0YzNSaGRITnlNZ3NTQ2tGMWRHaERiR2xsYm5RWWdJQ2dncFhiclFrTUN4SU9VM1JoZEdsdmJsQnliMlpwYkdVWWdJQ2doY0tSbHdnTW9nRUVlbVZ1YncvaW1hZ2UvP3U9MTY2MTQ3NzU4ODAwMA.webp",
+      "names": [
+        "Flame Gospel Radio"
+      ],
+      "localPath": "assets/imgs/channels/flame-gospel-radio-150ebcd2d6.webp",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "150ebcd2d68cddc7e7851d99b0a2716fb5ef975d6a4569249e0f78f9fda684e4",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://tse3.mm.bing.net/th/id/OIP.U5Zsb43ViJB0dW74EVpSogHaEK?pid=Api&h=220&P=0",
+      "names": [
+        "Fork & Flight"
+      ],
+      "localPath": "assets/imgs/channels/fork-flight-2cd62399c7.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "2cd62399c7c5aea2b63581882294d9c943d8757aab5ec87e2a0579c6331a6ace",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://m.media-amazon.com/images/I/814hx5tswlL._AC_SY879_.jpg",
+      "names": [
+        "Furiosa: A Mad Max Saga"
+      ],
+      "localPath": "assets/imgs/channels/furiosa-a-mad-max-saga-942afecf45.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "942afecf45b41c07ddf979bfe6f8eed7bc5a9fbd339660f9cdde189603ae1975"
+    },
+    {
+      "sourceUrl": "https://tse3.mm.bing.net/th/id/OIP.A4lBsmu3xqd66_--R0MxTgHaFj?pid=Api&h=220&P=0",
+      "names": [
+        "Game Show Network"
+      ],
+      "localPath": "assets/imgs/channels/game-show-network-fedbd5a662.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "fedbd5a662b479cd46c77075a9881381a3d294a0eefcc6cdb7cf171bbf93cdf1",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://i.pinimg.com/originals/1f/20/8f/1f208fbd6356f6f025fede90ef417f42.png",
+      "names": [
+        "GMA"
+      ],
+      "localPath": "assets/imgs/channels/gma-1f886418fb.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "1f886418fb32100c6c6842aa359260b45f690e4feddac6cc41f147c955b26856"
+    },
+    {
+      "sourceUrl": "https://i.imgur.com/b9UaL8G.png",
+      "names": [
+        "GMA 7"
+      ],
+      "localPath": null,
+      "status": "rejected",
+      "reason": "Known retired Imgur unavailable-image placeholder"
+    },
+    {
+      "sourceUrl": "https://tse3.mm.bing.net/th/id/OIP.HpKkv2iTbDKmWpYintzOxQAAAA?rs=1&pid=ImgDetMain&o=7&rm=3",
+      "names": [
+        "GMA Life TV"
+      ],
+      "localPath": "assets/imgs/channels/gma-life-tv-5243be498c.webp",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "5243be498c5d37dfb9cf698f1b588c19189c6138888983c97c9d613f664e71b5",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://static.wikia.nocookie.net/russel/images/6/61/GMA_Life_TV_Logo_2024.png/revision/latest/scale-to-width-down/1200?cb=20240805140454",
+      "names": [
+        "GMA Life TV"
+      ],
+      "localPath": null,
+      "status": "failed",
+      "reason": "HTTP 403"
+    },
+    {
+      "sourceUrl": "https://th.bing.com/th/id/OIP.rziiLbLj2AZSThcW3EQ0uAHaHa?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3",
+      "names": [
+        "GMA News TV"
+      ],
+      "localPath": "assets/imgs/channels/gma-news-tv-4937a81bd0.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "4937a81bd02b9269a5e8ba4fcdc89299100f724c1bfde4e54c97b900c2638034",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://tse3.mm.bing.net/th/id/OIP.djGARVbI9CwVvw9VyRiKDAHaHa?pid=Api&h=220&P=0",
+      "names": [
+        "GMA News TV"
+      ],
+      "localPath": "assets/imgs/channels/gma-news-tv-2bfa16e6ed.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "2bfa16e6ed51bad90cafaf83e27fdb74b1853ab73a724aa6dca3698260b3c04f"
+    },
+    {
+      "sourceUrl": "https://th.bing.com/th/id/OIP.ntjNVRaXsZJ0vrhWBA35sQHaE7?rs=1&pid=ImgDetMain",
+      "names": [
+        "GMA Pinoy TV"
+      ],
+      "localPath": "assets/imgs/channels/gma-pinoy-tv-ed7baf5297.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "ed7baf529790f1a237b642a34394f2e0249912e21f8e9be1b60d8c0e280308d7",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://tse1.mm.bing.net/th/id/OIP.PzOcIsMnVF-X-fNbnBv7ogHaEj?pid=Api&h=220&P=0",
+      "names": [
+        "GMA Pinoy TV"
+      ],
+      "localPath": "assets/imgs/channels/gma-pinoy-tv-6ea4b63318.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "6ea4b63318a8c3eba4757f60746c1cb57dd55898318937b3f31acdd076572581"
+    },
+    {
+      "sourceUrl": "https://4kwallpapers.com/images/wallpapers/goat-2026-8k-movie-1920x1200-23667.png",
+      "names": [
+        "GOAT (2026)"
+      ],
+      "localPath": null,
+      "status": "failed",
+      "reason": "HTTP 403"
+    },
+    {
+      "sourceUrl": "https://image.tmdb.org/t/p/w600_and_h900_face/yKUzBolWrwyByevBtDPfy3kIumv.jpg",
+      "names": [
+        "God's Not Dead (2014)"
+      ],
+      "localPath": "assets/imgs/channels/god-s-not-dead-2014-4a1729b3f3.webp",
+      "status": "review-needed",
+      "reason": "Poster/artwork reference, not a verified channel logo",
+      "sha256": "4a1729b3f3faffc49ee64d683591c674545871a5f2d214f07597f34067e57e4c"
+    },
+    {
+      "sourceUrl": "https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/450_144.png",
+      "names": [
+        "HBO Family"
+      ],
+      "localPath": "assets/imgs/channels/hbo-family-13be97aa0a.png",
+      "status": "review-needed",
+      "reason": "Definite mismatched identity: downloaded image reads ROCK ACTION, not HBO Family",
+      "sha256": "13be97aa0a5b8213e76a9a93e55191f5c2a0dd1ccc0bba4d1c05bd58f872897c",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Wrong channel logo"
+      },
+      "replacementSuggestion": {
+        "localPath": "assets/imgs/channels/hbo-family-effac36d07.webp",
+        "source": "Existing raw tzujtv.json HBO Family artwork",
+        "identity": "Visually confirmed HBO Family wordmark"
+      }
+    },
+    {
+      "sourceUrl": "https://logospng.org/download/hbo-family/logo-hbo-family-512.png",
+      "names": [
+        "HBO Family"
+      ],
+      "localPath": "assets/imgs/channels/hbo-family-effac36d07.webp",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "effac36d0700134bbdbcca495a822d89d9ac41c481298c5a3e34357fca756f83",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Verified HBO Family wordmark; suitable replacement for active incorrect Rock Action image"
+      }
+    },
+    {
+      "sourceUrl": "https://th.bing.com/th/id/OIP.lY5V2M3D9jtBFJNbOAI8swHaDt?rs=1&pid=ImgDetMain",
+      "names": [
+        "HBO HD"
+      ],
+      "localPath": "assets/imgs/channels/hbo-hd-5d3a9974dd.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "5d3a9974dde8d8a47506cb6eb91c8b8191f9806cd50f2822663fedc699cee22c",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://vignette.wikia.nocookie.net/logopedia/images/0/04/HBO_HiTS.svg/revision/latest/scale-to-width-down/627?cb=20100511073403",
+      "names": [
+        "HBO Hits"
+      ],
+      "localPath": null,
+      "status": "failed",
+      "reason": "HTTP 403"
+    },
+    {
+      "sourceUrl": "https://static.wikia.nocookie.net/logopedia/images/0/04/HBO_HiTS.svg/revision/latest/scale-to-width-down/250?cb=20100511073403",
+      "names": [
+        "HBO Hits"
+      ],
+      "localPath": null,
+      "status": "failed",
+      "reason": "HTTP 403"
+    },
+    {
+      "sourceUrl": "https://th.bing.com/th/id/OIP.PNeE4yWz4_Tp1O-dCdY_xAHaEP?rs=1&pid=ImgDetMain",
+      "names": [
+        "HBO Signature"
+      ],
+      "localPath": "assets/imgs/channels/hbo-signature-69c1446dc5.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "69c1446dc588bdfcb4e673b77af42148423c1c91dc41d4222a52c3f0b7a755f3",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://tse3.mm.bing.net/th/id/OIP.PNcaEsDsK8CX97tCTst7_gHaDw?pid=Api&h=220&P=0",
+      "names": [
+        "HBO Signature"
+      ],
+      "localPath": "assets/imgs/channels/hbo-signature-d3517b3ef2.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "d3517b3ef261e00989ad0dd99312fd24f77d0121e2cf191bb1a17c6e7f1a8811"
+    },
+    {
+      "sourceUrl": "https://i.imgur.com/TRmiNiL.jpeg",
+      "names": [
+        "Hells Kitchen"
+      ],
+      "localPath": "assets/imgs/channels/hells-kitchen-8631226ae8.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "8631226ae8595081c9c341ef0e769b6d134453d8138123efc9e3b06cf834b002",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://th.bing.com/th/id/OIP.x2dQgh_yGBdnttScluIGYAHaCp?w=900&h=322&rs=1&pid=ImgDetMain",
+      "names": [
+        "Hits HD"
+      ],
+      "localPath": "assets/imgs/channels/hits-hd-d58fa2d5ef.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "d58fa2d5effe899e2edab3f5d274ba5af71a844970536269d813a3317791c4ca",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://tse2.mm.bing.net/th/id/OIP.IVTdT_KbbSE3puMAYpFGaQAAAA?cb=12&w=434&h=284&rs=1&pid=ImgDetMain&o=7&rm=3",
+      "names": [
+        "Hits Movies"
+      ],
+      "localPath": "assets/imgs/channels/hits-movies-51119182a6.webp",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "51119182a693edefada52b8637e1d04ef9c7f998fac015de8509237de522becc",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://i.imgur.com/FEHwzDt.jpeg",
+      "names": [
+        "Hits Movies"
+      ],
+      "localPath": "assets/imgs/channels/hits-movies-89b84fdf3a.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "89b84fdf3a15f3485398f9d987b298dfbe5318acb75da3a3d459a0314a8f9156"
+    },
+    {
+      "sourceUrl": "https://th.bing.com/th/id/OIP.cM1HO2isouoNessbj31CcgAAAA?rs=1&pid=ImgDetMain",
+      "names": [
+        "Hits Now"
+      ],
+      "localPath": "assets/imgs/channels/hits-now-1035d1abbd.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "1035d1abbdc9f24412c846024bbdcf9f1b3a4c867108c117edd0979c365cbfc2",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://image.tmdb.org/t/p/w600_and_h900_face/onTSipZ8R3bliBdKfPtsDuHTdlL.jpg",
+      "names": [
+        "Home Alone (1990)"
+      ],
+      "localPath": "assets/imgs/channels/home-alone-1990-0e22e4140d.webp",
+      "status": "review-needed",
+      "reason": "Poster/artwork reference, not a verified channel logo",
+      "sha256": "0e22e4140dc87146be4bb1b2dc71e0f7453d181d705bb2fe03dea57f4fae5fe8"
+    },
+    {
+      "sourceUrl": "https://image.tmdb.org/t/p/w600_and_h900_face/9CAkQ9nfrDaIAyncWndwg0tfC8g.jpg",
+      "names": [
+        "Home Alone 2: Lost in New York (1992)"
+      ],
+      "localPath": "assets/imgs/channels/home-alone-2-lost-in-new-york-1992-849674e053.webp",
+      "status": "review-needed",
+      "reason": "Poster/artwork reference, not a verified channel logo",
+      "sha256": "849674e0531611666d9d3ab7152211301a59f4caa2a51dcab50a103017613141"
+    },
+    {
+      "sourceUrl": "https://image.tmdb.org/t/p/w600_and_h900_face/6uOadrCfle0n2LOOxHbgWEdnrm2.jpg",
+      "names": [
+        "Home Alone 3 (1997)"
+      ],
+      "localPath": "assets/imgs/channels/home-alone-3-1997-681bbbba16.webp",
+      "status": "review-needed",
+      "reason": "Poster/artwork reference, not a verified channel logo",
+      "sha256": "681bbbba164ecf9f6c8345c8e2fec6c6be41282348b8d9a2626321d7d471194d"
+    },
+    {
+      "sourceUrl": "https://image.tmdb.org/t/p/w600_and_h900_face/xjtWQ2CL1mpmMNwuU5HeS4Iuwuu.jpg",
+      "names": [
+        "Hoppers (2026)"
+      ],
+      "localPath": "assets/imgs/channels/hoppers-2026-a57ab6c19d.webp",
+      "status": "review-needed",
+      "reason": "Poster/artwork reference, not a verified channel logo",
+      "sha256": "a57ab6c19de391ccd4c0b0c3dcf4a18eca444e5f2a2cb1125fe5b7d3138d7e3a"
+    },
+    {
+      "sourceUrl": "https://image.tmdb.org/t/p/w600_and_h900_face/41dfWUWtg1kUZcJYe6Zk6ewxzMu.jpg",
+      "names": [
+        "How to Train Your Dragon (2025)"
+      ],
+      "localPath": "assets/imgs/channels/how-to-train-your-dragon-2025-3a6ef8131f.webp",
+      "status": "review-needed",
+      "reason": "Poster/artwork reference, not a verified channel logo",
+      "sha256": "3a6ef8131f40a13e1e41e3b0bb1fab781fb53010291904f164b79a497e2565ca"
+    },
+    {
+      "sourceUrl": "https://i.imgur.com/F0LQtYK.jpeg",
+      "names": [
+        "HypeTV"
+      ],
+      "localPath": "assets/imgs/channels/hypetv-cef4d9a8a7.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "cef4d9a8a72991bf40fa97bf47e994f77cbec0dfaee5f3c3ec1384cd24176cc9",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://images.pluto.tv/channels/5e8b580a233dc90007f0cb9d/colorLogoSVG.svg",
+      "names": [
+        "iCarly"
+      ],
+      "localPath": "assets/imgs/channels/icarly-3e09ba2bc9.svg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "3e09ba2bc9e3680b65933745cde51a77978303071a31a4a3f7b409bc351730dc",
+      "identityReview": {
+        "method": "source filename/channel provenance checked; SVG active content rejected if present",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://4.bp.blogspot.com/-URloFZ0yglM/UIFMSDxlcrI/AAAAAAAASMg/sRS0K4aJmC8/s1600/Jeepney-TV-Logo.jpg",
+      "names": [
+        "Jeepney TV"
+      ],
+      "localPath": "assets/imgs/channels/jeepney-tv-79a17d1d18.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "79a17d1d18e7626ed8930854757317ade17cf7da515e255d3fdd4166b43778ba"
+    },
+    {
+      "sourceUrl": "https://i.imgur.com/WcYS3S3.png",
+      "names": [
+        "Kapamilya Channel"
+      ],
+      "localPath": "assets/imgs/channels/kapamilya-channel-d3aacef7c3.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "d3aacef7c32cbfc3296fc3e57beed2dfb68e7a92ac044478537e3bba4022e33b",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://www.kartoonchannel.com/themes/custom/gnb/kartoon_channel/logo.png",
+      "names": [
+        "Kartoon Channel HD"
+      ],
+      "localPath": "assets/imgs/channels/kartoon-channel-hd-3fd499445f.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "3fd499445faf2026aad59dcd19c21d3ce10045740fb4c4698400e2ae205075d0",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://tse2.mm.bing.net/th/id/OIP.WH2OZuRGTKifmNl1kvQKXQHaEc?pid=Api&h=220&P=0",
+      "names": [
+        "Kartoon Channel!"
+      ],
+      "localPath": "assets/imgs/channels/kartoon-channel-eaae14ec4b.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "eaae14ec4bdc1d29ea4e17b3891b734167ddb40d69e9e2f58d9749754b8797c1",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://i.imgur.com/XRGioQX.png",
+      "names": [
+        "Ketchup TV (720p)"
+      ],
+      "localPath": "assets/imgs/channels/ketchup-tv-720p-11bf4081a8.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "11bf4081a838ff50c5f56aeec2a2bfdef355f3b6703280df8d4cf912863b8108",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://en.wikipedia.org/wiki/Special:FilePath/Kidoodle_TV_Logo.svg",
+      "names": [
+        "Kidoodle Tv"
+      ],
+      "localPath": "assets/imgs/channels/kidoodle-tv-5a75b77f3e.svg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "5a75b77f3e3438ddd195268fc4ff082b39e004a89d20ec963f80f90877f41120",
+      "identityReview": {
+        "method": "source filename/channel provenance checked; SVG active content rejected if present",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/70/df/5a/70df5a45-d3af-e622-114a-bce9b42f2b1c/AppIcon-0-0-1x_U007emarketing-0-7-0-0-85-220.png/1200x630wa.png",
+      "names": [
+        "Kids Flix"
+      ],
+      "localPath": "assets/imgs/channels/kids-flix-1965557713.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "1965557713dc1f21c6398638f73ef3571ac4cabbff7df9394dc978d8bf2c76e4",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://i.imgur.com/avFk0Tt.png",
+      "names": [
+        "Kids Movie Club"
+      ],
+      "localPath": "assets/imgs/channels/kids-movie-club-3ed9210be8.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "3ed9210be8d106030b44b194dace8b3eedf20ebcadae624cb07a9e039194d0ee",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://www.pngkey.com/png/detail/306-3060351_k-plus-k-plus-channel-logo.png",
+      "names": [
+        "Kplus"
+      ],
+      "localPath": "assets/imgs/channels/kplus-5929f49af5.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "5929f49af5ddfd1099e030dc586e8d5df66696db6dd87d28aaf9723b75b225c3",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://images.seeklogo.com/logo-png/63/1/kpop-demon-hunters-logo-png_seeklogo-632042.png",
+      "names": [
+        "KPop Demon Hunters (2025)"
+      ],
+      "localPath": "assets/imgs/channels/kpop-demon-hunters-2025-3f899bdf0e.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "3f899bdf0e8f2f579d1595cd4ff31b157ed578828d906045864698b51bf5ea9e"
+    },
+    {
+      "sourceUrl": "https://i.imgur.com/xePwW13.png",
+      "names": [
+        "Lego Channel"
+      ],
+      "localPath": "assets/imgs/channels/lego-channel-ac27521b1e.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "ac27521b1ec4e02ca539e72c0ff358f14b43b18b90e5d29e32eba0abe6d43aaa",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://i.imgur.com/p16HNIM.png",
+      "names": [
+        "Made in Hollywood"
+      ],
+      "localPath": "assets/imgs/channels/made-in-hollywood-b2c3b92a14.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "b2c3b92a14dbbf2c514e59d61537919656f13eed3c53b276cccab5527ef22d2f",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://image.tmdb.org/t/p/w600_and_h900_face/pyok1kZJCfyuFapYXzHcy7BLlQa.jpg",
+      "names": [
+        "Mercy (2026)"
+      ],
+      "localPath": "assets/imgs/channels/mercy-2026-fbf7df4978.webp",
+      "status": "review-needed",
+      "reason": "Poster/artwork reference, not a verified channel logo",
+      "sha256": "fbf7df497820da6afdc69c909c93dc2eca52997a962d95d31891a5d5e9cf792d"
+    },
+    {
+      "sourceUrl": "https://raw.githubusercontent.com/mystery75/logo/main/Miramax.png",
+      "names": [
+        "Miramax"
+      ],
+      "localPath": "assets/imgs/channels/miramax-3d3f54b7f7.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "3d3f54b7f7d7e891859e86307efc3c15cdaae8dba340e071a26aab3d6943ab61"
+    },
+    {
+      "sourceUrl": "https://static.mytuner.mobi/media/tvos_radios/ngt3qgajtbv4.png",
+      "names": [
+        "MOR Radio"
+      ],
+      "localPath": "assets/imgs/channels/mor-radio-62615892bd.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "62615892bd74896e4366fee0eacdcbd21a96963102cab314d24ff4a4f67e2ac0"
+    },
+    {
+      "sourceUrl": "https://i.imgur.com/xeO1Zb4.png",
+      "names": [
+        "Movie Box"
+      ],
+      "localPath": "assets/imgs/channels/movie-box-b23d527f2c.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "b23d527f2c77e05917e5293bca85f1ef2cfbe3a83775ca6dc3acb444827cdbfc",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://10play.com.au/ip/s3/2022/12/05/f67e539ee7ca067d20f1d406a196abd8-1202911.png",
+      "names": [
+        "Movie Sphere"
+      ],
+      "localPath": "assets/imgs/channels/movie-sphere-ee9caa029a.webp",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "ee9caa029af959492ca2598c577755a685f31a50a788963f2a28e3b1c6b15158",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://tse4.mm.bing.net/th/id/OIP.OH6KANOcVN-rpIennsy6MgHaEK?pid=Api&h=220&P=0",
+      "names": [
+        "Movie Sphere by Lionsgate"
+      ],
+      "localPath": "assets/imgs/channels/movie-sphere-by-lionsgate-7695899dd1.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "7695899dd1f22d88dc16b43f694dc21d70ff321455e1eea98dc3e299ad2fa18b",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://i.imgur.com/Y9gGFen.jpeg",
+      "names": [
+        "Movies Action"
+      ],
+      "localPath": "assets/imgs/channels/movies-action-872cbd0075.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "872cbd0075c8140e9855a72777ada2e0633580f4da239ace5dfefc5bb31eeb9e"
+    },
+    {
+      "sourceUrl": "https://i.imgur.com/3BCg3pS.png",
+      "names": [
+        "Movies Now"
+      ],
+      "localPath": "assets/imgs/channels/movies-now-94731d28e1.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "94731d28e1c8c8336891546bd2feddced8ad852dcc891308bd04b38cf7b17a95",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://tse1.mm.bing.net/th/id/OIP.lveOGtLiClQDqabVAjM3LwHaHa?pid=Api&h=220&P=0",
+      "names": [
+        "Movies Now"
+      ],
+      "localPath": "assets/imgs/channels/movies-now-912830e0ad.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "912830e0adfd8e5d10186205a086acbfe397ed1b1500e68500b980539c2c82a2"
+    },
+    {
+      "sourceUrl": "https://i.imgur.com/PfhtYtr.jpeg",
+      "names": [
+        "Movies Sphere"
+      ],
+      "localPath": "assets/imgs/channels/movies-sphere-017070644c.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "017070644c2485fd0c71e4fc9d06b8d1279b12d86d98b00cc8deb4cdc86f935f",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://en.wikipedia.org/wiki/Special:FilePath/Mr._Bean_logo.svg",
+      "names": [
+        "Mr. Bean Animated"
+      ],
+      "localPath": "assets/imgs/channels/mr-bean-animated-14b2b21401.svg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "14b2b214013b3a597f185fcb3848c145c88bff55c77c3e77b12ee738ff091390",
+      "identityReview": {
+        "method": "source filename/channel provenance checked; SVG active content rejected if present",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://images.seeklogo.com/logo-png/48/1/myx-logo-png_seeklogo-482518.png",
+      "names": [
+        "MYX Global"
+      ],
+      "localPath": "assets/imgs/channels/myx-global-05bf3f96f4.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "05bf3f96f48429334d446349afa231ade7fec55e205711471f0792886629339c"
+    },
+    {
+      "sourceUrl": "https://en.wikipedia.org/wiki/Special:FilePath/National_Geographic_Wild_logo.svg",
+      "names": [
+        "National Geographic Wild"
+      ],
+      "localPath": "assets/imgs/channels/national-geographic-wild-12fc349dcc.svg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "12fc349dcc3c33445aad1c5f0e1d9b22faa9d5769cd990827acda9f5e0269096",
+      "identityReview": {
+        "method": "source filename/channel provenance checked; SVG active content rejected if present",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/d/d2/NBA_TV.svg/960px-NBA_TV.svg.png",
+      "names": [
+        "NBA TV"
+      ],
+      "localPath": "assets/imgs/channels/nba-tv-23112ce5bb.webp",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "23112ce5bb6cc8ea09d3b6b7fa862b67390001c62478e064b58c59bea7543520",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://static.vecteezy.com/system/resources/previews/027/127/440/original/nba-logo-nba-icon-transparent-free-png.png",
+      "names": [
+        "NBA TV"
+      ],
+      "localPath": "assets/imgs/channels/nba-tv-5adfd3d7de.webp",
+      "status": "review-needed",
+      "reason": "Stock-art source: channel identity must be verified",
+      "sha256": "5adfd3d7de285db2f6baf8bb4f3fd9b19ab89a746b9a056be1a5434ba8c024ed"
+    },
+    {
+      "sourceUrl": "https://24hrkpop.com/wp-content/uploads/2020/04/KPOP-Logo-Alpha.png",
+      "names": [
+        "New K-Pop"
+      ],
+      "localPath": "assets/imgs/channels/new-k-pop-0b7b15a014.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "0b7b15a0148fe7c79c58f9413eafb379f62879c095bf1aa5a09199fbb790c7bb",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://tse2.mm.bing.net/th/id/OIP.-O5xaqQzgF4_ZjXvVufitAHaHa?pid=Api&h=220&P=0",
+      "names": [
+        "NFL Network"
+      ],
+      "localPath": "assets/imgs/channels/nfl-network-1987b26282.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "1987b262829d793d8ab6aae1ee6419d93e993c4e22ee3f74ddc74741ed954b54"
+    },
+    {
+      "sourceUrl": "https://en.wikipedia.org/wiki/Special:FilePath/Nickelodeon_2023_logo_(outline).svg",
+      "names": [
+        "Nickelodeon"
+      ],
+      "localPath": "assets/imgs/channels/nickelodeon-dca7311909.svg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "dca7311909063a914375a193c519baf4de3390af9cac90a0b544922ee0067fde",
+      "identityReview": {
+        "method": "source filename/channel provenance checked; SVG active content rejected if present",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://vignette.wikia.nocookie.net/logaekranowe/images/4/45/1024px-Nick_Jr._logo_2009.svg.png/revision/latest?cb=20180616122202&path-prefix=pl",
+      "names": [
+        "Nickjr"
+      ],
+      "localPath": null,
+      "status": "failed",
+      "reason": "HTTP 403"
+    },
+    {
+      "sourceUrl": "https://i.imgur.com/7EngqUi.png",
+      "names": [
+        "Ninja Kidz TV"
+      ],
+      "localPath": "assets/imgs/channels/ninja-kidz-tv-de42a39fa0.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "de42a39fa04c725dfdffcbc25d89c5a0612daec6f2a22a50ae808ca177321e8c",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://i.imgur.com/dQRCCCd.png",
+      "names": [
+        "OCN Movies 1",
+        "OCN Movies 2"
+      ],
+      "localPath": "assets/imgs/channels/ocn-movies-1-b74411c49d.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "b74411c49d16b4ed89c98aa1dd8bf622d3a58ddda533166fc62f2b6b29de3769"
+    },
+    {
+      "sourceUrl": "https://logowik.com/content/uploads/images/one-championship2775.jpg",
+      "names": [
+        "ONE Championship"
+      ],
+      "localPath": "assets/imgs/channels/one-championship-89e583b0de.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "89e583b0de76536fe121f6be829c907b47a57153536fccdf5e97baa1bcaf6caf"
+    },
+    {
+      "sourceUrl": "https://zeno.fm/_ipx/_/https://images.zeno.fm/BeDsdWFYzxt7kruuYoLl3Wd5ckqNkRBnEi6WPEk2WAU/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvYWd4emZucGxibTh0YzNSaGRITnlNZ3NTQ2tGMWRHaERiR2xsYm5RWWdJQ3d5dXEybEFzTUN4SU9VM1JoZEdsdmJsQnliMlpwYkdVWWdJQ3d1ZTNZcWdvTW9nRUVlbVZ1YncvaW1hZ2UvP3U9MTczMjkzNzM4MTAwMA.webp",
+      "names": [
+        "One Radio Christmas"
+      ],
+      "localPath": "assets/imgs/channels/one-radio-christmas-91ca2fa44f.webp",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "91ca2fa44f876c358bd9ae36f92edf84c2471b257be6b819aab7cb39b496bb76",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://zeno.fm/_ipx/_/https://images.zeno.fm/KQrS02TIJj_KEw1Lbc9mH14-OTMfGJchgZKgS_LnGSI/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvYWd4emZucGxibTh0YzNSaGRITnlNZ3NTQ2tGMWRHaERiR2xsYm5RWWdJQ3d5dXEybEFzTUN4SU9VM1JoZEdsdmJsQnliMlpwYkdVWWdJQ3dxcjMyckFzTW9nRUVlbVZ1YncvaW1hZ2UvP3U9MTc1MDI5NDM5NTAwMA.webp",
+      "names": [
+        "One Radio Manila"
+      ],
+      "localPath": "assets/imgs/channels/one-radio-manila-683a83b7d0.webp",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "683a83b7d0929859f93241d6ce3ca911d5c0f74ea48df506b7601abcc553efdd",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://zeno.fm/_ipx/_/https://images.zeno.fm/ECaB9K5zwHe4kbsQqOhf5SJ01_L2wkyXIa-cHGPdwzc/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvYWd4emZucGxibTh0YzNSaGRITnlNZ3NTQ2tGMWRHaERiR2xsYm5RWWdJRGd4Y0hCa1FzTUN4SU9VM1JoZEdsdmJsQnliMlpwYkdVWWdJRGdwWjNEMFFzTW9nRUVlbVZ1YncvaW1hZ2UvP3U9MTY2MTc1MzI0NjAwMA.webp",
+      "names": [
+        "Online Christian Radio"
+      ],
+      "localPath": "assets/imgs/channels/online-christian-radio-d015596c85.webp",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "d015596c8508129a0eca94a29753e9a4c8e3901c9b83a59ba977a7ec13b8277c"
+    },
+    {
+      "sourceUrl": "https://raw.githubusercontent.com/mystery75/logo/main/OuterSphereByLionsgate.png",
+      "names": [
+        "OuterSphere by Lionsgate"
+      ],
+      "localPath": "assets/imgs/channels/outersphere-by-lionsgate-21b2ac3366.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "21b2ac33667c11cdea9d8c67797fb602aac23fe1e00dee1a2989e4107d5d10da"
+    },
+    {
+      "sourceUrl": "https://i.imgur.com/hh2EP86.png",
+      "names": [
+        "Pbo"
+      ],
+      "localPath": "assets/imgs/channels/pbo-b697c1ac0e.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "b697c1ac0e9e75931f1aa859368a326abef6c367f89e32fd7b0b4112352cfdad"
+    },
+    {
+      "sourceUrl": "https://i.imgur.com/8sKjU0A.png",
+      "names": [
+        "PBS Kids"
+      ],
+      "localPath": "assets/imgs/channels/pbs-kids-95416ce1f2.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "95416ce1f20647ac95174cda9e2d3693cbe56f35c31f755da88cb053effe08ae",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://image.tmdb.org/t/p/w600_and_h900_face/4FXce93JqyDQl1B9lNv454Hs6qe.jpg",
+      "names": [
+        "Peaky Blinders: The Immortal Man (2026)"
+      ],
+      "localPath": "assets/imgs/channels/peaky-blinders-the-immortal-man-2026-a085a9b620.webp",
+      "status": "review-needed",
+      "reason": "Poster/artwork reference, not a verified channel logo",
+      "sha256": "a085a9b620f432f67fe41117bce05418437eb1aff30748892e502966e621c979"
+    },
+    {
+      "sourceUrl": "https://images.pluto.tv/channels/5d14fb6c84dd37df3b4290c5/colorLogoSVG_1730825749550.svg",
+      "names": [
+        "Peppa Pig"
+      ],
+      "localPath": "assets/imgs/channels/peppa-pig-9bb98de247.svg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "9bb98de247d02a287fccfd15c392270ab448928e5edd5a41f0d665c734607768",
+      "identityReview": {
+        "method": "source filename/channel provenance checked; SVG active content rejected if present",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://i.imgur.com/si2ZnIA.png",
+      "names": [
+        "Persiana Korea"
+      ],
+      "localPath": "assets/imgs/channels/persiana-korea-f8387cb666.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "f8387cb6660fa2790b0c234985f0e7549c46690199e7a633815530bc34ca6835",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://i.imgur.com/X1Dv6st.png",
+      "names": [
+        "Persiana One"
+      ],
+      "localPath": "assets/imgs/channels/persiana-one-8c1037e27c.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "8c1037e27cfdd7e7268b82d2796e66faf49681bf64cab9d96e85da001849714b",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://tse3.mm.bing.net/th/id/OIP.5IbXxOB_xhUEFQFCXGU6UQHaHa?pid=Api&h=220&P=0",
+      "names": [
+        "Pickle TV"
+      ],
+      "localPath": "assets/imgs/channels/pickle-tv-42769c718b.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "42769c718b1153e9e341810b48639ca5b0f2bbc0a6cbd9a3a4cd9103f527966e",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://images.pluto.tv/channels/67f68bd2135aeda9ddf0ef54/colorLogoSVG_1746816413166.svg",
+      "names": [
+        "Pluto TV Adult Animation"
+      ],
+      "localPath": "assets/imgs/channels/pluto-tv-adult-animation-e153e029ab.svg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "e153e029ab1c626f9b3e5699fe6e5e421924922a05f2cb290c290ac3b08237b3",
+      "identityReview": {
+        "method": "source filename/channel provenance checked; SVG active content rejected if present",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://images.pluto.tv/channels/69a9ae4d3bd16a4ed04240d7/colorLogoSVG_1774879695281.svg",
+      "names": [
+        "Pluto TV Retro Action Movies"
+      ],
+      "localPath": "assets/imgs/channels/pluto-tv-retro-action-movies-2ebe885bac.svg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "2ebe885bac2efbdf89d79a9322d221e709c6ff21e68aa6cf09ee7f090f7a1383",
+      "identityReview": {
+        "method": "source filename/channel provenance checked; SVG active content rejected if present",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://en.wikipedia.org/wiki/Special:FilePath/International_Pok%C3%A9mon_logo.svg",
+      "names": [
+        "Pokémon"
+      ],
+      "localPath": "assets/imgs/channels/pokemon-9b356095a3.svg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "9b356095a31f462dd8f0e123e2713158edf08749348c0c06c0641b59152b180f",
+      "identityReview": {
+        "method": "source filename/channel provenance checked; SVG active content rejected if present",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Popflix_logo.svg/2560px-Popflix_logo.svg.png",
+      "names": [
+        "Popflix (720p)"
+      ],
+      "localPath": null,
+      "status": "failed",
+      "reason": "HTTP 400"
+    },
+    {
+      "sourceUrl": "https://image.tmdb.org/t/p/w600_and_h900_face/yihdXomYb5kTeSivtFndMy5iDmf.jpg",
+      "names": [
+        "Project Hail Mary (2026)"
+      ],
+      "localPath": "assets/imgs/channels/project-hail-mary-2026-5a8d82f6c5.webp",
+      "status": "review-needed",
+      "reason": "Poster/artwork reference, not a verified channel logo",
+      "sha256": "5a8d82f6c5a5d7369d8e7db77a5052f6bdc96b67ec58d58b84f778aa4f8c7338"
+    },
+    {
+      "sourceUrl": "https://i.imgur.com/xWSzQ34.png",
+      "names": [
+        "QVC Japan (720p)"
+      ],
+      "localPath": "assets/imgs/channels/qvc-japan-720p-232d41fd02.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "232d41fd0230bc05fa9b17f83d2edfd71266ee9fb24d037c213f45d9097a6d69"
+    },
+    {
+      "sourceUrl": "https://i.imgur.com/Meew6eX.png",
+      "names": [
+        "Rakuten Top Movies UK (1080p)",
+        "Rakuten TV Action Movies Finland (1080p)",
+        "Rakuten TV Action Movies UK (1080p)",
+        "Rakuten TV Comedy Movies Finland (1080p)",
+        "Rakuten TV Comedy Movies UK (1080p)",
+        "Rakuten TV Drama Movies Finland (1080p)",
+        "Rakuten TV Drama Movies UK (1080p)",
+        "Rakuten TV Family Movies Finland (1080p)",
+        "Rakuten TV Family Movies UK (1080p)",
+        "Rakuten TV Top Movies Finland (1080p)"
+      ],
+      "localPath": "assets/imgs/channels/rakuten-top-movies-uk-1080p-166043b571.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "166043b571489b238b1fb3afa831d3a7306be1e94aabc224d27437060416f080",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://image.tmdb.org/t/p/w600_and_h900_face/jRf89HVEtBZiSnOXXWDhZOfuTwW.jpg",
+      "names": [
+        "Ready or Not: Here I Come (2026)"
+      ],
+      "localPath": "assets/imgs/channels/ready-or-not-here-i-come-2026-6eaa59ca57.webp",
+      "status": "review-needed",
+      "reason": "Poster/artwork reference, not a verified channel logo",
+      "sha256": "6eaa59ca577e48e4929425ac0648c54cb621f42bb2af38d1a9f151f33ea2dab9"
+    },
+    {
+      "sourceUrl": "https://i.imgur.com/a5eNK3K.jpeg",
+      "names": [
+        "Real Wild"
+      ],
+      "localPath": "assets/imgs/channels/real-wild-119d115f80.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "119d115f80eb26a2810a4b39686848b1744b6770133940e5719ee5043acb7f09",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://th.bing.com/th/id/OIP.0c6d3hoH5evqsJVNnbhVNwHaC3?rs=1&pid=ImgDetMain",
+      "names": [
+        "Rock Action"
+      ],
+      "localPath": null,
+      "status": "failed",
+      "reason": "HTTP 404"
+    },
+    {
+      "sourceUrl": "https://i.imgur.com/MY40GrC.png",
+      "names": [
+        "RTB Aneka (720p)"
+      ],
+      "localPath": "assets/imgs/channels/rtb-aneka-720p-eb479462a2.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "eb479462a2ce1603e65efa95c8aadc98f796924aa088b37054c1e96c065d60ac",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://i.imgur.com/upWnLA0.png",
+      "names": [
+        "Sari Sari"
+      ],
+      "localPath": "assets/imgs/channels/sari-sari-a60b2cac8d.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "a60b2cac8dac7bb9eed99dea7a74cbba28d04ef619a912ff7fd2d49a79a868ed"
+    },
+    {
+      "sourceUrl": "https://image.tmdb.org/t/p/w600_and_h900_face/jjyuk0edLiW8vOSnlfwWCCLpbh5.jpg",
+      "names": [
+        "Scream 7 (2026)"
+      ],
+      "localPath": "assets/imgs/channels/scream-7-2026-1c893f8d32.webp",
+      "status": "review-needed",
+      "reason": "Poster/artwork reference, not a verified channel logo",
+      "sha256": "1c893f8d32d4b12810275d537e53b6346851741c3087f99f3501fce161f38866"
+    },
+    {
+      "sourceUrl": "https://image.tmdb.org/t/p/w600_and_h900_face/mjkS2iAgWj3ik1DTjvI15nHZ7yl.jpg",
+      "names": [
+        "Send Help (2026)"
+      ],
+      "localPath": "assets/imgs/channels/send-help-2026-86eb3b62fa.webp",
+      "status": "review-needed",
+      "reason": "Poster/artwork reference, not a verified channel logo",
+      "sha256": "86eb3b62faec91584b0c79535110dba9d81f618501f24798a1121f8fa1ca9564"
+    },
+    {
+      "sourceUrl": "https://zeno.fm/_ipx/_/https://images.zeno.fm/l2P2LqzjVpThF-4OA-N9D4OIV4oMdwRyC9V6lClFtDg/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvNmE2MjgxMWUtOWYyZS00NmJmLTliMzAtN2EwYjQ0ZmYzZTQ4L2ltYWdlLz91PTE3MTM5Mzc3MDkwMDA.webp",
+      "names": [
+        "Send The Word Online Radio"
+      ],
+      "localPath": "assets/imgs/channels/send-the-word-online-radio-076671fedf.webp",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "076671fedf5b4a7c176a6520414460769dfe954d66f6bca84fcf565ea69202b8",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://www.shopch.jp/com/images/common/logo_2021.png",
+      "names": [
+        "Shop Channel (1080p) [Not 24/7]"
+      ],
+      "localPath": "assets/imgs/channels/shop-channel-1080p-not-24-7-e6d4c7f0e6.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "e6d4c7f0e6de10eb0830389d1025404a302037aada705462b29ac4ec552500ba",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://i.imgur.com/zcFUYC5.png",
+      "names": [
+        "SineManila"
+      ],
+      "localPath": "assets/imgs/channels/sinemanila-deabae37e8.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "deabae37e83a47def6c4df6332d9bdaa8c3cdf0bceb1c763fa6ff5dc0525a212",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://i.imgur.com/bizGo39.png",
+      "names": [
+        "SINEMANILA"
+      ],
+      "localPath": "assets/imgs/channels/sinemanila-dc8b1fe619.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "dc8b1fe619662df9d2cd13717af0f72eea29c2d62f6a986ffbb62e05b0caffa0"
+    },
+    {
+      "sourceUrl": "https://th.bing.com/th/id/OIP._NGk-Rpn5n6TOVRIjvnZ6QHaHb?rs=1&pid=ImgDetMain",
+      "names": [
+        "Sony Cine"
+      ],
+      "localPath": "assets/imgs/channels/sony-cine-ae3b1b751d.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "ae3b1b751d5aadf2d992cbb5f1e4480b6ae794e944facbe32b3245b3243976a4",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://static.wikia.nocookie.net/logopedia/images/1/1c/Sony_Movies_2019_%28Print%29.png/revision/latest/scale-to-width-down/1000?cb=20190917082854",
+      "names": [
+        "Sony Movies"
+      ],
+      "localPath": null,
+      "status": "failed",
+      "reason": "HTTP 403"
+    },
+    {
+      "sourceUrl": "https://static1.colliderimages.com/wordpress/wp-content/uploads/2023/03/spider-man-across-the-spider-verse-poster.jpg",
+      "names": [
+        "Spider-Man: Across the Spider-Verse (2023)"
+      ],
+      "localPath": null,
+      "status": "rejected",
+      "reason": "Payload is not a supported image"
+    },
+    {
+      "sourceUrl": "https://i.imgur.com/QalEBc8.jpeg",
+      "names": [
+        "Star Television"
+      ],
+      "localPath": "assets/imgs/channels/star-television-c17b10eff7.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "c17b10eff71a28f83f5dfe2ab7b5f6b4e42da7e24b9f6d6c6065586454cd1855",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://zeno.fm/_ipx/_/https://images.zeno.fm/8OuhHMZdgn8agTxt5HtAGl1IkvcnP-NzTBs4gDjI-2c/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvYWd4emZucGxibTh0YzNSaGRITnlNZ3NTQ2tGMWRHaERiR2xsYm5RWWdJRFFfcm5DN3dnTUN4SU9VM1JoZEdsdmJsQnliMlpwYkdVWWdJRFFucnZOeGdnTW9nRUVlbVZ1YncvaW1hZ2UvP3U9MTY4OTU1MzAyODAwMA.webp",
+      "names": [
+        "Station 1 Radio"
+      ],
+      "localPath": "assets/imgs/channels/station-1-radio-a15735c632.webp",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "a15735c6324fbd7867e31edfa346490ed15c4e3a78743c99950f4c067f412175",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://i.imgur.com/XIjXTSP.jpeg",
+      "names": [
+        "Stingray Karaoke"
+      ],
+      "localPath": "assets/imgs/channels/stingray-karaoke-e5b0416118.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "e5b0416118db1a044c695993971dce87adbbac5e9dee99f84e74e238aae45d10",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://tse1.mm.bing.net/th/id/OIP.E_ALVOsrM9xvzepA1oq4-gHaEJ?pid=Api&h=220&P=0",
+      "names": [
+        "Stories by AMC"
+      ],
+      "localPath": "assets/imgs/channels/stories-by-amc-d3e58619a3.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "d3e58619a3c0bb3098ba558a3ce9a3d6a4f1499a940bcb7c96ae02e6db994935",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://i.imgur.com/3DumwvT.jpeg",
+      "names": [
+        "Survivor"
+      ],
+      "localPath": "assets/imgs/channels/survivor-cfed473ee7.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "cfed473ee7086aa7e7eae838febaabb663b12acd1c02be67bc857efbcd23391f",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://cms.cignal.tv/Upload/Images/Tap-movies.jpg",
+      "names": [
+        "Tap Movies"
+      ],
+      "localPath": "assets/imgs/channels/tap-movies-c80e47bebd.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "c80e47bebd51e536413c9150f53deef7a827fcbfa9de5e4572ffcdd275c30039",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://zeno.fm/_ipx/_/https://images.zeno.fm/naE7jZGFRs5c0t0g3ULHHy-4vKFi03lHsXEcmRjW-0g/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvYWd4emZucGxibTh0YzNSaGRITnlNZ3NTQ2tGMWRHaERiR2xsYm5RWWdJRFFpYnJ4N0FrTUN4SU9VM1JoZEdsdmJsQnliMlpwYkdVWWdJRFE2Zk90cmdnTW9nRUVlbVZ1YncvaW1hZ2UvP3U9MTY2MTY3NzE1MzAwMA.webp",
+      "names": [
+        "Tee Radio"
+      ],
+      "localPath": "assets/imgs/channels/tee-radio-ac22e05950.webp",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "ac22e05950efb30f5c4762e4ef5c912bb904c7fa92653a5abb219d557d9e71a3",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://i.imgur.com/e1i8ffA.png",
+      "names": [
+        "Teleradyo"
+      ],
+      "localPath": "assets/imgs/channels/teleradyo-1111542a6d.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "1111542a6d6db03f8eacbf1ef0528b0a44600939d81eff2d7d81235844678f48"
+    },
+    {
+      "sourceUrl": "https://static.wikia.nocookie.net/logopedia/images/8/8a/Tennis_Channel_2003_stacked.svg/revision/latest?cb=20240116025610",
+      "names": [
+        "Tennis Channel 2"
+      ],
+      "localPath": null,
+      "status": "failed",
+      "reason": "HTTP 403"
+    },
+    {
+      "sourceUrl": "https://tse4.mm.bing.net/th/id/OIP.YLaFJUU8hyI5A4hSbhPa5AHaEK?pid=Api&h=220&P=0",
+      "names": [
+        "Tennis+"
+      ],
+      "localPath": "assets/imgs/channels/tennis-dfe239614f.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "dfe239614f9d5839806e281f554742fac7925534c0155bf7597ebb6565c046eb",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://content.osn.com/bob/745x419/TFC.jpg",
+      "names": [
+        "TFC"
+      ],
+      "localPath": "assets/imgs/channels/tfc-1d6e47a09b.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "1d6e47a09b4b6e412af5335b3bc905f171d5ffd8df6608aeb197fe95e451f893"
+    },
+    {
+      "sourceUrl": "https://image.tmdb.org/t/p/w600_and_h900_face/2BtesvzFQJYFS2sPVVbUdet0TTC.jpg",
+      "names": [
+        "The Bible: In the Beginning... (1966)"
+      ],
+      "localPath": "assets/imgs/channels/the-bible-in-the-beginning-1966-a3dfc72b54.webp",
+      "status": "review-needed",
+      "reason": "Poster/artwork reference, not a verified channel logo",
+      "sha256": "a3dfc72b547239b307c77ce9021f4d3dcee0f66155e966dc0a4b5d4af05573f6"
+    },
+    {
+      "sourceUrl": "https://image.tmdb.org/t/p/w600_and_h900_face/p4dGmi8u9W0HHyVXcgWPoiFfKTF.jpg",
+      "names": [
+        "The Parent Trap (1998)"
+      ],
+      "localPath": "assets/imgs/channels/the-parent-trap-1998-d88b0c82a8.webp",
+      "status": "review-needed",
+      "reason": "Poster/artwork reference, not a verified channel logo",
+      "sha256": "d88b0c82a8ba30223138d14aa5a059d801228680c942c893ed524e538407fc28"
+    },
+    {
+      "sourceUrl": "https://image.tmdb.org/t/p/w600_and_h900_face/v9f9MMrq2nGQrN7cHnQRmEq9lSE.jpg",
+      "names": [
+        "The Passion of the Christ (2004)"
+      ],
+      "localPath": "assets/imgs/channels/the-passion-of-the-christ-2004-00368ac9c5.webp",
+      "status": "review-needed",
+      "reason": "Poster/artwork reference, not a verified channel logo",
+      "sha256": "00368ac9c555591fd7b401670453b7b207f51a426b45115ebad8399255b03396"
+    },
+    {
+      "sourceUrl": "https://image.tmdb.org/t/p/w600_and_h900_face/2xUjYwL6Ol7TLJPPKs7sYW5PWLX.jpg",
+      "names": [
+        "The Prince of Egypt (1998)"
+      ],
+      "localPath": "assets/imgs/channels/the-prince-of-egypt-1998-7a214eedc4.webp",
+      "status": "review-needed",
+      "reason": "Poster/artwork reference, not a verified channel logo",
+      "sha256": "7a214eedc44de0b94f33dec362ee5302525ae1a94ddc700a528d7d3899f016fb"
+    },
+    {
+      "sourceUrl": "https://image.tmdb.org/t/p/w600_and_h900_face/e0RU6KpdnrqFxDKlI3NOqN8nHL6.jpg",
+      "names": [
+        "The Shadow's Edge (2025)"
+      ],
+      "localPath": "assets/imgs/channels/the-shadow-s-edge-2025-b4f0027d99.webp",
+      "status": "review-needed",
+      "reason": "Poster/artwork reference, not a verified channel logo",
+      "sha256": "b4f0027d9906b085c3ecc596b266d0235e34e135b093ceca1bbcd3eeb498d5f0"
+    },
+    {
+      "sourceUrl": "https://image.tmdb.org/t/p/w600_and_h900_face/xJnOMMsFASxNiFnG7v3TNIQ3ife.jpg",
+      "names": [
+        "The SpongeBob Movie: Search for SquarePants (2025)"
+      ],
+      "localPath": "assets/imgs/channels/the-spongebob-movie-search-for-squarepants-2025-792b7dd31c.webp",
+      "status": "review-needed",
+      "reason": "Poster/artwork reference, not a verified channel logo",
+      "sha256": "792b7dd31c21e4a1b92643f84d60a22b0bcad08cc0688d2e21b15f2d9dfce7f5"
+    },
+    {
+      "sourceUrl": "https://www.mncvision.id/userfiles/image/channel/thrill_150x150px.jpg",
+      "names": [
+        "Thrill"
+      ],
+      "localPath": "assets/imgs/channels/thrill-81b39a46b4.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "81b39a46b43c5011cf617aadc656b33ea72f348c76fccc05f093be2adb76335d",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://th.bing.com/th/id/OIP.mskveWFrbAwpq6athkC91gAAAA?rs=1&pid=ImgDetMain",
+      "names": [
+        "TMC"
+      ],
+      "localPath": "assets/imgs/channels/tmc-a75feb1d32.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "a75feb1d32bf4466aba8fd8637a2ce18664688e3fa81218ae854cb86b0283aab",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://cms.cignal.tv/Upload/Thumbnails/TV5%20HD%20logo%20(1).png",
+      "names": [
+        "TV5"
+      ],
+      "localPath": "assets/imgs/channels/tv5-ab87c31944.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "ab87c319446cbc021c21f2013d00a5b0fe04f32666882bf97b5962b7a4a0055d",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://i.imgur.com/70wHkDj.png",
+      "names": [
+        "TV5"
+      ],
+      "localPath": "assets/imgs/channels/tv5-496c85032b.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "496c85032be74a01bf35a143c7454fce2556ae3bdf1c22a68ed1d5478f04d429"
+    },
+    {
+      "sourceUrl": "https://klean.nl/wp-content/uploads/Logo_TV5_Monde_-_2021.svg_.png",
+      "names": [
+        "TV5 Monde"
+      ],
+      "localPath": null,
+      "status": "failed",
+      "reason": "HTTP 404"
+    },
+    {
+      "sourceUrl": "https://i.imgur.com/3zLgtdM.png",
+      "names": [
+        "TVN Movies (Tagalog)"
+      ],
+      "localPath": "assets/imgs/channels/tvn-movies-tagalog-4e78b38e61.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "4e78b38e610109c19eca87c1d5e6a5427ed5b9c6c573ec80ac478d471379ec19",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://i.imgur.com/qoQhGsX.png",
+      "names": [
+        "UAAP"
+      ],
+      "localPath": "assets/imgs/channels/uaap-7d98dc6223.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "7d98dc6223ff56459d104d021c8edae7dbdd023b64be82c795b1ebf452caf4bb"
+    },
+    {
+      "sourceUrl": "https://images.pluto.tv/channels/5d93b635b43dd1a399b39eee/featuredImage.jpg",
+      "names": [
+        "Vevo Pop"
+      ],
+      "localPath": "assets/imgs/channels/vevo-pop-11ad416cf1.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "11ad416cf1998402c9b12d8f128e4c0e7ee490e5055afb8ee9d422fce1e48478",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://zeno.fm/_ipx/_/https://images.zeno.fm/2omcviiNmet2a72dj84IDg4pUlt43mCC0UDlhQWVFyw/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvYWd4emZucGxibTh0YzNSaGRITnlNZ3NTQ2tGMWRHaERiR2xsYm5RWWdJQ3dsdU9Gc0FvTUN4SU9VM1JoZEdsdmJsQnliMlpwYkdVWWdJQ3dpWlRfLWdnTW9nRUVlbVZ1YncvaW1hZ2UvP3U9MTY3MzQ5Nzc1NDAwMA.webp",
+      "names": [
+        "Vibe Radio"
+      ],
+      "localPath": "assets/imgs/channels/vibe-radio-52d4ce09de.webp",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "52d4ce09de7f9e447445e5b840c345495104fc3aa38bcc809314751aa119b37a",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://media.themoviedb.org/t/p/w300_and_h450_face/ril8yx5SOmj0KjNlftsdfIp00fr.jpg",
+      "names": [
+        "War Machine"
+      ],
+      "localPath": "assets/imgs/channels/war-machine-4012b19f6e.webp",
+      "status": "review-needed",
+      "reason": "Poster/artwork reference, not a verified channel logo",
+      "sha256": "4012b19f6ecf53bb837c235be6ff9b862afc200b0c632b6db987eef5ee99e0b3"
+    },
+    {
+      "sourceUrl": "https://tse3.mm.bing.net/th/id/OIP.g9K8LLZbF924ZNzPKvPvBAHaFA?pid=Api&P=0&h=220",
+      "names": [
+        "War Machine (2026)"
+      ],
+      "localPath": "assets/imgs/channels/war-machine-2026-ee547e5ee7.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "ee547e5ee79fcb4e2563a6ab208bbeafee91a5b1df9b45d31e3e78193160f302"
+    },
+    {
+      "sourceUrl": "https://i.imgur.com/vGEL2Ne.png",
+      "names": [
+        "Warner TV"
+      ],
+      "localPath": "assets/imgs/channels/warner-tv-ab1ac86c74.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "ab1ac86c74409fec823164aca158aa75907720348eab180db1491d48b1d8139e"
+    },
+    {
+      "sourceUrl": "https://mms.businesswire.com/media/20221026005209/en/1613768/23/WE_Logo_V1_062222_Stacked_1-color_Forest.jpg",
+      "names": [
+        "Wild Earth"
+      ],
+      "localPath": null,
+      "status": "failed",
+      "reason": "HTTP 403"
+    },
+    {
+      "sourceUrl": "https://tse2.mm.bing.net/th/id/OIP.Hz20N2Opf3nfuk32pOQZNgHaKe?pid=Api&P=0&h=220",
+      "names": [
+        "Your Name (2016)"
+      ],
+      "localPath": "assets/imgs/channels/your-name-2016-9c2962533d.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "9c2962533d6d4429493bf68a435f75e6199d4ee9339aed03a5dc20f1c3f36d2e"
+    },
+    {
+      "sourceUrl": "https://tse3.mm.bing.net/th/id/OIP.DfsD-OhD0b16GzoiCUf_GAHaHa?pid=Api&h=220&P=0",
+      "names": [
+        "YTV"
+      ],
+      "localPath": "assets/imgs/channels/ytv-3054aafe7d.jpg",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "3054aafe7d63d9ba8ccc9689c35af55695b33d5192ba8908404dac42fc9aff4a"
+    },
+    {
+      "sourceUrl": "https://i.imgur.com/Tl6aW2u.png",
+      "names": [
+        "Yu-Gi-Oh!"
+      ],
+      "localPath": "assets/imgs/channels/yu-gi-oh-1633e9d5ea.png",
+      "status": "downloaded",
+      "reason": "Validated image bytes; station identity pending visual/catalog review",
+      "sha256": "1633e9d5eabd555a6a391f77ed04f585493f08f29298d5904a7e0297aedcaccd",
+      "identityReview": {
+        "method": "visual review",
+        "result": "Existing artwork matches the named brand/show; not a licensing or trademark ownership assertion"
+      }
+    },
+    {
+      "sourceUrl": "https://image.tmdb.org/t/p/w600_and_h900_face/hlK0e0wAQ3VLuJcsfIYPvb4JVud.jpg",
+      "names": [
+        "Zootopia (2016)"
+      ],
+      "localPath": "assets/imgs/channels/zootopia-2016-fcd7164f02.webp",
+      "status": "review-needed",
+      "reason": "Poster/artwork reference, not a verified channel logo",
+      "sha256": "fcd7164f024a3d8a438759f83faf544bb45a5d6d63cc6b6a8b0339b90bd49f3b"
+    },
+    {
+      "sourceUrl": "https://image.tmdb.org/t/p/w600_and_h900_face/oJ7g2CifqpStmoYQyaLQgEU32qO.jpg",
+      "names": [
+        "Zootopia 2 (2025)"
+      ],
+      "localPath": "assets/imgs/channels/zootopia-2-2025-f313ac2c63.webp",
+      "status": "review-needed",
+      "reason": "Poster/artwork reference, not a verified channel logo",
+      "sha256": "f313ac2c63d0b839ed055da8fa3cff4453634b8fc6602fd94c58261f86151d61"
+    }
+  ],
+  "verified": [
+    {
+      "name": "GIA TV",
+      "confidence": "unresolved",
+      "unresolvedReason": "Community channel identity not verified against a public official brand source; shares source with 3rsSinePinoy."
+    },
+    {
+      "name": "Discovery Kids",
+      "confidence": "unresolved",
+      "unresolvedReason": "No exact logo verified from public broadcaster/distributor references; left blank rather than use a guessed brand."
+    },
+    {
+      "name": "Kiddo+",
+      "confidence": "unresolved",
+      "unresolvedReason": "Exact SOFAST feed brand not verified; same-name child-development sites are unrelated."
+    },
+    {
+      "name": "Moonbug Kids",
+      "localPath": "assets/imgs/channels/verified-a/moonbug-kids.png",
+      "sourceUrl": "https://i.imgur.com/vZHtxQb.png",
+      "evidenceUrl": "https://www.moonbug.com/",
+      "confidence": "high",
+      "notes": "Exact Moonbug Kids network logo indexed as MoonbugKids.uk; supplied stream moonbug-rokuus identifies Moonbug feed",
+      "bytes": 24443
+    },
+    {
+      "name": "3rsSinePinoy",
+      "confidence": "unresolved",
+      "unresolvedReason": "Supplied source duplicates GIA TV; no exact public official logo verified."
+    },
+    {
+      "name": "Grand Cinema",
+      "confidence": "unresolved",
+      "unresolvedReason": "Official source page confirms exact channel and stream but publishes no logo. Unrelated cinema-company logos were not used."
+    },
+    {
+      "name": "MHz",
+      "localPath": "assets/imgs/channels/verified-a/mhz.jpg",
+      "sourceUrl": "https://i.imgur.com/a5fw83n.jpg",
+      "evidenceUrl": "https://mhznetworks.com/",
+      "confidence": "high",
+      "notes": "Exact MHZ.ca logo indexed; current stream explicitly mhz-samsung-linear-ca",
+      "bytes": 7374
+    },
+    {
+      "name": "Movie Favorites by Lifetime",
+      "sourceUrl": "https://dfwfis.prod.dtvcdn.com/catalog/image/imageserver/v1/service/network/ee2e6339-4f5b-4ed8-93fa-d47160af2a9f/nwlogo-bwlb/120/90",
+      "evidenceUrl": "https://www.directv.com/guide/networks/Movie-Favorites-by-Lifetime-ee2e6339-4f5b-4ed8-93fa-d47160af2a9f",
+      "confidence": "unresolved",
+      "unresolvedReason": "HTTP 403",
+      "notes": "Exact image URL listed by official DIRECTV channel page without resizing parameters"
+    },
+    {
+      "name": "Runtime HD",
+      "localPath": "assets/imgs/channels/verified-a/runtime-hd.png",
+      "sourceUrl": "https://www.runtime.tv/themes/custom/run/runtime/logo.png",
+      "evidenceUrl": "https://www.runtime.tv/",
+      "confidence": "high",
+      "notes": "Official header logo for Runtime",
+      "bytes": 2965
+    },
+    {
+      "name": "Sine Plus",
+      "confidence": "unresolved",
+      "unresolvedReason": "No exact logo verified from public broadcaster/distributor references; left blank rather than use a guessed brand."
+    },
+    {
+      "name": "Bloomberg Asia",
+      "localPath": "assets/imgs/channels/verified-a/bloomberg-asia.svg",
+      "sourceUrl": "https://www.bloomberg.com/live/asia",
+      "evidenceUrl": "https://www.bloomberg.com/live/asia",
+      "confidence": "high",
+      "notes": "Exact official Bloomberg inline vector logo from Asia live page; currentColor renders black and needs light tile",
+      "bytes": 2560
+    },
+    {
+      "name": "NBC News Now",
+      "localPath": "assets/imgs/channels/verified-a/nbc-news-now.svg",
+      "sourceUrl": "https://www.nbcnews.com/watch",
+      "evidenceUrl": "https://www.nbcnews.com/watch",
+      "confidence": "high",
+      "notes": "Exact NBC News NOW inline vector image on official live channel selector",
+      "bytes": 4798
+    },
+    {
+      "name": "Newsmax N1",
+      "confidence": "unresolved",
+      "unresolvedReason": "N1 feed branding could not be confirmed; did not substitute Newsmax2 or an unrelated N1 network."
+    },
+    {
+      "name": "Reuters",
+      "localPath": "assets/imgs/channels/verified-a/reuters.svg",
+      "sourceUrl": "https://reutersagency.com/hubfs/reuters-logo.svg",
+      "evidenceUrl": "https://reutersagency.com/",
+      "confidence": "high",
+      "notes": "Current official Reuters logo replaces older ReutersTV wordmark candidate",
+      "bytes": 6338
+    },
+    {
+      "name": "Colour Blind",
+      "confidence": "unresolved",
+      "unresolvedReason": "No exact logo verified from public broadcaster/distributor references; left blank rather than use a guessed brand."
+    },
+    {
+      "name": "Fx1",
+      "confidence": "unresolved",
+      "unresolvedReason": "No exact logo verified from public broadcaster/distributor references; left blank rather than use a guessed brand."
+    },
+    {
+      "name": "Go USA TV",
+      "localPath": "assets/imgs/channels/verified-a/go-usa-tv.png",
+      "sourceUrl": "https://i.imgur.com/x90ALip.png",
+      "evidenceUrl": "https://www.visittheusa.com/gousa-tv",
+      "confidence": "high",
+      "notes": "Exact GoUSATV.us logo indexed; official VisitTheUSA identifies channel",
+      "bytes": 22958
+    },
+    {
+      "name": "Hype TV by DTMMBS",
+      "confidence": "unresolved",
+      "unresolvedReason": "No exact logo verified from public broadcaster/distributor references; left blank rather than use a guessed brand."
+    },
+    {
+      "name": "LIT Creationz",
+      "confidence": "unresolved",
+      "unresolvedReason": "No exact logo verified from public broadcaster/distributor references; left blank rather than use a guessed brand."
+    },
+    {
+      "name": "Mama Benz TV",
+      "confidence": "unresolved",
+      "unresolvedReason": "No exact logo verified from public broadcaster/distributor references; left blank rather than use a guessed brand."
+    },
+    {
+      "name": "Pet Club TV HD",
+      "localPath": "assets/imgs/channels/verified-a/pet-club-tv-hd.png",
+      "sourceUrl": "https://i.imgur.com/ykPNNwQ.png",
+      "evidenceUrl": "https://www.lightninginternational.net/channels",
+      "confidence": "high",
+      "notes": "Exact PetClubTV.hk logo; stream explicitly Lightning International Pet Club",
+      "bytes": 61632
+    },
+    {
+      "name": "Robot Wars by Mech+",
+      "confidence": "unresolved",
+      "unresolvedReason": "No exact logo verified from public broadcaster/distributor references; left blank rather than use a guessed brand."
+    },
+    {
+      "name": "Telemundo",
+      "localPath": "assets/imgs/channels/verified-a/telemundo.png",
+      "sourceUrl": "https://media.telemundopr.com/2024/08/WKAQ_station_logo_light.png",
+      "evidenceUrl": "https://www.telemundopr.com/",
+      "confidence": "high",
+      "notes": "Exact Puerto Rico Telemundo official station logo; current source explicitly puertorico",
+      "bytes": 2606
+    },
+    {
+      "name": "The Manila Times",
+      "localPath": "assets/imgs/channels/verified-a/the-manila-times.png",
+      "sourceUrl": "https://www.manilatimes.net/theme_manilatimes/images/manila-logo-main.png",
+      "evidenceUrl": "https://www.manilatimes.net/",
+      "confidence": "high",
+      "notes": "Official header wordmark",
+      "bytes": 14385
+    },
+    {
+      "name": "EXHBT TV",
+      "confidence": "unresolved",
+      "unresolvedReason": "No exact logo verified from public broadcaster/distributor references; left blank rather than use a guessed brand."
+    },
+    {
+      "name": "History2",
+      "confidence": "unresolved",
+      "unresolvedReason": "Current supplied FAST endpoint does not establish regional brand variant. No exact official asset confirmed."
+    },
+    {
+      "name": "Living Asia Channel",
+      "localPath": "assets/imgs/channels/verified-a/living-asia-channel.jpg",
+      "sourceUrl": "https://livingasiachannel.tv/wp-content/uploads/2026/02/469079007_10164373999663572_6909747430415389767_n.jpg",
+      "evidenceUrl": "https://livingasiachannel.tv/",
+      "confidence": "high",
+      "notes": "Official homepage brand image; inspect before accepting",
+      "bytes": 52147
+    },
+    {
+      "name": "Real Disaster Channel",
+      "confidence": "unresolved",
+      "unresolvedReason": "Previously indexed Xumo ID 99951262 now supplies Mayday Air Disaster branding. Official Glewed page confirms Real Disaster but clean logo unavailable; avoid incorrect replacement."
+    },
+    {
+      "name": "Chrono TV",
+      "confidence": "unresolved",
+      "unresolvedReason": "No exact logo verified from public broadcaster/distributor references; left blank rather than use a guessed brand."
+    },
+    {
+      "name": "MTRSPRT1",
+      "localPath": "assets/imgs/channels/verified-a/mtrsprt1.png",
+      "sourceUrl": "https://www.mtrspt1.com/en/dominios/mtrspt.pagegear.co/plantillas/pagegear/recursos/logo-mtrspt.png",
+      "evidenceUrl": "https://www.mtrspt1.com/en/",
+      "confidence": "high",
+      "notes": "Exact motorsport network; catalog misspells MTRSPT1 as MTRSPRT1",
+      "bytes": 3805
+    },
+    {
+      "name": "Nitro TV",
+      "confidence": "unresolved",
+      "unresolvedReason": "Exact SOFAST feed brand not verified; unrelated RTL Nitro logo was not used."
+    },
+    {
+      "name": "Red Bull TV",
+      "localPath": "assets/imgs/channels/verified-a/red-bull-tv.png",
+      "sourceUrl": "https://images.pluto.tv/channels/5e7cb84a172a0f0007da69e4/colorLogoPNG.png",
+      "evidenceUrl": "https://www.redbull.com/int-en/live",
+      "confidence": "high",
+      "notes": "Official distributor Pluto TV Red Bull TV channel logo",
+      "bytes": 19819
+    },
+    {
+      "name": "Stadium",
+      "localPath": "assets/imgs/channels/verified-a/stadium.png",
+      "sourceUrl": "https://i.imgur.com/SnZOiER.png",
+      "evidenceUrl": "https://watchstadium.com/",
+      "confidence": "high",
+      "notes": "Exact Stadium.us sports network logo indexed, current Tubi stream is Stadium",
+      "bytes": 35633
+    },
+    {
+      "name": "Kronehit",
+      "localPath": "assets/imgs/channels/verified-a/kronehit.png",
+      "sourceUrl": "https://i.imgur.com/dQJQv1X.png",
+      "evidenceUrl": "https://www.kronehit.at/",
+      "confidence": "high",
+      "notes": "Exact Kronehit.at station logo indexed; stream explicitly Kronehit",
+      "bytes": 16808
+    },
+    {
+      "name": "The Country Network",
+      "localPath": "assets/imgs/channels/verified-a/the-country-network.png",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/en/d/dd/The_Country_Network_Logo.png",
+      "evidenceUrl": "https://www.tcncountry.net/",
+      "confidence": "high",
+      "notes": "Exact named network logo; current KlowdTV stream explicitly countrytv",
+      "bytes": 45689
+    },
+    {
+      "name": "Dream TV PH",
+      "confidence": "unresolved",
+      "unresolvedReason": "No exact logo verified from public broadcaster/distributor references; left blank rather than use a guessed brand."
+    },
+    {
+      "name": "Good Life",
+      "confidence": "unresolved",
+      "unresolvedReason": "Generic name may refer to several unrelated networks; exact stream ownership and matching logo were not verified."
+    },
+    {
+      "name": "Kocowa",
+      "localPath": "assets/imgs/channels/verified-a/kocowa.png",
+      "sourceUrl": "https://image.xumo.com/v1/channels/channel/99991348/300x300.png?type=color_onBlack",
+      "evidenceUrl": "https://www.kocowa.com/",
+      "confidence": "high",
+      "notes": "Xumo channel ID matches the current stream channel ID",
+      "bytes": 7149
+    },
+    {
+      "name": "MTA1 World",
+      "localPath": "assets/imgs/channels/verified-a/mta1-world.png",
+      "sourceUrl": "https://images.mta.tv/sites/default/files/MTA1_World.png",
+      "evidenceUrl": "https://www.mta.tv/",
+      "confidence": "high",
+      "notes": "Exact channelLogo for MTA1 World in official live television channel list",
+      "bytes": 33313
+    },
+    {
+      "name": "RomKom K Drama",
+      "confidence": "unresolved",
+      "unresolvedReason": "Exact FAST brand not verified; did not use unrelated K-drama channel logos."
+    },
+    {
+      "name": "CLTV36",
+      "localPath": "assets/imgs/channels/verified-a/cltv36.png",
+      "sourceUrl": "https://i.imgur.com/2fGhl7q.png",
+      "evidenceUrl": "https://cltv36.tv/",
+      "confidence": "high",
+      "notes": "Exact CLTV36.ph logo indexed by iptv-org; official site confirms regional station",
+      "bytes": 10522
+    },
+    {
+      "name": "Authentic Travel",
+      "localPath": "assets/imgs/channels/verified-a/authentic-travel.svg",
+      "sourceUrl": "https://www.autentic.com/images/Travel-Logo-positiv-RGB.svg",
+      "evidenceUrl": "https://www.autentic.com/117/Channels.htm#autentic_travel",
+      "confidence": "high",
+      "notes": "Exact Autentic Travel brand; catalog name has an extra h; current stream explicitly LG-au_AutenticTravel",
+      "bytes": 1552
+    },
+    {
+      "name": "RCM",
+      "confidence": "unresolved",
+      "unresolvedReason": "Catalog name RCM points to a Lightning International Rialto feed. Intended identity is ambiguous; no unrelated RCM logo used."
+    },
+    {
+      "name": "TRACE Urban HD",
+      "localPath": "assets/imgs/channels/verified-a/trace-urban-hd.png",
+      "sourceUrl": "https://xstreamcp-assets-msp.streamready.in/assets/DISTROTV/LIVECHANNEL/6669893cbac4421ebc53368b/images/logo_20231219_223537_68.png",
+      "evidenceUrl": "https://www.lightninginternational.net/channels",
+      "confidence": "high",
+      "notes": "Exact TRACE Urban logo from DistroTV distributor, current stream explicitly traceurban",
+      "bytes": 7491
+    },
+    {
+      "name": "Universal Action",
+      "localPath": "assets/imgs/channels/verified-a/universal-action.png",
+      "sourceUrl": "https://image.xumo.com/v1/channels/channel/99993045/300x300.png?type=color_onBlack",
+      "evidenceUrl": "https://www.xumo.com/",
+      "confidence": "high",
+      "notes": "Xumo channel ID matches the current stream channel ID",
+      "bytes": 11433
+    },
+    {
+      "name": "WION",
+      "localPath": "assets/imgs/channels/verified-a/wion.svg",
+      "sourceUrl": "https://static-cdn.wionews.com/prod/_next/static/media/wion-logo_white.d670dbc6.svg",
+      "evidenceUrl": "https://www.wionews.com/",
+      "confidence": "high",
+      "notes": "Official homepage header logo",
+      "bytes": 5326
+    },
+    {
+      "name": "Xite Hits",
+      "localPath": "assets/imgs/channels/verified-a/xite-hits.png",
+      "sourceUrl": "https://provider-static.plex.tv/epg/cms/production/b79c1102-0a7d-4310-a0df-6cbe6fb660e2/xitehits_logo_WHITE_-_Arlette_FiranRDX2.png",
+      "evidenceUrl": "https://xite.com/",
+      "confidence": "high",
+      "notes": "Exact XITE Hits channel branding from official Plex distributor",
+      "bytes": 17019
+    },
+    {
+      "name": "4K Travel",
+      "confidence": "unresolved",
+      "unresolvedReason": "No exact logo verified from public broadcaster/distributor references; left blank rather than use a guessed brand."
+    },
+    {
+      "name": "90.7 Love Radio",
+      "localPath": "assets/imgs/channels/verified-a/90-7-love-radio.png",
+      "sourceUrl": "https://static.loveradio.com.ph/stations/2026/2/9CNEClZL_Ql8b8bXev8RX.png",
+      "evidenceUrl": "https://www.loveradio.com.ph/radio?station=90.7-love-radio-manila",
+      "confidence": "high",
+      "notes": "Official current 90.7 Manila station header logo",
+      "bytes": 34857
+    },
+    {
+      "name": "96.3 Easy Rock",
+      "localPath": "assets/imgs/channels/verified-a/96-3-easy-rock.png",
+      "sourceUrl": "https://static.easyrock.com.ph/stations/2023/6/LDzGhg_eq-3UUUI_Hc-ET.png",
+      "evidenceUrl": "https://www.easyrock.com.ph/",
+      "confidence": "high",
+      "notes": "Official current Manila station header logo",
+      "bytes": 30012
+    },
+    {
+      "name": "ANIMAX",
+      "localPath": "assets/imgs/channels/verified-a/animax.png",
+      "sourceUrl": "https://www.animax-asia.com/sites/animax-asia.com/files/logos/animax-logo_0.png",
+      "evidenceUrl": "https://www.animax-asia.com/",
+      "confidence": "high",
+      "notes": "Official Animax Asia homepage logo",
+      "bytes": 19201
+    },
+    {
+      "name": "Arirang",
+      "localPath": "assets/imgs/channels/verified-a/arirang.png",
+      "sourceUrl": "https://www.arirang.com/images/logo192.png",
+      "evidenceUrl": "https://www.arirang.com/",
+      "confidence": "high",
+      "notes": "Official Arirang TV icon from homepage; shared brand for Arirang Korea",
+      "bytes": 5650
+    },
+    {
+      "name": "Blast Movie",
+      "localPath": "assets/imgs/channels/verified-a/blast-movie.png",
+      "sourceUrl": "https://welcome.blasttv.ph/assets/live-channels/Blast%20Movies-Mono%20Logo.png",
+      "evidenceUrl": "https://welcome.blasttv.ph/",
+      "confidence": "high",
+      "notes": "Exact Blast Movies channel logo from official service live channel lineup; same stream as catalog Blast Movies",
+      "bytes": 19447
+    },
+    {
+      "name": "Catholic Network",
+      "localPath": "assets/imgs/channels/verified-a/catholic-network.png",
+      "sourceUrl": "https://cdn.prod.website-files.com/6900daec751e6b453fca0ed4/69136bd296b87e2868f4b27f_logoWhite_Horizontal-p-500.png",
+      "evidenceUrl": "https://www.catholictv.org/",
+      "confidence": "high",
+      "notes": "Exact CatholicTV official footer logo. Current stream catholictvhd-lh identifies CatholicTV, not Catholic Media Network.",
+      "bytes": 8468
+    },
+    {
+      "name": "CinemaOne",
+      "localPath": "assets/imgs/channels/verified-a/cinemaone.jpg",
+      "sourceUrl": "https://cms.cignal.tv/Upload/Images/Cinema-One.jpg",
+      "evidenceUrl": "https://cignal.tv/channels/221/cinema-one",
+      "confidence": "high",
+      "notes": "Exact Cinema One logo from official Cignal channel page og:image",
+      "bytes": 40616
+    },
+    {
+      "name": "Cinemo Global",
+      "localPath": "assets/imgs/channels/verified-a/cinemo-global.jpg",
+      "sourceUrl": "https://cms.cignal.tv/Upload/Images/Cinemo.jpg",
+      "evidenceUrl": "https://cignal.tv/channels/199/cinemo",
+      "confidence": "high",
+      "notes": "CineMo official channel brand from Cignal distributor. Supplied feed names ABS-CBN Cinemo.",
+      "bytes": 29301
+    },
+    {
+      "name": "GMA 7",
+      "localPath": "assets/imgs/channels/verified-a/gma-7.png",
+      "sourceUrl": "https://aphrodite.gmanetwork.com/favicon-96x96.png",
+      "evidenceUrl": "https://www.gmanetwork.com/",
+      "confidence": "high",
+      "notes": "Official GMA Network heart brand mark, same as site favicon; compact PNG replaces oversized SVG",
+      "bytes": 9447
+    },
+    {
+      "name": "Arirang Korea",
+      "localPath": "assets/imgs/channels/verified-a/arirang.png",
+      "sourceUrl": "https://www.arirang.com/images/logo192.png",
+      "evidenceUrl": "https://www.arirang.com/",
+      "confidence": "high",
+      "notes": "Official Arirang TV icon from homepage; shared brand for Arirang Korea; exact shared official broadcaster brand.",
+      "bytes": 5650
+    },
+    {
+      "name": "Blast Movies",
+      "localPath": "assets/imgs/channels/verified-a/blast-movie.png",
+      "sourceUrl": "https://welcome.blasttv.ph/assets/live-channels/Blast%20Movies-Mono%20Logo.png",
+      "evidenceUrl": "https://welcome.blasttv.ph/",
+      "confidence": "high",
+      "notes": "Exact Blast Movies channel logo from official service live channel lineup; same stream as catalog Blast Movies; same source stream.",
+      "bytes": 19447
+    },
+    {
+      "name": "Cartoonito",
+      "localPath": "assets/imgs/channels/verified-b/cartoonito.jpg",
+      "confidence": "high",
+      "sourceUrl": "https://yt3.googleusercontent.com/Mle8CiTSmWUF4AiXNeu2yChK8OMUIlck93I8YDfzi2YI_bjovWhWy0ahzZxhjpHwUqsPv6aS1g=s900-c-k-c0x00ffffff-no-rj",
+      "evidenceUrl": "https://www.cartoonito.co.uk/",
+      "notes": "Official Cartoonito website redirects to the branded official YouTube channel; current shared Cartoonito brand.",
+      "bytes": 29743,
+      "sha256": "50b2d7169b75d88db05ff345f47d86df9b9cafe8b2c10cdb760f3e7027636c94"
+    },
+    {
+      "name": "Fx Cartoon",
+      "localPath": null,
+      "confidence": "unresolved",
+      "reason": "Catalog says Fx Cartoon but stream is Toonix-branded; no authoritative evidence that these identities share a logo."
+    },
+    {
+      "name": "Kids TV",
+      "localPath": null,
+      "confidence": "unresolved",
+      "reason": "Generic station name and cloud stream host do not uniquely identify a broadcaster; no exact official logo verified."
+    },
+    {
+      "name": "Persiana Junior",
+      "localPath": null,
+      "confidence": "unresolved",
+      "reason": "Official Persiana website could not be reached and exact Junior subchannel asset was not verified."
+    },
+    {
+      "name": "Films TV",
+      "localPath": null,
+      "confidence": "unresolved",
+      "reason": "Generic Films TV title with third-party playout host; no exact official brand logo verified."
+    },
+    {
+      "name": "Jupiter TV",
+      "localPath": null,
+      "confidence": "unresolved",
+      "reason": "Sofast portfolio mentions Jupiter TV, but no verified exact channel image found on current official website."
+    },
+    {
+      "name": "Movie Box Ph",
+      "localPath": null,
+      "confidence": "unresolved",
+      "reason": "Small rebroadcast channel name on third-party playout; no exact official logo verified."
+    },
+    {
+      "name": "Pop UK Rakuten",
+      "localPath": "assets/imgs/channels/verified-b/pop-uk-rakuten.png",
+      "confidence": "high",
+      "sourceUrl": "https://www.pop.co.uk/pop_logo.png",
+      "evidenceUrl": "https://www.pop.co.uk/",
+      "notes": "Official POP UK logo, matching narrative-popkids Rakuten stream brand.",
+      "bytes": 25366,
+      "sha256": "67e0989f8fe368f7cea8200630f3a9efc672bd365cd64474cca91524ddedfb1e"
+    },
+    {
+      "name": "Sci-Fi World",
+      "localPath": null,
+      "confidence": "unresolved",
+      "reason": "Generic genre name on Sofast stream; no exact official channel image verified."
+    },
+    {
+      "name": "Telemundo Accion",
+      "localPath": null,
+      "confidence": "unresolved",
+      "reason": "Exact FAST channel exists, but no downloadable official Acción subchannel logo verified; generic Telemundo logo intentionally not substituted."
+    },
+    {
+      "name": "IBC 13",
+      "localPath": "assets/imgs/channels/verified-b/ibc-13.webp",
+      "confidence": "high",
+      "sourceUrl": "https://ibctv13.com/wp-content/uploads/2024/06/ibc-logo-updated_1.webp",
+      "evidenceUrl": "https://ibctv13.com/",
+      "notes": "Logo served by the official Philippine IBC 13 website.",
+      "bytes": 4722,
+      "sha256": "bbc44c90a04cd3dfb5d5d0239c4980fd1d749daf929eaad73a6bd0740c338b44"
+    },
+    {
+      "name": "News12 New York",
+      "localPath": "assets/imgs/channels/verified-b/news12-new-york.png",
+      "confidence": "high",
+      "sourceUrl": "https://imageservice.disco.peacocktv.com/logo/skychb_6295836058783513117_darknow/AGG_SOURCE/600/208?proposition=NBCUOTT&territory=US",
+      "evidenceUrl": "https://www.peacocktv.com/channels/news-12-new-york/6295836058783513117",
+      "notes": "Exact News 12 New York logo labelled by official Peacock distributor page.",
+      "bytes": 17797,
+      "sha256": "0dcb131dc061c13689ba4fec816c1c01dcb00a01a67b82b37c1a15352f941b68",
+      "logoBackground": "dark"
+    },
+    {
+      "name": "PTV",
+      "localPath": "assets/imgs/channels/verified-b/ptv.png",
+      "confidence": "high",
+      "sourceUrl": "https://ptni.gov.ph/wp-content/uploads/2017/03/cropped-PTV-3x3-Icon.png",
+      "evidenceUrl": "https://ptni.gov.ph/",
+      "notes": "Official People’s Television Network Inc. website channel brand asset.",
+      "bytes": 28654,
+      "sha256": "90596daf238cf2c783cc7e245c46d0c2c83b4bbcd131efaa19230066e4f92671"
+    },
+    {
+      "name": "Blossom Tv",
+      "localPath": null,
+      "confidence": "unresolved",
+      "reason": "Generic name and Amagi playout identifier do not establish exact channel brand identity."
+    },
+    {
+      "name": "Edgy TV",
+      "localPath": null,
+      "confidence": "unresolved",
+      "reason": "Sofast historical portfolio mentions Edgy Urban; no proof that catalog Edgy TV has the same logo."
+    },
+    {
+      "name": "GMA 7",
+      "localPath": "assets/imgs/channels/verified-b/gma-7.png",
+      "confidence": "high",
+      "sourceUrl": "https://aphrodite.gmanetwork.com/apple-touch-icon.png",
+      "evidenceUrl": "https://www.gmanetwork.com/",
+      "notes": "Official GMA Network application icon from its homepage.",
+      "bytes": 20014,
+      "sha256": "2a9f11011c6815103996d095c667551bf74e2110e352aba3979ac69ab17a35f4"
+    },
+    {
+      "name": "Highlights TV",
+      "localPath": null,
+      "confidence": "unresolved",
+      "reason": "Local rebroadcast worker does not establish an authoritative station brand asset."
+    },
+    {
+      "name": "Ktv2",
+      "localPath": null,
+      "confidence": "unresolved",
+      "reason": "Kuwait Ministry of Information site verified, but exact KTV 2 subchannel logo not located; ministry emblem intentionally not substituted."
+    },
+    {
+      "name": "Love Wine",
+      "localPath": "assets/imgs/channels/verified-b/love-wine.png",
+      "confidence": "high",
+      "sourceUrl": "https://lovetvchannels.com/wp-content/uploads/2025/04/LoveWine_circle-300x300.png",
+      "evidenceUrl": "https://lovetvchannels.com/",
+      "notes": "Exact Love Wine channel logo from owner LOVE TV Channels.",
+      "bytes": 103314,
+      "sha256": "f8e56d9aefe4028980e7e7825a87e4b1ef6ff19e850c58dade97ce24c60d3acc"
+    },
+    {
+      "name": "Outdoor Channel HD",
+      "localPath": "assets/imgs/channels/verified-b/outdoor-channel-hd.png",
+      "confidence": "high",
+      "sourceUrl": "https://www.outdoorchannel.com/network/img/odc/logo.png",
+      "evidenceUrl": "https://www.outdoorchannel.com/",
+      "notes": "Official Outdoor Channel header logo; HD suffix describes transmission.",
+      "bytes": 74902,
+      "sha256": "72cb9ff57e80f79c57a2a97a96ff67dce09da6ff21a7b7f5811f324671c7444b"
+    },
+    {
+      "name": "Rakuten Viki (Korea)",
+      "localPath": "assets/imgs/channels/verified-b/rakuten-viki-korea.png",
+      "confidence": "high",
+      "sourceUrl": "https://1.viki.io/a/vwk8s-svelte/_app/immutable/assets/apple-touch-icon-192x192.DaKB6Rfm.png",
+      "evidenceUrl": "https://www.viki.com/",
+      "notes": "Official Rakuten Viki application icon.",
+      "bytes": 4604,
+      "sha256": "0a917b31042f2a4c2c488d616df4d87c65659b216dbdbf8d67b56fcd07d7dde4"
+    },
+    {
+      "name": "RTB Aneka",
+      "localPath": "assets/imgs/channels/verified-b/rtb-aneka.png",
+      "confidence": "high",
+      "sourceUrl": "https://www.rtb.gov.bn/wp-content/uploads/2025/10/rtb_aneka_logo.png",
+      "evidenceUrl": "https://www.rtb.gov.bn/",
+      "notes": "Exact RTB Aneka logo on Radio Television Brunei official homepage.",
+      "bytes": 126613,
+      "sha256": "9c7b06d8ac8d8dbfabf4927f2121a6cd3e446683764a91fe01b9e81e843c0479"
+    },
+    {
+      "name": "Televiza",
+      "localPath": null,
+      "confidence": "unresolved",
+      "reason": "Catalog misspelling plus Televisa host does not establish which Televisa-branded channel this represents."
+    },
+    {
+      "name": "Tinovelas Europa",
+      "localPath": null,
+      "confidence": "unresolved",
+      "reason": "Catalog title and shared Televisa stream do not prove exact TLNovelas regional identity; no logo substituted."
+    },
+    {
+      "name": "FoodOn",
+      "localPath": "assets/imgs/channels/verified-b/foodon.png",
+      "confidence": "high",
+      "sourceUrl": "https://tv-experience.lg.com.au/images/channels/lifestyle/252-FoodON.png",
+      "evidenceUrl": "https://tv-experience.lg.com.au/lg-channels",
+      "notes": "Exact FoodON logo from official LG Australia channel listing; Korean cuisine FAST channel.",
+      "bytes": 350712,
+      "sha256": "fe656697f7971201184e0d8f11e03ada282b97abded436ecf5b9096df00ae323"
+    },
+    {
+      "name": "KTK DIGITAL",
+      "localPath": null,
+      "confidence": "unresolved",
+      "reason": "Generic local rebroadcast title; no exact official broadcaster logo verified."
+    },
+    {
+      "name": "Master Chef",
+      "localPath": null,
+      "confidence": "unresolved",
+      "reason": "Banijay confirms MasterChef brand; exact FAST channel identity/variant not established from catalog source."
+    },
+    {
+      "name": "Time Line",
+      "localPath": "assets/imgs/channels/verified-b/time-line.webp",
+      "confidence": "high",
+      "sourceUrl": "https://www.littledotstudios.com/hubfs/timeline.webp",
+      "evidenceUrl": "https://www.littledotstudios.com/en-us/channels",
+      "notes": "Timeline brand tile from owner Little Dot Studios; original Samsung UK stream is Timeline.",
+      "bytes": 11106,
+      "sha256": "ec187a6b53a1e2455b85770fbec2ae40df4d4a715e05bfdf1c6c08a67a5cdd08"
+    },
+    {
+      "name": "Home Plus",
+      "localPath": null,
+      "confidence": "unresolved",
+      "reason": "Exact WNS broadcaster page is a bare player without verified logo; no unrelated Home Plus brand substituted."
+    },
+    {
+      "name": "Nautical Channel",
+      "localPath": "assets/imgs/channels/verified-b/nautical-channel.svg",
+      "confidence": "high",
+      "sourceUrl": "https://nauticalchannel.com/img/ico/LOGO%20nautical%20WHITE.svg",
+      "evidenceUrl": "https://nauticalchannel.com/",
+      "notes": "Official Nautical Channel header logo. White/light wordmark: use against a dark logo tile.",
+      "bytes": 3249,
+      "sha256": "1d9bf52d80e873d5ad82194b83b876d114888bf217746273199565d87b6b2eb0",
+      "logoBackground": "dark"
+    },
+    {
+      "name": "Racer International",
+      "localPath": null,
+      "confidence": "unresolved",
+      "reason": "Official RACER confirms International FAST service; direct site asset retrieval blocked (429) and specific International logo not verified."
+    },
+    {
+      "name": "SPEED SPORTS",
+      "localPath": null,
+      "confidence": "unresolved",
+      "sourceUrl": "https://speedsport1.com/wp-content/uploads/2024/11/cropped-SS1-ROUND-ICON-1.png",
+      "evidenceUrl": "https://speedsport1.com/",
+      "notes": "SPEED SPORT 1 official icon; catalog name is SPEED SPORTS and stream Frequency channel identity must be crosschecked before assignment.",
+      "bytes": 87057,
+      "reason": "SPEED SPORT 1 official icon was inspected, but catalog SPEED SPORTS and Frequency stream do not conclusively establish that exact station identity; leave blank.",
+      "candidateArtifact": "C:\\Users\\rnzrm\\.codex\\visualizations\\2026\\11\\07\\01a1b5f5-199c-74d3-ac06-77b0eb3a5a93\\image-localization\\unassigned-speed-sport-1-candidate.png"
+    },
+    {
+      "name": "Blues TV",
+      "localPath": null,
+      "confidence": "unresolved",
+      "reason": "Generic music station name; no authoritative matching stream/channel logo verified."
+    },
+    {
+      "name": "Stingray Music",
+      "localPath": "assets/imgs/channels/verified-b/stingray-music.svg",
+      "confidence": "high",
+      "sourceUrl": "https://music.stingray.com/themes/custom/music/logo.svg",
+      "evidenceUrl": "https://music.stingray.com/",
+      "notes": "Official Stingray Music header logo.",
+      "bytes": 3910,
+      "sha256": "2b9c78726ba7bef7e4f2b01a6bbfe60856e919c0953603682f91d95dc7c929c0"
+    },
+    {
+      "name": "ABN Bible Movies Channel",
+      "localPath": "assets/imgs/channels/verified-b/abn-bible-movies-channel.png",
+      "confidence": "high",
+      "sourceUrl": "https://static.wixstatic.com/media/175e85_b18ec17ecb304216936bfff636022006~mv2.png",
+      "evidenceUrl": "https://www.abnsat.com/",
+      "notes": "Official ABN site links this image, titled ABN BIBLE MOVIES.png, to the same abnbiblemovies embed.",
+      "bytes": 13598,
+      "sha256": "ee2997e03a469426c3347ec5cdbf9834e56e2dc784b639a7454beb2f2bfaf4b5"
+    },
+    {
+      "name": "FilAm TV Network",
+      "localPath": "assets/imgs/channels/verified-b/filam-tv-network.png",
+      "confidence": "high",
+      "sourceUrl": "https://filamtv.us/wp-content/uploads/2021/10/logo.png",
+      "evidenceUrl": "https://filamtv.us/",
+      "notes": "Exact Philippine/American FilAm TV Network branding on its official website.",
+      "bytes": 14240,
+      "sha256": "368c0906da41ec3dace109bbe27bb556a8289dc1b5f787eb18b5a5c902f0f1ed"
+    },
+    {
+      "name": "Hope Tv",
+      "localPath": null,
+      "confidence": "unresolved",
+      "reason": "BECdn source does not prove regional Hope Channel feed; no generic Hope logo substituted."
+    },
+    {
+      "name": "Mindanow Network TV",
+      "localPath": null,
+      "confidence": "unresolved",
+      "reason": "No exact official station logo verified for this local rebroadcast channel."
+    },
+    {
+      "name": "MTA8 HD America",
+      "localPath": "assets/imgs/channels/verified-b/mta8-hd-america.png",
+      "confidence": "high",
+      "sourceUrl": "https://images.mta.tv/sites/default/files/MTA8_America.png",
+      "evidenceUrl": "https://www.mta.tv/live/1",
+      "notes": "Exact MTA 8 America icon from official MTA live channel listing.",
+      "bytes": 34345,
+      "sha256": "a0207efbb7dcf9672419c33be071b49fdbf62cca0e760c18afde6bbc0a2244e1"
+    },
+    {
+      "name": "Star TV Philippines",
+      "localPath": null,
+      "confidence": "unresolved",
+      "reason": "Generic local station title; no authoritative matching logo verified."
+    },
+    {
+      "name": "Authentic History",
+      "localPath": "assets/imgs/channels/verified-b/authentic-history.svg",
+      "confidence": "high",
+      "sourceUrl": "https://www.autentic.com/images/History-Logo-positiv-RGB.svg",
+      "evidenceUrl": "https://www.autentic.com/117/Channels.htm",
+      "notes": "Exact Autentic History logo on official owner’s Channels page. Catalog spells Autentic as Authentic.",
+      "bytes": 2940,
+      "sha256": "68953e96b1d11a14a8ced9a0fdbc7bac7fa7d1e7a5b422b19e606bd4a399a9e5"
+    },
+    {
+      "name": "Meta Film TV",
+      "localPath": null,
+      "confidence": "unresolved",
+      "reason": "Exact WNS broadcaster page is a bare player without verified logo; no unrelated film company logo substituted."
+    },
+    {
+      "name": "SPORTS GRID",
+      "localPath": "assets/imgs/channels/verified-b/sports-grid.png",
+      "confidence": "high",
+      "sourceUrl": "https://dvoddu1zuaybw.cloudfront.net/assets/images/sportsgrid_logo.png",
+      "evidenceUrl": "https://www.sportsgrid.com/",
+      "notes": "Official SportsGrid header logo.",
+      "bytes": 3238,
+      "sha256": "14a2af88f2bb306e2768d48aaa7bcf8cebc74f40e9c6c6c02ffa83867d0d4bae"
+    },
+    {
+      "name": "TRT1",
+      "localPath": "assets/imgs/channels/verified-b/trt1.svg",
+      "confidence": "high",
+      "sourceUrl": "https://cdn-s.pr.trt.com.tr/trt1/svg/logo-trt1.svg",
+      "evidenceUrl": "https://www.trt1.com.tr/",
+      "notes": "Exact TRT 1 header logo on its official Turkish network website.",
+      "bytes": 1498,
+      "sha256": "ffd7d93e22030aae3e5430d55370fd14c087ce8e81688ae5b1612a6862730f44"
+    },
+    {
+      "name": "WEDO BIG STORIES",
+      "localPath": "assets/imgs/channels/verified-b/wedo-big-stories.png",
+      "confidence": "high",
+      "sourceUrl": "https://corporate.wedotv.com/wp-content/uploads/2025/08/Brand-bigstories.png",
+      "evidenceUrl": "https://corporate.wedotv.com/",
+      "notes": "Official wedotv corporate page lists wedo big stories and this channel brand asset. White/light wordmark: use against a dark logo tile.",
+      "bytes": 5120,
+      "sha256": "9c6d46c4c016a7e92d080e834ec606fa5b2ec941ca6b0963bbb192f836878efe",
+      "logoBackground": "dark"
+    },
+    {
+      "name": "Wonder",
+      "localPath": "assets/imgs/channels/verified-b/wonder.webp",
+      "confidence": "high",
+      "sourceUrl": "https://www.littledotstudios.com/hubfs/wonder-1.webp",
+      "evidenceUrl": "https://www.littledotstudios.com/en-us/channels",
+      "notes": "Owner Little Dot Studios lists Wonder FAST channel with this branded tile.",
+      "bytes": 94004,
+      "sha256": "d1b57874d943391ce7b55da491a8956ff3cd307998f639c2791b5623dcd209c4"
+    },
+    {
+      "name": "Yahoo! Finance",
+      "localPath": null,
+      "confidence": "unresolved",
+      "reason": "Official Yahoo Finance page could not be retrieved and no current direct official logo asset verified."
+    },
+    {
+      "name": "Charge",
+      "localPath": "assets/imgs/channels/verified-b/charge.png",
+      "confidence": "high",
+      "sourceUrl": "https://d12lhx8qhim5rg.cloudfront.net/uploads/2021/07/Charge_Yellow-1.png",
+      "evidenceUrl": "https://watchcharge.com/",
+      "notes": "Official CHARGE! website header logo.",
+      "bytes": 37739,
+      "sha256": "9e65d240726b3b70188cf49f43358417b9ea49d54b596d61a030a2141a76d33a"
+    },
+    {
+      "name": "Sony Movies",
+      "localPath": "assets/imgs/channels/verified-b/sony-movies.png",
+      "confidence": "high",
+      "sourceUrl": "https://images.prismic.io/sonymovies/abnetbbci2UF6J77_Sony_Movies_Logo.png",
+      "evidenceUrl": "https://sonymovies.com/homepage",
+      "notes": "Official Sony Movies channel homepage header logo.",
+      "bytes": 305917,
+      "sha256": "165d40ea6bad8140a4d9887e8416ab7064a3b9ba55e525883926139b0a0ca940"
+    },
+    {
+      "name": "Crunchyroll",
+      "localPath": "assets/imgs/channels/verified-b/crunchyroll.png",
+      "confidence": "high",
+      "sourceUrl": "https://static.crunchyroll.com/cr-spa-registration/assets/img/logo/cr_logo.png",
+      "evidenceUrl": "https://www.crunchyroll.com/",
+      "notes": "Official Crunchyroll static brand image.",
+      "bytes": 1941,
+      "sha256": "fe74345a4e1e37d7f9e603d13cd88024426209eb40c6b142db8a89cb6ea1bdbf"
+    },
+    {
+      "name": "Rock Action",
+      "localPath": "assets/imgs/channels/verified-b/rock-action.png",
+      "confidence": "high",
+      "sourceUrl": "https://cdn.sanity.io/images/g2s85dsz/production/fc384c29e0c414f1160ece151e7b658a36537d4b-800x289.webp",
+      "evidenceUrl": "https://www.rockentertainment.com/",
+      "notes": "Exact ROCK Action logo in official owner navigation, alt=ROCK Action.",
+      "bytes": 261108,
+      "sha256": "c1af1c5cc3bf1d7fdbdc628408fc907420e3e662438f27d4059d996ef566408e"
+    },
+    {
+      "name": "Wild Earth",
+      "localPath": "assets/imgs/channels/verified-b/wild-earth.png",
+      "confidence": "high",
+      "sourceUrl": "https://wildearth.tv/apple-touch-icon.png",
+      "evidenceUrl": "https://wildearth.tv/",
+      "notes": "Official WildEarth website application icon.",
+      "bytes": 23720,
+      "sha256": "d9f07b2619fd2773701ad64d1cd0e9c71e317359cd1c05fa32758f62b332ecc9"
+    },
+    {
+      "name": "TV5 Monde",
+      "localPath": "assets/imgs/channels/verified-b/tv5-monde.svg",
+      "confidence": "high",
+      "sourceUrl": "https://www.tv5monde.com/#logo-tv5monde-hp",
+      "evidenceUrl": "https://www.tv5monde.com/",
+      "notes": "Exact official TV5MONDE homepage SVG symbol extracted unchanged into a standalone image. White/light wordmark: use against a dark logo tile.",
+      "bytes": 2379,
+      "sha256": "2105d33dd378ba94fbe325b69146169e055a30852b1dedc00c072bb8a3c0dfc6",
+      "logoBackground": "dark"
+    },
+    {
+      "name": "Nickjr",
+      "localPath": null,
+      "confidence": "unresolved",
+      "reason": "Exact official Nick Jr. RGB logo found in Paramount mediahub, but public image download returned HTTP 403 and dedicated page requires authentication."
+    },
+    {
+      "name": "HBO Hits",
+      "localPath": "assets/imgs/channels/verified-b/hbo-hits.png",
+      "sourceUrl": "https://images.now-tv.com/shares/channelPreview/img/en_hk/color/ch111_160_115",
+      "evidenceUrl": "https://nowplayer.now.com/tvguide/channeldetail/111/1",
+      "confidence": "high",
+      "notes": "Official Now TV distributor identifies channel 111 as HBO Hits; exact channel preview logo.",
+      "bytes": 4552,
+      "sha256": "24af32dc9a0baf4290787195e5164db32094b1e5cf24f72d76ad7e63e90c98a9",
+      "logoBackground": "dark"
+    },
+    {
+      "name": "American Crimes",
+      "localPath": null,
+      "confidence": "unresolved",
+      "reason": "Private/generic FAST channel title; no exact official logo verified."
+    },
+    {
+      "name": "Cartoon Classics",
+      "localPath": null,
+      "confidence": "unresolved",
+      "reason": "Generic public-domain cartoon FAST name; no exact official source/channel logo verified."
+    },
+    {
+      "name": "Cartoon Classics 2",
+      "localPath": null,
+      "confidence": "unresolved",
+      "reason": "Second similarly named rebroadcast stream; no verified official independent channel logo."
+    },
+    {
+      "name": "Popflix",
+      "localPath": null,
+      "confidence": "unresolved",
+      "reason": "No authoritative exact channel logo verified; unrelated similarly named services intentionally not substituted."
+    },
+    {
+      "name": "MeTV Toons",
+      "localPath": "assets/imgs/channels/metv-toons.png",
+      "confidence": "high",
+      "logoBackground": "dark",
+      "sourceUrl": "https://www.weigelbroadcasting.com/images/svg/landing/metv_toons_gold.png",
+      "evidenceUrl": "https://www.weigelbroadcasting.com/national/metv-toons",
+      "additionalEvidenceUrl": "https://www.metvtoons.com/bugs-bunny-bash-2024-press/",
+      "notes": "Exact MeTV Toons Gold logo referenced by the official owner channel page; official channel press page also explicitly labels Gold and White channel logos.",
+      "bytes": 141015,
+      "width": 1600,
+      "height": 800,
+      "sha256": "c01731818d4c1444d1759b940d4512fe5d7f5f39fc62865ae2474b14993cb29f"
+    }
+  ],
+  "fixed": [
+    {
+      "sourceUrl": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2JL7SUc.woff2",
+      "localPath": "assets/fonts/inter-0.woff2",
+      "bytes": 25960,
+      "sha256": "ca157063339ac4ad418f214f3abfed119b0798ab4d377386ce5c9e5a7a435ebd"
+    },
+    {
+      "sourceUrl": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa0ZL7SUc.woff2",
+      "localPath": "assets/fonts/inter-1.woff2",
+      "bytes": 18748,
+      "sha256": "71d5ee93cc1e9f1d520a3a8b66456de18c7879d8df09d57fcd2eaff75fef0075"
+    },
+    {
+      "sourceUrl": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2ZL7SUc.woff2",
+      "localPath": "assets/fonts/inter-2.woff2",
+      "bytes": 11232,
+      "sha256": "6e9e020a25f9b56d418f2c085b1d3c09725a4da23fe693a5b463064606732190"
+    },
+    {
+      "sourceUrl": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1pL7SUc.woff2",
+      "localPath": "assets/fonts/inter-3.woff2",
+      "bytes": 18996,
+      "sha256": "1be3448e292fbf05ffe176fe1e43f135013d50b1e7d324ad1a558f623d3bb6f6"
+    },
+    {
+      "sourceUrl": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2pL7SUc.woff2",
+      "localPath": "assets/fonts/inter-4.woff2",
+      "bytes": 10252,
+      "sha256": "5c66f9e07e90c6d4ac4922cc68d60de26c17b1858e677fb5e603fce3952b3ff2"
+    },
+    {
+      "sourceUrl": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa25L7SUc.woff2",
+      "localPath": "assets/fonts/inter-5.woff2",
+      "bytes": 85068,
+      "sha256": "34b9c504cab7a73e37b746343a449132e56cf7b5481af2cb81dc74dcff25c956"
+    },
+    {
+      "sourceUrl": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+      "localPath": "assets/fonts/inter-6.woff2",
+      "bytes": 48256,
+      "sha256": "3100e775e8616cd2611beecfa23a4263d7037586789b43f035236a2e6fbd4c62"
+    },
+    {
+      "sourceUrl": "https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu4mxP.ttf",
+      "localPath": "assets/fonts/roboto-regular.ttf",
+      "bytes": 36216,
+      "sha256": "a9ef021078603005c0b08fba881f1a7eb62ef213238021f3e8a4a00daa60b9d6"
+    },
+    {
+      "sourceUrl": "https://fonts.gstatic.com/s/materialiconsround/v108/LDItaoyNOAY6Uewc665JcIzCKsKc_M9flwmM.otf",
+      "localPath": "assets/fonts/material-icons-round.otf",
+      "bytes": 400092,
+      "sha256": "bad85e5454b6288104ce03806c37323bcd8f145e3094e727860173ac8c91062e"
+    },
+    {
+      "sourceUrl": "https://cdn.jsdelivr.net/npm/shaka-player@4.7.11/dist/shaka-player.ui.js",
+      "localPath": "assets/vendor/shaka/shaka-player.ui.js",
+      "bytes": 682714,
+      "sha256": "af9a278dcb4f0c18ba0484088753e4ac4421cd3020fcc1408a268c585eef0827"
+    },
+    {
+      "sourceUrl": "https://cdnjs.cloudflare.com/ajax/libs/mux.js/7.0.3/mux.min.js",
+      "localPath": "assets/vendor/shaka/mux.min.js",
+      "bytes": 115158,
+      "sha256": "79da5742f8985d9362b14a3ca4d705eea726cea6d513d0d019c359bf4eec856b"
+    },
+    {
+      "sourceUrl": "https://raw.githubusercontent.com/google/fonts/main/ofl/inter/OFL.txt",
+      "localPath": "assets/fonts/Inter-OFL.txt",
+      "bytes": 4377,
+      "sha256": "5b9321a4298cfeb6b34354164a1c3afc3db114569984c502b9b35d988fd58c57"
+    },
+    {
+      "sourceUrl": "https://raw.githubusercontent.com/google/material-design-icons/master/LICENSE",
+      "localPath": "assets/fonts/Material-Icons-LICENSE.txt",
+      "bytes": 11357,
+      "sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+    },
+    {
+      "sourceUrl": "https://raw.githubusercontent.com/googlefonts/roboto/main/LICENSE",
+      "localPath": "assets/fonts/Roboto-LICENSE.txt",
+      "bytes": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    },
+    {
+      "sourceUrl": "https://cdn.jsdelivr.net/npm/shaka-player@4.7.11/LICENSE",
+      "localPath": "assets/vendor/shaka/LICENSE",
+      "bytes": 14169,
+      "sha256": "fd2a787c2d9d41b7fa135de99086faf52689ec5dfb15c9e313e1d044fc296136"
+    },
+    {
+      "sourceUrl": "https://unpkg.com/mux.js@7.0.3/LICENSE",
+      "localPath": "assets/vendor/shaka/mux-LICENSE",
+      "bytes": 11342,
+      "sha256": "1a3c5bb355ae9ea7f0e8e92836b72189c7acf85a487dd8706d5f1dfff9bf7d3d"
+    },
+    {
+      "sourceUrl": "https://img.shields.io/badge/Security-Privacy%20First-success?style=flat-square",
+      "localPath": "assets/imgs/badges/privacy-first.svg",
+      "bytes": 584,
+      "sha256": "d69d870bdbf688c0e0f9640318024dcad075e092545be369852ae3d4e2a7bdf4"
+    },
+    {
+      "sourceUrl": "https://img.shields.io/badge/UI-Glassmorphism-blue?style=flat-square",
+      "localPath": "assets/imgs/badges/glass-ui.svg",
+      "bytes": 569,
+      "sha256": "9dc1404f21f933c0a09312ece6cedc142acf6ad69926ad02545c7769bdc5d4cc"
+    },
+    {
+      "sourceUrl": "https://image.tmdb.org/t/p/w185/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+      "localPath": "assets/imgs/providers/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+      "bytes": 2976,
+      "sha256": "3610ef9bfe78d2b3a1c23dd7435612c9b977a3ff9271857fa5328f99219a76f2"
+    },
+    {
+      "sourceUrl": "https://image.tmdb.org/t/p/w185/pvske1MyAoymrs5bguRfVqYiM9a.jpg",
+      "localPath": "assets/imgs/providers/pvske1MyAoymrs5bguRfVqYiM9a.jpg",
+      "bytes": 6824,
+      "sha256": "5f66ed2dd33baed15a93fa9ea9a82ef2087052b146d62920e3bb0d1b05b600cf"
+    },
+    {
+      "sourceUrl": "https://image.tmdb.org/t/p/w185/jbe4gVSfRlbPTdESXhEKpornsfu.jpg",
+      "localPath": "assets/imgs/providers/jbe4gVSfRlbPTdESXhEKpornsfu.jpg",
+      "bytes": 4654,
+      "sha256": "f9472c202d4401e84cc83e0f978e0587e58f976175763e54dbe1b9498c9f5421"
+    },
+    {
+      "sourceUrl": "https://image.tmdb.org/t/p/w185/97yvRBw1GzX7fXprcF80er19ot.jpg",
+      "localPath": "assets/imgs/providers/97yvRBw1GzX7fXprcF80er19ot.jpg",
+      "bytes": 5541,
+      "sha256": "90d278b0e6f1eb1d15c3c053c5525978969ca2954b2388225a5da68213c3a478"
+    },
+    {
+      "sourceUrl": "https://image.tmdb.org/t/p/w185/mcbz1LgtErU9p4UdbZ0rG6RTWHX.jpg",
+      "localPath": "assets/imgs/providers/mcbz1LgtErU9p4UdbZ0rG6RTWHX.jpg",
+      "bytes": 2867,
+      "sha256": "01a892caaa278665da24d1cdc15615d29074cc6580b1a404c9edcb3e9c2c1ea2"
+    },
+    {
+      "sourceUrl": "https://image.tmdb.org/t/p/w185/h5DcR0J2EESLitnhR8xLG1QymTE.jpg",
+      "localPath": "assets/imgs/providers/h5DcR0J2EESLitnhR8xLG1QymTE.jpg",
+      "bytes": 4724,
+      "sha256": "784fba816276e0c7117175756b9db0c766b7b2f5fca5057e8b0022523c1476b7"
+    },
+    {
+      "sourceUrl": "https://image.tmdb.org/t/p/w185/bxBlRPEPpMVDc4jMhSrTf2339DW.jpg",
+      "localPath": "assets/imgs/providers/bxBlRPEPpMVDc4jMhSrTf2339DW.jpg",
+      "bytes": 4537,
+      "sha256": "465e448dd495692303bde45fd3db036d0338c1364e6d18e71adced915f6e266e"
+    },
+    {
+      "sourceUrl": "https://image.tmdb.org/t/p/w185/fzN5Jok5Ig1eJ7gyNGoMhnLSCfh.jpg",
+      "localPath": "assets/imgs/providers/fzN5Jok5Ig1eJ7gyNGoMhnLSCfh.jpg",
+      "bytes": 3881,
+      "sha256": "3c436d113fb20c6bc61f9611573586bb7e1b7fb5fed945c698898a291f7af5fc"
+    },
+    {
+      "sourceUrl": "https://image.tmdb.org/t/p/w185/o7WsYI2r1llIf9h6JTGVX9yTHPx.jpg",
+      "localPath": "assets/imgs/providers/o7WsYI2r1llIf9h6JTGVX9yTHPx.jpg",
+      "bytes": 5962,
+      "sha256": "ca514e02264c4b719ff59be2ee8751580873a94b597095e9dc67eb88728cad68"
+    },
+    {
+      "sourceUrl": "https://image.tmdb.org/t/p/w185/jb38w281Douk6kXy1iVB2L7FJTN.jpg",
+      "localPath": "assets/imgs/providers/jb38w281Douk6kXy1iVB2L7FJTN.jpg",
+      "bytes": 5298,
+      "sha256": "d219b553db9fa4aff4ca631b842b6ef76f3a6728368e0e57b2a1a6d759697634"
+    },
+    {
+      "sourceUrl": "https://image.tmdb.org/t/p/w185/vCTY2WtY1oJ8EKpp0UCz4SRpE4S.jpg",
+      "localPath": "assets/imgs/providers/vCTY2WtY1oJ8EKpp0UCz4SRpE4S.jpg",
+      "bytes": 3719,
+      "sha256": "35f57efccf0aff386fbdacd3fee861180d0928bde5250a2bf00bf5db5babc7c4"
+    }
+  ]
+}
