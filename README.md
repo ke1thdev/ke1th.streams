@@ -80,6 +80,11 @@ Experience the platform live at: **[stream.ke1th.dev](https://stream.ke1th.dev/)
 The site uses static HTML, CSS, and JavaScript. Apache serves the files, while
 the catalog and video players connect to their existing online services.
 
+Live TV channels are listed in `channels/channels.json`. Compatible HLS sources
+load directly. The added BX-TV channels that need browser-compatible delivery
+use BX-TV's public HTTPS relay, including its rewritten child playlists and
+segments. Their availability depends on those third-party services.
+
 The mobile dock uses the official Glisse Tab Bar and Glass components.
 The browser-ready bundle is included. If you edit the dock integration,
 run `npm ci` followed by `npm run build:glass` to rebuild it.

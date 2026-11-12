@@ -19,6 +19,7 @@
   const moreChannels = document.getElementById('moreLiveTvChannels');
 
   let shakaInstance = null;
+  let shakaReady = null;
   let allChannels = [];
   let activeChannel = null;
   const channelCards = new Map();
@@ -38,58 +39,60 @@
     toastTimer = setTimeout(() => { toast.hidden = true; }, 4000);
   }
 
-    // Initialize Shaka UI once
+  // Initialize only after a channel is selected, with media setup deferred to load().
   let ui = null;
   function initShakaUI() {
-    if (!shakaInstance && typeof shaka !== 'undefined') {
+    if (!shakaReady && typeof shaka !== 'undefined') {
       shaka.polyfill.installAll();
       if (!shaka.Player.isBrowserSupported()) {
         showToast('Your browser does not support this stream.');
         return;
       }
 
-      // If Shaka UI auto-setup ran on the video element, grab its player instance
-      if (videoPlayer['ui']) {
-        ui = videoPlayer['ui'];
-        shakaInstance = ui.getControls().getPlayer();
-      } else {
-        // Fallback manual setup
+      shakaReady = (async () => {
         shakaInstance = new shaka.Player();
-        shakaInstance.attach(videoPlayer);
+        await shakaInstance.attach(videoPlayer, false);
         ui = new shaka.ui.Overlay(shakaInstance, videoContainer, videoPlayer);
-      }
-      
-      const config = {
-        controlPanelElements: ['play_pause', 'time_and_duration', 'spacer', 'mute', 'volume', 'quality', 'fullscreen'],
-        addSeekBar: true,
-      };
-      ui.configure(config);
-      
-      const playerConfig = {
-        manifest: {
-          dash: { 
-            ignoreMinBufferTime: true,
-            ignoreSuggestedPresentationDelay: true,
-            clockSyncUri: 'https://time.akamai.com/?iso'
-          },
-          hls: { 
-            ignoreTextStreamFailures: true,
-            ignoreManifestProgramDateTime: true
-          }
-        },
-        streaming: {
-          lowLatencyMode: true,
-          inaccurateManifestTolerance: 5,
-          rebufferingGoal: 2,
-          bufferingGoal: 10,
-        }
-      };
-      shakaInstance.configure(playerConfig);
+        const config = {
+          controlPanelElements: ['play_pause', 'time_and_duration', 'spacer', 'mute', 'volume', 'quality', 'fullscreen'],
+          addSeekBar: true,
+        };
+        ui.configure(config);
 
-      shakaInstance.addEventListener('error', (event) => {
-        console.error('Shaka Error:', event.detail);
+        const playerConfig = {
+          manifest: {
+            dash: {
+              ignoreMinBufferTime: true,
+              ignoreSuggestedPresentationDelay: true,
+              clockSyncUri: 'https://time.akamai.com/?iso'
+            },
+            hls: {
+              ignoreTextStreamFailures: true,
+              ignoreManifestProgramDateTime: true
+            }
+          },
+          streaming: {
+            lowLatencyMode: true,
+            inaccurateManifestTolerance: 5,
+            rebufferingGoal: 2,
+            bufferingGoal: 10,
+          }
+        };
+        shakaInstance.configure(playerConfig);
+
+        shakaInstance.addEventListener('error', event => {
+          console.error('Shaka Error:', event.detail);
+        });
+      })().catch(async error => {
+        await ui?.destroy().catch(() => {});
+        await shakaInstance?.destroy().catch(() => {});
+        ui = null;
+        shakaInstance = null;
+        shakaReady = null;
+        throw error;
       });
     }
+    return shakaReady;
   }
 
   const PH_CHANNELS = [
@@ -440,7 +443,7 @@
     stopNativePlayback();
 
     if (onYouTube) {
-      shakaInstance?.unload().catch(() => {});
+      shakaInstance?.unload(false).catch(() => {});
       setPlayerStatus('external', 'Opens on YouTube');
       const channelId = url.split(':')[1];
       window.open(`https://www.youtube.com/channel/${channelId}/live`, '_blank', 'noopener');
@@ -458,11 +461,18 @@
       nativeStartupTimer = setTimeout(() => showNativeError(channel, request), 9000);
     }
     const url = channel.url;
-    if (!shakaInstance) initShakaUI();
+    try {
+      await initShakaUI();
+    } catch (error) {
+      console.error('Player initialization failed:', error);
+      showNativeError(channel, request);
+      return;
+    }
+    if (request !== tuneRequest) return;
 
     if (shakaInstance) {
       try {
-        await shakaInstance.unload();
+        await shakaInstance.unload(false);
       } catch(e) {}
     }
     if (request !== tuneRequest) return;
@@ -611,7 +621,7 @@
     activeChannel = null;
     stopYouTube();
     stopNativePlayback();
-    shakaInstance?.unload().catch(() => {});
+    shakaInstance?.unload(false).catch(() => {});
     playerSection.hidden = true;
     workspace.classList.remove('is-tuned');
     updateChannelLink(null);

@@ -232,6 +232,13 @@
     "streamUrl": "https://docpe51mdltl5.cloudfront.net/Pokemon_GB.m3u8"
   },
   {
+    "name": "Yu-Gi-Oh!",
+    "type": "TV",
+    "logo": "https://i.imgur.com/Tl6aW2u.png",
+    "category": "Kids & Cartoons",
+    "streamUrl": "https://amg01796-amg01796c19-rakuten-gb-7486.playouts.now.amagi.tv/playlist/amg01796-fastmediafast-yugioh2en-rakutengb/playlist.m3u8"
+  },
+  {
     "name": "3rsMovieBoxPh",
     "type": "TV",
     "logo": "https://i.imgur.com/b4rjf8nl.png",
@@ -1468,5 +1475,96 @@
     "logo": "",
     "category": "General",
     "streamUrl": "https://startvphilippines.itunerworldwide.workers.dev/master.live.m3u8"
+  },
+  {
+    "name": "90's Kids",
+    "type": "TV",
+    "logo": "https://images.pluto.tv/channels/6452c814939a590008567a3b/colorLogoSVG_1756971210545.svg",
+    "category": "Kids & Cartoons",
+    "streamUrl": "https://bx-tv.com/proxy.php?url=https%3A%2F%2Fjmp2.uk%2Fplu-6452c814939a590008567a3b.m3u8"
+  },
+  {
+    "name": "Aniplus Asia",
+    "type": "TV",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Aniplus_logo.svg/960px-Aniplus_logo.svg.png",
+    "category": "Kids & Cartoons",
+    "streamUrl": "https://amg18481-amg18481c1-amgplt0352.playout.now3.amagi.tv/playlist/amg18481-amg18481c1-amgplt0352/playlist.m3u8"
+  },
+  {
+    "name": "Pluto TV Adult Animation",
+    "type": "TV",
+    "logo": "https://images.pluto.tv/channels/67f68bd2135aeda9ddf0ef54/colorLogoSVG_1746816413166.svg",
+    "category": "Entertainment",
+    "streamUrl": "https://bx-tv.com/proxy.php?url=https%3A%2F%2Fjmp2.uk%2Fplu-67f68bd2135aeda9ddf0ef54.m3u8"
+  },
+  {
+    "name": "90s Kids TV 2",
+    "type": "TV",
+    "logo": "https://images.pluto.tv/channels/6452c77ed3fdde00080eb3a8/colorLogoSVG.svg",
+    "category": "Kids & Cartoons",
+    "streamUrl": "https://bx-tv.com/proxy.php?url=https%3A%2F%2Fjmp2.uk%2Fplu-6452c77ed3fdde00080eb3a8.m3u8"
+  },
+  {
+    "name": "Lego Channel",
+    "type": "TV",
+    "logo": "https://i.imgur.com/xePwW13.png",
+    "category": "Kids & Cartoons",
+    "streamUrl": "https://dh18i7whff86v.cloudfront.net/index.m3u8"
+  },
+  {
+    "name": "Anime x HIDIVE",
+    "type": "TV",
+    "logo": "https://i.imgur.com/v0BlxCa.png",
+    "category": "Kids & Cartoons",
+    "streamUrl": "https://bx-tv.com/proxy.php?url=https%3A%2F%2Fjmp2.uk%2Fplu-6793eaa4bc03978b9bc63db1.m3u8"
+  },
+  {
+    "name": "Avatar",
+    "type": "TV",
+    "logo": "https://images.pluto.tv/channels/656df599c0fc8800089c75ab/colorLogoSVG.svg",
+    "category": "Kids & Cartoons",
+    "streamUrl": "https://bx-tv.com/proxy.php?url=https%3A%2F%2Fjmp2.uk%2Fplu-656df599c0fc8800089c75ab.m3u8"
+  },
+  {
+    "name": "Kids Movie Club",
+    "type": "TV",
+    "logo": "https://i.imgur.com/avFk0Tt.png",
+    "category": "Kids & Cartoons",
+    "streamUrl": "https://bx-tv.com/proxy.php?url=https%3A%2F%2Fjmp2.uk%2Fplu-5db0ad56edc89300090d2ebb.m3u8"
+  },
+  {
+    "name": "Beavis and Butt-Head",
+    "type": "TV",
+    "logo": "https://images.pluto.tv/channels/6486e8984cfc2c0008b6844e/colorLogoSVG.svg",
+    "category": "Entertainment",
+    "streamUrl": "https://bx-tv.com/proxy.php?url=https%3A%2F%2Fjmp2.uk%2Fplu-6486e8b48e3c0a0008e56914.m3u8"
+  },
+  {
+    "name": "Pluto TV Retro Action Movies",
+    "type": "TV",
+    "logo": "https://images.pluto.tv/channels/69a9ae4d3bd16a4ed04240d7/colorLogoSVG_1774879695281.svg",
+    "category": "Movies",
+    "streamUrl": "https://bx-tv.com/proxy.php?url=https%3A%2F%2Fjmp2.uk%2Fplu-69a9ae4d3bd16a4ed04240d7.m3u8"
+  },
+  {
+    "name": "Peppa Pig",
+    "type": "TV",
+    "logo": "https://images.pluto.tv/channels/5d14fb6c84dd37df3b4290c5/colorLogoSVG_1730825749550.svg",
+    "category": "Kids & Cartoons",
+    "streamUrl": "https://bx-tv.com/proxy.php?url=https%3A%2F%2Fjmp2.uk%2Fplu-5d14fb6c84dd37df3b4290c5.m3u8"
+  },
+  {
+    "name": "NBA TV",
+    "type": "TV",
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/d/d2/NBA_TV.svg/960px-NBA_TV.svg.png",
+    "category": "Sports",
+    "streamUrl": "https://bx-tv.com/proxy.php?url=http%3A%2F%2F23.237.104.106%3A8080%2FUSA_NBA%2Findex.m3u8"
+  },
+  {
+    "name": "iCarly",
+    "type": "TV",
+    "logo": "https://images.pluto.tv/channels/5e8b580a233dc90007f0cb9d/colorLogoSVG.svg",
+    "category": "Kids & Cartoons",
+    "streamUrl": "https://bx-tv.com/proxy.php?url=https%3A%2F%2Fjmp2.uk%2Fplu-5f8ecc7aa44d9c00081fca29.m3u8"
   }
 ]
