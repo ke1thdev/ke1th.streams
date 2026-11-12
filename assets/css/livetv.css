@@ -388,6 +388,56 @@
   border: 0;
 }
 
+.livetv-radio {
+  display: flex;
+  min-height: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 12px;
+  background: #111;
+}
+
+.livetv-radio-art {
+  display: grid;
+  min-height: 0;
+  justify-items: center;
+  gap: 8px;
+}
+
+.livetv-radio-logo {
+  display: grid;
+  width: clamp(48px, 8dvh, 112px);
+  height: clamp(48px, 8dvh, 112px);
+  place-items: center;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #272727;
+}
+
+.livetv-radio-art p {
+  color: var(--guide-muted);
+  font-size: .8125rem;
+}
+
+.livetv-radio-logo .channel-logo-fallback {
+  font-size: clamp(1rem, 3dvh, 1.75rem);
+}
+
+#liveRadioPlayer {
+  flex: none;
+  width: min(100%, 280px);
+  height: 44px;
+  color-scheme: dark;
+}
+
+#liveRadioPlayer::-webkit-media-controls-timeline,
+#liveRadioPlayer::-webkit-media-controls-current-time-display,
+#liveRadioPlayer::-webkit-media-controls-time-remaining-display {
+  display: none;
+}
+
 .livetv-frame :focus-visible {
   outline: 2px solid #eee;
   outline-offset: -2px;
@@ -414,6 +464,11 @@
 }
 
 @media (min-width: 1000px) {
+  .livetv-radio-logo {
+    width: clamp(80px, 14dvh, 144px);
+    height: clamp(80px, 14dvh, 144px);
+  }
+
   html:has(#liveTvWorkspace) {
     overflow: hidden;
     overscroll-behavior-y: none;

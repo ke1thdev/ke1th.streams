@@ -85,6 +85,15 @@ load directly. The added BX-TV channels that need browser-compatible delivery
 use BX-TV's public HTTPS relay, including its rewritten child playlists and
 segments. Their availability depends on those third-party services.
 
+The guide also separates Radio, Anime, Faith & Worship, and Lifestyle & Travel.
+Radio uses an audio player with station artwork. Closing or changing a selection
+stops the previous audio or video. The desktop and mobile channel lists
+scroll independently while a player is open.
+
+The `tzujtv.json` import keeps existing sources, merges duplicate names/URLs,
+and adds TV/radio sources that pass playlist and media-sample checks. Individual
+on-demand movie records from that import are excluded from the live guide.
+
 The mobile dock uses the official Glisse Tab Bar and Glass components.
 The browser-ready bundle is included. If you edit the dock integration,
 run `npm ci` followed by `npm run build:glass` to rebuild it.

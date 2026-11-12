@@ -1,5 +1,5 @@
 const APP_VERSION = '3.4.3';
-const ASSET_REVISION = 'tvdesktop1';
+const ASSET_REVISION = 'tzujtv4';
 const CACHE_NAME = `ke1th-streams-v${APP_VERSION}-${ASSET_REVISION}-${self.registration.scope}`;
 const APP_SHELL = [
   './',
@@ -9,6 +9,8 @@ const APP_SHELL = [
   './watch.html',
   './media.html',
   './offline.html',
+  './assets/imgs/radio/radyo-natin.png',
+  './assets/imgs/radio/spirit-fm-masbate.png',
   './assets/css/home.css',
   './assets/css/browse.css',
   './assets/css/livetv.css',

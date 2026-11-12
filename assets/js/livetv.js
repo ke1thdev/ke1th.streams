@@ -5,6 +5,9 @@
   const videoPlayer = document.getElementById('liveVideoPlayer');
   const videoContainer = document.getElementById('videoContainer');
   const youtubeContainer = document.getElementById('liveYouTubeContainer');
+  const radioContainer = document.getElementById('liveRadioContainer');
+  const radioPlayer = document.getElementById('liveRadioPlayer');
+  const radioLogo = document.getElementById('inlineRadioLogo');
   const playerTitle = document.getElementById('inlinePlayerTitle');
   const playerLogo = document.getElementById('inlinePlayerLogo');
   const playerSection = document.getElementById('liveTvPlayerSection');
@@ -17,6 +20,7 @@
   const guideMessage = document.getElementById('liveTvGuideMessage');
   const guideAction = document.getElementById('liveTvGuideAction');
   const moreChannels = document.getElementById('moreLiveTvChannels');
+  const guideTitle = document.querySelector('.livetv-page-heading h1');
 
   let shakaInstance = null;
   let shakaReady = null;
@@ -29,6 +33,7 @@
   let youtubeSession = null;
   let nativeRequest = null;
   let nativeStartupTimer;
+  let radioRequest = null;
 
   // Toast Notification System
   function showToast(message) {
@@ -132,27 +137,40 @@
             ? 'https://upload.wikimedia.org/wikipedia/commons/8/80/Cartoon_Network_2010_logo.svg'
             : ch.logo,
           url: ch.streamUrl || ch.url,
+          type: ch.type || 'TV',
+          genre: ch.genre || ch.radioGenre || '',
+          aliases: Array.isArray(ch.aliases) ? ch.aliases : [],
           drm: ch.drm,
           youtubeLiveEndpoint: ch.youtubeLiveEndpoint
         };
       }).filter(channel => typeof channel.url === 'string' && channel.url.trim());
 
       allChannels.sort((a, b) => Number(isPhChannel(b.name)) - Number(isPhChannel(a.name)) || a.name.localeCompare(b.name));
-      const categories = Array.from(new Set(allChannels.map(channel => channel.group))).sort();
+      const categoryOrder = ['News', 'Entertainment', 'Movies', 'Kids & Cartoons',
+        'Anime', 'Sports', 'Music', 'Radio', 'Documentary', 'Lifestyle & Travel', 'Faith & Worship',
+        'Education', 'Korean & Drama', 'General'];
+      const categories = Array.from(new Set(allChannels.map(channel => channel.group)))
+        .sort((a, b) => (categoryOrder.indexOf(a) < 0 ? 99 : categoryOrder.indexOf(a))
+          - (categoryOrder.indexOf(b) < 0 ? 99 : categoryOrder.indexOf(b)) || a.localeCompare(b));
       for (const category of categories) categoryFilter.add(new Option(category, category));
       categoryFilter.disabled = false;
       searchInput.disabled = false;
-      filterChannels();
 
       const sharedName = new URLSearchParams(location.search).get('ch')?.toLowerCase();
-      if (!sharedName) return;
+      if (!sharedName) {
+        filterChannels();
+        return;
+      }
       const previousNames = {
         'cartoon network': 'cartoon network asia',
         'adult swim': 'cartoon network / adult swim (us)'
       };
       const targetName = Object.hasOwn(previousNames, sharedName) ? previousNames[sharedName] : sharedName;
       const channel = allChannels.find(item =>
-        item.shareName.toLowerCase() === targetName || item.name.toLowerCase() === targetName);
+        item.shareName.toLowerCase() === targetName || item.name.toLowerCase() === targetName
+        || item.aliases.some(alias => alias.toLowerCase() === targetName));
+      if (channel && channel.type === 'Radio') categoryFilter.value = channel.group;
+      filterChannels();
       if (channel) playChannel(channel, false);
     } catch (error) {
       console.error('Error fetching channels:', error);
@@ -167,7 +185,7 @@
     const fallback = () => {
       const label = document.createElement('span');
       label.className = 'channel-logo-fallback';
-      const words = channel.name.match(/[\p{L}\p{N}]+/gu) || [];
+      const words = (channel.name.match(/[\p{L}\p{N}]+/gu) || []).filter(word => !/^\d+$/.test(word));
       label.textContent = (words.length > 1
         ? words.slice(0, 3).map(word => word[0]).join('')
         : (words[0] || 'TV').slice(0, 3)).toUpperCase();
@@ -201,9 +219,13 @@
     const category = categoryFilter.value;
     const query = searchInput.value.trim().toLowerCase();
     filteredChannels = allChannels.filter(channel => (category === 'All' || channel.group === category)
-      && channel.name.toLowerCase().includes(query));
+      && [channel.name, channel.group, channel.genre, ...channel.aliases].some(value => value.toLowerCase().includes(query)));
     const count = filteredChannels.length;
-    channelCount.textContent = count + (count === 1 ? ' channel' : ' channels');
+    const radios = filteredChannels.filter(channel => channel.type === 'Radio').length;
+    const television = count - radios;
+    channelCount.textContent = [television && `${television} TV`, radios && `${radios} radio`]
+      .filter(Boolean).join(' · ') || '0 results';
+    guideTitle.textContent = category === 'Radio' ? 'Radio' : 'Live TV';
     setGuideState(count ? '' : 'No channels match these filters.', count ? '' : 'Clear filters');
     visibleCount = 0;
     channelCards.clear();
@@ -230,7 +252,8 @@
       `;
       card.querySelector('.channel-name').textContent = channel.name;
       const limited = channel.drm || channel.url.includes('prox-production');
-      card.querySelector('.channel-group').textContent = channel.group + (limited ? ' · iOS limited' : '');
+      card.querySelector('.channel-group').textContent = [channel.group, channel.genre,
+        limited ? 'iOS limited' : ''].filter(Boolean).join(' · ');
       setChannelLogo(card.querySelector('.channel-logo-wrap'), channel);
       card.addEventListener('click', () => playChannel(channel));
       channelCards.set(channel, card);
@@ -309,6 +332,46 @@
     youtubeContainer.replaceChildren();
     youtubeContainer.hidden = true;
   }
+
+  function stopRadio() {
+    radioRequest = null;
+    radioPlayer.pause();
+    if (radioPlayer.hasAttribute('src')) {
+      radioPlayer.removeAttribute('src');
+      radioPlayer.load();
+    }
+    radioContainer.hidden = true;
+  }
+
+  function playRadio(channel, request) {
+    radioContainer.hidden = false;
+    radioRequest = request;
+    radioPlayer.setAttribute('aria-label', `${channel.name} live radio`);
+    setChannelLogo(radioLogo, channel, false);
+    setPlayerStatus('loading', 'Connecting to radio…');
+    nativeStartupTimer = setTimeout(() => {
+      if (radioRequest === tuneRequest) setPlayerStatus('error', 'Station unavailable');
+    }, 15000);
+    radioPlayer.src = channel.url;
+    radioPlayer.play().catch(error => {
+      if (radioRequest !== request || request !== tuneRequest) return;
+      setPlayerStatus(error.name === 'NotAllowedError' ? 'ready' : 'error',
+        error.name === 'NotAllowedError' ? 'Press play to listen' : 'Station unavailable');
+    });
+  }
+
+  radioPlayer.addEventListener('playing', () => {
+    if (radioRequest === tuneRequest) setPlayerStatus('live', 'Live radio');
+  });
+  radioPlayer.addEventListener('canplay', () => {
+    if (radioRequest === tuneRequest && radioPlayer.paused) setPlayerStatus('ready', 'Press play to listen');
+  });
+  radioPlayer.addEventListener('pause', () => {
+    if (radioRequest === tuneRequest && playerStatus.dataset.state === 'live') setPlayerStatus('paused', 'Paused radio');
+  });
+  radioPlayer.addEventListener('error', () => {
+    if (radioRequest === tuneRequest) setPlayerStatus('error', 'Station unavailable');
+  });
 
   async function findLiveYouTube(endpoint) {
     const controller = new AbortController();
@@ -421,6 +484,7 @@
 
   async function playChannel(channel, scroll = true) {
     const request = ++tuneRequest;
+    stopRadio();
     stopYouTube();
     channelCards.get(activeChannel)?.setAttribute('aria-pressed', 'false');
     activeChannel = channel;
@@ -438,9 +502,16 @@
 
     const url = channel.url;
     const onYouTube = url.startsWith('youtube:');
-    videoContainer.hidden = onYouTube;
+    const onRadio = channel.type === 'Radio';
+    videoContainer.hidden = onYouTube || onRadio;
     setPlayerStatus('loading', 'Connecting to stream…');
     stopNativePlayback();
+
+    if (onRadio) {
+      shakaInstance?.unload(false).catch(() => {});
+      playRadio(channel, request);
+      return;
+    }
 
     if (onYouTube) {
       shakaInstance?.unload(false).catch(() => {});
@@ -619,6 +690,7 @@
     const card = channelCards.get(activeChannel);
     card?.setAttribute('aria-pressed', 'false');
     activeChannel = null;
+    stopRadio();
     stopYouTube();
     stopNativePlayback();
     shakaInstance?.unload(false).catch(() => {});
