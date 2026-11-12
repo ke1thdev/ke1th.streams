@@ -1,5 +1,5 @@
 const APP_VERSION = '3.4.3';
-const ASSET_REVISION = 'metvtoons1';
+const ASSET_REVISION = 'liverecovery2';
 const CACHE_NAME = `ke1th-streams-v${APP_VERSION}-${ASSET_REVISION}-${self.registration.scope}`;
 const APP_SHELL = [
   './',
@@ -26,6 +26,7 @@ const APP_SHELL = [
   './assets/js/home.js',
   './assets/js/browse.js',
   './assets/js/livetv.js',
+  './assets/js/live-recovery.js',
   './assets/js/watch-history.js',
   './assets/js/watch.js',
   './assets/js/media.js',
