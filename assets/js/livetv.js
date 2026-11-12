@@ -34,6 +34,22 @@
   let nativeRequest = null;
   let nativeStartupTimer;
   let radioRequest = null;
+  let nativeSession = null;
+  let pageSuspended = false;
+  const recovery = window.LivePlaybackRecovery?.create({
+    isCurrent: session => nativeSession === session && session.request === tuneRequest &&
+      activeChannel === session.channel && !playerSection.hidden,
+    snapshot: () => ({ time: videoPlayer.currentTime, paused: videoPlayer.paused,
+      visible: !document.hidden && !pageSuspended, online: navigator.onLine }),
+    onStatus: setPlayerStatus,
+    reload: session => {
+      session.request = ++tuneRequest;
+      stopNativePlayback();
+      return playNativeChannel(session.channel, session.request, session);
+    },
+    onExhausted: session => showNativeError(session.channel, session.request,
+      'Stream unavailable · Select again to retry', false)
+  });
 
   // Toast Notification System
   function showToast(message) {
@@ -66,6 +82,7 @@
 
         const playerConfig = {
           manifest: {
+            retryParameters: { maxAttempts: 3, timeout: 15000, connectionTimeout: 8000, stallTimeout: 5000 },
             dash: {
               ignoreMinBufferTime: true,
               ignoreSuggestedPresentationDelay: true,
@@ -77,16 +94,25 @@
             }
           },
           streaming: {
-            lowLatencyMode: true,
+            lowLatencyMode: false,
             inaccurateManifestTolerance: 5,
-            rebufferingGoal: 2,
-            bufferingGoal: 10,
+            rebufferingGoal: 3,
+            bufferingGoal: 20,
+            retryParameters: { maxAttempts: 3, timeout: 15000, connectionTimeout: 8000, stallTimeout: 5000 },
           }
         };
         shakaInstance.configure(playerConfig);
 
         shakaInstance.addEventListener('error', event => {
+          const codes = shaka.util.Error.Code;
+          if (event.detail?.code === codes.LOAD_INTERRUPTED || event.detail?.code === codes.OPERATION_ABORTED) return;
           console.error('Shaka Error:', event.detail);
+          // Shaka already retries recoverable live-network errors. Escalate
+          // terminal failures; the watchdog handles persistent buffering.
+          if (nativeRequest === tuneRequest && event.detail?.severity === shaka.util.Error.Severity.CRITICAL) {
+            showNativeError(activeChannel, nativeRequest, 'Stream unavailable',
+              event.detail.category !== shaka.util.Error.Category.DRM);
+          }
         });
       })().catch(async error => {
         await ui?.destroy().catch(() => {});
@@ -309,15 +335,15 @@
     }
   }
 
-  function showNativeError(channel, request, message = 'Stream unavailable') {
+  function showNativeError(channel, request, message = 'Stream unavailable', recoverable = true) {
     if (request !== tuneRequest) return;
-    setPlayerStatus('error', message);
-    if (!channel.youtubeLiveEndpoint) return;
-
+    if (recoverable && nativeSession?.request === request && recovery?.failed()) return;
+    recovery?.stop();
+    nativeSession = null;
     tuneRequest++;
-    videoContainer.hidden = true;
     stopNativePlayback();
     shakaInstance?.unload(false).catch(() => {});
+    setPlayerStatus('error', message);
   }
 
   function stopYouTube() {
@@ -479,6 +505,8 @@
   }
 
   async function playChannel(channel, scroll = true) {
+    recovery?.stop();
+    nativeSession = null;
     const request = ++tuneRequest;
     stopRadio();
     stopYouTube();
@@ -520,13 +548,16 @@
     return playPreferredSource(channel, request);
   }
 
-  async function playNativeChannel(channel, request) {
+  async function playNativeChannel(channel, request, existingSession = null) {
+    if (request !== tuneRequest || (existingSession && nativeSession !== existingSession)) return;
+    if (!existingSession) {
+      nativeSession = { channel, request, playRequested: false };
+      recovery?.start(nativeSession);
+    }
+    nativeSession.playRequested = false;
     stopYouTube();
     videoContainer.hidden = false;
-    setPlayerStatus('loading', 'Connecting to stream…');
-    if (channel.youtubeLiveEndpoint) {
-      nativeStartupTimer = setTimeout(() => showNativeError(channel, request), 9000);
-    }
+    if (!existingSession) setPlayerStatus('loading', 'Connecting to stream…');
     const url = channel.url;
     try {
       await initShakaUI();
@@ -546,11 +577,14 @@
     nativeRequest = request;
 
     const startVideo = () => {
+      if (request !== tuneRequest || (recovery && !recovery.wantsPlay())) return;
+      nativeSession.playRequested = true;
       videoPlayer.play().catch(error => {
-        if (request !== tuneRequest || playerStatus.dataset.state !== 'loading') return;
-        if (!channel.youtubeLiveEndpoint || error.name === 'NotAllowedError') {
+        if (request !== tuneRequest) return;
+        if (error.name === 'NotAllowedError') {
+          recovery?.intent(false);
           setPlayerStatus('ready', 'Press play to start');
-        } else {
+        } else if (!recovery || recovery.wantsPlay()) {
           showNativeError(channel, request);
         }
       });
@@ -663,7 +697,7 @@
         videoPlayer.src = nativeUrl;
         startVideo();
       } else {
-        showNativeError(channel, request, 'This browser can’t play the stream');
+        showNativeError(channel, request, 'This browser can’t play the stream', false);
       }
     } else {
       videoPlayer.src = url;
@@ -671,17 +705,32 @@
     }
   }
 
+  videoPlayer.addEventListener('play', () => {
+    if (nativeRequest === tuneRequest) recovery?.intent(true);
+  });
   videoPlayer.addEventListener('playing', () => {
-    if (nativeRequest === tuneRequest) setPlayerStatus('live', 'Live');
+    if (nativeRequest === tuneRequest && !videoPlayer.paused) setPlayerStatus('live', 'Live');
   });
   videoPlayer.addEventListener('pause', () => {
-    if (nativeRequest === tuneRequest && playerStatus.dataset.state === 'live') setPlayerStatus('paused', 'Paused');
+    if (nativeRequest === tuneRequest && videoPlayer.paused && !document.hidden && !pageSuspended && !videoPlayer.error && nativeSession?.playRequested) {
+      if (playerStatus.dataset.state === 'ready' && recovery && !recovery.wantsPlay()) return;
+      recovery?.intent(false);
+      setPlayerStatus('paused', 'Paused');
+    }
+  });
+  videoPlayer.addEventListener('seeking', () => {
+    if (nativeRequest === tuneRequest) recovery?.grace();
+  });
+  videoPlayer.addEventListener('waiting', () => {
+    if (nativeRequest === tuneRequest && (!recovery || recovery.wantsPlay())) setPlayerStatus('loading', 'Buffering…');
   });
   videoPlayer.addEventListener('error', () => {
-    if (nativeRequest === tuneRequest) showNativeError(activeChannel, nativeRequest);
+    if (nativeRequest === tuneRequest && videoPlayer.error) showNativeError(activeChannel, nativeRequest);
   });
 
   document.getElementById('closeLiveTvPlayer').addEventListener('click', () => {
+    recovery?.stop();
+    nativeSession = null;
     tuneRequest++;
     const card = channelCards.get(activeChannel);
     card?.setAttribute('aria-pressed', 'false');
@@ -694,6 +743,28 @@
     workspace.classList.remove('is-tuned');
     updateChannelLink(null);
     (card || searchInput).focus();
+  });
+
+  function wakeNativePlayback() {
+    if (document.hidden || pageSuspended || navigator.onLine === false) return;
+    recovery?.wake();
+    if (nativeRequest !== tuneRequest || !recovery?.wantsPlay() || recovery.loading() || !videoPlayer.paused) return;
+    const request = nativeRequest;
+    videoPlayer.play().catch(error => {
+      if (request !== tuneRequest) return;
+      if (error.name === 'NotAllowedError') {
+        recovery.intent(false);
+        setPlayerStatus('ready', 'Press play to start');
+      } else showNativeError(activeChannel, request);
+    });
+  }
+  window.addEventListener('offline', () => recovery?.suspend());
+  window.addEventListener('online', wakeNativePlayback);
+  window.addEventListener('pagehide', () => { pageSuspended = true; recovery?.suspend(); });
+  window.addEventListener('pageshow', () => { pageSuspended = false; wakeNativePlayback(); });
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) recovery?.suspend();
+    else wakeNativePlayback();
   });
 
   const shareBtn = document.getElementById('shareBtn');

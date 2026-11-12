@@ -3,6 +3,7 @@
   "version": "3.4.3",
   "private": true,
   "scripts": {
+    "test:live": "node --test tests/live-recovery.test.cjs",
     "cache:artwork": "node scripts/cache-artwork.mjs",
     "build:glass": "esbuild assets/js/mobile-dock.js --bundle --minify --format=esm --target=es2020 --legal-comments=inline --outfile=assets/vendor/mobile-dock.min.js"
   },
