@@ -1872,5 +1872,112 @@
     "genre": "Masbate",
     "logo": "assets/imgs/radio/radyo-natin.png",
     "streamUrl": "https://net.radyonatinfm.com:8030/masbate"
+  },
+  {
+    "name": "Flame Gospel Radio",
+    "type": "Radio",
+    "logo": "https://zeno.fm/_ipx/_/https://images.zeno.fm/DSamCoS2ae3svnuek0UpEU2SatLtUM08ztxnlMoOkAY/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvYWd4emZucGxibTh0YzNSaGRITnlNZ3NTQ2tGMWRHaERiR2xsYm5RWWdJQ2dncFhiclFrTUN4SU9VM1JoZEdsdmJsQnliMlpwYkdVWWdJQ2doY0tSbHdnTW9nRUVlbVZ1YncvaW1hZ2UvP3U9MTY2MTQ3NzU4ODAwMA.webp",
+    "category": "Radio",
+    "genre": "Faith & Worship",
+    "streamUrl": "https://stream.zeno.fm/1ruppedsd6quv"
+  },
+  {
+    "name": "MOR Radio",
+    "type": "Radio",
+    "logo": "assets/imgs/radio/mor-radio.png",
+    "category": "Radio",
+    "genre": "Music & Talk",
+    "streamUrl": "https://stream-144.zeno.fm/26ea0anpms8uv",
+    "aliases": [
+      "MOR Entertainment"
+    ]
+  },
+  {
+    "name": "One Radio Christmas",
+    "type": "Radio",
+    "logo": "https://zeno.fm/_ipx/_/https://images.zeno.fm/BeDsdWFYzxt7kruuYoLl3Wd5ckqNkRBnEi6WPEk2WAU/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvYWd4emZucGxibTh0YzNSaGRITnlNZ3NTQ2tGMWRHaERiR2xsYm5RWWdJQ3d5dXEybEFzTUN4SU9VM1JoZEdsdmJsQnliMlpwYkdVWWdJQ3d1ZTNZcWdvTW9nRUVlbVZ1YncvaW1hZ2UvP3U9MTczMjkzNzM4MTAwMA.webp",
+    "category": "Radio",
+    "genre": "Faith & Worship",
+    "streamUrl": "https://stream.zeno.fm/p29uvzkazy8uv"
+  },
+  {
+    "name": "One Radio Manila",
+    "type": "Radio",
+    "logo": "https://zeno.fm/_ipx/_/https://images.zeno.fm/KQrS02TIJj_KEw1Lbc9mH14-OTMfGJchgZKgS_LnGSI/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvYWd4emZucGxibTh0YzNSaGRITnlNZ3NTQ2tGMWRHaERiR2xsYm5RWWdJQ3d5dXEybEFzTUN4SU9VM1JoZEdsdmJsQnliMlpwYkdVWWdJQ3dxcjMyckFzTW9nRUVlbVZ1YncvaW1hZ2UvP3U9MTc1MDI5NDM5NTAwMA.webp",
+    "category": "Radio",
+    "genre": "Faith & Worship",
+    "streamUrl": "https://stream-155.zeno.fm/e9d0qhpxmv8uv"
+  },
+  {
+    "name": "Send The Word Online Radio",
+    "type": "Radio",
+    "logo": "https://zeno.fm/_ipx/_/https://images.zeno.fm/l2P2LqzjVpThF-4OA-N9D4OIV4oMdwRyC9V6lClFtDg/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvNmE2MjgxMWUtOWYyZS00NmJmLTliMzAtN2EwYjQ0ZmYzZTQ4L2ltYWdlLz91PTE3MTM5Mzc3MDkwMDA.webp",
+    "category": "Radio",
+    "genre": "Faith & Worship",
+    "streamUrl": "https://stream-175.zeno.fm/4vgyas31hc9uv"
+  },
+  {
+    "name": "Station 1 Radio",
+    "type": "Radio",
+    "logo": "https://zeno.fm/_ipx/_/https://images.zeno.fm/8OuhHMZdgn8agTxt5HtAGl1IkvcnP-NzTBs4gDjI-2c/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvYWd4emZucGxibTh0YzNSaGRITnlNZ3NTQ2tGMWRHaERiR2xsYm5RWWdJRFFfcm5DN3dnTUN4SU9VM1JoZEdsdmJsQnliMlpwYkdVWWdJRFFucnZOeGdnTW9nRUVlbVZ1YncvaW1hZ2UvP3U9MTY4OTU1MzAyODAwMA.webp",
+    "category": "Radio",
+    "genre": "Music & Talk",
+    "streamUrl": "https://stream.zeno.fm/6a9w4h8xqg0uv"
+  },
+  {
+    "name": "Tee Radio",
+    "type": "Radio",
+    "logo": "https://zeno.fm/_ipx/_/https://images.zeno.fm/naE7jZGFRs5c0t0g3ULHHy-4vKFi03lHsXEcmRjW-0g/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvYWd4emZucGxibTh0YzNSaGRITnlNZ3NTQ2tGMWRHaERiR2xsYm5RWWdJRFFpYnJ4N0FrTUN4SU9VM1JoZEdsdmJsQnliMlpwYkdVWWdJRFE2Zk90cmdnTW9nRUVlbVZ1YncvaW1hZ2UvP3U9MTY2MTY3NzE1MzAwMA.webp",
+    "category": "Radio",
+    "genre": "Music & Talk",
+    "streamUrl": "https://stream.zeno.fm/r19q0f1hbm0uv"
+  },
+  {
+    "name": "Vibe Radio",
+    "type": "Radio",
+    "logo": "https://zeno.fm/_ipx/_/https://images.zeno.fm/2omcviiNmet2a72dj84IDg4pUlt43mCC0UDlhQWVFyw/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvYWd4emZucGxibTh0YzNSaGRITnlNZ3NTQ2tGMWRHaERiR2xsYm5RWWdJQ3dsdU9Gc0FvTUN4SU9VM1JoZEdsdmJsQnliMlpwYkdVWWdJQ3dpWlRfLWdnTW9nRUVlbVZ1YncvaW1hZ2UvP3U9MTY3MzQ5Nzc1NDAwMA.webp",
+    "category": "Radio",
+    "genre": "Music & Talk",
+    "streamUrl": "https://stream.zeno.fm/zf0ac4raqy8uv"
+  },
+  {
+    "name": "91.5 Win Radio Manila",
+    "type": "Radio",
+    "logo": "https://zeno.fm/_ipx/_/https://images.zeno.fm/Ev1_yutQykKjO56VRPMAd2sEQlmrQC9EVrP9p-0rGLo/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvYWd4emZucGxibTh0YzNSaGRITnlNZ3NTQ2tGMWRHaERiR2xsYm5RWWdJQ0k3b1NRbEFrTUN4SU9VM1JoZEdsdmJsQnliMlpwYkdVWWdJQ0k5dkRNNmdvTW9nRUVlbVZ1YncvaW1hZ2UvP3U9MTc0NDgyMzQxMjAwMA.webp",
+    "category": "Radio",
+    "genre": "Music & Talk",
+    "streamUrl": "https://stream.zeno.fm/nz4ydgnu6hhvv"
+  },
+  {
+    "name": "95.5 Star FM Cebu",
+    "type": "Radio",
+    "logo": "https://zeno.fm/_ipx/_/https://images.zeno.fm/ZYMRqpgfV09UKg4XATVZf1ImvzXxiPAKCo92PKwI8nI/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvYWd4emZucGxibTh0YzNSaGRITnlNZ3NTQ2tGMWRHaERiR2xsYm5RWWdJQ0E2THlrOEFvTUN4SU9VM1JoZEdsdmJsQnliMlpwYkdVWWdJQ0FnUE9Ya3drTW9nRUVlbVZ1YncvaW1hZ2UvP3U9MTU3NDE2NjMyOTAwMA.webp",
+    "category": "Radio",
+    "genre": "Music & Talk",
+    "streamUrl": "https://stream.zeno.fm/g98fs57q0y5tv"
+  },
+  {
+    "name": "97.1 Barangay LS",
+    "type": "Radio",
+    "logo": "https://zeno.fm/_ipx/_/https://images.zeno.fm/eFhUa81egn4S-LfIn_oz9LRPKn-_wW6SkdeojkrsMVc/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvNjA0YmI0YWYtY2NmNi00N2JkLTgxOWUtN2QxYWNjZDE1ZTA1L2ltYWdlLz91PTE3NzAwNDI0ODEwMDA.webp",
+    "category": "Radio",
+    "genre": "Music & Talk",
+    "streamUrl": "https://stream.zeno.fm/dphe9050afhvv"
+  },
+  {
+    "name": "102.7 Star FM Manila",
+    "type": "Radio",
+    "logo": "https://zeno.fm/_ipx/_/https://images.zeno.fm/_ZvbPylo7NBu72rPDnUvyCInPbTGGCj7iO57KrUOGW4/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvYWd4emZucGxibTh0YzNSaGRITnlNZ3NTQ2tGMWRHaERiR2xsYm5RWWdJQ0E2THlrOEFvTUN4SU9VM1JoZEdsdmJsQnliMlpwYkdVWWdJQ0FnSXY2aGdvTW9nRUVlbVZ1YncvaW1hZ2UvP3U9MTU3NDE2NjQxNTAwMA.webp",
+    "category": "Radio",
+    "genre": "Music & Talk",
+    "streamUrl": "https://stream.zeno.fm/69b1kf7q0y5tv"
+  },
+  {
+    "name": "106.3 Energy FM Naga",
+    "type": "Radio",
+    "logo": "https://zeno.fm/_ipx/_/https://images.zeno.fm/-Y6IS9jaU9PriXP_3E3JHF4c-256Ob8Pl-9D5q48VjE/rs:fill:288:288/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvMjI5Y2YzNmYtZDJlMi00ZGRlLWJhMTMtZDUwYWMyOGM2NjMwL2ltYWdlLz91PTE3Mzk4NjUxMjIwMDA.webp",
+    "category": "Radio",
+    "genre": "Music & Talk",
+    "streamUrl": "https://stream.zeno.fm/klewk28qlqquv"
   }
 ]

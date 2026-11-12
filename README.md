@@ -94,6 +94,11 @@ The `tzujtv.json` import keeps existing sources, merges duplicate names/URLs,
 and adds TV/radio sources that pass playlist and media-sample checks. Individual
 on-demand movie records from that import are excluded from the live guide.
 
+Zeno radio entries keep the original station URL so the browser can obtain a
+fresh signed redirect when connecting. Do not save the temporary Surfernetwork
+URL containing `zt=` as the permanent source. Radio checks use a normal browser
+User-Agent; the abbreviated `Mozilla/5.0` identifier can produce a false 401.
+
 The mobile dock uses the official Glisse Tab Bar and Glass components.
 The browser-ready bundle is included. If you edit the dock integration,
 run `npm ci` followed by `npm run build:glass` to rebuild it.
