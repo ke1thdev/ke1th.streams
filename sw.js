@@ -1,5 +1,5 @@
-const APP_VERSION = '3.4.3';
-const ASSET_REVISION = 'liverecovery2';
+const APP_VERSION = '3.4.4';
+const ASSET_REVISION = 'artwork1';
 const CACHE_NAME = `ke1th-streams-v${APP_VERSION}-${ASSET_REVISION}-${self.registration.scope}`;
 const APP_SHELL = [
   './',
@@ -22,6 +22,7 @@ const APP_SHELL = [
   './assets/css/landscape.css',
   './assets/js/config.js',
   './assets/js/image-manifest.js',
+  './assets/js/images.js',
   './assets/js/tmdb.js',
   './assets/js/home.js',
   './assets/js/browse.js',
@@ -106,14 +107,41 @@ self.addEventListener('fetch', event => {
   
   const url = new URL(event.request.url);
   const isNavigate = event.request.mode === 'navigate';
+  const isArtwork = /\/assets\/imgs\/.*\.(?:avif|gif|ico|jpe?g|png|svg|webp)$/i.test(url.pathname)
+    || /\/api\/images\/?$/.test(url.pathname);
+  const isImageResponse = response => response?.status === 200 &&
+    /^image\//i.test(response.headers.get('Content-Type') || '');
+
+  // Newly discovered titles use the official image CDN on static hosting.
+  // Cache only real images, so an HTML error page cannot poison a poster URL.
+  if (url.origin === 'https://image.tmdb.org' && /^\/t\/p\/(?:w200|w500|w1280)\/[A-Za-z0-9_-]+\.(?:jpg|png|webp)$/.test(url.pathname)) {
+    event.respondWith((async () => {
+      const cache = await caches.open(CACHE_NAME).catch(() => null);
+      const cached = await cache?.match(event.request).catch(() => undefined);
+      if (isImageResponse(cached)) return cached;
+      if (cached) await cache?.delete(event.request).catch(() => {});
+      const response = await fetch(event.request);
+      if (isImageResponse(response)) await cache?.put(event.request, response.clone()).catch(() => {});
+      return response;
+    })().catch(() => Response.error()));
+    return;
+  }
   
   if (url.origin === self.location.origin) {
     const refresh = isNavigate || /\.(?:css|js|html)$/.test(url.pathname);
     const cache = caches.open(CACHE_NAME).catch(() => null);
-    const readCached = async request => (await cache)?.match(request).catch(() => undefined);
+    const readCached = async request => {
+      const store = await cache;
+      const response = await store?.match(request).catch(() => undefined);
+      if (response && isArtwork && !isImageResponse(response)) {
+        await store?.delete(request).catch(() => {});
+        return undefined;
+      }
+      return response;
+    };
     const fetchAndCache = () => fetch(event.request, refresh ? { cache: 'no-cache' } : undefined).then(async response => {
       const result = isNavigate && response.redirected ? await cleanResponse(response) : response;
-      if (result.status === 200) {
+      if (result.status === 200 && (!isArtwork || isImageResponse(result))) {
         // A storage failure must not turn a successful request into an offline page.
         await (await cache)?.put(event.request, result.clone()).catch(() => {});
       }

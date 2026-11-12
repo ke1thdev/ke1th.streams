@@ -1,8 +1,10 @@
 {
   "name": "streammovies",
-  "version": "3.4.3",
+  "version": "3.4.4",
   "private": true,
   "scripts": {
+    "test": "node --test tests/images.test.cjs tests/image-cache.test.cjs tests/live-recovery.test.cjs",
+    "test:images": "node --test tests/images.test.cjs tests/image-cache.test.cjs",
     "test:live": "node --test tests/live-recovery.test.cjs",
     "cache:artwork": "node scripts/cache-artwork.mjs",
     "build:glass": "esbuild assets/js/mobile-dock.js --bundle --minify --format=esm --target=es2020 --legal-comments=inline --outfile=assets/vendor/mobile-dock.min.js"

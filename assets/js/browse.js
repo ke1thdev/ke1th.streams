@@ -400,6 +400,7 @@
     const isAnime = item.isAnime === true;
     const img = item.poster_path || item.backdrop_path;
     const src = img ? TMDB_IMG(img) : FALLBACK_POSTER;
+    const artworkAttrs = img ? window.SiteImages.attrs(img, 'w500', item.backdrop_path) : '';
     const year = (item.release_date || item.first_air_date || "").slice(0, 4);
     const rating = Number(item.vote_average || 0).toFixed(1);
     const typeLabel = isAnime ? "Anime" : (type === "tv" ? "TV" : "Movie");
@@ -417,7 +418,7 @@
 
     card.innerHTML = `
       <div class="card-img-wrap">
-        <img class="card-image" src="${src}" alt="${esc(title)}" loading="lazy" decoding="async" />
+        <img ${artworkAttrs} class="card-image" src="${src}" alt="${esc(title)}" loading="lazy" decoding="async" />
         <div class="card-overlay">
           <div class="card-overlay-content">
             <span class="card-overlay-title">${esc(title)}</span>

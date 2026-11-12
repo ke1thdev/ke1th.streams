@@ -30,7 +30,7 @@ if (!$hit) {
         CURLOPT_CONNECTTIMEOUT => 5,
         CURLOPT_TIMEOUT => 15,
         CURLOPT_PROTOCOLS => CURLPROTO_HTTPS,
-        CURLOPT_USERAGENT => 'Streammovies artwork cache/3.4.3',
+        CURLOPT_USERAGENT => 'Streammovies artwork cache/3.4.4',
         CURLOPT_WRITEFUNCTION => static function ($handle, string $chunk) use (&$body): int {
             if (strlen($body) + strlen($chunk) > 8 * 1024 * 1024) return 0;
             $body .= $chunk;

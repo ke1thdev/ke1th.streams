@@ -31,7 +31,7 @@ export default {
           const displayTitle = year ? `${title} (${year})` : title;
           const overview = tmdbData.overview || 'Watch this on ke1th.streams';
           const imagePath = tmdbData.backdrop_path || tmdbData.poster_path;
-          const imageUrl = imagePath ? new URL(`/api/images/?size=w1280&file=${encodeURIComponent(imagePath.slice(1))}`, url.origin).href : 'https://stream.ke1th.dev/assets/imgs/preview.png';
+          const imageUrl = imagePath ? `https://image.tmdb.org/t/p/w1280${imagePath}` : 'https://stream.ke1th.dev/assets/imgs/preview.png';
 
           // 3. Use HTMLRewriter to inject the dynamic meta tags
           const rewriter = new HTMLRewriter()

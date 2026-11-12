@@ -1,17 +1,4 @@
 const appRoot = new URL(".", document.baseURI);
-const localArtwork = new Set(window.LOCAL_ARTWORK || []);
-window.SiteImages = {
-  tmdb(path, size = 'w500') {
-    const file = typeof path === 'string' ? path.replace(/^\//, '') : '';
-    if (!['w200', 'w500', 'w1280'].includes(size) || !/^[A-Za-z0-9_-]+\.(?:jpg|png|webp)$/.test(file)) return '';
-    const key = `${size}/${file}`;
-    if (localArtwork.has(key)) return new URL(`assets/imgs/tmdb/${key}`, appRoot).href;
-    const url = new URL('api/images/', appRoot);
-    url.searchParams.set('size', size);
-    url.searchParams.set('file', file);
-    return url.href;
-  }
-};
 window.APP_CONFIG = {
   APP_BASE: appRoot.pathname.slice(0, -1),
   HOME_URL: appRoot.href,

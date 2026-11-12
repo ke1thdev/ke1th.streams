@@ -120,6 +120,7 @@
       const rows = await fetchAllRows();
       state.rowsData = rows;
       renderRows(rows);
+      void refreshWatchLaterArtwork();
 
       const heroRow = rows.find(r => 
         r.items?.length > 0 && 
@@ -490,7 +491,7 @@
     let year = (item.release_date || item.first_air_date || "").slice(0, 4);
     let rating = Number(item.vote_average || 0).toFixed(1);
     let typeLabel = state.featuredType === "tv" ? "TV Show" : "Movie";
-    let backdrop = item.backdrop_path ? TMDB_BACKDROP(item.backdrop_path) : (item.poster_path ? TMDB_BACKDROP(item.poster_path) : "");
+    let backdrop = item.backdrop_path || item.poster_path || "";
     let overview = item.overview;
 
     if (!overview && item.id) {
@@ -502,7 +503,7 @@
             overview = details.overview;
             item.overview = overview; // cache it on the item
             if (!item.backdrop_path && details.backdrop_path) {
-                backdrop = TMDB_BACKDROP(details.backdrop_path);
+                backdrop = details.backdrop_path;
                 item.backdrop_path = details.backdrop_path;
             }
          }
@@ -514,9 +515,7 @@
     // Prevent race conditions if featured item changed while fetching
     if (state.featured !== item) return;
 
-    if (backdrop) {
-      els.hero.style.backgroundImage = `url("${backdrop}")`;
-    }
+    window.SiteImages.background(els.hero, backdrop, 'w1280', item.poster_path);
 
     els.heroTag.textContent = typeLabel;
     els.heroTitle.textContent = title;
@@ -566,6 +565,47 @@
     if (previous) previous.replaceWith(section);
     else els.rows.prepend(section);
     bindRail(section.querySelector('.card-rail'));
+  }
+
+  async function refreshWatchLaterArtwork() {
+    const row = state.rowsData.find(item => item.key === 'watch_later');
+    const section = els.rows.querySelector('[data-row-key="watch_later"]');
+    if (!row || !section) return;
+    const items = row.items.slice(0, 14);
+    let next = 0;
+    // Saved entries contain historical artwork paths. Refresh only their image
+    // fields after rendering, without replacing storage, cards, or rail order.
+    await Promise.all(Array.from({ length: Math.min(3, items.length) }, async () => {
+      while (next < items.length && section.isConnected) {
+        const item = items[next++];
+        const type = item.mediaType || item.media_type || (['movie', 'tv'].includes(item.type) ? item.type : inferType(item));
+        if (!['movie', 'tv'].includes(type) || !/^\d+$/.test(String(item.id))) continue;
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 10000);
+        try {
+          const base = (config.BASE_URL || 'https://api.themoviedb.org/3').replace(/\/+$/, '');
+          const url = new URL(`${base}/${type}/${item.id}`);
+          if (config.API_KEY) url.searchParams.set('api_key', config.API_KEY);
+          url.searchParams.set('language', config.LANGUAGE || 'en-US');
+          const response = await fetch(url, { cache: 'no-cache', headers: { Accept: 'application/json' }, signal: controller.signal });
+          if (!response.ok) continue;
+          const details = await response.json();
+          if (!section.isConnected || state.rowsData.find(entry => entry.key === 'watch_later') !== row) return;
+          const primary = details.backdrop_path || details.poster_path;
+          if (!primary) continue;
+          const card = [...section.querySelectorAll('.card')].find(entry => entry.dataset.id === String(item.id) && entry.dataset.type === type);
+          const image = card?.querySelector('.card-image');
+          if (!image) continue;
+          item.poster_path = details.poster_path || item.poster_path;
+          item.backdrop_path = details.backdrop_path || item.backdrop_path;
+          window.SiteImages.setImage(image, primary, 'w1280', { alternate: details.poster_path });
+        } catch {
+          // Saved artwork and its CDN fallback remain usable if metadata fails.
+        } finally {
+          clearTimeout(timeout);
+        }
+      }
+    }));
   }
 
   function renderRows(rows) {
@@ -733,12 +773,14 @@
 
   function buildCard(item, tileStyle, rowKey, index) {
     const title = item.title || item.name || "Untitled";
-    const type = item.mediaType || inferType(item);
+    const type = item.mediaType || item.media_type || (['movie', 'tv'].includes(item.type) ? item.type : inferType(item));
     const isLandscape = tileStyle === "landscape";
     const img = isLandscape
       ? (item.backdrop_path || item.poster_path)
       : (item.poster_path || item.backdrop_path);
+    const alternate = isLandscape ? item.poster_path : item.backdrop_path;
     const src = img ? (isLandscape ? TMDB_BACKDROP(img) : TMDB_IMG(img)) : FALLBACK_POSTER;
+    const artworkAttrs = img ? window.SiteImages.attrs(img, isLandscape ? 'w1280' : 'w500', alternate) : '';
     const isTop10 = rowKey === "top10" && item.rank > 0;
     const isAnime = item.isAnime === true;
 
@@ -776,7 +818,7 @@
 
     card.innerHTML = `
       <div class="card-img-wrap">
-        <img class="card-image" src="${src}" alt="${esc(title)}" loading="lazy" decoding="async" ${progress ? "data-glisse-backdrop" : ""} />
+        <img ${artworkAttrs} class="card-image" src="${src}" alt="${esc(title)}" loading="lazy" decoding="async" ${progress ? "data-glisse-backdrop" : ""} />
         ${progress ? `<span class="continue-status liquid-glass-bar" data-glisse-surface>${status}</span>` : ""}
         ${isTop10 ? `<span class="card-rank">${item.rank}</span>` : ""}
         ${progressHtml}

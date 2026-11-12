@@ -15,8 +15,8 @@ Text and player icon fonts are bundled separately in `assets/fonts`, with their 
 
 Run `npm run cache:artwork` with Node 20 or later. This downloads the current discovery rails and updates `assets/js/image-manifest.js`. Include the images and manifest together when uploading the site.
 
-On XAMPP, a new title's artwork is fetched once by `api/images/index.php` and saved to `assets/imgs/tmdb/<size>/`. Keep that directory writable by PHP. PHP cURL must use a valid CA certificate bundle; HTTPS verification stays enabled. A later artwork refresh includes those cached files in the manifest.
+Bundled catalog artwork is served from this folder. New titles use the official TMDB image CDN so artwork works on static GitHub Pages as well as XAMPP and Cloudflare Pages. Failed bundled files retry the original artwork, then an available poster/backdrop alternative. Fixed channel logos, provider icons, and fonts remain local.
 
-On Cloudflare Pages, deploy this repository with Pages Functions enabled. `functions/api/images.js` serves bundled artwork first and caches newly discovered images at the edge. Cloudflare's edge cache does not write files back into this repository. File-based Pages Functions are not supported by GitHub Pages alone.
+The optional `api/images/index.php` (XAMPP) and `functions/api/images.js` (Cloudflare Pages) image-cache endpoints are available for server-side use, but the browser does not depend on them. GitHub Pages does not execute these endpoints.
 
-The full TMDB catalog is continually changing and cannot all be pre-downloaded. Previously unseen titles still require an initial artwork fetch by the site's server. Playback provider iframes manage their own internal images separately.
+The full TMDB catalog continually changes and cannot all be pre-downloaded. Successful image CDN responses are cached by the PWA after their first load. Playback provider iframes manage their own images separately.
