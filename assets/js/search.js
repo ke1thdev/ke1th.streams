@@ -252,14 +252,16 @@ document.addEventListener("DOMContentLoaded", () => {
         const title = item.title || item.name || "Untitled";
         const year = (item.release_date || item.first_air_date || "").slice(0, 4);
         const type = item.media_type === "tv" ? "TV Show" : "Movie";
-        const poster = item.poster_path ? TMDB_IMG(item.poster_path) : FALLBACK_POSTER;
+        const artwork = item.poster_path || item.backdrop_path;
+        const poster = artwork ? TMDB_IMG(artwork) : FALLBACK_POSTER;
+        const artworkAttrs = artwork ? window.SiteImages.attrs(artwork, 'w200', item.backdrop_path) : '';
         const rating = Number(item.vote_average || 0).toFixed(1);
         const overview = item.overview || "No description available.";
 
         return `
           <div class="search-item" data-id="${item.id}" data-type="${item.media_type}" data-title="${esc(title)}">
             <div class="search-item-header">
-              <img class="search-item-poster" src="${poster}" alt="${esc(title)}" loading="lazy" />
+              <img ${artworkAttrs} class="search-item-poster" src="${poster}" alt="${esc(title)}" loading="lazy" />
               <div class="search-item-info">
                 <div class="search-item-title">${esc(title)}</div>
                 <div class="search-item-meta">${type} | ${year} | <span>★ ${rating}</span></div>

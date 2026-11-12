@@ -312,22 +312,28 @@
       : [];
 
     const backdrop = details.backdrop_path || details.poster_path;
-    if (backdrop) {
-      els.heroBackdrop.style.backgroundImage = `url("${TMDB_BACKDROP(backdrop)}")`;
-    }
+    window.SiteImages.background(els.heroBackdrop, backdrop, 'w1280', details.poster_path);
 
     // Title logo or text
     const logos = details.images?.logos || [];
     const logo = logos.find(l => l.iso_639_1 === "en") || logos[0];
+    els.heroTitle.textContent = title;
+    els.heroTitle.classList.remove("hidden");
+    els.heroTitleLogo.classList.add("hidden");
     if (logo?.file_path) {
-      els.heroTitleLogo.src = TMDB_IMG(logo.file_path);
       els.heroTitleLogo.alt = title + " Logo";
-      els.heroTitleLogo.classList.remove("hidden");
-      els.heroTitle.classList.add("hidden");
+      window.SiteImages.setImage(els.heroTitleLogo, logo.file_path, 'w500', {
+        onLoad() {
+          els.heroTitleLogo.classList.remove("hidden");
+          els.heroTitle.classList.add("hidden");
+        },
+        onError() {
+          els.heroTitleLogo.classList.add("hidden");
+          els.heroTitle.classList.remove("hidden");
+        }
+      });
     } else {
-      els.heroTitle.textContent = title;
-      els.heroTitleLogo.classList.add("hidden");
-      els.heroTitle.classList.remove("hidden");
+      window.SiteImages.setImage(els.heroTitleLogo, '');
     }
 
     // Meta
@@ -489,14 +495,15 @@
       const num = Number(ep.episode_number);
       const title = ep.name || `Episode ${num}`;
       const overview = ep.overview || "No description available.";
-      const still = ep.still_path ? TMDB_BACKDROP(ep.still_path) : "";
+      const episodeArtwork = ep.still_path || state.details?.backdrop_path || state.details?.poster_path;
+      const still = episodeArtwork ? TMDB_BACKDROP(episodeArtwork) : "";
       const runtime = ep.runtime ? `${ep.runtime}m` : "";
 
       return `
         <a class="episode-card" href="${esc(playerUrl({ episode: num }))}" data-ep="${num}"
           aria-label="Play episode ${num}, ${esc(title)}" aria-describedby="episode-state-${num}">
           <div class="ep-thumb-wrap">
-            ${still ? `<img class="ep-thumb" src="${esc(still)}" alt="" loading="lazy" />` : ""}
+            ${still ? `<img class="ep-thumb" src="${esc(still)}" alt="" loading="lazy" ${window.SiteImages.attrs(episodeArtwork, 'w1280', state.details?.backdrop_path || state.details?.poster_path)} />` : ""}
             <span class="ep-number" aria-hidden="true">E${String(num).padStart(2, "0")}</span>
             <div class="ep-play-overlay" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg>
@@ -544,7 +551,7 @@
 
       return `
         <div class="actor-card">
-          <img class="actor-image" src="${img}" alt="${esc(name)}" loading="lazy" />
+          <img class="actor-image" src="${img}" alt="${esc(name)}" loading="lazy" ${window.SiteImages.attrs(actor.profile_path, 'w500')} />
           <div class="actor-info">
             <p class="actor-name">${esc(name)}</p>
             <p class="actor-role">${esc(role)}</p>
@@ -606,7 +613,7 @@
 
       return `
         <button class="recommend-card" type="button" data-id="${item.id}" data-type="${mediaType}">
-          <img class="recommend-thumb" src="${src}" alt="${esc(title)}" loading="lazy" />
+          <img class="recommend-thumb" src="${src}" alt="${esc(title)}" loading="lazy" ${window.SiteImages.attrs(img, 'w1280', item.poster_path)} />
           <p class="recommend-title">${esc(title)}</p>
           <p class="recommend-meta">★ ${rating} · ${year} · ${mediaType === "tv" ? "TV Show" : "Movie"}</p>
         </button>
