@@ -57,6 +57,17 @@
     "streamUrl": "https://cdn4.skygo.mn/live/disk1/Boomerang/HLSv3-FTA/Boomerang.m3u8"
   },
   {
+    "name": "ZooMoo",
+    "type": "TV",
+    "logo": "",
+    "category": "Kids & Cartoons",
+    "streamUrl": "https://zoomoo-samsungau.amagi.tv/playlist.m3u8",
+    "aliases": [
+      "Zoo Moo",
+      "Zoomoo"
+    ]
+  },
+  {
     "name": "MeTV Toons",
     "type": "TV",
     "logo": "assets/imgs/channels/metv-toons.png",
@@ -613,6 +624,13 @@
     "logo": "assets/imgs/channels/verified-b/sony-movies.png",
     "category": "Movies",
     "streamUrl": "https://a-cdn.klowdtv.com/live1/smc_720p/playlist.m3u8"
+  },
+  {
+    "name": "Star Movies HD",
+    "type": "TV",
+    "logo": "",
+    "category": "Movies",
+    "streamUrl": "https://p4kp.rjmbts.workers.dev/349.m3u8"
   },
   {
     "name": "Stories by AMC",
