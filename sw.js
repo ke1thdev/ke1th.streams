@@ -1,5 +1,5 @@
 const APP_VERSION = '3.4.4';
-const ASSET_REVISION = 'artwork1';
+const ASSET_REVISION = 'beavis1';
 const CACHE_NAME = `ke1th-streams-v${APP_VERSION}-${ASSET_REVISION}-${self.registration.scope}`;
 const APP_SHELL = [
   './',
@@ -28,6 +28,7 @@ const APP_SHELL = [
   './assets/js/browse.js',
   './assets/js/livetv.js',
   './assets/js/live-recovery.js',
+  './assets/js/live-source.js',
   './assets/js/watch-history.js',
   './assets/js/watch.js',
   './assets/js/media.js',

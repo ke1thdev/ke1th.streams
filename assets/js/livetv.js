@@ -559,6 +559,7 @@
     videoContainer.hidden = false;
     if (!existingSession) setPlayerStatus('loading', 'Connecting to stream…');
     const url = channel.url;
+    const sourceMimeType = window.LiveStreamSource?.manifestMimeType(url);
     try {
       await initShakaUI();
     } catch (error) {
@@ -591,12 +592,15 @@
     };
     videoPlayer.controls = !shakaInstance;
 
-    if (url.includes('.mpd') || url.includes('.m3u8') || url.endsWith('.mp4')) {
+    if (sourceMimeType || url.includes('.mpd') || url.includes('.m3u8') || url.endsWith('.mp4')) {
       if (shakaInstance) {
         // Configure DRM if present
         const shakaConfig = {
           preferredAudioLanguage: 'en',
           preferredTextLanguage: 'en',
+          // Shaka 4.7 needs TS transmuxing for the relay's rotating AES-128 HLS.
+          // Reset this setting when switching away from a BX-TV HLS source.
+          mediaSource: { forceTransmux: sourceMimeType === 'application/x-mpegurl' },
           drm: {
             clearKeys: channel.drm || {},
             servers: {},
@@ -616,6 +620,12 @@
         
         shakaInstance.getNetworkingEngine().clearAllRequestFilters();
         shakaInstance.getNetworkingEngine().clearAllResponseFilters();
+
+        shakaInstance.getNetworkingEngine().registerResponseFilter((type, response) => {
+          if (type === shaka.net.NetworkingEngine.RequestType.SEGMENT) {
+            window.LiveStreamSource?.normalizeSegmentResponse(response);
+          }
+        });
 
         if (activeProxy) {
           const proxyUA = 'Dalvik/2.1.0';
@@ -674,7 +684,7 @@
         }
 
         try {
-          const mimeType = channel.youtubeLiveEndpoint && url.includes('.mpd') ? 'application/dash+xml' : undefined;
+          const mimeType = sourceMimeType || (channel.youtubeLiveEndpoint && url.includes('.mpd') ? 'application/dash+xml' : undefined);
           await shakaInstance.load(url, null, mimeType);
           if (request === tuneRequest) startVideo();
         } catch (e) {
